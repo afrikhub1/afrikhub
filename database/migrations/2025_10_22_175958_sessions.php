@@ -4,28 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
+return new class extends Migration {
+    public function up(): void {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id', 191)->primary(); // ID de session
-            $table->foreignId('user_id')->nullable()->index(); // ID utilisateur (optionnel)
-            $table->string('ip_address', 45)->nullable(); // IP de l'utilisateur
-            $table->text('user_agent')->nullable(); // User agent (navigateur)
-            $table->longText('payload'); // Données stockées dans la session
-            $table->integer('last_activity')->index(); // Timestamp de dernière activité
+            $table->id();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('sessions');
     }
 };

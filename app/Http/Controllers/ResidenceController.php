@@ -20,7 +20,6 @@ class ResidenceController extends Controller
     // Traite la soumission du formulaire
     public function store(Request $request)
     {
-        // Validation des champs
         $request->validate([
             'nom_residence' => 'required|string|max:255',
             'pays' => 'required|string|max:255',
@@ -40,14 +39,14 @@ class ResidenceController extends Controller
             $nomDossier = 'residences/' . Str::slug($request->nom_residence) . '_' . time();
 
             foreach ($request->file('images') as $image) {
-                $path = $image->store($nomDossier, 'public'); // Enregistre dans /storage/app/public/residences/...
-                $imagesPath[] = $path;
+                // Stocker sur S3
+                $path = $image->store($nomDossier, 's3');
+                $imagesPath[] = Storage::disk('s3')->url($path); // récupérer l'URL publique
             }
         }
 
-        // Création de la résidence
         Residence::create([
-            'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
+            'proprietaire_id' => Auth::id(),
             'nom' => $request->nom_residence,
             'description' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
