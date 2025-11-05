@@ -130,3 +130,7 @@ Route::post('/admin/users/{user}/toggle', [AdminController::class, 'toggleUserSu
 Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 
 
+use App\Http\Controllers\FileManagerController;
+
+Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
+Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
