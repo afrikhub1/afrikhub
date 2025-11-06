@@ -50,6 +50,7 @@ class ResidenceController extends Controller
             'nom' => $request->nom_residence,
             'description' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
+            'type_residence' => $request->type_residence,
             'nombre_salons' => $request->nb_salons,
             'prix_journalier' => $request->prix_jour,
             'ville' => $request->ville,
