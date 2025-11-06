@@ -223,7 +223,7 @@
                                     {{-- Autres images (liens cachés pour GLightbox) --}}
                                     @foreach($images as $key => $image)
                                         @if($key > 0)
-                                            <a href="{{ $image }}"
+                                            <a href="{{ $firstImage }}"
                                             class="glightbox"
                                             data-gallery="gallery-{{ $residence->id }}"
                                             data-title="{{ $residence->nom }}"
