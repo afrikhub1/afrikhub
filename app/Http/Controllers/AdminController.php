@@ -145,10 +145,19 @@ class AdminController extends Controller
 
             // B. Télécharger et enregistrer les nouvelles images
             $newImagePaths = [];
-            foreach ($request->file('img') as $image) {
-                $path = $image->store('residences', 'public');
-                $newImagePaths[] = $path;
+            if ($request->hasFile('img')) {
+                foreach ($request->file('img') as $image) {
+                    // Stockage sur S3
+                    $path = $image->store('residences/' . $residence->id, 's3');
+                    // Récupérer l'URL publique
+                    $newImagePaths[] = Storage::disk('s3')->url($path);
+                }
             }
+
+            // Ensuite tu peux faire :
+            $residence->img = json_encode($newImagePaths);
+            $residence->save();
+
 
             // C. Mettre à jour le champ 'img' dans le modèle
             // $residence->img est assigné un tableau, Laravel le JSON-encode automatiquement
