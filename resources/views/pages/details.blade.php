@@ -290,7 +290,7 @@
             {{-- Images --}}
             @php
                 // Utilisation des données réelles de Laravel ou fallback pour l'exemple
-                $images = json_decode($residence->img, true);
+                $images = ($residence->img, true);
                 $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
             @endphp
 

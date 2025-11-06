@@ -149,7 +149,7 @@
                 @foreach($residences as $residence)
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
                         @php
-                            $images = json_decode($residence->img, true);
+                            $images = ($residence->img, true);
                             $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                         @endphp
 
