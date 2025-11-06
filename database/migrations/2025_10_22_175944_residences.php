@@ -9,7 +9,6 @@ return new class extends Migration {
         Schema::create('residences', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('adresse');
             $table->string('pays');
             $table->string('ville');
             $table->string('quartier')->nullable();
