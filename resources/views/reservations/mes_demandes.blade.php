@@ -141,7 +141,7 @@
                     @php
                         // Assurez-vous que le modèle Reservation a la relation 'residence' chargée
                         $residence = $res->residence;
-                        $images = json_decode($residence->img ?? '[]', true);
+                        $images = json_decode($residence->img);
                         $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=EN+ATTENTE';
                     @endphp
 
@@ -152,7 +152,7 @@
                         @else border-red-500 @endif
                         transition duration-300 transform hover:scale-[1.01]">
 
-                        <img src="{{ asset('storage/' . $firstImage) }}" class="w-full h-48 object-cover"
+                        <img src="{{ $firstImage}}" class="w-full h-48 object-cover"
                             onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=DEMANDE';" alt="Image de la résidence">
 
                         <div class="p-6 flex flex-col flex-grow text-center">
