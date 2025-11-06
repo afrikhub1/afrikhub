@@ -48,7 +48,7 @@
                         $firstImage = $images[0] ?? 'placeholder';
                         $imagePath = $firstImage === 'placeholder'
                             ? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image'
-                            : asset('storage/' . $firstImage);
+                            : asset($firstImage);
                     @endphp
 
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
@@ -73,7 +73,7 @@
                         @if (is_array($images))
                             @foreach($images as $key => $image)
                                 @if($key > 0)
-                                    <a href="{{ asset('storage/' . $image) }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                    <a href="{{ asset($image) }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
                                 @endif
                             @endforeach
                         @endif
