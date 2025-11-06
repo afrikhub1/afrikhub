@@ -290,10 +290,8 @@
             {{-- Images --}}
             @php
                 // Utilisation des données réelles de Laravel ou fallback pour l'exemple
-                $images = json_decode($residence->images ?? $residence->img ?? '[]', true);
-                $firstImage = isset($images[0]) && !empty($images[0])
-                    ? asset('storage/' . $images[0])
-                    : 'https://placehold.co/800x450?text=Pas+de+photo';
+                $images = json_decode($residence->img, true);
+                $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
             @endphp
 
             <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal">
