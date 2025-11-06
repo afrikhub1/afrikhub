@@ -136,35 +136,25 @@ class AdminController extends Controller
 
         // 3. Gestion de l'upload des nouvelles images
         if ($request->hasFile('img')) {
-
-            // A. Supprimer les anciennes images du stockage
-            // $residence->img est un tableau grâce à $casts, pas besoin de json_decode()
+            // Supprimer les anciennes images du S3
             if (!empty($residence->img)) {
-                $oldImages = json_decode($residence->img, true); // transforme en array
-                if (is_array($oldImages)) {
-                    Storage::disk('s3')->delete($oldImages); // supprime toutes les anciennes images
+                foreach ($residence->img as $oldImageUrl) {
+                    // extraire le path relatif depuis l'URL publique
+                    $parsedPath = str_replace(Storage::disk('s3')->url(''), '', $oldImageUrl);
+                    Storage::disk('s3')->delete($parsedPath);
                 }
             }
 
-
-
-            // B. Télécharger et enregistrer les nouvelles images
+            // Upload des nouvelles images
             $newImagePaths = [];
             foreach ($request->file('img') as $image) {
                 $path = $image->store('residences/' . $residence->id, 's3');
-                $newImagePaths[] = Storage::disk('s3')->url($path);
+                $newImagePaths[] = Storage::disk('s3')->url($path); // stocker les URLs complètes
             }
 
-            // Enregistre le JSON dans la DB
-            $residence->img = json_encode($newImagePaths);
-            $residence->save();
-
-
-
-            // C. Mettre à jour le champ 'img' dans le modèle
-            // $residence->img est assigné un tableau, Laravel le JSON-encode automatiquement
             $residence->img = $newImagePaths;
         }
+
 
         // 4. Sauvegarde finale et redirection
         $residence->save();

@@ -31,7 +31,7 @@
         @endif
 
         <h1 class="text-3xl lg:text-4xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-            <i class="fas fa-home mr-3 text-3xl"></i> Résidences en lignes
+            <i class="fas fa-home mr-3 text-3xl"></i> Résidences en ligne
         </h1>
 
         @if($residences->isEmpty())
@@ -44,12 +44,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($residences as $residence)
                     @php
-                        $images =($residence->img, true);
-                        $firstImage = $images[0] ?? 'placeholder';
-                        $imagePath = $firstImage === 'placeholder'
-                            ? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image'
-                            : asset($firstImage);
+                        $images = $residence->img ?? []; // déjà un tableau
+                        $firstImage = $images[0] ?? null;
+                        $imagePath = $firstImage
+                            ? $firstImage // URL S3 déjà complète
+                            : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                     @endphp
+
 
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
 
