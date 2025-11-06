@@ -209,11 +209,8 @@
                     <div class="row g-4 justify-content-center">
                         @foreach($recherches as $residence)
                             @php
-                                // Logique de Laravel Blade (asset, Str::limit, route)
-                                $images = json_decode($residence->img ?? '[]', true);
-                                $firstImage = isset($images[0]) && !empty($images[0])
-                                    ? asset('storage/' . $images[0])
-                                    : 'https://via.placeholder.com/600x400?text=Pas+de+photo';
+                                $images = json_decode($residence->img, true);
+                                $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
 
                             <div class="col-sm-6 col-md-6 col-lg-4">
