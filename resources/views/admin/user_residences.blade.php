@@ -25,7 +25,7 @@
         @endforeach
 
         <h1 class="text-3xl lg:text-4xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-            <i class="fas fa-home mr-3 text-3xl"></i> Mes Résidences
+            <i class="fas fa-home mr-3 text-3xl"></i> Utiisateur - {{ $residence->proprietaire_id ?? 'N/A' }}
         </h1>
 
         @if($residences->isEmpty())

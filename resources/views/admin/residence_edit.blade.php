@@ -170,7 +170,7 @@
                     @php $images = json_decode($residence->img, true) ?? []; @endphp
                     @forelse($images as $image)
                         <div class="relative w-24 h-24 rounded-lg overflow-hidden border border-gray-300 shadow-md">
-                            <img src="{{ asset('storage/' . $image) }}" alt="Image actuelle" class="w-full h-full object-cover">
+                            <img src="{{ asset($image) }}" alt="Image actuelle" class="w-full h-full object-cover">
                             {{-- Bouton de suppression d'image individuelle (à connecter en JS/Backend) --}}
                             <button type="button" class="absolute top-0 right-0 p-1 bg-red-500 text-white rounded-bl-lg hover:bg-red-700 text-xs leading-none" title="Supprimer l'image">✕</button>
                         </div>
