@@ -322,13 +322,13 @@
                 <button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button>
                 <div id="carouselLightbox" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner py-5">
-                        @foreach ($images as $index => $img)
-                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $img) }}" class="d-block mx-auto" alt="Image {{ $index + 1 }}">
-                            </div>
-                        @endforeach
-
-                        @if (empty($images))
+                        @if(!empty($images))
+                            @foreach ($images as $index => $img)
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                    <img src="{{ $img }}" class="d-block mx-auto" alt="Image {{ $index + 1 }}">
+                                </div>
+                            @endforeach
+                        @else
                             <div class="carousel-item active">
                                 <img src="https://placehold.co/800x450?text=Aucune+image+disponible" class="d-block mx-auto" alt="Aucune image">
                             </div>
@@ -345,6 +345,7 @@
             </div>
         </div>
     </div>
+>
 
     <!-- ===== MODAL DE RÉSERVATION ===== -->
     <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
