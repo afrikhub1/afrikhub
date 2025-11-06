@@ -153,15 +153,15 @@
                             $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                         @endphp
 
-                        {{-- Lien visible sur l'image principale pour GLightbox --}}
-                        <a href="{{ asset('storage/' . $firstImage) }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                            <img src="{{ asset('storage/' . $firstImage) }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90" onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';" alt="Image de la résidence">
+                        <a href="{{ $firstImage }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                            <img src="{{ $firstImage }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
+                                onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
+                                alt="Image de la résidence">
                         </a>
 
-                        {{-- Liens invisibles pour les autres images de la galerie --}}
                         @foreach($images as $key => $image)
                             @if($key > 0)
-                                <a href="{{ asset('storage/' . $image) }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
                             @endif
                         @endforeach
 
