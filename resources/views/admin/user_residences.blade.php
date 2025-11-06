@@ -41,7 +41,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($residences as $residence)
                     @php
-                        $images = json_decode($residence->img, true);
+                        $images =($residence->img, true);
                         $firstImage = $images[0] ?? 'placeholder';
                         $imagePath = $firstImage === 'placeholder'
                             ? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image'
