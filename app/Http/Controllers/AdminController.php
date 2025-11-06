@@ -140,8 +140,14 @@ class AdminController extends Controller
             // A. Supprimer les anciennes images du stockage
             // $residence->img est un tableau grâce à $casts, pas besoin de json_decode()
             if (!empty($residence->img)) {
-                Storage::disk('public')->delete($residence->img);
+                foreach ($residence->img as $oldImgUrl) {
+                    // Extraire le chemin relatif si tu stockes des URLs complètes
+                    $path = parse_url($oldImgUrl, PHP_URL_PATH);
+                    $path = ltrim($path, '/'); // retire le slash initial
+                    Storage::disk('s3')->delete($path);
+                }
             }
+
 
             // B. Télécharger et enregistrer les nouvelles images
             $newImagePaths = [];
@@ -154,8 +160,7 @@ class AdminController extends Controller
                 }
             }
 
-            // Ensuite tu peux faire :
-            $residence->img = json_encode($newImagePaths);
+            $residence->img = $newImagePaths;
             $residence->save();
 
 
