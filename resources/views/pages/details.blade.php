@@ -296,11 +296,7 @@
                     : 'https://placehold.co/800x450?text=Pas+de+photo';
             @endphp
 
-            <img src="{{ $firstImage }}"
-                alt="{{ $residence->nom }}"
-                class="residence-img"
-                data-bs-toggle="modal"
-                data-bs-target="#lightboxModal">
+            <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal">
 
             <div class="card-body">
                 <h5 class="card-title">{{ $residence->nom }}</h5>
