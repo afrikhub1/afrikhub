@@ -46,7 +46,7 @@ class ResidenceController extends Controller
         }
 
         Residence::create([
-            'proprietaire_id' => Auth::id(),
+            'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
             'nom' => $request->nom_residence,
             'description' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
