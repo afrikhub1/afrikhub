@@ -95,8 +95,8 @@ Route::get('/reservation/{id}/rebook', [ReservationController::class, 'rebook'])
 
 Route::post('residences/{id}/activation', [AdminController::class, 'activation'])->name('admin.residences.activation');
 
-Route::post('residences/{id}/update', [AdminController::class, 'residence_update'])->name('admin.residences.update');
-
+// Route PUT pour la mise à jour
+Route::put('/residences/{residence}/update', [ResidenceController::class, 'update'])->name('admin.residences.update');
 
 Route::post('residences/{id}/desactivation', [AdminController::class, 'desactivation'])->name('admin.residences.desactivation');
 
