@@ -218,22 +218,22 @@
 
                             <div class="col-sm-6 col-md-6 col-lg-4">
                                 <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden">
-
-                                    {{-- Image principale cliquable pour galerie --}}
+                                                                        {{-- Image principale cliquable pour galerie --}}
                                     <img src="{{ $firstImage }}" alt="Image de la résidence {{ $residence->nom }}"
-                                         class="card-img-top rounded-top-3"
-                                         style="height: 12rem; object-fit: cover; cursor: pointer;">
+                                        class="card-img-top rounded-top-3"
+                                        style="height: 12rem; object-fit: cover; cursor: pointer;">
 
                                     {{-- Autres images (liens cachés pour GLightbox) --}}
                                     @foreach($images as $key => $image)
                                         @if($key > 0)
-                                            <a href="{{ asset('storage/' . $image) }}"
-                                                class="glightbox"
-                                                data-gallery="gallery-{{ $residence->id }}"
-                                                data-title="{{ $residence->nom }}"
-                                                style="display: none;"></a>
+                                            <a href="{{ $image }}"
+                                            class="glightbox"
+                                            data-gallery="gallery-{{ $residence->id }}"
+                                            data-title="{{ $residence->nom }}"
+                                            style="display: none;"></a>
                                         @endif
                                     @endforeach
+
 
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">{{ $residence->nom }}</h5>
