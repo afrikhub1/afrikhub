@@ -209,7 +209,7 @@
                     <div class="row g-4 justify-content-center">
                         @foreach($recherches as $residence)
                             @php
-                                $images = ($residence->img, true);
+                                $images = ($residence->img);
                                 $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
 
