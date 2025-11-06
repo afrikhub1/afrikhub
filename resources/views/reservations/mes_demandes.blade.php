@@ -141,7 +141,7 @@
                     @php
                         // Assurez-vous que le modèle Reservation a la relation 'residence' chargée
                         $residence = $res->residence;
-                        $images = json_decode($residence->img);
+                        $images = json_decode($residence->img, true);
                         $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=EN+ATTENTE';
                     @endphp
 
