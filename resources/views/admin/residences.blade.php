@@ -46,9 +46,8 @@
                     @php
                         $images = $residence->img ?? []; // déjà un tableau
                         $firstImage = $images[0] ?? null;
-                        $imagePath = $firstImage
-                            ? $firstImage // URL S3 déjà complète
-                            : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                        $imagePath = $firstImage? $firstImage // URL S3 déjà complète
+                        : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                     @endphp
 
 
