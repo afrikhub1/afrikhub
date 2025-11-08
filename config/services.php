@@ -1,42 +1,46 @@
 <?php
 
-namespace App\Http\Controllers;
+return [
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
+    /*
+    |--------------------------------------------------------------------------
+    | Third Party Services
+    |--------------------------------------------------------------------------
+    |
+    | This file is for storing the credentials for third party services such
+    | as Mailgun, Postmark, AWS and more. This file provides the de facto
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
+    |
+    */
 
-class PaiementController extends Controller
-{
-    public function callback(Request $request)
-    {
-        $transactionId = $request->transaction_id ?? null;
+    'postmark' => [
+        'token' => env('POSTMARK_TOKEN'),
+    ],
 
-        if (!$transactionId) {
-            return response()->json(['status' => 'error', 'message' => 'Transaction ID manquant']);
-        }
+    'resend' => [
+        'key' => env('RESEND_KEY'),
+    ],
 
-        // Vérification via API Kkiapay
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.kkiapay.private')
-        ])->get("https://api.kkiapay.me/v1/transactions/{$transactionId}");
+    'ses' => [
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
 
-        if ($response->failed()) {
-            return response()->json(['status' => 'error', 'message' => 'Impossible de vérifier la transaction']);
-        }
+    'slack' => [
+        'notifications' => [
+            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
+            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
+        ],
+    ],
 
-        $transaction = $response->json();
-        $status = $transaction['status'] ?? 'UNKNOWN';
+    'kkiapay' => [
+        'public' => env('KKIAPAY_PUBLIC_KEY', ''),
+        'private' => env('KKIAPAY_PRIVATE_KEY', ''),
+        'secret' => env('KKIAPAY_SECRET_KEY', ''),
+        'mode' => env('KKIAPAY_MODE', 'sandbox'),
+    ],
 
-        // Enregistrement dans la table de test
-        DB::table('paiements_tests')->insert([
-            'transaction_id' => $transactionId,
-            'status' => $status,
-            'payload' => json_encode($transaction),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
-        return response()->json(['status' => $status]);
-    }
-}
+];
