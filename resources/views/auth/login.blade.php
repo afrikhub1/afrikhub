@@ -48,7 +48,7 @@
 
                                         <div class="text-center pt-1 mb-5 pb-1">
                                             <input class="btn btn-primary btn-block mb-3 me-3" type="submit" name="connexion" value="Se connecter"> <br>
-                                            <a class="text-muted" href="{{ view('auth.forgot-password') }}">Mot de passe oublié ?</a>
+                                            <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-between pb-4">
