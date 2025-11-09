@@ -87,6 +87,10 @@
                 <!-- Bottom Row: Nav Links/Stats -->
                 <div class="flex flex-wrap justify-between text-center border-t border-gray-800 py-2 -mx-4">
 
+                    <a href="{{ route('dashboard') }}" class="flex-1 min-w-[25%] p-2 text-sm md:text-base font-medium text-gray-300 hover:bg-gray-800 transition duration-150 rounded-lg">
+                        <i class="fas fa-user mr-1"></i> Profil
+                        <span class="ml-1 px-2 py-0.5 bg-red-600 text-white text-xs font-bold rounded-full">3</span>
+                    </a>
                     <a href="{{ route('residences') }}" class="flex-1 min-w-[25%] p-2 text-sm md:text-base font-medium text-gray-300 hover:bg-gray-800 transition duration-150 rounded-lg">
                         <i class="fas fa-home mr-1"></i> Résidences
                         <span class="ml-1 px-2 py-0.5 bg-red-600 text-white text-xs font-bold rounded-full">{{ $residences->count() }}</span>
