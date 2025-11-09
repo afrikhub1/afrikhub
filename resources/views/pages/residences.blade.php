@@ -203,6 +203,7 @@
                                         <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
                                         <span class="text-gray-900">Disponible</span>
                                     </li>
+                                @endif
 
 
                                 <li class="flex justify-between items-center text-lg pt-2">
