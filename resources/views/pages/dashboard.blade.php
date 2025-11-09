@@ -20,7 +20,7 @@
             <!-- Résidences Occupées -->
             <section id="occupees" class="mb-10 row m-0">
                 <h2 class="text-3xl font-extrabold text-red-600 mb-6 flex items-center border-b pb-2">
-                    <i class="fas fa-key text-2xl mr-3"></i> Mes Résidences Occupées (Confirmées)
+                    <i class="fas fa-key text-2xl mr-3"></i> Mes Résidences Occupées
                 </h2>
                 <div class="p-2 d-flex">
                     {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
@@ -170,9 +170,36 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Initialisation de GLightbox pour créer le carrousel/la galerie
+            const lightbox = GLightbox({
+                selector: '.glightbox',
+                touchNavigation: true,
+                loop: true,
+                openEffect: 'zoom',
+                closeEffect: 'zoom',
+                slideEffect: 'slide',
+            });
+
+            // LOGIQUE DE LA SIDEBAR (Nouveau code)
+            const toggleButton = document.getElementById('toggleSidebar');
+            const closeButton = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+
+            if (toggleButton && sidebar) {
+                toggleButton.addEventListener('click', function() {
+                    // Ajoute la classe 'active' pour rendre la sidebar visible
+                    sidebar.classList.add('active');
+                });
+            }
+
+            if (closeButton && sidebar) {
+                closeButton.addEventListener('click', function() {
+                    // Supprime la classe 'active' pour cacher la sidebar
+                    sidebar.classList.remove('active');
+                });
+            }
         });
     </script>
 @endpush
