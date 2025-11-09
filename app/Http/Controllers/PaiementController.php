@@ -31,9 +31,20 @@ class PaiementController extends Controller
     }
 
     // Callback après paiement
-    public function callback(Request $request, Reservation $reservation)
+    public function callback(Request $request)
     {
         $reference = $request->query('reference');
+
+        if (!$reference) {
+            return redirect()->route('historique')->with('error', 'Référence de paiement manquante.');
+        }
+
+        // Récupérer la réservation à partir de la référence
+        $reservation = Reservation::where('reference', $reference)->first();
+
+        if (!$reservation) {
+            return redirect()->route('historique')->with('error', 'Réservation introuvable.');
+        }
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . config('services.paystack.secret')
@@ -42,7 +53,6 @@ class PaiementController extends Controller
         $body = $response->json();
 
         if (isset($body['status']) && $body['status'] === true && $body['data']['status'] === 'success') {
-            // Marquer la réservation comme payée
             $reservation->status = 'payé';
             $reservation->save();
 
@@ -51,6 +61,7 @@ class PaiementController extends Controller
 
         return redirect()->route('historique')->with('error', 'Paiement échoué ou annulé.');
     }
+
 
     public function webhook(Request $request)
     {
