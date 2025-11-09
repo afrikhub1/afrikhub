@@ -210,12 +210,12 @@
                         @foreach($recherches as $residence)
                             @php
                                 $images = ($residence->img);
-                                    if (is_string($images)) {
-                                $images = json_decode($images, true) ?? [];
-                            };
-                            $firstImage = $images[0] ?? null;
-                            $imagePath = $firstImage? $firstImage // URL S3 déjà complète
-                            : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                                if (is_string($images)) {
+                                    $images = json_decode($images, true) ?? [];
+                                };
+                                $firstImage = $images[0] ?? null;
+                                $imagePath = $firstImage? $firstImage // URL S3 déjà complète
+                                : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
 
                             <div class="col-sm-6 col-md-6 col-lg-4">

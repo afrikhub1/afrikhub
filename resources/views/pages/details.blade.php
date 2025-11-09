@@ -291,7 +291,12 @@
             @php
                 // Utilisation des données réelles de Laravel ou fallback pour l'exemple
                 $images = ($residence->img);
-                $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                if (is_string($images)) {
+                    $images = json_decode($images, true) ?? [];
+                };
+                $firstImage = $images[0] ?? null;
+                $imagePath = $firstImage? $firstImage // URL S3 déjà complète
+                : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
             @endphp
 
             <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal">
