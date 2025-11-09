@@ -98,11 +98,17 @@ class ResidenceController extends Controller
     // Réserver à nouveau
     public function dashboard_resi_reserv()
     {
+
+        $userId= Auth::id();
         // Résidences du propriétaire (table residences)
-        $residences = Residence::where('proprietaire_id', Auth::id())->get();
+        $residences = Residence::where('proprietaire_id', $userId)->get();
+
+        $reservationsConfirmees = Residence::where('proprietaire_id', $userId)
+            ->where('disponible', 0)
+            ->get();
 
         // Réservations confirmées ou gestionnées (table reservations)
-        $reservation = Reservation::where('user_id', Auth::id())->get();
+        $reservation = Reservation::where('user_id', $userId)->get();
 
         // Passe les deux à la vue
         return view('pages.dashboard', compact('residences', 'reservation'));
@@ -112,20 +118,10 @@ class ResidenceController extends Controller
     {
         $userId = Auth::id();
         // On récupère les résidences occupées appartenant à l'utilisateur connecté
-        $residences = Residence::where('proprietaire_id', $userId )
+        $residences = Residence::where('proprietaire_id', $userId)
             ->where('disponible', 0)
             ->get();
-    }
 
-    public function dashboard()
-    {
-        $reservationsConfirmees = $this->occupees();
-        return view('pages.dashboard', compact('reservationsConfirmees'));
-    }
-
-    public function mes_residences_occupees()
-    {
-        $residences = $this->occupees();
         return view('reservations.occupees', compact('residences'));
     }
 
