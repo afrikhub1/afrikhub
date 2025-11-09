@@ -81,9 +81,10 @@ class ReservationController extends Controller
 
     public function mesDemandes()
     {
-        // Récupérer les réservations de l'utilisateur connecté avec la relation residence
-        $demandes = Reservation::with('residence')
-            ->where('proprietaire_id', Auth::id())
+        // Récupérer les réservations de l'utilisateur connecté
+        $demandes = Reservation::where('proprietaire_id', Auth::id())
+            ->with('residence')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('reservations.mes_demandes', compact('demandes'));
