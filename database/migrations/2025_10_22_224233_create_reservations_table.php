@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Schema;
                 $table->date('date_depart');
                 $table->dateTime('date_validation')->nullable();
                 $table->integer('personnes')->default(1);
-                $table->string('reservation_code')->unique();
+                $table->string('reservation_code', 191)->unique();
                 $table->string('status')->default('en_attente'); // en_attente, validee, refusee, annulee
                 $table->integer('total')->nullable();
-                $table->string('reference')->nullable()->unique();
+                $table->string('reference', 191)->nullable()->unique();
                 $table->unsignedBigInteger('proprietaire_id');
                 $table->unsignedBigInteger('residence_id');
                 $table->unsignedBigInteger('user_id');

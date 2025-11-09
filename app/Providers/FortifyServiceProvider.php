@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\View\View;
@@ -49,6 +50,8 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        Schema::defaultStringLength(191);
 
         // Définit la vue du formulaire de login
         Fortify::loginView(function () {
