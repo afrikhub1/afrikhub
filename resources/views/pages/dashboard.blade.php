@@ -256,8 +256,7 @@
                         @foreach($residences as $residences)
                             @php
                                 // Vérification et décodage des images (logique conservée)
-                                $res = $residences;
-                                $images = is_string($res->img) ? json_decode($res->img, true) : (array)$res->img;
+                                $images = is_string($residences->img) ? json_decode($residences->img, true) : (array)$res->img;
                                 if (!is_array($images)) { $images = []; }
 
                                 $firstImage = $images[0] ?? 'https://placehold.co/400x200/F0F4FF/1E40AF?text=Pas+d\'image';
@@ -267,10 +266,10 @@
 
                                 <!-- Image principale cliquable (Couverture du carrousel GLightbox) -->
                                 <div class="w-full">
-                                    <a href="{{ asset('storage/' . $firstImage) }}" class="glightbox" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}">
+                                    <a href="{{ asset('storage/' . $firstImage) }}" class="glightbox" data-gallery="residence-{{ $residences->id }}" data-title="{{ $res->nom }}">
                                         <img class="w-full h-48 object-cover rounded-xl mb-4 ring-4 ring-indigo-100 hover:ring-indigo-400 transition transform hover:scale-[1.02] cursor-pointer"
                                             src="{{ asset('storage/' . $firstImage) }}"
-                                            alt="Image de la résidence: {{ $res->nom }}"
+                                            alt="Image de la résidence: {{ $residences->nom }}"
                                             onerror="this.onerror=null; this.src='https://placehold.co/400x200/F0F4FF/1E40AF?text=Erreur+Image'">
                                     </a>
                                 </div>
@@ -278,19 +277,19 @@
                                 <!-- Autres images invisibles pour la galerie -->
                                 @foreach($images as $key => $image)
                                     @if($key > 0)
-                                        <a href="{{ asset('storage/' . $image) }}" class="glightbox hidden" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}"></a>
+                                        <a href="{{ asset('storage/' . $image) }}" class="glightbox hidden" data-gallery="residence-{{ $residences->id }}" data-title="{{ $res->nom }}"></a>
                                     @endif
                                 @endforeach
 
                                 <div class="text-lg uppercase font-bold text-gray-800 mb-3 border-b border-indigo-300 w-full text-center pb-2 truncate">
-                                    {{ $res->nom }}
+                                    {{ $residences->nom }}
                                 </div>
 
                                 <ul class="text-sm text-gray-700 w-full space-y-1 mb-4">
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Chambres :</strong> <span>{{ $res->nombre_chambres }} <i class="fas fa-door-closed text-indigo-500"></i></span></li>
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Salons :</strong> <span>{{ $res->nombre_salons }} <i class="fas fa-couch text-indigo-500"></i></span></li>
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Prix/Jour :</strong> <span class="text-green-600 font-semibold">{{ $res->prix_journalier }} €</span></li>
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Ville :</strong> <span>{{ $res->ville }} <i class="fas fa-map-marker-alt text-indigo-500"></i></span></li>
+                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Chambres :</strong> <span>{{ $residences->nombre_chambres }} <i class="fas fa-door-closed text-indigo-500"></i></span></li>
+                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Salons :</strong> <span>{{ $residences->nombre_salons }} <i class="fas fa-couch text-indigo-500"></i></span></li>
+                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Prix/Jour :</strong> <span class="text-green-600 font-semibold">{{ $residences->prix_journalier }} €</span></li>
+                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Ville :</strong> <span>{{ $residences->ville }} <i class="fas fa-map-marker-alt text-indigo-500"></i></span></li>
                                 </ul>
 
                                 <!-- Badge dynamique (Statut d'occupation général) -->
