@@ -118,6 +118,19 @@ class ResidenceController extends Controller
 
         return view('pages.utilisateur.occupees', compact('residences'));
     }
+
+    public function liberer($id)
+    {
+        $residence = Residence::where('id', $id)
+            ->where('proprietaire_id', Auth::id())
+            ->firstOrFail();
+
+        $residence->update([
+            'disponible' => 1
+        ]);
+
+        return back()->with('success', 'Résidence libérée avec succès ✅');
+    }
 }
 
 
