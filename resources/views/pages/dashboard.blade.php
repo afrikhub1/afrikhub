@@ -256,7 +256,7 @@
                         @foreach($residences as $residences)
                             @php
                                 // Vérification et décodage des images (logique conservée)
-                                $images = is_string($residences->img) ? json_decode($residences->img, true) : (array)$res->img;
+                                $images = is_string($residences->img) ? json_decode($residences->img, true) : (array)$residences->img;
                                 if (!is_array($images)) { $images = []; }
 
                                 $firstImage = $images[0] ?? 'https://placehold.co/400x200/F0F4FF/1E40AF?text=Pas+d\'image';
