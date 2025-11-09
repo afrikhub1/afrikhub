@@ -1,9 +1,7 @@
 
 @extends('heritage');
 
-    @section('titre')
-        <title>dashboard</title>
-    @endsection
+@section('titre', 'connexion')
 
     @section('main')
         <!-- Main Content Area (avec votre padding original pour compenser le header) -->

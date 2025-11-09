@@ -7,7 +7,6 @@
 
         <!-- GLightbox CSS (pour le carrousel d'images) -->
         <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
-
         <!-- Vos Assets Locaux -->
         <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
         <!-- Font Awesome est remplacé ici par le lien local -->
@@ -16,6 +15,8 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Inter Font -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+        @yield('ux-ui')
     </head>
 <body>
 
