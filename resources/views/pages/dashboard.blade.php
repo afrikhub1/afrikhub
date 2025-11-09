@@ -256,13 +256,12 @@
                         @foreach($residences as $res)
                             @php
                                 $images = $res->img;
-                            if (is_string($images)) {
-                                $images = json_decode($images, true) ?? [];
-                            };
-                            $firstImage = $images[0] ?? null;
-                            $imagePath = $firstImage? $firstImage // URL S3 déjà complète
+                                if (is_string($images)) {
+                                    $images = json_decode($images, true) ?? [];
+                                };
+                                $firstImage = $images[0] ?? null;
+                                $imagePath = $firstImage? $firstImage : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
-
                             <div class="w-full sm:w-[320px] bg-white rounded-2xl shadow-xl p-5 transition duration-500 hover:shadow-indigo-400/50 flex flex-col items-center border border-gray-200">
 
                                 <!-- Image principale cliquable (Couverture du carrousel GLightbox) -->
