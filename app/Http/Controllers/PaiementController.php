@@ -27,9 +27,6 @@ class PaiementController extends Controller
             'amount' => $amount,
             'reference' => $reservation->reference, // très important
             'callback_url' => route('paiement.callback'),
-            'metadata' => [
-                'reservation_id' => $reservation->id
-            ]
         ]);
 
         $body = $response->json();

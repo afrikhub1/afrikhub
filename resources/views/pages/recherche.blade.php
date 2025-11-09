@@ -162,7 +162,6 @@
 
         <!-- Header esthétique -->
         <div class="text-center mb-4 pb-3 border-bottom border-secondary">
-             <i class="fas fa-bars fa-2x mb-2" style="color: #FF8C00;"></i>
              <h4 class="fw-bold">MENU PRINCIPAL</h4>
         </div>
 
