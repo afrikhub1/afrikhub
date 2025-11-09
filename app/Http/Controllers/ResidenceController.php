@@ -110,7 +110,7 @@ class ResidenceController extends Controller
         // Réservations confirmées ou gestionnées (table reservations)
         $reservation = Reservation::where('user_id', $userId)->get();
 
-        // Passe les deux à la vue
+        // Passe les 3 variables à la vue
         return view('pages.dashboard', compact('residences', 'reservation', 'reservationsConfirmees'));
     }
 

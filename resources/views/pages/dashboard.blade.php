@@ -174,16 +174,17 @@
                         </div>
                     @else
                         <div class="flex flex-wrap gap-4">
-                            @foreach($reservationsConfirmees as $reserve)
+                            @foreach($reservationsConfirmees as $occupees)
                                 <div class="min-w-[320px] bg-red-100 border border-red-400 rounded-xl shadow-lg p-5 transition hover:shadow-2xl">
                                     <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-2xl"></i> {{ $reserve->residence->nom }}
+                                        <i class="fas fa-building mr-3 text-2xl"></i> {{ $occupees->nom }}
                                     </h5>
-                                    <p class="text-sm mb-1"><strong>Client :</strong> {{ $reserve->client }}</p>
-                                    <p class="text-sm mb-1"><strong>Début :</strong> <span class="text-gray-700">{{ \Carbon\Carbon::parse($reserve->date_arrivee)->format('d/m/Y') }}</span></p>
-                                    <p class="text-sm mb-3"><strong>Fin :</strong> <span class="text-red-700 font-bold">{{ \Carbon\Carbon::parse($reserve->date_depart)->format('d/m/Y') }}</span></p>
-                                    <p class="text-xs text-gray-600 mb-2"><strong>Code :</strong> <span class="font-mono bg-red-200 px-1 rounded">{{ $reserve->reservation_code }}</span></p>
-
+                                    @foreach($reservation as $occupees_details)
+                                        <p class="text-sm mb-1"><strong>Client :</strong> {{ $occupees_details->client }}</p>
+                                        <p class="text-sm mb-1"><strong>Début :</strong> <span class="text-gray-700">{{ \Carbon\Carbon::parse($occupees_details->date_arrivee)->format('d/m/Y') }}</span></p>
+                                        <p class="text-sm mb-3"><strong>Fin :</strong> <span class="text-red-700 font-bold">{{ \Carbon\Carbon::parse($occupees_details->date_depart)->format('d/m/Y') }}</span></p>
+                                        <p class="text-xs text-gray-600 mb-2"><strong>Code :</strong> <span class="font-mono bg-red-200 px-1 rounded">{{ $occupees_details->reservation_code }}</span></p>
+                                    @endforeach
                                     <!-- Action Button -->
                                     <button class="w-full bg-red-600 text-white p-2 rounded-lg font-semibold mt-3 hover:bg-red-700 transition duration-150">
                                         Libérer la Résidence
