@@ -1,99 +1,136 @@
 @extends('pages.heritage_pages')
 
-@section('dashboard', '- Demande de reservations')
-
-@section('main')
+@section('dashboard', '- Historique de reservation')
     <!-- Main Content Area (Ajusté pour le Header) -->
     <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
 
         <!-- Titre Principal de la Page -->
-        <h1 class="text-3xl lg:text-4xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-            <i class="fas fa-spinner mr-3 text-3xl"></i> Demandes de Réservation
-        </h1>
+        <div class="page-header text-center mb-8">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-amber-600 mb-2 border-b-4 border-amber-500 pb-3 inline-block">
+                <i class="fas fa-history mr-3 text-3xl"></i> Historique de vos réservations
+            </h1>
+            <p class="text-gray-500">Retrouvez toutes vos réservations passées et à venir</p>
+        </div>
 
-        @if($demandes->isEmpty())
-            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 rounded-lg text-center shadow-lg mx-auto max-w-lg">
-                <i class="fas fa-bell-slash text-2xl mb-2 block"></i>
-                <p class="font-semibold text-lg">Aucune nouvelle demande de réservation en attente.</p>
-                <p class="text-sm mt-1">Revenez plus tard pour de nouvelles demandes.</p>
-            </div>
-        @else
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 gap-3">
-                @foreach($demandes as $res)
-                    @php
-                        // Assurez-vous que le modèle Reservation a la relation 'residence' chargée
-                        $residence = $res->residence;
-                        $images = ($residence->img);
-                        if (is_string($images)) {
-                            $images = json_decode($images, true) ?? [];
-                        };
-                        $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=EN+ATTENTE';
-                    @endphp
-
-                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-2
-                        @if($res->status == 'en_attente') border-indigo-500/50 hover:shadow-indigo-300/50
-                        @elseif($res->status == 'confirmée') border-green-500
-                        @elseif($res->status == 'annulée') border-yellow-500
-                        @else border-red-500 @endif
-                        transition duration-300 transform hover:scale-[1.01]">
-
-                        <img src="{{ $firstImage}}" class="w-full h-48 object-cover"
-                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=DEMANDE';" alt="Image de la résidence">
-
-                        <div class="p-6 flex flex-col flex-grow text-center">
-                            <h5 class="text-2xl font-extrabold text-gray-800 mb-1 truncate">{{ $residence->nom }}</h5>
-                            <p class="text-sm text-gray-500 mb-4">📍 {{ $residence->ville }}</p>
-
-                            <ul class="space-y-2 text-base text-gray-700 font-medium border-t pt-4 border-gray-100">
-                                <li class="flex justify-between items-center">
-                                    <span class="text-gray-500"><i class="fas fa-plane-arrival mr-2 text-indigo-400"></i> Arrivée :</span>
-                                    <span class="text-gray-900 font-bold">{{ $res->date_arrivee->format('d/m/Y') }}</span>
-                                </li>
-                                <li class="flex justify-between items-center">
-                                    <span class="text-gray-500"><i class="fas fa-plane-departure mr-2 text-indigo-400"></i> Départ :</span>
-                                    <span class="text-gray-900 font-bold">{{ $res->date_depart->format('d/m/Y') }}</span>
-                                </li>
-                            </ul>
-
-                            <!-- AFFICHAGE DU STATUT -->
-                            <div class="mt-4 mb-5">
-                                @if($res->status == 'en_attente')
-                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-indigo-600 text-white rounded-full shadow-md">En attente de votre validation</span>
-                                @elseif($res->status == 'confirmée')
-                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-green-600 text-white rounded-full">Confirmée</span>
-                                @elseif($res->status == 'annulée')
-                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-yellow-500 text-gray-900 rounded-full">Annulée (Client)</span>
-                                @elseif($res->status == 'payé')
-                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-yellow-500 text-gray-900 rounded-full">payé</span>
-                                @else
-                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-red-600 text-white rounded-full">Refusée (Vous)</span>
-                                @endif
-                            </div>
-
-                            <!-- LOGIQUE D'ACTION : ACCEPT/REFUS -->
-                            @if($res->status == 'en_attente')
-                                <div class="flex gap-3 justify-center mt-auto">
-                                    <form action="{{ route('reservation.accepter', $res->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="w-full px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
-                                            <i class="fas fa-check mr-1"></i> Accepter
-                                        </button>
-                                    </form>
-
-                                    <form action="{{ route('reservation.refuser', $res->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="w-full px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
-                                            <i class="fas fa-times mr-1"></i> Refuser
-                                        </button>
-                                    </form>
-                                </div>
-                            @endif
-
-                        </div>
-
-                    </div>
-                @endforeach
+        @if(session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg mb-8 shadow-md">
+                {{ session('success') }}
             </div>
         @endif
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+            @forelse($reservations as $res)
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
+                    @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
+                    @elseif($res->status == 'en_attente') border-blue-500/50 hover:shadow-blue-300/50
+                    @elseif($res->status == 'terminée') border-gray-400/50 hover:shadow-gray-300/50
+                    @else border-red-500/50 hover:shadow-red-300/50 @endif
+                    transition duration-300 transform hover:scale-[1.01]">
+
+                    <div class="p-5 flex flex-col flex-grow text-center">
+
+                        <!-- STATUT -->
+                        <div class="mb-3">
+                            @php
+                                $statusClass = [
+                                    'en_attente' => 'bg-blue-600 text-white',
+                                    'confirmée' => 'bg-green-600 text-white',
+                                    'terminée' => 'bg-gray-500 text-white',
+                                    'annulée' => 'bg-red-600 text-white',
+                                ][$res->status] ?? 'bg-gray-400 text-gray-800';
+                            @endphp
+                            <span class="inline-block px-3 py-1 text-xs font-bold {{ $statusClass }} rounded-full shadow-md">
+                                {{ ucfirst(str_replace('_', ' ', $res->status)) }}
+                            </span>
+                        </div>
+
+                        <!-- INFOS PRINCIPALES -->
+                        <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">{{ $res->residence->nom }}</h5>
+                        <p class="text-sm text-gray-500 mb-4">
+                            <i class="fas fa-map-marker-alt text-amber-500 mr-1"></i> {{ $res->residence->ville }}
+                        </p>
+
+                        <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100 mb-4">
+                            <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-amber-400"></i> Dates :</span>
+                                <span class="text-gray-900 font-semibold">{{ \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res->date_depart)->format('d/m/y') }}</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Personnes :</span>
+                                <span class="text-gray-900 font-semibold">{{ $res->personnes }}</span>
+                            </li>
+                        </ul>
+
+                        <!-- TOTAL -->
+                        <div class="mt-auto border-t pt-3">
+                             <p class="text-lg font-extrabold text-amber-600">
+                                Total payé : {{ number_format($res->total, 0, ',', ' ') }} FCFA
+                            </p>
+                            <p class="text-xs text-gray-400 mt-1">
+                                Réservé le {{ $res->created_at->format('d/m/Y') }}
+                            </p>
+                        </div>
+
+                        <!-- Préfacture/Détails (Optionnel en Historique) -->
+                        @if($res->status == 'en_attente')
+                            <div class="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs shadow-inner">
+                                @php
+                                    $jours = \Carbon\Carbon::parse($res->date_depart)->diffInDays(\Carbon\Carbon::parse($res->date_arrivee));
+                                    $prixJournalier = $res->residence->prix_journalier;
+                                    $totalEstime = $jours * $prixJournalier;
+                                @endphp
+                                <h6 class="fw-bold mb-1 text-amber-700 text-sm">🧾 Détails : {{ $jours }} nuit(s)</h6>
+                                <p class="mb-0 text-gray-600">Prix/jour : {{ number_format($prixJournalier,0,',',' ') }} FCFA</p>
+                            </div>
+                        @endif
+
+                        <!-- Boutons en bas -->
+                        <div class="mt-4 flex gap-2 justify-center">
+                            @if($res->status != 'payé')
+                                <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer
+                                    </button>
+                                </form>
+                            @else
+                                @if($reserve->status === 'payé')
+                                    <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-check-circle mr-1"></i> Payé
+                                    </button>
+                                @else
+                                    <a href="{{ route('payer', $reserve->id) }}"
+                                    class="w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md text-sm flex items-center justify-center">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer
+                                    </a>
+                                @endif
+
+                            @endif
+
+                            @if($res->status == 'en_attente' || $res->status == 'confirmée')
+                                <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-times-circle mr-1"></i> Annuler
+                                    </button>
+                                </form>
+                            @endif
+
+                            <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
+                                <button type="submit" class="w-full py-2 btn-primary-custom font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
+                                    <i class="fas fa-redo-alt mr-1"></i> rénouveler
+                                </button>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full bg-white p-8 rounded-xl shadow-lg text-center mx-auto max-w-xl">
+                    <p class="text-lg text-gray-500"><i class="fas fa-box-open mr-2"></i> Vous n’avez encore aucune réservation.</p>
+                </div>
+            @endforelse
+        </div>
     </div>
 @endsection

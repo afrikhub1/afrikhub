@@ -1,6 +1,8 @@
 @extends('pages.heritage_pages')
 
-@section('dashboard', '- Historique de reservation')
+@section('dashboard', '- Demande de reservations')
+
+@section('main')
     <!-- Main Content Area (Ajusté pour le Header) -->
     <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
 
