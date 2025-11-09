@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -12,22 +11,14 @@ class PaiementController extends Controller
     // Page ou déclenchement du paiement
     public function index(Reservation $reservation)
     {
-        \Log::info('Paiement déclenché pour la réservation ' . $reservation->id);
-        // Générer une référence unique pour la transaction si ce n'est pas déjà fait
-        if (!$reservation->reference) {
-            $reservation->reference = 'RSV-' . strtoupper(uniqid());
-            $reservation->save();
-        }
-
-        $amount = $reservation->total * 100; // montant en kobo
+        $amount = $reservation->total * 100; // en kobo
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . config('services.paystack.secret')
         ])->post(config('services.paystack.payment_url') . '/transaction/initialize', [
             'email' => $reservation->user->email,
             'amount' => $amount,
-            'reference' => $reservation->reference, // très important
-            'callback_url' => route('paiement.callback'),
+            'callback_url' => route('paiement.callback', ['reservation' => $reservation->id])
         ]);
 
         $body = $response->json();
@@ -71,7 +62,7 @@ class PaiementController extends Controller
         return redirect()->route('historique')->with('error', 'Paiement échoué ou annulé.');
     }
 
-    // Webhook Paystack
+
     public function webhook(Request $request)
     {
         // Vérifier la signature pour sécurité (optionnel mais recommandé)
