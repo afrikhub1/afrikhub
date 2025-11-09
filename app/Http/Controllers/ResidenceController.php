@@ -111,7 +111,7 @@ class ResidenceController extends Controller
         $reservation = Reservation::where('user_id', $userId)->get();
 
         // Passe les deux à la vue
-        return view('pages.dashboard', compact('residences', 'reservation'));
+        return view('pages.dashboard', compact('residences', 'reservation', 'reservationsConfirmees'));
     }
 
     public function occupees()
