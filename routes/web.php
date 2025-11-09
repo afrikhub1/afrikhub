@@ -136,8 +136,7 @@ Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->n
 
 use App\Http\Controllers\PaiementController;
 
-// Page de paiement
-Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
+Route::post('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
 
 // Callback après paiement (GET ou POST)
 Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
@@ -145,5 +144,3 @@ Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 
 // Webhook Paystack (POST uniquement)
 Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])->name('paiement.webhook');
 
-
-Route::get('/demandes_de_reservation', [ReservationController::class, 'mesDemandes'])->middleware('auth')->name('demandes_reservation');
