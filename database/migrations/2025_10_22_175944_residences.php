@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->boolean('disponible')->default(true);
             $table->date('date_disponible_apres')->nullable();
             $table->string('geolocalisation')->nullable();
-            $table->string('img')->nullable();
+            $table->text('img')->nullable();
             $table->unsignedBigInteger('proprietaire_id');
             $table->string('statut')->default('en_attente'); // optionnel
             $table->timestamps();
