@@ -72,7 +72,7 @@ Route::get('/admin/residences', [AdminController::class, 'residences'])->name('a
 // route pour faire un action dans la base de données
 
 //login
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post');
 
 //pour enregistrer la résidence
 Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
