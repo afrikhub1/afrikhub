@@ -144,4 +144,3 @@ Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 
 
 // Webhook Paystack (POST uniquement)
 Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])->name('paiement.webhook');
-
