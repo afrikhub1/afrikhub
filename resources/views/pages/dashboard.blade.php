@@ -253,14 +253,14 @@
                 @else
                     <div class="album-container flex flex-wrap gap-8 justify-center bg-gray-50 p-6 md:p-8 rounded-2xl shadow-inner border border-gray-100">
 
-                        @foreach($residences as $residences)
+                        @foreach($residences as $res)
                             @php
-                                // Vérification et décodage des images (logique conservée)
-                                $res = $residences;
-                                $images = is_string($res->img) ? json_decode($res->img, true) : (array)$res->img;
-                                if (!is_array($images)) { $images = []; }
-
-                                $firstImage = $images[0] ?? 'https://placehold.co/400x200/F0F4FF/1E40AF?text=Pas+d\'image';
+                                $images = $res->img;
+                            if (is_string($images)) {
+                                $images = json_decode($images, true) ?? [];
+                            };
+                            $firstImage = $images[0] ?? null;
+                            $imagePath = $firstImage? $firstImage // URL S3 déjà complète
                             @endphp
 
                             <div class="w-full sm:w-[320px] bg-white rounded-2xl shadow-xl p-5 transition duration-500 hover:shadow-indigo-400/50 flex flex-col items-center border border-gray-200">
