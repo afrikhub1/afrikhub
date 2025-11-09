@@ -181,6 +181,8 @@
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-green-600 text-white rounded-full">Confirmée</span>
                                 @elseif($res->status == 'annulée')
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-yellow-500 text-gray-900 rounded-full">Annulée (Client)</span>
+                                @elseif($res->status == 'payé')
+                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-yellow-500 text-gray-900 rounded-full">payé</span>
                                 @else
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-red-600 text-white rounded-full">Refusée (Vous)</span>
                                 @endif
