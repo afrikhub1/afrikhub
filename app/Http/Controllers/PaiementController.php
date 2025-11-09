@@ -80,4 +80,23 @@ class PaiementController extends Controller
 
         return redirect($data['data']['authorization_url']);
     }
+
+    public function callback(Request $request)
+    {
+        $reference = $request->query('reference');
+
+        if (!$reference) {
+            return redirect()->route('historique')->with('error', 'Référence de paiement manquante.');
+        }
+
+        // Juste récupérer la réservation pour info (optionnel)
+        $reservation = Reservation::where('reference', $reference)->first();
+
+        if (!$reservation) {
+            return redirect()->route('historique')->with('error', 'Réservation introuvable.');
+        }
+
+        // Laisser le webhook mettre à jour le statut en 'payé'
+        return redirect()->route('historique')->with('success', 'Paiement en cours de traitement. Le statut sera mis à jour automatiquement.');
+    }
 }
