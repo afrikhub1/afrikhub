@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Schema;
                 $table->string('reservation_code')->unique();
                 $table->string('status')->default('en_attente'); // en_attente, validee, refusee, annulee
                 $table->integer('total')->nullable();
+                $table->string('reference')->nullable()->unique();
                 $table->unsignedBigInteger('proprietaire_id');
                 $table->unsignedBigInteger('residence_id');
                 $table->unsignedBigInteger('user_id');
