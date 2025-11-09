@@ -110,12 +110,14 @@ class ResidenceController extends Controller
 
     public function occupees()
     {
-        // Résidences du propriétaire (table residences)
-        $residences = Reservation::where('proprietaire_id', Auth::id())->get();
+        $userId = Auth::id();
+        // On récupère les résidences occupées appartenant à l'utilisateur connecté
+        $residences = Residence::where('proprietaire_id', $userId )
+            ->where('disponible', 0)
+            ->get();
 
-        // Passe les deux à la vue
-        return view('reservations.occupees', compact('residences'));
+        return view('pages.utilisateur.occupees', compact('residences'));
     }
-
-
 }
+
+
