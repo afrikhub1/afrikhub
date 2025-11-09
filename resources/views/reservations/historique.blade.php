@@ -219,20 +219,17 @@
                         <!-- Boutons en bas -->
                         <div class="mt-4 flex gap-2 justify-center">
                             @if($res->status != 'payé')
-                                <form action="{{ route('payer') }}" method="POST" class="flex-1">
+                                <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
                                     @csrf
-                                    <input type="hidden" name="reservation_id" value="{{ $res->id }}">
                                     <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
                                         <i class="fas fa-credit-card mr-1"></i> Payer la facture
                                     </button>
                                 </form>
-                            @endif
-
-                            @else {
-                                <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
-                                    <i class="fas fa-credit-card mr-1"></i> Payé
+                            @else
+                                <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
+                                    <i class="fas fa-check-circle mr-1"></i> Payé
                                 </button>
-                            }
+                            @endif
 
                             @if($res->status == 'en_attente' || $res->status == 'confirmée')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
