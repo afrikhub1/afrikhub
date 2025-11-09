@@ -3,7 +3,7 @@
 @section('ux-ui')
     <link rel="stylesheet" href="{{ asset('assets/css/connexion.css') }}">
 @endsection
-@section('main')
+@section('contenu')
     <section class="h-100 gradient-form">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -48,8 +48,7 @@
 
                                         <div class="text-center pt-1 mb-5 pb-1">
                                             <input class="btn btn-primary btn-block mb-3 me-3" type="submit" name="connexion" value="Se connecter"> <br>
-                                            <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
-
+                                             <a class="text-muted" href="{{ route('password.request') }}">Mot de passe oublié ?</a>
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-between pb-4">
