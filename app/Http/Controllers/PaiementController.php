@@ -12,6 +12,7 @@ class PaiementController extends Controller
     // Page ou déclenchement du paiement
     public function index(Reservation $reservation)
     {
+        \Log::info('Paiement déclenché pour la réservation ' . $reservation->id);
         // Générer une référence unique pour la transaction si ce n'est pas déjà fait
         if (!$reservation->reference) {
             $reservation->reference = 'RSV-' . strtoupper(uniqid());
