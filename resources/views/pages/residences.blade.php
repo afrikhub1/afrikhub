@@ -150,7 +150,7 @@
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
                         @php
                             $images = ($residence->img) ?? [];
-                            $firstImage = $images[0] ?? null;   
+                            $firstImage = $images[0] ?? null;
                             $imagePath = $firstImage? $firstImage // URL S3 déjà complète
                             : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                         @endphp
@@ -161,11 +161,14 @@
                                 alt="Image de la résidence">
                         </a>
 
-                        @foreach($images as $key => $image)
-                            @if($key > 0)
-                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
-                            @endif
-                        @endforeach
+                        {{-- Galerie invisible pour les autres images --}}
+                        @if (is_array($images))
+                            @foreach($images as $key => $image)
+                                @if($key > 0)
+                                    <a href="{{ asset($image) }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                @endif
+                            @endforeach
+                        @endif
 
                         <div class="p-6 flex flex-col flex-grow">
                             <h5 class="text-xl font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }}</h5>
