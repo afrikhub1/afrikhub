@@ -99,8 +99,6 @@
                                 </button>
                             @endif
 
-                            @endif
-
                             @if($res->status == 'en_attente' || $res->status == 'confirmée')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
