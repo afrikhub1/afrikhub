@@ -136,7 +136,8 @@ Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->n
 
 use App\Http\Controllers\PaiementController;
 
-Route::post('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
+// Page de paiement
+Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
 
 // Callback après paiement (GET ou POST)
 Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
