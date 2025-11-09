@@ -12,62 +12,10 @@
         <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
         <!-- Font Awesome est remplacé ici par le lien local -->
         <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/header.css') }}">
         <!-- Tailwind CSS CDN -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Inter Font -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <style>
-            /* Configuration Tailwind pour utiliser la police Inter et styles globaux */
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-            :root {
-                --primary-color: #4f46e5; /* Indigo 600 */
-                --danger-color: #ef4444; /* Red 500 */
-            }
-            body {
-                font-family: 'Inter', sans-serif;
-                background-color: #f3f4f6; /* Gray 100 */
-                min-height: 100vh;
-            }
-            /* Style spécifique pour la Sidebar */
-            #sidebar {
-                transition: transform 0.3s ease-in-out;
-                transform: translateX(100%);
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 350px;
-                z-index: 50;
-                height: 100%;
-                background-color: #1f2937; /* Dark Gray 800 */
-                padding: 1.5rem;
-                box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
-            }
-            #sidebar.active {
-                transform: translateX(0);
-            }
-            /* Style pour la Lightbox (utilisé ici comme référence, mais GLightbox gère la sienne) */
-            .lightbox-container {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.9);
-                z-index: 9999;
-                align-items: center;
-                justify-content: center;
-            }
-            /* Conteneur de défilement pour les albums */
-            .image-scroll-wrapper {
-                overflow-x: auto;
-                white-space: nowrap;
-                /* Permet le défilement horizontal */
-                scrollbar-width: thin;
-            }
-        </style>
     </head>
 <body>
 
