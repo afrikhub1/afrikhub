@@ -168,7 +168,3 @@
     </div>
 @endsection
 
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
-@endpush
