@@ -69,7 +69,10 @@ class ResidenceController extends Controller
         // On récupère toutes les résidences du user connecté
         $residences = Residence::where('proprietaire_id', Auth::id())->get();
 
-        // On passe ces résidences à la vue
+        if (! $residences instanceof \Illuminate\Support\Collection) {
+            dd($residences); // debug si ce n'est pas une Collection
+        }
+
         return view('pages.residences', compact('residences'));
     }
 

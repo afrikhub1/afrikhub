@@ -33,11 +33,14 @@ class Residence extends Model
     ];
 
     protected $casts = [
-        'date_disponible_apres' => 'datetime',
-        'prix_journalier' => 'decimal:2',
+        'img' => 'array',
         'disponible' => 'boolean',
-        'img' => 'array', // 🔹 JSON des images
+        'prix_journalier' => 'decimal:2',
+        'date_disponible_apres' => 'datetime',
+        'autres_details' => 'array',
+        'details_position' => 'array',
     ];
+
 
     /**
      * Relation : une résidence appartient à un utilisateur
