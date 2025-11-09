@@ -116,7 +116,7 @@ class ResidenceController extends Controller
             ->where('disponible', 0)
             ->get();
 
-        return view('pages.utilisateur.occupees', compact('residences'));
+        return view('pages.occupees', compact('residences'));
     }
 
     public function liberer($id)

@@ -38,14 +38,6 @@
 
                             <hr>
 
-                            {{-- Bouton Libérer --}}
-                            <form action="{{ route('residences.liberer', $residence->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-success w-100">
-                                    Libérer la résidence
-                                </button>
-                            </form>
-
                         </div>
                     </div>
                 </div>
