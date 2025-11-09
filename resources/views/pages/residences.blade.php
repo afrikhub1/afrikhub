@@ -149,11 +149,13 @@
                 @foreach($residences as $residence)
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
                         @php
+                           $images = $residence->img;
                             if (is_string($images)) {
                                 $images = json_decode($images, true) ?? [];
-                            }
+                            };
                             $firstImage = $images[0] ?? null;
-                            $imagePath = $firstImage ? : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                            $imagePath = $firstImage? $firstImage // URL S3 déjà complète
+                            : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                         @endphp
 
                         <a href="{{ $firstImage }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
