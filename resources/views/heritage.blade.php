@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        @yield('titre')
+        <title>@yield('titre')</title>
 
         <!-- GLightbox CSS (pour le carrousel d'images) -->
         <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
