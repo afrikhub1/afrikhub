@@ -12,54 +12,72 @@ class PaiementController extends Controller
     // Déclenche le paiement
     public function index(Reservation $reservation)
     {
-        \Log::info('---- Début Paiement ----');
-        \Log::info('ID réservation : ' . $reservation->id);
-        \Log::info('Email utilisateur : ' . $reservation->user->email);
-        \Log::info('Montant total : ' . $reservation->total);
+        // 1) Vérifier la réservation
+        if (!$reservation) {
+            return "❌ ERREUR : Aucune réservation trouvée";
+        }
 
+        echo "✅ Étape 1 OK : Réservation trouvée (ID = {$reservation->id})<br>";
+
+        // 2) Vérifier l'utilisateur
+        if (!$reservation->user) {
+            return "❌ ERREUR : Aucun utilisateur associé à la réservation";
+        }
+
+        echo "✅ Étape 2 OK : Utilisateur = {$reservation->user->name} ({$reservation->user->email})<br>";
+
+        // 3) Vérifier le montant
+        if (!$reservation->total || $reservation->total <= 0) {
+            return "❌ ERREUR : Montant invalide";
+        }
+
+        echo "✅ Étape 3 OK : Montant = {$reservation->total}<br>";
+
+        // 4) Générer une nouvelle référence unique (pour éviter l'erreur Paystack)
+        $reservation->reference = 'RES-' . strtoupper(uniqid()) . '-' . time();
+        $reservation->save();
+
+        echo "✅ Étape 4 OK : Nouvelle référence = {$reservation->reference}<br>";
+
+        // 5) Préparer montant (Paystack = montant * 100)
         $amount = $reservation->total * 100;
 
-        // Forcer une référence unique
-        if (!$reservation->reference) {
-            $reservation->reference = 'RES-' . uniqid();
-            $reservation->save();
-            \Log::info('Nouvelle référence générée : ' . $reservation->reference);
+        echo "✅ Étape 5 OK : Montant Paystack = $amount<br>";
+
+        // 6) Appel API Paystack
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . config('services.paystack.secret'),
+                'Content-Type' => 'application/json',
+            ])->post('https://api.paystack.co/transaction/initialize', [
+                'email' => $reservation->user->email,
+                'amount' => $amount,
+                'reference' => $reservation->reference,
+                'callback_url' => route('paiement.callback'),
+            ]);
+        } catch (\Exception $e) {
+            return "❌ ERREUR API Paystack : " . $e->getMessage();
         }
 
-        // Appel à Paystack
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.paystack.secret'),
-            'Content-Type' => 'application/json',
-        ])->post(config('services.paystack.payment_url') . '/transaction/initialize', [
-            'email' => $reservation->user->email,
-            'amount' => $amount,
-            'reference' => $reservation->reference,
-            'callback_url' => route('paiement.callback'),
-        ]);
+        echo "✅ Étape 6 OK : Requête envoyée à Paystack<br>";
 
-        \Log::info('Réponse Paystack : ' . $response->body());
+        // 7) Lire la réponse
+        $data = $response->json();
 
-        // Vérification
-        if (!$response->successful()) {
-            \Log::error('Paystack API a échoué');
-            return redirect()->back()->with('error', 'Erreur API Paystack.');
+        if (!isset($data['status']) || $data['status'] !== true) {
+
+            echo "<br>❌ ERREUR PAYSTACK : " . ($data['message'] ?? "Réponse inattendue") . "<br>";
+            echo "<pre>";
+            print_r($data);
+            echo "</pre>";
+            dd("---- FIN : Paystack a renvoyé une erreur ----");
         }
 
-        $body = $response->json();
+        echo "✅ Étape 7 OK : Paystack a accepté la demande<br>";
 
-        if (!isset($body['status']) || $body['status'] !== true) {
-            \Log::error('Paystack renvoie un status FALSE');
-            return redirect()->back()->with('error', 'Paiement non accepté par Paystack.');
-        }
+        // 8) Rediriger vers Paystack
+        echo "<br>✅ Étape 8 OK : Redirection vers Paystack...<br>";
 
-        // 🚨 LE POINT IMPORTANT ICI 🚨
-        if (!isset($body['data']['authorization_url'])) {
-            \Log::error('⚠️ authorization_url manquante !');
-            return redirect()->back()->with('error', 'URL Paystack introuvable.');
-        }
-
-        \Log::info('✅ REDIRECTION => ' . $body['data']['authorization_url']);
-
-        return redirect()->away($body['data']['authorization_url']);
+        return redirect($data['data']['authorization_url']);
     }
 }
