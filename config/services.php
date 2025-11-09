@@ -35,12 +35,12 @@ return [
         ],
     ],
 
-    'kkiapay' => [
-        'public' => env('KKIAPAY_PUBLIC_KEY', ''),
-        'private' => env('KKIAPAY_PRIVATE_KEY', ''),
-        'secret' => env('KKIAPAY_SECRET_KEY', ''),
-        'mode' => env('KKIAPAY_MODE', 'sandbox'),
+    'paystack' => [
+        'public' => env('PAYSTACK_PUBLIC_KEY'),
+        'secret' => env('PAYSTACK_SECRET_KEY'),
+        'payment_url' => 'https://api.paystack.co',
     ],
+
 
 
 ];

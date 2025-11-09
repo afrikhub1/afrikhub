@@ -3,59 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use App\Models\Reservation;
 
 class PaiementController extends Controller
 {
-    // Affiche la page de paiement
+    // Page ou déclenchement du paiement
     public function index(Reservation $reservation)
     {
-        return view('paiement.index', compact('reservation'));
+        $amount = $reservation->total * 100; // en kobo
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . config('services.paystack.secret')
+        ])->post(config('services.paystack.payment_url') . '/transaction/initialize', [
+            'email' => $reservation->user->email,
+            'amount' => $amount,
+            'callback_url' => route('paiement.callback', ['reservation' => $reservation->id])
+        ]);
+
+        $body = $response->json();
+
+        if (isset($body['status']) && $body['status'] === true) {
+            return redirect($body['data']['authorization_url']);
+        }
+
+        return redirect()->back()->with('error', 'Impossible d’initialiser le paiement.');
     }
 
     // Callback après paiement
-    public function callback(Request $request)
+    public function callback(Request $request, Reservation $reservation)
     {
-        $transactionId = $request->transaction_id ?? null;
-        $reservationId = $request->reservation_id ?? null;
+        $reference = $request->query('reference');
 
-        if (!$transactionId || !$reservationId) {
-            return response()->json(['status' => 'error', 'message' => 'Transaction ou réservation manquante']);
-        }
-
-        // Vérification via API Kkiapay
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.kkiapay.private')
-        ])->get("https://api.kkiapay.me/v1/transactions/{$transactionId}");
+            'Authorization' => 'Bearer ' . config('services.paystack.secret')
+        ])->get(config('services.paystack.payment_url') . "/transaction/verify/{$reference}");
 
-        if ($response->failed()) {
-            return response()->json(['status' => 'error', 'message' => 'Impossible de vérifier la transaction']);
+        $body = $response->json();
+
+        if (isset($body['status']) && $body['status'] === true && $body['data']['status'] === 'success') {
+            // Marquer la réservation comme payée
+            $reservation->status = 'payé';
+            $reservation->save();
+
+            return redirect()->route('historique')->with('success', 'Paiement effectué avec succès !');
         }
 
-        $transaction = $response->json();
-        $status = $transaction['status'] ?? 'UNKNOWN';
-
-        // Enregistrer le paiement
-        DB::table('paiements')->insert([
-            'reservation_id' => $reservationId,
-            'transaction_id' => $transactionId,
-            'status' => $status,
-            'payload' => json_encode($transaction),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Mettre à jour le statut de la réservation si paiement réussi
-        if ($status === 'SUCCESS') {
-            Reservation::where('id', $reservationId)->update([
-                'status' => 'confirmée'
-            ]);
-
-            return response()->json(['status' => 'ok', 'message' => 'Paiement réussi']);
-        }
-
-        return response()->json(['status' => 'error', 'message' => 'Paiement échoué']);
+        return redirect()->route('historique')->with('error', 'Paiement échoué ou annulé.');
     }
 }
