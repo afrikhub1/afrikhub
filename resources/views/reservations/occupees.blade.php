@@ -1,50 +1,95 @@
-@extends('layouts.app') {{-- adapte selon ton layout --}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résidences Actuellement Occupées</title>
 
-@section('content')
-<div class="container py-5">
+    <!-- GLightbox CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
-    <h2 class="mb-4 text-center fw-bold">Résidences Occupées</h2>
+    <!-- Assets Bootstrap et FontAwesome -->
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/header.css') }}">
 
-    @if($residences->isEmpty())
-        <div class="alert alert-info text-center">
-            Vous n'avez actuellement aucune résidence occupée.
-        </div>
-    @else
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <div class="row g-4">
-            @foreach ($residences as $residence)
-                <div class="col-md-4">
-                    <div class="card shadow-sm border-0 rounded-3">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; min-height: 100vh; }
+        #sidebar { transition: transform 0.3s ease-in-out; transform: translateX(100%); position: fixed; top: 0; right: 0; width: 350px; z-index: 50; height: 100%; background-color: #1f2937; padding: 1.5rem; box-shadow: -4px 0 12px rgba(0,0,0,0.3); }
+        #sidebar.active { transform: translateX(0); }
+        .image-scroll-wrapper { overflow-x: auto; white-space: nowrap; scrollbar-width: thin; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
 
-                        {{-- Image (si tu as une relation images) --}}
-                        @if(isset($residence->images) && $residence->images->count() > 0)
-                            <img src="{{ asset('storage/' . $residence->images->first()->chemin) }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                        @else
-                            <img src="https://via.placeholder.com/400x200?text=Pas+d'image" class="card-img-top">
-                        @endif
+    <!-- Header et Sidebar (idem ton code précédent) -->
 
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $residence->nom }}</h5>
+    <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+        <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
+            <h1 class="text-4xl font-extrabold text-red-600 mb-8 text-center border-b-4 border-red-500 pb-3">
+                <i class="fas fa-lock-open text-3xl mr-3"></i> Résidences Actuellement Occupées
+            </h1>
 
-                            <p class="text-muted mb-1">
-                                <i class="bi bi-geo-alt"></i> {{ $residence->ville }}, {{ $residence->pays }}
-                            </p>
-
-                            <p class="fw-semibold mb-1">
-                                <i class="bi bi-currency-dollar"></i> {{ number_format($residence->prix_journalier, 0, ',', ' ') }} Fcfa / nuit
-                            </p>
-
-                            <span class="badge bg-danger">Occupée</span>
-
-                            <hr>
-
-                        </div>
+            <section id="occupees">
+                @if($residences->isEmpty())
+                    <div class="bg-yellow-50 border border-yellow-200 text-yellow-700 p-6 rounded-lg text-center shadow-lg">
+                        <i class="fas fa-info-circle text-2xl mb-2 block"></i>
+                        <p class="font-semibold text-lg">Aucune résidence n'est actuellement occupée.</p>
+                        <p class="text-sm mt-1">Les résidences disponibles ne figurent pas dans cette liste.</p>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @else
+                    <div class="flex flex-wrap gap-6 justify-center">
+                        @foreach($residences as $residence)
+                            <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
+                                <div>
+                                    <h5 class="text-2xl font-bold text-red-800 mb-3 flex items-center">
+                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $residence->nom }}
+                                    </h5>
+                                    <p class="text-sm mb-2">
+                                        <strong>Ville :</strong> {{ $residence->ville }}
+                                    </p>
+                                    <p class="text-sm mb-2">
+                                        <strong>Pays :</strong> {{ $residence->pays }}
+                                    </p>
+                                    <p class="text-sm mb-2">
+                                        <strong>Prix journalier :</strong> {{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA
+                                    </p>
+                                    <p class="text-sm mb-2">
+                                        <strong>Type :</strong> {{ $residence->type_residence }}
+                                    </p>
+                                    <p class="text-sm mb-2">
+                                        <strong>Chambres :</strong> {{ $residence->nombre_chambres }}
+                                    </p>
+                                    <p class="text-sm mb-2">
+                                        <strong>Salons :</strong> {{ $residence->nombre_salons }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </section>
+        </main>
+    </div>
 
-    @endif
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('toggleSidebar');
+            const closeButton = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
 
-</div>
-@endsection
+            if(toggleButton && sidebar){
+                toggleButton.addEventListener('click', () => sidebar.classList.add('active'));
+            }
+            if(closeButton && sidebar){
+                closeButton.addEventListener('click', () => sidebar.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>
