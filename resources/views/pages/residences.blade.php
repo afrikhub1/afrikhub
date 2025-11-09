@@ -191,6 +191,20 @@
                                     <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Ville :</span>
                                     <span class="text-gray-900">{{ $residence->ville }}</span>
                                 </li>
+
+                                @if($residence->disponible == 0 )
+                                    <li class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
+                                        <span class="text-gray-900">Indisponible</span>
+                                    </li>
+
+                                @else
+                                    <li class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
+                                        <span class="text-gray-900">Disponible</span>
+                                    </li>
+
+
                                 <li class="flex justify-between items-center text-lg pt-2">
                                     <span class="text-gray-500"><i class="fas fa-money-bill-wave mr-2 text-green-500"></i> Prix / Jour :</span>
                                     <span class="text-green-600 font-extrabold">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} €</span>
