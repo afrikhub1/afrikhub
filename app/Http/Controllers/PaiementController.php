@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -8,6 +9,7 @@ use App\Models\Reservation;
 
 class PaiementController extends Controller
 {
+    // Page ou déclenchement du paiement
     public function index(Reservation $reservation)
     {
         // Générer une référence unique pour la transaction si ce n'est pas déjà fait
@@ -35,7 +37,6 @@ class PaiementController extends Controller
 
         return redirect()->back()->with('error', 'Impossible d’initialiser le paiement.');
     }
-
 
     // Callback après paiement
     public function callback(Request $request)
@@ -69,7 +70,7 @@ class PaiementController extends Controller
         return redirect()->route('historique')->with('error', 'Paiement échoué ou annulé.');
     }
 
-
+    // Webhook Paystack
     public function webhook(Request $request)
     {
         // Vérifier la signature pour sécurité (optionnel mais recommandé)
