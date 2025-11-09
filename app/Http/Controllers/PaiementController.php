@@ -99,4 +99,39 @@ class PaiementController extends Controller
         // Laisser le webhook mettre à jour le statut en 'payé'
         return redirect()->route('historique')->with('success', 'Paiement en cours de traitement. Le statut sera mis à jour automatiquement.');
     }
+
+    public function webhook(Request $request)
+    {
+        // 1️⃣ Vérifier la signature pour s'assurer que c'est Paystack
+        $signature = $request->header('x-paystack-signature');
+        $secret = config('services.paystack.secret');
+
+        if (!$signature || $signature !== hash_hmac('sha512', $request->getContent(), $secret)) {
+            \Log::warning('Webhook Paystack : signature invalide', $request->all());
+            return response()->json(['status' => 'error', 'message' => 'Signature invalide'], 400);
+        }
+
+        // 2️⃣ Récupérer le payload
+        $payload = $request->all();
+        \Log::info('Webhook Paystack reçu :', $payload);
+
+        // 3️⃣ Vérifier le type d'événement
+        if (isset($payload['event']) && $payload['event'] === 'charge.success') {
+            $reference = $payload['data']['reference'];
+            $reservationId = $payload['data']['metadata']['reservation_id'] ?? null;
+
+            // 4️⃣ Mettre à jour la réservation si elle existe
+            if ($reservationId) {
+                $reservation = Reservation::find($reservationId);
+                if ($reservation && $reservation->status !== 'payé') {
+                    $reservation->status = 'payé';
+                    $reservation->save();
+                    \Log::info("Réservation ID {$reservation->id} mise à jour en PAYÉ via webhook.");
+                }
+            }
+        }
+
+        // 5️⃣ Réponse à Paystack
+        return response()->json(['status' => 'success']);
+    }
 }
