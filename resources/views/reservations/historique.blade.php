@@ -226,9 +226,17 @@
                                     </button>
                                 </form>
                             @else
-                                <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
-                                    <i class="fas fa-check-circle mr-1"></i> Payé
-                                </button>
+                                @if($reserve->status === 'payé')
+                                    <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-check-circle mr-1"></i> Payé
+                                    </button>
+                                @else
+                                    <a href="{{ route('paiement.init', $reserve->id) }}"
+                                    class="w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md text-sm flex items-center justify-center">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer
+                                    </a>
+                                @endif
+
                             @endif
 
                             @if($res->status == 'en_attente' || $res->status == 'confirmée')
