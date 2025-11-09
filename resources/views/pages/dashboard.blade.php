@@ -1,4 +1,4 @@
-@extends('heritage_pages')
+@extends('pages.heritage_pages')
 @section('titre', 'connexion')
 
 @section('contenu')
