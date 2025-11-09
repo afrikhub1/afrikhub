@@ -93,6 +93,10 @@ class ReservationController extends Controller
             'status' => 'confirmée',
             'date_validation' => now(), // date et heure actuelles
         ]);
+
+        Residence::where('id', $id)->update([
+            'disponible' => 0,
+        ]);
         return back()->with('success', 'Réservation acceptée ✅');
     }
 
