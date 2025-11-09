@@ -116,21 +116,9 @@ class ResidenceController extends Controller
             ->where('disponible', 0)
             ->get();
 
-        return view('pages.occupees', compact('residences'));
+        return view('reservations.occupees', compact('residences'));
     }
 
-    public function liberer($id)
-    {
-        $residence = Residence::where('id', $id)
-            ->where('proprietaire_id', Auth::id())
-            ->firstOrFail();
-
-        $residence->update([
-            'disponible' => 1
-        ]);
-
-        return back()->with('success', 'Résidence libérée avec succès ✅');
-    }
 }
 
 
