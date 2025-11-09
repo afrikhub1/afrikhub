@@ -11,34 +11,10 @@ class PaiementController extends Controller
     // Page ou déclenchement du paiement
     public function index(Reservation $reservation)
     {
-        // Générer une référence unique si elle n'existe pas
-        if (!$reservation->reference) {
-            $reservation->reference = 'RSV-' . strtoupper(uniqid());
-            $reservation->save();
-        }
-
-        $amount = $reservation->total * 100; // montant en kobo
-
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.paystack.secret')
-        ])->post(config('services.paystack.payment_url') . '/transaction/initialize', [
-            'email' => $reservation->user->email,
-            'amount' => $amount,
-            'reference' => $reservation->reference,
-            'callback_url' => route('paiement.callback') // la callback route
-        ]);
-
-        $body = $response->json();
-
-        // Log pour debug
-        Log::info('Réponse Paystack', $body);
-
-        if (isset($body['status']) && $body['status'] === true && !empty($body['data']['authorization_url'])) {
-            return redirect($body['data']['authorization_url']);
-        }
-
-        return redirect()->back()->with('error', 'Impossible d’initialiser le paiement.');
+        // Test rapide : afficher "Hello" + l'ID de la réservation
+        return "Hello ! ID de la réservation : " . $reservation->id;
     }
+
 
     // Callback après paiement
     public function callback(Request $request)
