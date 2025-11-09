@@ -12,15 +12,21 @@ class PaiementController extends Controller
     // Déclenche le paiement
     public function index(Reservation $reservation)
     {
-        // Vérification des données
+        \Log::info('---- Début Paiement ----');
+        \Log::info('ID réservation : ' . $reservation->id);
+        \Log::info('Email utilisateur : ' . $reservation->user->email);
+        \Log::info('Montant total : ' . $reservation->total);
+
         $amount = $reservation->total * 100;
 
-        // Générer une référence si pas présente
+        // Forcer une référence unique
         if (!$reservation->reference) {
             $reservation->reference = 'RES-' . uniqid();
             $reservation->save();
+            \Log::info('Nouvelle référence générée : ' . $reservation->reference);
         }
 
+        // Appel à Paystack
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . config('services.paystack.secret'),
             'Content-Type' => 'application/json',
@@ -31,13 +37,29 @@ class PaiementController extends Controller
             'callback_url' => route('paiement.callback'),
         ]);
 
-        $body = $response->json();
+        \Log::info('Réponse Paystack : ' . $response->body());
 
-        if (isset($body['status']) && $body['status'] === true) {
-            // 👉 On redirige enfin vers Paystack 🎉
-            return redirect()->away($body['data']['authorization_url']);
+        // Vérification
+        if (!$response->successful()) {
+            \Log::error('Paystack API a échoué');
+            return redirect()->back()->with('error', 'Erreur API Paystack.');
         }
 
-        return redirect()->back()->with('error', 'Impossible d’initialiser le paiement.');
+        $body = $response->json();
+
+        if (!isset($body['status']) || $body['status'] !== true) {
+            \Log::error('Paystack renvoie un status FALSE');
+            return redirect()->back()->with('error', 'Paiement non accepté par Paystack.');
+        }
+
+        // 🚨 LE POINT IMPORTANT ICI 🚨
+        if (!isset($body['data']['authorization_url'])) {
+            \Log::error('⚠️ authorization_url manquante !');
+            return redirect()->back()->with('error', 'URL Paystack introuvable.');
+        }
+
+        \Log::info('✅ REDIRECTION => ' . $body['data']['authorization_url']);
+
+        return redirect()->away($body['data']['authorization_url']);
     }
 }
