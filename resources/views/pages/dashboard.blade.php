@@ -166,11 +166,6 @@
                     <i class="fas fa-key text-2xl mr-3"></i> Mes Résidences Occupées (Confirmées)
                 </h2>
                 <div class="p-2 d-flex">
-                    {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
-                    @php
-                        // Ceci est une simulation. Assurez-vous que $reservation est une collection Eloquent ou supporte where()
-                        $reservationsConfirmees = $reservations->where('status', 'confirmée');
-                    @endphp
 
                     @if($reservationsConfirmees->isEmpty())
                         <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg text-center shadow-inner">
