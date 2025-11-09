@@ -218,6 +218,22 @@
 
                         <!-- Boutons en bas -->
                         <div class="mt-4 flex gap-2 justify-center">
+                            @if($res->status != 'payé')
+                                <form action="{{ route('payer') }}" method="POST" class="flex-1">
+                                    @csrf
+                                    <input type="hidden" name="reservation_id" value="{{ $res->id }}">
+                                    <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer la facture
+                                    </button>
+                                </form>
+                            @endif
+
+                            @else {
+                                <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
+                                    <i class="fas fa-credit-card mr-1"></i> Payé
+                                </button>
+                            }
+
                             @if($res->status == 'en_attente' || $res->status == 'confirmée')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
@@ -226,12 +242,15 @@
                                     </button>
                                 </form>
                             @endif
+
                             <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
                                 <button type="submit" class="w-full py-2 btn-primary-custom font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
                                     <i class="fas fa-redo-alt mr-1"></i> Rebooker
                                 </button>
                             </form>
                         </div>
+
+
                     </div>
                 </div>
             @empty

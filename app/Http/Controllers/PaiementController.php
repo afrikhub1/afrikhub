@@ -5,15 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use App\Models\Reservation;
 
 class PaiementController extends Controller
 {
+    // Affiche la page de paiement
+    public function index(Reservation $reservation)
+    {
+        return view('paiement.index', compact('reservation'));
+    }
+
+    // Callback après paiement
     public function callback(Request $request)
     {
         $transactionId = $request->transaction_id ?? null;
+        $reservationId = $request->reservation_id ?? null;
 
-        if (!$transactionId) {
-            return response()->json(['status' => 'error', 'message' => 'Transaction ID manquant']);
+        if (!$transactionId || !$reservationId) {
+            return response()->json(['status' => 'error', 'message' => 'Transaction ou réservation manquante']);
         }
 
         // Vérification via API Kkiapay
@@ -28,8 +37,9 @@ class PaiementController extends Controller
         $transaction = $response->json();
         $status = $transaction['status'] ?? 'UNKNOWN';
 
-        // Enregistrement dans la table de test
-        DB::table('paiements_tests')->insert([
+        // Enregistrer le paiement
+        DB::table('paiements')->insert([
+            'reservation_id' => $reservationId,
             'transaction_id' => $transactionId,
             'status' => $status,
             'payload' => json_encode($transaction),
@@ -37,6 +47,15 @@ class PaiementController extends Controller
             'updated_at' => now(),
         ]);
 
-        return response()->json(['status' => $status]);
+        // Mettre à jour le statut de la réservation si paiement réussi
+        if ($status === 'SUCCESS') {
+            Reservation::where('id', $reservationId)->update([
+                'status' => 'confirmée'
+            ]);
+
+            return response()->json(['status' => 'ok', 'message' => 'Paiement réussi']);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Paiement échoué']);
     }
 }

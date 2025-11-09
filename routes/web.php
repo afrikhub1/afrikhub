@@ -136,7 +136,8 @@ Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file
 Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
 
 
+
 use App\Http\Controllers\PaiementController;
 
-Route::get('/payer', [PaiementController::class, 'index'])->name('payer');
+Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
 Route::post('/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
