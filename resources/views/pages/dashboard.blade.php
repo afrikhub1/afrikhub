@@ -169,7 +169,7 @@
                     {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
                     @php
                         // Ceci est une simulation. Assurez-vous que $reservation est une collection Eloquent ou supporte where()
-                        $reservationsConfirmees = $reservation->where('status', 'confirmée');
+                        $reservationsConfirmees = $reservations->where('status', 'confirmée');
                     @endphp
 
                     @if($reservationsConfirmees->isEmpty())

@@ -115,7 +115,17 @@ class ResidenceController extends Controller
         $residences = Residence::where('proprietaire_id', $userId )
             ->where('disponible', 0)
             ->get();
+    }
 
+    public function dashboard()
+    {
+        $reservationsConfirmees = $this->occupees();
+        return view('pages.dashboard', compact('reservationsConfirmees'));
+    }
+
+    public function mes_residences_occupees()
+    {
+        $residences = $this->occupees();
         return view('reservations.occupees', compact('residences'));
     }
 
