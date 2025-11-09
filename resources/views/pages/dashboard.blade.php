@@ -170,36 +170,5 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            // Initialisation de GLightbox pour créer le carrousel/la galerie
-            const lightbox = GLightbox({
-                selector: '.glightbox',
-                touchNavigation: true,
-                loop: true,
-                openEffect: 'zoom',
-                closeEffect: 'zoom',
-                slideEffect: 'slide',
-            });
 
-            // LOGIQUE DE LA SIDEBAR (Nouveau code)
-            const toggleButton = document.getElementById('toggleSidebar');
-            const closeButton = document.getElementById('closeSidebar');
-            const sidebar = document.getElementById('sidebar');
-
-            if (toggleButton && sidebar) {
-                toggleButton.addEventListener('click', function() {
-                    // Ajoute la classe 'active' pour rendre la sidebar visible
-                    sidebar.classList.add('active');
-                });
-            }
-
-            if (closeButton && sidebar) {
-                closeButton.addEventListener('click', function() {
-                    // Supprime la classe 'active' pour cacher la sidebar
-                    sidebar.classList.remove('active');
-                });
-            }
-        });
-    </script>
 @endpush

@@ -163,6 +163,38 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Initialisation de GLightbox avec effets
+            const lightbox = GLightbox({
+                selector: '.glightbox',
+                touchNavigation: true,
+                loop: true,
+                openEffect: 'zoom',
+                closeEffect: 'zoom',
+                slideEffect: 'slide',
+        });
+
+        // LOGIQUE DE LA SIDEBAR
+        const toggleButton = document.getElementById('toggleSidebar');
+        const closeButton = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        if (toggleButton && sidebar) {
+            toggleButton.addEventListener('click', function() {
+                sidebar.classList.add('active');
+            });
+        }
+
+        if (closeButton && sidebar) {
+            closeButton.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+        }
+    });
+</script>
+
+
     @stack('scripts')
 
     @yield('script')

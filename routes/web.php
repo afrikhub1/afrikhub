@@ -33,7 +33,6 @@ Route::get('/accueil', function () { return view('pages.dashboard'); })->middlew
 
 Route::get('/mise_en_ligne', function () { return view('pages.mise_en_ligne'); })->name('mise_en_ligne');
 
-Route::get('/profil', function () {return view('pages.profil');})->name('profil');
 
 
 // lien vers une page avec un id ciblé ou un element ciblé dans l'url
