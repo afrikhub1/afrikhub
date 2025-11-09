@@ -141,3 +141,5 @@ use App\Http\Controllers\PaiementController;
 
 Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
 Route::post('/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
+
+Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])->name('paiement.webhook');
