@@ -57,22 +57,4 @@ class Residence extends Model
     {
         return $this->hasMany(Reservation::class, 'residence_id');
     }
-
-    public function dateDisponibleAvecNettoyage(int $joursNettoyage = 2)
-    {
-        // Si la résidence est libre
-        if ($this->disponible) {
-            return now()->toDateString(); // dispo dès aujourd'hui
-        }
-
-        // Si la résidence est occupée, on prend la date de disponibilité + jours de nettoyage
-        if ($this->date_disponible_apres) {
-            return \Carbon\Carbon::parse($this->date_disponible_apres)
-                ->addDays($joursNettoyage)
-                ->toDateString();
-        }
-
-        // Fallback si pas de date enregistrée
-        return now()->addDays($joursNettoyage)->toDateString();
-    }
 }

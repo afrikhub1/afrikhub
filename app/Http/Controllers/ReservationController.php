@@ -126,12 +126,4 @@ class ReservationController extends Controller
         return back()->with('success', 'Réservation refusée ❌');
     }
 
-    public function getDateDisponible(Residence $residence)
-    {
-        // Récupère la date disponible depuis le modèle
-        $dateDisponible = $residence->dateDisponibleAvecNettoyage(2);
-
-        // Retourne en JSON pour le JS
-        return response()->json(['date_disponible' => $dateDisponible]);
-    }
 }
