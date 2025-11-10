@@ -55,25 +55,30 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar fixed-top d-flex align-items-center px-3">
-    <div class="flex items-center">
-        <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
-    </div>
+    <nav class="navbar fixed-top bg-dark text-white p-3 shadow-lg">
+        <div class="container-fluid d-flex justify-content-between align-items-center px-3 px-md-4">
 
-    <!-- desktop links -->
-    <div class="d-none d-lg-flex align-items-center ms-3">
-      <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
-      <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
-      <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
-      <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
-      <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
-      <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
-    </div>
+            <div class="flex items-center">
+                <a class="navbar-brand" href="{{ route('accueil') }}">
+                    <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+                </a>
+            </div>
 
-    <!-- mobile menu button -->
-    <button id="btnToggle" class="btn btn-link text-white ms-auto d-lg-none" aria-label="menu" type="button">
-      <i class="fas fa-bars fa-lg"></i>
-    </button>
+            <!-- desktop links -->
+            <div class="d-none d-lg-flex align-items-center ms-3">
+            <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
+            <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
+            <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
+            <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+            <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
+            <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
+            </div>
+        </div>
+
+        <!-- mobile menu button -->
+        <button id="btnToggle" class="btn btn-link text-white ms-auto d-lg-none" aria-label="menu" type="button">
+        <i class="fas fa-bars fa-lg"></i>
+        </button>
   </nav>
 
   <!-- SIDEBAR + OVERLAY -->
