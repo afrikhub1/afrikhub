@@ -263,36 +263,36 @@
 
                 function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
 
-                // Vérifie la disponibilité via endpoint serveur
-                async function checkDisponibiliteViaModel() {
-                    if(!d1.value) return true;
+async function mettreAJourDateDisponible(residenceId) {
 
-                    try {
-                        const res = await fetch("{{ route('residence.date-disponible', $residence->id) }}")
+    alert("→ Début fonction : mise à jour date dispo pour ID = " + residenceId);
 
-                        const data = await res.json();
+    try {
+        const url = `/residences/${residenceId}/date-disponible`;
+        alert("→ Appel URL : " + url);
 
-                        const dateDisponible = new Date(data.date_disponible + "T00:00:00");
-                        const arrivee = new Date(d1.value);
+        const response = await fetch(url);
 
-                        if(arrivee < dateDisponible){
-                            validation.textContent = `Cette résidence n'est pas disponible avant le ${dateDisponible.toLocaleDateString()}`;
-                            validation.classList.remove('d-none');
-                            btnConf.disabled = true;
-                            return false;
-                        }
+        alert("→ fetch OK, statut = " + response.status);
 
-                        validation.classList.add('d-none');
-                        btnConf.disabled = false;
-                        return true;
+        const data = await response.json();
 
-                    } catch(e){
-                        console.error(e);
-                        btnConf.disabled = true;
-                        return false;
-                    }
-                }
+        alert("→ JSON reçu : " + JSON.stringify(data));
 
+        if (data.date_disponible) {
+            const inputDate = document.getElementById("date_arrivee"); // ou ton input
+            inputDate.value = data.date_disponible;
+
+            alert("✅ Date mise à jour → " + data.date_disponible);
+        } else {
+            alert("⚠ Pas de date_disponible dans la réponse !");
+        }
+
+    } catch (error) {
+        alert("❌ ERREUR : " + error);
+    }
+
+}
 
                 async function calc() {
                     // Vérifie la date minimale disponible
