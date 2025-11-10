@@ -30,6 +30,9 @@ class AdminController extends Controller
         // Récupération des résidences nécessitant une action administrative (vérification).
         $pendingResidences = Residence::whereIn('statut', ['en attente', 'suspendue'])->get();
 
+        // Récuperation des residence actives
+        $residencesactives = Residence::where('statut', 'verifiée')->count();
+
         // Calcul du Taux d'Occupation
         $residencesOccupees = Residence::where('disponible', 0)->count();
         // Calcul du pourcentage, évite la division par zéro.
