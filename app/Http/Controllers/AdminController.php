@@ -28,10 +28,10 @@ class AdminController extends Controller
         $totalGain = Reservation::where('status', '!=', 'en attente')->sum('total');
 
         // Récupération des résidences nécessitant une action administrative (vérification).
-        $pendingResidences = Residence::whereIn('statut', ['en attente', 'désactivée'])->get();
+        $pendingResidences = Residence::whereIn('statut', ['en attente'])->get();
 
         // Calcul du Taux d'Occupation
-        $residencesOccupees = Reservation::where('status', 'confirmée')->count();
+        $residencesOccupees = Reservation::where('status', ['disponible',0 ])->count();
         // Calcul du pourcentage, évite la division par zéro.
         $tauxOccupation = $totalResidences > 0 ? round(($residencesOccupees / $totalResidences) * 100, 2) : 0;
 
