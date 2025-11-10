@@ -56,7 +56,9 @@
 
   <!-- NAVBAR -->
   <nav class="navbar fixed-top d-flex align-items-center px-3">
-    <a class="navbar-brand me-2" href="{{ route('accueil') }}">🏠 Afrik'Hub</a>
+    <div class="flex items-center">
+        <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+    </div>
 
     <!-- desktop links -->
     <div class="d-none d-lg-flex align-items-center ms-3">
