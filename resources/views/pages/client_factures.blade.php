@@ -51,7 +51,7 @@
             @foreach($reservations as $res)
                 @php
                     // Logique PHP/Blade pour le statut et les dates
-                    $factureStatut = ($res->status == 'terminée' || $res->status == 'payée') ? 'payée' : 'en_attente';
+                    $factureStatut = ($res->status == 'payée');
                     $statusClass = [
                         'en_attente' => 'bg-orange-600 text-white',
                         'payée' => 'bg-green-600 text-white',
