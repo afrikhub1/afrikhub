@@ -57,11 +57,9 @@
   <!-- NAVBAR -->
     <header class="bg-dark m-0">
         <nav class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
-            <div class="d-flex items-center">
-                <a class="navbar-brand" href="{{ route('accueil') }}">
-                    <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
-                </a>
-            </div>
+            <a href="{{ route('accueil') }}">
+                <img class="h-auto" style="width: 80px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+            </a>
 
             <div class="container-fluid d-flex justify-content-end align-items-center px-3 px-md-4">
                 @if(Auth::user()->type_compte == 'professionnel')
