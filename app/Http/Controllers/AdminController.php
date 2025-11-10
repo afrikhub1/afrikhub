@@ -25,7 +25,7 @@ class AdminController extends Controller
         $totalReservation = Reservation::count(); // Nombre total de réservations (tous statuts).
 
         // Calcul du gain total (somme des montants 'total' pour les réservations non 'en attente').
-        $totalGain = Reservation::where('status', '!=', 'en attente')->sum('total');
+        $totalGain = Reservation::where('status', '==', 'payé')->sum('total');
 
         // Récupération des résidences nécessitant une action administrative (vérification).
         $pendingResidences = Residence::whereIn('statut', ['en attente', 'suspendue'])->get();
