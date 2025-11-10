@@ -87,7 +87,7 @@ class ResidenceController extends Controller
 
         // Ajout de la date de disponibilité à chaque résidence
         foreach ($recherches as $residence) {
-            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage(2);
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
         }
 
         return view('pages.recherche', compact('recherches'));
