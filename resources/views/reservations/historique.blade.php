@@ -4,7 +4,7 @@
 
 @section('main')
     <!-- Main Content Area (Ajusté pour le Header) -->
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto p-2">
 
         <!-- Titre Principal de la Page -->
         <div class="page-header text-center mb-8">

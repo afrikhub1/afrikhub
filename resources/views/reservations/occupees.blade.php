@@ -3,7 +3,7 @@
 @section('dashboard', '- residences occupées')
 
 @section('main')
-    <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+    <div class="container mx-auto p-2">
         <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
             <h1 class="text-4xl font-extrabold text-red-600 mb-8 text-center border-b-4 border-red-500 pb-3">
                 <i class="fas fa-lock-open text-3xl mr-3"></i> Résidences Actuellement Occupées

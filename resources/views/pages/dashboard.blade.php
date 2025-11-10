@@ -4,7 +4,7 @@
 
 @section('main')
     <!-- Main Content Area (avec votre padding original pour compenser le header) -->
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto p-2">
 
         <!-- Simulation Message d'alerte (Static) -->
         <div id="alert-message" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-8 shadow-lg" role="alert">
