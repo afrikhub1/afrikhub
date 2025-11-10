@@ -102,10 +102,6 @@ class ResidenceController extends Controller
             ->where('statut', 'vérifiée')
             ->get();
 
-        // Ajoute la prochaine date disponible à chaque résidence
-        foreach ($residences as $residence) {
-            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage(2);
-        }
 
         // Passe la variable à la vue
         return view('accueil', compact('residences'));
