@@ -50,9 +50,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
             @foreach($reservations as $res)
                 @php
-                    /
                     $factureStatut = $res->status;
-
                     $dateArrivee = \Carbon\Carbon::parse($res->date_arrivee);
                     $dateDepart = \Carbon\Carbon::parse($res->date_depart);
                     $jours = $dateDepart->diffInDays($dateArrivee);
