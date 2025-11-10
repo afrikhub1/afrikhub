@@ -67,21 +67,13 @@
 
             <!-- desktop links -->
             {{-- Assurez-vous que l'utilisateur est connecté et que le statut est 'professionnel' --}}
-            @if(Auth::check())
-                @php
-                    $userType = Auth::user()->type_compte;
-                    $isPro = strtolower($userType) == 'professionnel';
-                    $isClient = strtolower($userType) == 'client';
-                @endphp
-                {{-- Votre condition d'affichage devrait être : --}}
-                @if($isPro)
-                    <div class="d-none d-lg-flex align-items-center ms-3">
-                        <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
-                        <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
-                        <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
-                        <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
-                    </div>
-                @endif
+            @if(Auth::user()->type_compte == 'professionnel')
+                <div class="d-none d-lg-flex align-items-center ms-3">
+                    <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
+                    <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
+                    <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
+                    <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+                </div>
             @endif
 
             <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
