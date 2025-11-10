@@ -127,7 +127,7 @@
                     Réservation
                 </a>
 
-                <a href="#" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                <a href="{{ route('dashboard') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
                     <i class="fas fa-user mr-1"></i> Mon Compte
                 </a>
 
