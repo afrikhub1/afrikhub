@@ -242,123 +242,87 @@
         });
       });
     });
+  </script>
 
-        (function(){
-            const prix = Number({{ $residence->prix_journalier ?? 55000 }});
-            const residenceId = {{ $residence->id }};
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const d1 = document.getElementById('date_arrivee');
+    const d2 = document.getElementById('date_depart');
+    const pref = document.getElementById('prefacture');
+    const joursEl = document.getElementById('jours');
+    const totalEl = document.getElementById('total');
+    const btnConf = document.getElementById('btnConfirmer');
+    const validation = document.getElementById('validationMessage');
+    const form = document.getElementById('reservationForm');
+    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    const reservationModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    const btnFinal = document.getElementById('btnFinalSubmit');
 
-            document.addEventListener('DOMContentLoaded', () => {
-                const d1 = document.getElementById('date_arrivee');
-                const d2 = document.getElementById('date_depart');
-                const pref = document.getElementById('prefacture');
-                const joursEl = document.getElementById('jours');
-                const totalEl = document.getElementById('total');
-                const btnConf = document.getElementById('btnConfirmer');
-                const validation = document.getElementById('validationMessage');
-                const form = document.getElementById('reservationForm');
-                const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-                const reservationModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
-                const confirmationMessage = document.getElementById('confirmationMessage');
-                const btnFinal = document.getElementById('btnFinalSubmit');
+    const prix = Number({{ $residence->prix_journalier ?? 55000 }});
 
-                function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
+    function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
 
-async function mettreAJourDateDisponible(residenceId) {
-
-    alert("→ Début fonction : mise à jour date dispo pour ID = " + residenceId);
-
-    try {
-        const url = `/residences/${residenceId}/date-disponible`;
-        alert("→ Appel URL : " + url);
-
-        const response = await fetch(url);
-
-        alert("→ fetch OK, statut = " + response.status);
-
-        const data = await response.json();
-
-        alert("→ JSON reçu : " + JSON.stringify(data));
-
-        if (data.date_disponible) {
-            const inputDate = document.getElementById("date_arrivee"); // ou ton input
-            inputDate.value = data.date_disponible;
-
-            alert("✅ Date mise à jour → " + data.date_disponible);
-        } else {
-            alert("⚠ Pas de date_disponible dans la réponse !");
+    function calc(){
+        if(!d1.value || !d2.value){
+            pref.classList.add('d-none');
+            btnConf.disabled = true;
+            return;
         }
 
-    } catch (error) {
-        alert("❌ ERREUR : " + error);
+        const start = new Date(d1.value + 'T00:00:00');
+        const end = new Date(d2.value + 'T00:00:00');
+        const today = new Date(); today.setHours(0,0,0,0);
+
+        if(start < today){
+            validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
+            validation.classList.remove('d-none');
+            pref.classList.add('d-none');
+            btnConf.disabled = true;
+            return;
+        }
+
+        if(end <= start){
+            validation.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée.";
+            validation.classList.remove('d-none');
+            pref.classList.add('d-none');
+            btnConf.disabled = true;
+            return;
+        }
+
+        const nights = Math.round((end - start)/(1000*60*60*24));
+        const total = nights * prix;
+
+        joursEl.textContent = nights;
+        totalEl.textContent = formatFCFA(total);
+        pref.classList.remove('d-none');
+        btnConf.disabled = false;
+        validation.classList.add('d-none');
     }
 
-}
+    d1.addEventListener('change', calc);
+    d2.addEventListener('change', calc);
 
-                async function calc() {
-                    // Vérifie la date minimale disponible
-                    const dispoOk = await checkDisponibiliteViaModel();
-                    if(!dispoOk) return;
+    // Soumission formulaire
+    form.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        calc();
+        if(btnConf.disabled) return;
 
-                    if(!d1.value || !d2.value){
-                        pref.classList.add('d-none');
-                        btnConf.disabled = true;
-                        return;
-                    }
+        const nights = Number(joursEl.textContent || 0);
+        const total = nights * prix;
+        confirmationMessage.innerHTML = `Vous réservez <strong>${nights}</strong> nuit(s) pour <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
 
-                    const start = new Date(d1.value + 'T00:00:00');
-                    const end = new Date(d2.value + 'T00:00:00');
-                    const today = new Date(); today.setHours(0,0,0,0);
+        reservationModal.hide();
+        confirmationModal.show();
+    });
 
-                    if(start < today){
-                        validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
-                        validation.classList.remove('d-none');
-                        pref.classList.add('d-none');
-                        btnConf.disabled = true;
-                        return;
-                    }
-                    if(end <= start){
-                        validation.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée.";
-                        validation.classList.remove('d-none');
-                        pref.classList.add('d-none');
-                        btnConf.disabled = true;
-                        return;
-                    }
+    btnFinal.addEventListener('click', () => {
+        confirmationModal.hide();
+        form.submit();
+    });
+});
+</script>
 
-                    const nights = Math.round((end - start)/(1000*60*60*24));
-                    const total = nights * prix;
-
-                    joursEl.textContent = nights;
-                    totalEl.textContent = formatFCFA(total);
-                    pref.classList.remove('d-none');
-
-                    btnConf.disabled = false;
-                    validation.classList.add('d-none');
-                }
-
-
-                d1?.addEventListener('change', calc);
-                d2?.addEventListener('change', calc);
-
-                // Soumission formulaire
-                form?.addEventListener('submit', async (ev) => {
-                    ev.preventDefault();
-                    await calc();
-                    if(btnConf.disabled) return;
-
-                    const nights = Number(joursEl.textContent || 0);
-                    const total = nights * prix;
-                    confirmationMessage.innerHTML = `Vous réservez <strong>${nights}</strong> nuit(s) pour <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
-
-                    reservationModal.hide();
-                    confirmationModal.show();
-                });
-
-                btnFinal?.addEventListener('click', () => {
-                    confirmationModal.hide();
-                    form.submit();
-                });
-            });
-        })();
-  </script>
 </body>
 </html>
