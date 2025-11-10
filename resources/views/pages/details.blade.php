@@ -61,9 +61,11 @@
     <!-- desktop links -->
     <div class="d-none d-lg-flex align-items-center ms-3">
       <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
-      <a class="nav-link me-3" href="{{ route('dashboard') }}">Mon Espace</a>
-      <a class="nav-link me-3" href="{{ route('historique') }}">Historique</a>
-      <a class="btn btn-header ms-2" href="{{ route('login') }}">Se connecter</a>
+      <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
+      <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
+      <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+      <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
+      <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
     </div>
 
     <!-- mobile menu button -->
@@ -81,12 +83,12 @@
     <div class="mb-4 text-center">
       <h5 class="fw-bold text-white mt-2">MENU</h5>
     </div>
-
-    <a class="sidebar-link" href="{{ route('accueil') }}"><i class="fas fa-home me-2"></i>Accueil</a>
+    <a class="sidebar-link" href="{{ route('dashboard') }}"><i class="fas fa-user me-2"></i>Profil</a>
     <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-search me-2"></i>Recherche</a>
-    <a class="sidebar-link" href="{{ route('dashboard') }}"><i class="fas fa-user me-2"></i>Mon compte</a>
+    <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-home me-2"></i>Résidences</a>
+    <a class="sidebar-link" href="{{ route('mes_demandes') }}"><i class="fas fa-home me-2"></i>Demandes</a>
     <a class="sidebar-link" href="{{ route('historique') }}"><i class="fas fa-history me-2"></i>Réservation</a>
-
+    <a class="sidebar-link" href="{{ route('accueil') }}"><i class="fas fa-home me-2"></i>Accueil</a>
     <div class="mt-4">
       <a class="btn btn-header w-100" href="{{ route('logout') }}"><i class="fa fa-sign-out me-2"></i>Déconnexion</a>
     </div>
