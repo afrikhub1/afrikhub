@@ -272,7 +272,7 @@
 
                         const data = await res.json();
 
-                        const dateDisponible = new Date(data.date_disponible);
+                        const dateDisponible = new Date(data.date_disponible + "T00:00:00");
                         const arrivee = new Date(d1.value);
 
                         if(arrivee < dateDisponible){
