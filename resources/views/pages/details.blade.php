@@ -77,6 +77,8 @@
                     <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
                 </div>
             @endif
+
+            <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
             <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
             <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
             </div>
@@ -97,11 +99,18 @@
     <div class="mb-4 text-center">
       <h5 class="fw-bold text-white mt-2">MENU</h5>
     </div>
-    <a class="sidebar-link" href="{{ route('dashboard') }}"><i class="fas fa-user me-2"></i>Profil</a>
-    <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-search me-2"></i>Recherche</a>
-    <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-home me-2"></i>Résidences</a>
-    <a class="sidebar-link" href="{{ route('mes_demandes') }}"><i class="fas fa-home me-2"></i>Demandes</a>
-    <a class="sidebar-link" href="{{ route('historique') }}"><i class="fas fa-history me-2"></i>Réservation</a>
+    @if(Auth::check() && Auth::user()->type_compte == 'professionnel')
+        <a class="sidebar-link" href="{{ route('dashboard') }}"><i class="fas fa-user me-2"></i>Profil</a>
+        <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-search me-2"></i>Recherche</a>
+        <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-home me-2"></i>Résidences</a>
+        <a class="sidebar-link" href="{{ route('mes_demandes') }}"><i class="fas fa-home me-2"></i>Demandes</a>
+        <a class="sidebar-link" href="{{ route('historique') }}"><i class="fas fa-history me-2"></i>Réservation</a>
+    @endif
+
+    @if(Auth::check() && Auth::user()->type_compte == 'client')
+        <a class="sidebar-link" href="{{ route('clients_historique') }}"><i class="fas fa-user me-2"></i>Profil</a>
+    @endif
+    <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
     <a class="sidebar-link" href="{{ route('accueil') }}"><i class="fas fa-home me-2"></i>Accueil</a>
     <div class="mt-4">
       <a class="btn btn-header w-100" href="{{ route('logout') }}"><i class="fa fa-sign-out me-2"></i>Déconnexion</a>
