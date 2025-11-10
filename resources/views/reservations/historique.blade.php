@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             @forelse($reservations as $res)
                 <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
                     @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
