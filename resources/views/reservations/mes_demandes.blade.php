@@ -57,7 +57,7 @@
 
                             <!-- AFFICHAGE DU STATUT -->
                             <div class="mt-4 mb-5">
-                                @if($res->status == 'en_attente')
+                                @if($res->status == 'en attente')
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-indigo-600 text-white rounded-full shadow-md">En attente de votre validation</span>
                                 @elseif($res->status == 'confirmée')
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-green-600 text-white rounded-full">Confirmée</span>
@@ -71,7 +71,7 @@
                             </div>
 
                             <!-- LOGIQUE D'ACTION : ACCEPT/REFUS -->
-                            @if($res->status == 'en_attente')
+                            @if($res->status == 'en attente')
                                 <div class="flex gap-3 justify-center mt-auto">
                                     <form action="{{ route('reservation.accepter', $res->id) }}" method="POST">
                                         @csrf
