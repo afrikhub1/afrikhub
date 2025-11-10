@@ -66,7 +66,7 @@
                     <div class="p-5 flex flex-col flex-grow text-center">
                         <div class="mb-3">
                             <span class="inline-block px-3 py-1 text-xs font-bold bg_success  rounded-full shadow-md">
-                               {{ $statusClass }}
+                               {{ $factureStatut }}
                             </span>
                         </div>
 
