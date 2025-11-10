@@ -106,7 +106,7 @@
                             @if($res->status == 'en attente')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
-                                    <button type="submit" class="w-full py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
+                                    <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
                                         Annuler
                                     </button>
                                 </form>
