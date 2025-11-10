@@ -108,10 +108,7 @@ class AdminController extends Controller
             // Validation du statut avec les valeurs autorisées
             'statut' => ['required', Rule::in(['verifiée', 'en_attente', 'desactive'])],
 
-            // La case 'Suspendre' n'a pas été incluse dans le modèle que vous avez fourni
-            // Si elle existe en DB (comme 'is_suspended'), utilisez-la, sinon ajustez la validation.
-            // J'assume ici qu'il s'agit du champ 'disponible' ou d'un champ admin comme 'is_suspended' que vous auriez dans la DB.
-            'is_suspended' => 'nullable|boolean', // Remplacer par 'disponible' si c'est ce champ qui gère l'accès
+            'is_suspended' => 'nullable|boolean',
 
             // Validation des images
             'img' => 'nullable|array|max:5', // Limite à 5 images
@@ -127,10 +124,10 @@ class AdminController extends Controller
             'ville' => $validated['ville'],
             'quartier' => $validated['quartier'],
             'statut' => $validated['statut'],
+
             // Assurez-vous d'utiliser le nom de champ correct pour la suspension/disponibilité
-            'disponible' => !$request->has('is_suspended'), // Logique inversée si 'is_suspended' veut dire "non disponible"
-            // OU
-            // 'is_suspended' => $request->has('is_suspended'),
+            'disponible' => !$request->has('is_suspended'),
+
         ]);
         // Note: La sauvegarde des champs simples sera faite par le fill/save ci-dessus.
 
