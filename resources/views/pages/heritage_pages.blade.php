@@ -160,7 +160,7 @@
 
 
 
-    <main class="container mx-auto p-2">
+    <main class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
         {{-- Messages de succès --}}
         @if(session('success'))
             <div class="bg-green-100 border-l-4 border-green-500     text-green-700 p-4 rounded-lg mb-4 shadow-md text-center">
