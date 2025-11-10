@@ -115,12 +115,22 @@
                                 </form>
                             @endif
 
+                            @if($res->status == 'confirmée')
+                                <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer
+                                    </button>
+                                </form>
+
+                            @else
                             {{-- Assurez-vous que la route 'rebook' existe --}}
                             <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
                                 <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
                                     Renouveler
                                 </button>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>
