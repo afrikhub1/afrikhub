@@ -117,7 +117,7 @@ class ReservationController extends Controller
 
         Residence::where('id', $reservation->residence_id)->update([
             'disponible' => 0, // ou 1 si tu veux qu'elle reste disponible après ces 2 jours
-            'date_disponible' => $dateDisponible,
+            'date_disponible_apres' => $dateDisponible,
         ]);
 
         return back()->with('success', 'Réservation acceptée ✅, date de disponibilité mise à jour');
