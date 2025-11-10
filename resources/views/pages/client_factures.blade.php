@@ -52,7 +52,7 @@
             @forelse($reservations as $res)
                 @php
                     // Détermine si la facture est considérée comme payée ou en attente
-                    $factureStatut = ($res->status == 'terminée' || $res->status == 'payée') ? 'payée' : 'en_attente';
+                    $factureStatut = ($res->status == 'payée');
 
                     $statusClass = [
                         'en_attente' => 'bg-orange-600 text-white',
