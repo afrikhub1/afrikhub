@@ -67,7 +67,7 @@
 
             <!-- desktop links -->
             {{-- Assurez-vous que l'utilisateur est connecté et que le statut est 'professionnel' --}}
-            @if(Auth::check() && Auth::user()->type_compte == 'professionnel')
+            @if(Auth::check() && strtolower(Auth::user()->type_compte) != 'client')
 
                 <div class="d-none d-lg-flex align-items-center ms-3">
                     {{-- Boutons pour le statut "professionnel" --}}
@@ -99,7 +99,7 @@
     <div class="mb-4 text-center">
       <h5 class="fw-bold text-white mt-2">MENU</h5>
     </div>
-    @if(Auth::user()->type_compte == 'professionnel')
+     @if(Auth::check() && strtolower(Auth::user()->type_compte) != 'client')
         <a class="sidebar-link" href="{{ route('dashboard') }}"><i class="fas fa-user me-2"></i>Profil</a>
         <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-search me-2"></i>Recherche</a>
         <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-home me-2"></i>Résidences</a>
