@@ -25,12 +25,39 @@
     .btn-header{background:var(--primary);color:#fff;border-radius:25px;padding:8px 18px}
 
     /* SIDEBAR (off-canvas simple) */
-    #sidebar{position:fixed;top:0;right:0;height:100%;width:320px;max-width:90%;background:var(--dark);z-index:1060;transform:translateX(100%);transition:transform .28s;overflow:auto;padding:1.5rem}
-    #sidebar.active{transform:translateX(0)}
-    #sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1050;display:none}
+    #sidebar{position:fixed;
+        top:0;
+        right:0;
+        height:100%;
+        width:320px;
+        max-width:90%;
+        background:var(--dark);
+        z-index:1060;
+        transform:translateX(100%);
+        transition:transform .28s;
+        overflow:auto;
+        padding:1.5rem
+    }
+    #sidebar.active{
+        transform:translateX(0)
+    }
+    #sidebar-overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.45);
+        z-index:1050;
+        display:none
+    }
     #sidebar-overlay.active{display:block}
 
-    .sidebar-link{color:#e6e6e6;display:block;padding:.6rem .8rem;border-radius:8px;text-decoration:none}
+    .sidebar-link{
+        color:#e6e6e6;
+        display:block;
+        padding:.6rem .8rem;
+        border-radius:8px;
+        text-decoration:none;
+        text-align: center
+    }
     .sidebar-link:hover{background:#343a40;color:#fff}
 
     /* CARD */
@@ -105,7 +132,7 @@
         @if(Auth::user()->type_compte == 'client')
             <a class="sidebar-link" href="{{ route('clients_historique') }}"><i class="fas fa-user me-2"></i>Profil</a>
         @endif
-        <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
+        <a class="sidebar-link me-3" href="javascript:history.back()">Retour</a>
         <a class="sidebar-link" href="{{ route('accueil') }}"><i class="fas fa-home me-2"></i>Accueil</a>
         <div class="mt-4">
         <a class="btn btn-header w-100" href="{{ route('logout') }}"><i class="fa fa-sign-out me-2"></i>Déconnexion</a>
