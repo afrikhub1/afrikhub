@@ -66,11 +66,17 @@
             </div>
 
             <!-- desktop links -->
-            <div class="d-none d-lg-flex align-items-center ms-3">
-            <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
-            <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
-            <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
-            <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+            {{-- Assurez-vous que l'utilisateur est connecté et que le statut est 'professionnel' --}}
+            @if(Auth::check() && Auth::user()->type_compte == 'professionnel')
+
+                <div class="d-none d-lg-flex align-items-center ms-3">
+                    {{-- Boutons pour le statut "professionnel" --}}
+                    <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
+                    <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
+                    <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
+                    <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+                </div>
+            @endif
             <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
             <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
             </div>
