@@ -37,7 +37,7 @@ class LoginController extends Controller
             $route= 'client_dashboard';
         }
         else {
-            $route = 'dashboard';
+            $route = 'dashboards';
         }
 
         // Connexion
