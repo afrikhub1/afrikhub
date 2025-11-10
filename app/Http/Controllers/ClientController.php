@@ -43,10 +43,8 @@ class ClientController extends Controller
         }
 
         // Récupère uniquement les réservations qui peuvent servir de facture (payées, terminées ou confirmées)
-        $reservations = Reservation::where('user_id', Auth::id())
-            // Adaptez ces statuts pour qu'ils correspondent à vos statuts "facturables"
-            ->where('status','payée')
-            ->with('residence')
+        $reservations = Reservation::where('status', 'payé')
+            ->with('residence') // Charger la relation 'residence'
             ->orderByDesc('created_at')
             ->get();
 
