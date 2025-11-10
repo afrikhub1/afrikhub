@@ -32,7 +32,7 @@ class LoginController extends Controller
             ]);
         }
 
-        if ($user->type_compte == 'client') {
+        if ($user->type_compte == 'clients') {
 
             $route= 'client_dashboard';
         }
