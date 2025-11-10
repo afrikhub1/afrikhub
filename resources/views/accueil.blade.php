@@ -151,10 +151,15 @@
                                     </p>
                                     <ul class="list-unstyled small mb-3 mt-2">
                                         <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
-                                        <li><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Ville :</strong> {{ $residence->ville ?? '-' }}</li>
+                                        <i class="fas fa-bed me-2 text-primary"></i> <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}</li>
+                                        <li><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}</li>
                                         <li class="fw-bold mt-2">
                                             <i class="fas fa-money-bill-wave me-2 text-success"></i>
                                             Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
+                                        </li>
+                                        <li class="fw-bold mt-2 text-danger fw-600">
+                                            <i class="fas fa-calendar-check me-2"></i>
+                                            Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                         </li>
                                     </ul>
 

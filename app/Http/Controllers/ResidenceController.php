@@ -95,15 +95,21 @@ class ResidenceController extends Controller
     }
 
 
-    public function accueil(Request $request)
+    public function accueil()
     {
-        // Exemple de requête : récupérer les résidences selon la ville/quartier
-        $residences = Residence::where('statut', 'vérifiée')->get();
+        // Récupère les résidences vérifiées avec leurs réservations
+        $residences = Residence::with('reservations')
+            ->where('statut', 'vérifiée')
+            ->get();
 
-        // Passer la variable à la vue
+        // Ajoute la prochaine date disponible à chaque résidence
+        foreach ($residences as $residence) {
+            $residence->date_disponible = $residence->prochaineDisponibilite(2);
+        }
+
+        // Passe la variable à la vue
         return view('accueil', compact('residences'));
     }
-
 
     // Réserver à nouveau
     public function details($id)
