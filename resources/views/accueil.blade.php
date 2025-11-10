@@ -38,8 +38,8 @@
         </nav>
       </div>
     </header>
-
-    <!-- Section accueil -->
+<nav class="row col-12 justify-content-center">
+        <!-- Section accueil -->
     <section id="accueil" class="text-center py-5">
       <div>
         <h2>Bienvenue</h2>
@@ -51,14 +51,14 @@
     <!-- Section hébergement -->
     <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
       <h2>hébergements</h2>
-      <div class="row g-4 align-items-center col-lg-6 col-md-10">
+      <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
             <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Afrik'Hub Logo"/>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 col-md-8 col-lg-6">
           <div class="accordion" id="accordionHebergement">
             <div class="accordion-item border-0" style="background: #e0f2f1;">
-              <h2 class="accordion-header" id="headingTypes">
+              <h2 class="accordion-header mt-5" id="headingTypes">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTypes" aria-expanded="true" aria-controls="collapseTypes">
                   types d'hébergements
                 </button>
@@ -104,6 +104,8 @@
         </div>
       </div>
     </section>
+</nav>
+
 @endsection
 
 @section('footer')
