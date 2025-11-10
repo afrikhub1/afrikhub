@@ -106,7 +106,7 @@ class ResidenceController extends Controller
             ->whereDate('date_depart', '<', $today)
             ->update([
                 'disponible' => 1,
-                'date_depart' => null,
+                'date_depart_apres' => null,
             ]);
 
 
