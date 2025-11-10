@@ -56,7 +56,7 @@
 <body>
 
   <!-- NAVBAR -->
-    <header class="bg-dark">
+    <header class="bg-dark m-0">
         <nav class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
             <div class="d-flex items-center">
                 <a class="navbar-brand" href="{{ route('accueil') }}">
