@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Détails de la résidence</title>
 
+  <!-- Icônes / Bootstrap / Font -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- GLightbox (lightbox léger et mobile-friendly) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
 
   <style>
     :root{--primary:#ff7a00;--dark:#1a1a1a;--light:#f7f7f7}
@@ -37,10 +41,7 @@
     .btn-back{background:var(--dark);color:#fff;border-radius:30px;padding:9px 22px;text-decoration:none}
     .btn-reserver{background:var(--primary);color:#fff;border-radius:30px;padding:9px 22px;font-weight:600}
 
-    /* LIGHTBOX amélioré */
-    .modal-content.modal-light{background:rgba(0,0,0,.95);border:none}
-    .light-img{max-height:78vh;max-width:92vw;object-fit:contain;border-radius:10px}
-    .light-close{position:absolute;top:18px;right:18px;background:transparent;border:0;color:#fff;font-size:34px;cursor:pointer}
+    /* mini-thumbnails (optionnel) */
     #thumbs{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
     #thumbs img{width:84px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.65;transition:all .25s}
     #thumbs img.active,#thumbs img:hover{opacity:1;transform:scale(1.06);box-shadow:0 6px 18px rgba(0,0,0,.25)}
@@ -48,7 +49,6 @@
     /* responsive small tweaks */
     @media (max-width:576px){
       .residence-img{height:320px}
-      .light-img{max-height:70vh}
     }
   </style>
 </head>
@@ -66,7 +66,7 @@
       <a class="btn btn-header ms-2" href="{{ route('login') }}">Se connecter</a>
     </div>
 
-    <!-- mobile menu button (VISIBLE on all, but styled) -->
+    <!-- mobile menu button -->
     <button id="btnToggle" class="btn btn-link text-white ms-auto d-lg-none" aria-label="menu" type="button">
       <i class="fas fa-bars fa-lg"></i>
     </button>
@@ -108,7 +108,9 @@
     @endphp
 
     <article class="card custom mb-5">
-      <img src="{{ $first }}" alt="{{ $residence->nom }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal" />
+      <!-- Main image: ouvre GLightbox sur #gallery -->
+      <img src="{{ $first }}" alt="{{ $residence->nom }}" class="residence-img" id="mainPreview" data-glightbox="title: {{ addslashes($residence->nom) }}; description: " />
+
       <div class="card-body text-center">
         <h2 class="fw-bold">{{ $residence->nom }}</h2>
         <p class="price mb-2">{{ number_format($residence->prix_journalier,0,',',' ') }} FCFA / nuit</p>
@@ -122,17 +124,23 @@
       </div>
     </article>
 
-    {{-- Galerie invisible pour les autres images --}}
-        @if(is_array($images))
-            @foreach($images as $key => $image)
-                @if($key > 0)
-                    <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
-                @endif
-            @endforeach
-        @endif
+    <!-- Visible thumbnails (optionnel) -->
+    @if(count($images) > 1)
+      <div id="thumbs" class="mb-4">
+        @foreach($images as $i => $img)
+          <img src="{{ $img }}" data-index="{{ $i }}" class="{{ $i === 0 ? 'active' : '' }}" alt="thumb-{{ $i }}">
+        @endforeach
+      </div>
+    @endif
+
+    <!-- Hidden links for GLightbox gallery (one link per image) -->
+    @if(count($images))
+      @foreach($images as $i => $img)
+        <a href="{{ $img }}" class="glightbox" data-glightbox="description: {{ addslashes($residence->nom) }}; index: {{ $i }}" style="display:none;" data-gallery="res-{{ $residence->id }}"></a>
+      @endforeach
+    @endif
 
   </main>
-
 
   <!-- RESERVATION MODAL (tout inclus ici, pas d'include) -->
   <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
@@ -191,9 +199,10 @@
 
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"></script>
 
   <script>
-    // toggle sidebar (mobile menu) — simple et fiable
+    // Sidebar toggle
     const btnToggle = document.getElementById('btnToggle');
     btnToggle?.addEventListener('click', toggleSidebar);
     function toggleSidebar(){
@@ -201,17 +210,35 @@
       document.getElementById('sidebar-overlay').classList.toggle('active');
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-            // Initialisation GLightbox
-            GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      // Init GLightbox for all hidden anchors with .glightbox
+      const lightbox = GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true, slideEffect: 'slide' });
+
+      // make the main preview image open the lightbox at index 0
+      const mainPreview = document.getElementById('mainPreview');
+      const anchors = Array.from(document.querySelectorAll('a.glightbox'));
+      if(mainPreview && anchors.length){
+        mainPreview.addEventListener('click', (e) => {
+          e.preventDefault();
+          // open at index 0 (GLightbox indexes from 0)
+          lightbox.openAt(0);
         });
+      }
 
+      // Thumbnails: when clicked, open GLightbox at the proper index
+      document.querySelectorAll('#thumbs img').forEach(img => {
+        img.addEventListener('click', () => {
+          const idx = Number(img.dataset.index || 0);
+          lightbox.openAt(idx);
+          document.querySelector('#thumbs img.active')?.classList.remove('active');
+          img.classList.add('active');
+        });
+      });
+    });
 
-    // reservation logic (calcul prefacture + confirmation)
+    // Reservation logic (calcul prefacture + confirmation)
     (function(){
-      const residenceData = { prix_journalier: {{ $residence->prix_journalier ?? 55000 }} };
-      const prix = Number(residenceData.prix_journalier);
-
+      const prix = Number({{ $residence->prix_journalier ?? 55000 }});
       document.addEventListener('DOMContentLoaded', () => {
         const d1 = document.getElementById('date_arrivee');
         const d2 = document.getElementById('date_depart');
@@ -264,7 +291,6 @@
         });
 
         btnFinal?.addEventListener('click', () => {
-          // soumission finale
           confirmationModal.hide();
           form.submit();
         });
