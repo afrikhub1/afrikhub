@@ -122,15 +122,21 @@
                                         <i class="fas fa-credit-card mr-1"></i> Payer
                                     </button>
                                 </form>
-
-                            @else
+                            @endif
+                            @if($res->status == 'en attente')
+                                <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
+                                        Annuler
+                                    </button>
+                                </form>
+                            @endif
                             {{-- Assurez-vous que la route 'rebook' existe --}}
                             <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
                                 <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
                                     Renouveler
                                 </button>
                             </form>
-                            @endif
                         </div>
                     </div>
                 </div>
