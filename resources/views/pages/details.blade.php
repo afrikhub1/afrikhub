@@ -67,15 +67,28 @@
 
             <!-- desktop links -->
             {{-- Assurez-vous que l'utilisateur est connecté et que le statut est 'professionnel' --}}
-            @if(Auth::check() && strtolower(Auth::user()->type_compte) != 'client')
+            @if(Auth::check())
+                @php
+                    $userType = Auth::user()->type_compte;
+                    $isPro = strtolower($userType) == 'professionnel';
+                    $isClient = strtolower($userType) == 'client';
+                @endphp
 
-                <div class="d-none d-lg-flex align-items-center ms-3">
-                    {{-- Boutons pour le statut "professionnel" --}}
-                    <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
-                    <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
-                    <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
-                    <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+                <div style="background-color: #ffe0b2; border: 2px solid orange; padding: 10px; margin-bottom: 20px;">
+                    <p>VALEUR DB : <strong>{{ $userType }}</strong></p>
+                    <p>Test 'professionnel' : {{ $isPro ? 'VRAI' : 'FAUX' }}</p>
+                    <p>Test 'client' : {{ $isClient ? 'VRAI' : 'FAUX' }}</p>
                 </div>
+
+                {{-- Votre condition d'affichage devrait être : --}}
+                @if($isPro)
+                    <div class="d-none d-lg-flex align-items-center ms-3">
+                        <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
+                        <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
+                        <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
+                        <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+                    </div>
+                @endif
             @endif
 
             <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
@@ -99,7 +112,7 @@
     <div class="mb-4 text-center">
       <h5 class="fw-bold text-white mt-2">MENU</h5>
     </div>
-     @if(Auth::check() && strtolower(Auth::user()->type_compte) != 'client')
+    @if(Auth::user()->type_compte == 'professionnel')
         <a class="sidebar-link" href="{{ route('dashboard') }}"><i class="fas fa-user me-2"></i>Profil</a>
         <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-search me-2"></i>Recherche</a>
         <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-home me-2"></i>Résidences</a>
