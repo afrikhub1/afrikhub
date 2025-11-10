@@ -4,11 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Détails de la résidence</title>
-    <!-- Icônes / Bootstrap / Font -->
+
+  <!-- Icônes / Bootstrap / Font -->
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- GLightbox (lightbox léger et mobile-friendly) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
 
@@ -243,94 +245,66 @@
       });
     });
 
+    // Reservation logic (calcul prefacture + confirmation)
     (function(){
-        const prix = Number({{ $residence->prix_journalier ?? 55000 }});
-        document.addEventListener('DOMContentLoaded', () => {
-            const d1 = document.getElementById('date_arrivee');
-            const d2 = document.getElementById('date_depart');
-            const pref = document.getElementById('prefacture');
-            const joursEl = document.getElementById('jours');
-            const totalEl = document.getElementById('total');
-            const btnConf = document.getElementById('btnConfirmer');
-            const validation = document.getElementById('validationMessage');
-            const form = document.getElementById('reservationForm');
-            const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-            const reservationModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
-            const confirmationMessage = document.getElementById('confirmationMessage');
-            const btnFinal = document.getElementById('btnFinalSubmit');
-            const residenceId = {{ $residence->id }};
+      const prix = Number({{ $residence->prix_journalier ?? 55000 }});
+      document.addEventListener('DOMContentLoaded', () => {
+        const d1 = document.getElementById('date_arrivee');
+        const d2 = document.getElementById('date_depart');
+        const pref = document.getElementById('prefacture');
+        const joursEl = document.getElementById('jours');
+        const totalEl = document.getElementById('total');
+        const btnConf = document.getElementById('btnConfirmer');
+        const validation = document.getElementById('validationMessage');
+        const form = document.getElementById('reservationForm');
+        const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        const reservationModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        const btnFinal = document.getElementById('btnFinalSubmit');
 
-            function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
+        function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
 
-            async function checkDisponibilite() {
-            if(!d1.value || !d2.value) return true; // pas de dates, assume dispo
-            try {
-                const res = await fetch(`/residences/${residenceId}/check-disponibilite?date_arrivee=${d1.value}&date_depart=${d2.value}`);
-                const data = await res.json();
-                return data.disponible;
-            } catch(e) {
-                console.error(e);
-                return false;
-            }
-            }
+        function calc(){
+          validation.classList.add('d-none');
+          if(!d1.value || !d2.value){ pref.classList.add('d-none'); btnConf.disabled = true; return; }
 
-            async function calc(){
-            validation.classList.add('d-none');
-            if(!d1.value || !d2.value){ pref.classList.add('d-none'); btnConf.disabled = true; return; }
+          const start = new Date(d1.value);
+          const end = new Date(d2.value);
+          const today = new Date(); today.setHours(0,0,0,0);
 
-            const start = new Date(d1.value);
-            const end = new Date(d2.value);
-            const today = new Date(); today.setHours(0,0,0,0);
+          if(start < today){ validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui."; validation.classList.remove('d-none'); pref.classList.add('d-none'); btnConf.disabled = true; return; }
+          if(end <= start){ validation.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée."; validation.classList.remove('d-none'); pref.classList.add('d-none'); btnConf.disabled = true; return; }
 
-            if(start < today){
-                validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
-                validation.classList.remove('d-none'); pref.classList.add('d-none'); btnConf.disabled = true; return;
-            }
-            if(end <= start){
-                validation.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée.";
-                validation.classList.remove('d-none'); pref.classList.add('d-none'); btnConf.disabled = true; return;
-            }
+          const ms = end - start;
+          const nights = Math.round(ms / (1000*60*60*24));
+          const total = nights * prix;
 
-            const ms = end - start;
-            const nights = Math.round(ms / (1000*60*60*24));
-            const total = nights * prix;
+          joursEl.textContent = nights;
+          totalEl.textContent = formatFCFA(total);
+          pref.classList.remove('d-none');
+          btnConf.disabled = false;
+        }
 
-            joursEl.textContent = nights;
-            totalEl.textContent = formatFCFA(total);
-            pref.classList.remove('d-none');
+        d1?.addEventListener('change', calc);
+        d2?.addEventListener('change', calc);
 
-            const dispo = await checkDisponibilite();
-            if(!dispo){
-                validation.textContent = "Cette résidence est déjà réservée pour les dates sélectionnées.";
-                validation.classList.remove('d-none');
-                btnConf.disabled = true;
-            } else {
-                validation.classList.add('d-none');
-                btnConf.disabled = false;
-            }
-            }
-
-            d1?.addEventListener('change', calc);
-            d2?.addEventListener('change', calc);
-
-            form?.addEventListener('submit', async (ev) => {
-            ev.preventDefault();
-            await calc();
-            if(btnConf.disabled) return;
-            const nights = Number(joursEl.textContent || 0);
-            const total = nights * prix;
-            confirmationMessage.innerHTML = `Vous réservez <strong>${nights}</strong> nuit(s) pour <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
-            reservationModal.hide();
-            confirmationModal.show();
-            });
-
-            btnFinal?.addEventListener('click', () => {
-            confirmationModal.hide();
-            form.submit();
-            });
+        form?.addEventListener('submit', (ev) => {
+          ev.preventDefault();
+          calc();
+          if(btnConf.disabled) return;
+          const nights = Number(joursEl.textContent || 0);
+          const total = nights * prix;
+          confirmationMessage.innerHTML = `Vous réservez <strong>${nights}</strong> nuit(s) pour <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
+          reservationModal.hide();
+          confirmationModal.show();
         });
-        })();
 
+        btnFinal?.addEventListener('click', () => {
+          confirmationModal.hide();
+          form.submit();
+        });
+      });
+    })();
   </script>
 </body>
 </html>
