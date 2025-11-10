@@ -56,34 +56,37 @@
 <body>
 
   <!-- NAVBAR -->
-    <nav class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
-        <div class="d-flex items-center">
-            <a class="navbar-brand" href="{{ route('accueil') }}">
-                <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
-            </a>
-        </div>
-
-        <div class="container-fluid d-flex justify-content-end align-items-center px-3 px-md-4">
-            @if(Auth::user()->type_compte == 'professionnel')
-                <div class="d-none d-lg-flex align-items-center ms-3">
-                    <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
-                    <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
-                    <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
-                    <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
-                </div>
-            @endif
-
-            <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
-            <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
-            <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
+    <header class="bg-dark">
+        <nav class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
+            <div class="d-flex items-center">
+                <a class="navbar-brand" href="{{ route('accueil') }}">
+                    <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+                </a>
             </div>
-        </div>
 
-        <!-- mobile menu button -->
-        <button id="btnToggle" class="btn btn-link text-white ms-auto d-lg-none" aria-label="menu" type="button">
-        <i class="fas fa-bars fa-lg"></i>
-        </button>
-  </nav>
+            <div class="container-fluid d-flex justify-content-end align-items-center px-3 px-md-4">
+                @if(Auth::user()->type_compte == 'professionnel')
+                    <div class="d-none d-lg-flex align-items-center ms-3">
+                        <a class="nav-link me-3" href="{{ route('recherche') }}">Résidences</a>
+                        <a class="nav-link me-3" href="{{ route('dashboard') }}">Profil</a>
+                        <a class="nav-link me-3" href="{{ route('mes_demandes') }}">Demandes</a>
+                        <a class="nav-link me-3" href="{{ route('historique') }}">Reservations</a>
+                    </div>
+                @endif
+
+                <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
+                <a class="nav-link me-3" href="{{ route('accueil') }}">Accueil</a>
+                <a class="btn btn-header ms-2" href="{{ route('logout') }}">Quitterr</a>
+                </div>
+            </div>
+
+            <!-- mobile menu button -->
+            <button id="btnToggle" class="btn btn-link text-white ms-auto d-lg-none" aria-label="menu" type="button">
+            <i class="fas fa-bars fa-lg"></i>
+            </button>
+        </nav>
+    </header>
+
 
   <!-- SIDEBAR + OVERLAY -->
   <div id="sidebar-overlay" onclick="toggleSidebar()"></div>

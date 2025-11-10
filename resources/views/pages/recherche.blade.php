@@ -168,7 +168,7 @@
                 @endif
 
                 @if(Auth::user()->type_compte == 'client')
-                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold mx-2">Profil</a>
+                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold fa-user-circle mx-2">Profil</a>
                 @endif
             </li>
             <a href="javascript:history.back()" class="nav-link text-white fw-bold">Retour</a>
