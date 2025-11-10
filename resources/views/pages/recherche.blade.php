@@ -171,6 +171,7 @@
                     <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
                 @endif
             </li>
+            <a class="nav-link me-3" href="javascript:history.back()">Retour</a>
             <li class="nav-item mx-2">
                 <!-- Bouton orange pour contraste élevé -->
                 <a href="{{ route('logout') }}" class="btn btn-custom-primary btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
