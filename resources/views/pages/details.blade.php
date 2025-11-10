@@ -264,31 +264,51 @@
                 function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
 
                 // Vérifie la disponibilité via endpoint serveur
-                async function checkDisponibilite() {
-                    if(!d1.value || !d2.value) return true; // si pas de dates, assume dispo
+                async function checkDisponibiliteViaModel() {
+                    if(!d1.value) return true;
+
                     try {
-                        const res = await fetch(`/residences/${residenceId}/check-disponibilite?date_arrivee=${d1.value}&date_depart=${d2.value}`);
+                        const res = await fetch("{{ route('residence.date-disponible', $residence->id) }}")
+
                         const data = await res.json();
-                        return data.disponible;
-                    } catch(e) {
+
+                        const dateDisponible = new Date(data.date_disponible);
+                        const arrivee = new Date(d1.value);
+
+                        if(arrivee < dateDisponible){
+                            validation.textContent = `Cette résidence n'est pas disponible avant le ${dateDisponible.toLocaleDateString()}`;
+                            validation.classList.remove('d-none');
+                            btnConf.disabled = true;
+                            return false;
+                        }
+
+                        validation.classList.add('d-none');
+                        btnConf.disabled = false;
+                        return true;
+
+                    } catch(e){
                         console.error(e);
+                        btnConf.disabled = true;
                         return false;
                     }
                 }
 
+
                 async function calc() {
-                    validation.classList.add('d-none');
+                    // Vérifie la date minimale disponible
+                    const dispoOk = await checkDisponibiliteViaModel();
+                    if(!dispoOk) return;
+
                     if(!d1.value || !d2.value){
                         pref.classList.add('d-none');
                         btnConf.disabled = true;
                         return;
                     }
 
-                    const start = new Date(d1.value);
-                    const end = new Date(d2.value);
+                    const start = new Date(d1.value + 'T00:00:00');
+                    const end = new Date(d2.value + 'T00:00:00');
                     const today = new Date(); today.setHours(0,0,0,0);
 
-                    // Validation dates
                     if(start < today){
                         validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
                         validation.classList.remove('d-none');
@@ -304,26 +324,17 @@
                         return;
                     }
 
-                    // Calcul du nombre de nuits et total
-                    const ms = end - start;
-                    const nights = Math.round(ms / (1000*60*60*24));
+                    const nights = Math.round((end - start)/(1000*60*60*24));
                     const total = nights * prix;
 
                     joursEl.textContent = nights;
                     totalEl.textContent = formatFCFA(total);
                     pref.classList.remove('d-none');
 
-                    // Vérifie disponibilité
-                    const dispo = await checkDisponibilite();
-                    if(!dispo){
-                        validation.textContent = "Cette résidence est déjà réservée pour les dates sélectionnées ou en nettoyage.";
-                        validation.classList.remove('d-none');
-                        btnConf.disabled = true;
-                    } else {
-                        validation.classList.add('d-none');
-                        btnConf.disabled = false;
-                    }
+                    btnConf.disabled = false;
+                    validation.classList.add('d-none');
                 }
+
 
                 d1?.addEventListener('change', calc);
                 d2?.addEventListener('change', calc);

@@ -111,7 +111,9 @@ Route::post('/reservation/{id}/refuser', [ReservationController::class, 'refuser
 // Rebooking
 Route::get('/reservation/{id}/rebook', [ReservationController::class, 'rebook'])->name('rebook');
 
-Route::get('/residences/{residenceId}/check-disponibilite', [ReservationController::class, 'checkDisponibilite']);
+Route::get('/residences/{residence}/date-disponible', [ResidenceController::class, 'getDateDisponible'])
+    ->name('residence.date-disponible');
+
 
 Route::post('residences/{id}/activation', [AdminController::class, 'activation'])->name('admin.residences.activation');
 
