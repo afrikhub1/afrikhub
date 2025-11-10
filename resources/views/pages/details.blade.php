@@ -57,7 +57,7 @@
 
   <!-- NAVBAR -->
     <nav class="navbar fixed-top bg-dark text-white p-3 shadow-lg">
-        <div class="container-fluid d-flex justify-content-between align-items-center px-3 px-md-4">
+        <div class="container-fluid d-flex justify-content-end align-items-center px-3 px-md-4">
 
             <div class="flex items-center">
                 <a class="navbar-brand" href="{{ route('accueil') }}">
