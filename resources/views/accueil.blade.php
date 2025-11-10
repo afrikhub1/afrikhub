@@ -113,7 +113,7 @@
                     <i class="fas fa-exclamation-triangle me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
                 </div>
             @else
-                <div class="row g-4 justify-content-center">
+                <div class="row g-4 justify-content-center my-2">
                     @foreach($residences as $residence)
                         @php
                             $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
@@ -121,7 +121,7 @@
                             $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
                         @endphp
 
-                        <div class="col-sm-6 col-md-6 col-lg-4 d-flex">
+                        <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
                             <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
                                 <a href="javascript:void(0)"
                                    class="glightbox-trigger-{{ $residence->id }}">
