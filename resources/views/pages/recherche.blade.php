@@ -16,14 +16,16 @@
             --color-primary-hover: #CC7000;
             --color-secondary: #212529; /* Dark Bootstrap */
             --color-background: #F8F9FA; /* Light Gray */
+            --footer-height: 60px; /* Hauteur estimée pour le footer fixe */
         }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-background);
-            /* RETIRÉ: padding-top pour s'adapter au header sticky */
+            /* Ajout du padding-bottom pour laisser de la place au footer fixe */
+            padding-bottom: var(--footer-height);
         }
 
-        /* Boutons personnalisés */
+        /* Boutons personnalisés (Orange Primaire) */
         .btn-custom-primary {
             background-color: var(--color-primary);
             border-color: var(--color-primary);
@@ -35,6 +37,7 @@
             border-color: var(--color-primary-hover);
             color: white;
         }
+        /* Boutons personnalisés (Sombre Secondaire) */
         .btn-dark-secondary {
             background-color: var(--color-secondary);
             border-color: var(--color-secondary);
@@ -71,7 +74,7 @@
             overflow: hidden;
         }
 
-        /* Style spécifique pour la Sidebar Coulissante (amélioration de la lecture) */
+        /* Style spécifique pour la Sidebar Coulissante */
         #sidebar {
             transition: transform 0.3s ease-in-out;
             transform: translateX(100%);
@@ -79,7 +82,7 @@
             top: 0;
             right: 0;
             width: 100%;
-            max-width: 300px; /* Légèrement plus petit pour Desktop */
+            max-width: 300px;
             z-index: 1060;
             height: 100%;
             background-color: var(--color-secondary);
@@ -94,6 +97,8 @@
             color: #dee2e6;
             padding: 12px 15px;
             font-weight: 500;
+            /* SUPPRESSION DU SOULIGNEMENT DES LIENS */
+            text-decoration: none;
         }
         .sidebar-link:hover {
             background-color: #343a40;
@@ -116,10 +121,9 @@
         /* HEADER - Ajustements pour la responsivité */
         @media (max-width: 991.98px) {
             .navbar-nav {
-                display: none !important; /* Cache les liens de bureau sur mobile/tablette */
+                display: none !important;
             }
             .search-form-container {
-                /* Réduit la largeur de la recherche sur les petits écrans */
                 max-width: 90%;
                 margin: 0 auto;
             }
@@ -130,8 +134,8 @@
 
 <body>
 
-{{-- HEADER (NON FIXE) --}}
-<header class="bg-white shadow">
+{{-- HEADER (NON FIXE) - Thème Sombre et Orange --}}
+<header class="bg-dark shadow">
     <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
 
         <!-- Brand/Logo -->
@@ -158,10 +162,12 @@
         <!-- User Actions (Desktop) -->
         <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4">
             <li class="nav-item mx-2">
-                <a href="{{ route('dashboard') }}" class="nav-link text-secondary fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
+                <!-- Texte blanc sur fond sombre -->
+                <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
             </li>
             <li class="nav-item mx-2">
-                <a href="{{ route('logout') }}" class="btn btn-dark-secondary btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
+                <!-- Bouton orange pour contraste élevé -->
+                <a href="{{ route('logout') }}" class="btn btn-custom-primary btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
                     <i class="fa fa-sign-out me-2"></i> Déconnexion
                 </a>
             </li>
@@ -169,7 +175,8 @@
 
         <!-- Menu Button (Visible sur TOUS les écrans) -->
         <button id="toggleSidebar" class="btn btn-link ms-3 p-0" type="button" aria-label="Menu">
-             <i class="fas fa-bars fa-lg text-secondary"></i>
+             <!-- Icône blanche sur fond sombre -->
+             <i class="fas fa-bars fa-lg text-white"></i>
         </button>
     </div>
 </header>
@@ -200,7 +207,7 @@
         <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes de Réservations</a>
 
         <div class="mt-4 pt-3 border-top border-secondary">
-            <a href="{{ route('logout') }}" class="btn btn-logout rounded-pill w-100 shadow">
+            <a href="{{ route('logout') }}" class="btn btn-custom-primary rounded-pill w-100 shadow">
                 <i class="fa fa-sign-out me-2"></i> Déconnexion
             </a>
         </div>
@@ -279,8 +286,8 @@
     </div>
 </div>
 
-{{-- PIED DE PAGE (NON FIXE) --}}
-<footer class="bg-dark text-white-50 mt-5 py-4">
+{{-- PIED DE PAGE (FIXE EN BAS) --}}
+<footer class="bg-dark text-white-50 py-3 fixed-bottom shadow-lg">
     <div class="container text-center">
         <p class="mb-0">© {{ date('Y') }} Afrik'hub. Tous droits réservés.</p>
         <p class="small">Plateforme de Résidences Meublées.</p>
