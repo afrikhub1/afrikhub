@@ -7,7 +7,7 @@
 @endsection
 
 @section('main')
-    <div class="container mx-auto p-2">
+    <div class="container mx-auto p-2 ">
         {{-- Alerts success / danger --}}
         @if (session('success'))
             <div id="alert-success" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-green-50 border-l-4 border-green-600 shadow text-center">
@@ -53,7 +53,10 @@
                         $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                     @endphp
 
-                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
+                    <div class="residence-item  data-name='{{ $residence->nom }}'
+                        data-status='{{ $reservationEnCours?->status ?? 'aucune' }}'
+                        bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50
+                        transition duration-300 transform hover:scale-[1.01] border border-gray-100">
 
                         {{-- Image principale --}}
                         <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">

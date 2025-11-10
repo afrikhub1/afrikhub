@@ -16,7 +16,7 @@
 
         <div class="flex items-center space-x-2 py-3 border-t border-gray-800">
             <div class="relative flex-grow">
-                <input type="text" id="searchInput" placeholder="Rechercher par nom de résidence..."
+                <input type="text" id="searchInput" placeholder="Rechercher par nom ou statut de résidence..."
                        class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150"
                        onkeyup="filterElements()">
                 <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -65,25 +65,32 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Logique existante de la sidebar
+    // Éléments de la sidebar
     const toggleButton = document.getElementById('toggleSidebar');
     const closeButton = document.getElementById('closeSidebar');
     const sidebar = document.getElementById('sidebar');
 
+    // Éléments de recherche
+    const searchInput = document.getElementById('searchInput');
+    const searchOption = document.getElementById('searchOption');
+
+    // Logique de la sidebar
     if (toggleButton && sidebar) {
         toggleButton.addEventListener('click', function() {
             sidebar.classList.add('active');
         });
     }
-
     if (closeButton && sidebar) {
         closeButton.addEventListener('click', function() {
             sidebar.classList.remove('active');
         });
     }
 
-    // Logique AJOUTÉE pour le filtre de recherche (Ciblant les Résidences)
-    const searchOption = document.getElementById('searchOption');
+    // Logique AJOUTÉE pour le filtre de recherche
+
+    // 1. L'événement 'keyup' est géré via l'attribut onkeyup="filterElements()" dans le HTML de l'input.
+
+    // 2. Écouteur pour le changement d'option
     if (searchOption) {
         searchOption.addEventListener('change', filterElements);
     }
@@ -97,22 +104,23 @@ function filterElements() {
     const input = document.getElementById('searchInput');
     const filter = input.value.toUpperCase();
     const option = document.getElementById('searchOption').value;
-    // Cible tous les éléments de résidence dans la page
+
+    // Assurez-vous que vos éléments de liste ont bien la classe 'residence-item'
     const residenceItems = document.querySelectorAll('.residence-item');
 
     residenceItems.forEach(item => {
-        let textValue;
+        let textValue = ''; // Initialiser à vide
 
         if (option === 'name') {
             // Utilise l'attribut data-name pour le nom de la résidence
-            textValue = item.getAttribute('data-name');
+            textValue = item.getAttribute('data-name') || ''; // Utilise chaîne vide si attribut manquant
         } else { // 'all'
             // Utilise tout le contenu textuel de la carte de résidence
-            textValue = item.textContent;
+            textValue = item.textContent || '';
         }
 
         // Vérifie si la valeur de recherche est présente dans le texte de comparaison
-        if (textValue && textValue.toUpperCase().indexOf(filter) > -1) {
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
             item.style.display = ""; // Afficher l'élément
         } else {
             item.style.display = "none"; // Masquer l'élément
