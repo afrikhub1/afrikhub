@@ -9,7 +9,7 @@
     <header class="p-1">
       <div class="col-12 row m-0 align-items-center">
         <div class="col-lg-2 col-md-2 col-3">
-          <img class="img-fluid" src="../../public/logo/logo_01.png" alt="Afrik'Hub Logo" />
+          <img class="img-fluid" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo" />
         </div>
         <nav class="col-lg-10 col-md-10 col-9">
           <ul class="d-flex justify-content-end py-2">
