@@ -88,6 +88,16 @@ class ResidenceController extends Controller
         return view('pages.recherche', compact('recherches'));
     }
 
+    public function accueil(Request $request)
+    {
+        // Exemple de requête : récupérer les résidences selon la ville/quartier
+        $residences = Residence::where('statut', 'verifié')->get();
+
+        // Passer la variable à la vue
+        return view('accueil', compact('residences'));
+    }
+
+
     // Réserver à nouveau
     public function details($id)
     {
