@@ -67,7 +67,7 @@
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-yellow-500 text-gray-900 rounded-full">Annulée (Client)</span>
 
                                 @elseif($res->status == 'interrompue')
-                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-gray-500 text-gray-900 rounded-full">interrompue (Admin)</span>
+                                    <span class="inline-block px-4 py-1.5 text-sm font-bold bg-gray-500 text-light-900 rounded-full">interrompue (Admin)</span>
 
                                 @elseif($res->status == 'payé')
                                     <span class="inline-block px-4 py-1.5 text-sm font-bold bg-yellow-500 text-gray-900 rounded-full">payé</span>
