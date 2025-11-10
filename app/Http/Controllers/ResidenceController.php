@@ -81,18 +81,18 @@ class ResidenceController extends Controller
     {
         $ville = $request->input('ville_quartier');
 
-        // Recherche avec les réservations
-        $recherches = Residence::with('reservations')
-            ->where('ville', 'LIKE', "%{$ville}%")
+        // Recherche des résidences selon la ville
+        $recherches = Residence::where('ville', 'LIKE', "%{$ville}%")
             ->get();
 
-        // Ajout de la prochaine date disponible à chaque résidence
+        // Ajout de la date de disponibilité à chaque résidence
         foreach ($recherches as $residence) {
-            $residence->date_disponible = $residence->prochaineDisponibilite(2);
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage(2);
         }
 
         return view('pages.recherche', compact('recherches'));
     }
+
 
 
     public function accueil()
@@ -104,7 +104,7 @@ class ResidenceController extends Controller
 
         // Ajoute la prochaine date disponible à chaque résidence
         foreach ($residences as $residence) {
-            $residence->date_disponible = $residence->prochaineDisponibilite(2);
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage(2);
         }
 
         // Passe la variable à la vue
@@ -147,6 +147,8 @@ class ResidenceController extends Controller
 
         return view('reservations.occupees', compact('residences'));
     }
+
+
 
 }
 

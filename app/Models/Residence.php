@@ -58,22 +58,21 @@ class Residence extends Model
         return $this->hasMany(Reservation::class, 'residence_id');
     }
 
-    // app/Models/Residence.php
-
-    public function prochaineDisponibilite(int $joursNettoyage = 2)
+    public function dateDisponibleAvecNettoyage(int $joursNettoyage = 2)
     {
-        // Récupère les dernières réservations triées par date de départ
-        $dernieresReservations = $this->reservations()->orderBy('date_depart', 'desc')->get();
-
-        if ($dernieresReservations->isEmpty()) {
-            // Si pas de réservation, dispo dès aujourd'hui
-            return now()->addDays($joursNettoyage)->toDateString();
+        // Si la résidence est libre
+        if ($this->disponible) {
+            return now()->toDateString(); // dispo dès aujourd'hui
         }
 
-        // On prend la dernière réservation
-        $dernierDepart = $dernieresReservations->first()->date_depart;
+        // Si la résidence est occupée, on prend la date de disponibilité + jours de nettoyage
+        if ($this->date_disponible_apres) {
+            return \Carbon\Carbon::parse($this->date_disponible_apres)
+                ->addDays($joursNettoyage)
+                ->toDateString();
+        }
 
-        // Ajoute les jours pour nettoyage
-        return \Carbon\Carbon::parse($dernierDepart)->addDays($joursNettoyage)->toDateString();
+        // Fallback si pas de date enregistrée
+        return now()->addDays($joursNettoyage)->toDateString();
     }
 }
