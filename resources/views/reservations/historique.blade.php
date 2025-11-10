@@ -95,11 +95,20 @@
                                     <i class="fas fa-credit-card mr-1"></i> Payer la facture
                                 </button>
                             </form>
+
+                        @elseif ('en attente')
+                            <button type="button" class="w-full py-2 bg-warning-500 text-dark font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
+                                <i class="fas fa-check-circle mr-1"></i> En attente
+                            </button>
+                        @endif
+
                         @else
                             <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
                                 <i class="fas fa-check-circle mr-1"></i> Payé
                             </button>
                         @endif
+
+
 
                             @if($res->status == 'en_attente')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
