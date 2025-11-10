@@ -75,7 +75,7 @@
                     <div class="flex items-center space-x-4">
                         <!-- Placeholder Logo -->
                         <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">A'H</div>
-                        <h1 class="text-xl font-semibold text-white">{{ Auth::user() }}</h1>
+                        <h1 class="text-xl font-semibold text-white">{{ Auth::user('name') }}</h1>
                     </div>
 
                     <!-- Toggle Button (pour ouvrir la Sidebar) -->
