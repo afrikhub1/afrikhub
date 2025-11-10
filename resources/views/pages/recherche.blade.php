@@ -271,7 +271,7 @@
                                             <i class="fas fa-money-bill-wave me-2 text-success"></i>
                                             Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
                                         </li>
-                                        <li class="fw-bold mt-2 text-info">
+                                        <li class="fw-bold mt-2 text-info bg-dark">
                                             <i class="fas fa-calendar-check me-2"></i>
                                             Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                         </li>
