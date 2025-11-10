@@ -73,13 +73,6 @@
                     $isPro = strtolower($userType) == 'professionnel';
                     $isClient = strtolower($userType) == 'client';
                 @endphp
-
-                <div style="background-color: #ffe0b2; border: 2px solid orange; padding: 10px; margin-bottom: 20px;">
-                    <p>VALEUR DB : <strong>{{ $userType }}</strong></p>
-                    <p>Test 'professionnel' : {{ $isPro ? 'VRAI' : 'FAUX' }}</p>
-                    <p>Test 'client' : {{ $isClient ? 'VRAI' : 'FAUX' }}</p>
-                </div>
-
                 {{-- Votre condition d'affichage devrait être : --}}
                 @if($isPro)
                     <div class="d-none d-lg-flex align-items-center ms-3">
