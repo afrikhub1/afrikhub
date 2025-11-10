@@ -169,4 +169,18 @@ Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 
 // L'utilisation du FQCN du framework évite l'erreur de "fichier non trouvé".
 Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
     ->name('paiement.webhook')
-    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class); // <--- CORRECTION DÉFINITIVE
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
+
+use App\Http\Controllers\ClientController;
+
+Route::middleware(['auth'])->group(function () {
+    // Historique des réservations (toutes)
+    Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('historique');
+
+    // Historique des factures (réservations facturables)
+    Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
+
+    // Téléchargement du PDF
+    Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
+
+});
