@@ -32,12 +32,12 @@ class LoginController extends Controller
             ]);
         }
 
-        if ($user->type_compte == 'professionnel') {
+        if ($user->type_compte == 'client') {
 
             $route= 'client_dashboard';
         }
         else {
-            $route = 'dashboards';
+            $route = 'dashboard';
         }
 
         // Connexion
