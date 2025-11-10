@@ -74,35 +74,37 @@
                         </div>
 
                         <!-- Préfacture/Détails (Optionnel en Historique) -->
-                        @if($res->status == 'en_attente')
+                        @php
+                            $dateArrivee = $res->date_arrivee ? \Carbon\Carbon::parse($res->date_arrivee) : null;
+                            $dateDepart = $res->date_depart ? \Carbon\Carbon::parse($res->date_depart) : null;
+                            $jours = ($dateArrivee && $dateDepart) ? $dateDepart->diffInDays($dateArrivee) : 0;
+                            $prixJournalier = $res->residence->prix_journalier ?? 0;
+                            $totalEstime = $jours * $prixJournalier;
+                        @endphp
+
+                        @if($res->status == 'confirmée' && $dateArrivee && $dateDepart)
                             <div class="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs shadow-inner">
-                                @php
-                                    $jours = \Carbon\Carbon::parse($res->date_depart)->diffInDays(\Carbon\Carbon::parse($res->date_arrivee));
-                                    $prixJournalier = $res->residence->prix_journalier;
-                                    $totalEstime = $jours * $prixJournalier;
-                                @endphp
                                 <h6 class="fw-bold mb-1 text-amber-700 text-sm">🧾 Détails : {{ $jours }} nuit(s)</h6>
                                 <p class="mb-0 text-gray-600">Prix/jour : {{ number_format($prixJournalier,0,',',' ') }} FCFA</p>
                             </div>
                         @endif
 
+
                         <!-- Boutons en bas -->
                         <div class="mt-4 flex gap-2 justify-center">
-                        @if($res->status == 'confirmée')
-                            <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
-                                @csrf
-                                <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
-                                    <i class="fas fa-credit-card mr-1"></i> Payer la facture
+                            @if($res->status == 'confirmée')
+                                <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer la facture
+                                    </button>
+                                </form>
+
+                            @else
+                                <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
+                                    <i class="fas fa-check-circle mr-1"></i> Payé
                                 </button>
-                            </form>
-
-                        @else
-                            <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
-                                <i class="fas fa-check-circle mr-1"></i> Payé
-                            </button>
-                        @endif
-
-
+                            @endif
 
                             @if($res->status == 'en attente')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
