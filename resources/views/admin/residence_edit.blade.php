@@ -118,7 +118,7 @@
                                   @error('statut') border-red-500 focus:ring-red-500 focus:border-red-500 @else border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 @enderror">
                         <option value="vérifiée" {{ old('statut', $residence->statut) == 'vérifiée' ? 'selected' : '' }}>✅ Vérifiée</option>
                         <option value="en_attente" {{ old('statut', $residence->statut) == 'en_attente' ? 'selected' : '' }}>⏳ En attente</option>
-                        <option value="desactive" {{ old('statut', $residence->statut) == 'suspendue' ? 'selected' : '' }}>❌ suspendue</option>
+                        <option value="suspendue" {{ old('statut', $residence->statut) == 'suspendue' ? 'selected' : '' }}>❌ suspendue</option>
                     </select>
                     @error('statut') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
