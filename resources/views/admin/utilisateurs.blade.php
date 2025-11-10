@@ -7,7 +7,7 @@
 @endsection
 
 @section('main')
-    <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+    <div class="container mx-auto p-2">
 
         <h3 class="text-center display-3 text-primary fw-bold mb-4">
             Gestion des Utilisateurs

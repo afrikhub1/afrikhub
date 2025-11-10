@@ -9,7 +9,7 @@
 @section('main')
 
 {{-- Conteneur Principal : Assure le décalage sous le header et la largeur maximale --}}
-<div class="max-w-4xl mx-auto pt-20 pb-12 px-4 lg:px-0">
+<div class="max-w-4xl mx-auto pt-10 pb-12 px-4">
 
 
     {{-- En-tête de la Page --}}

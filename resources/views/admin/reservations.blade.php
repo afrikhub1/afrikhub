@@ -7,7 +7,7 @@
 @endsection
 
 @section('main')
-<div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+<div class="container mx-auto p-2">
 
     <h2 class="text-3xl font-extrabold text-gray-900 mb-6 border-b-2 border-indigo-500 pb-2">
         <i class="fas fa-spinner mr-3 text-indigo-600"></i> Gestion des reservations de Réservation

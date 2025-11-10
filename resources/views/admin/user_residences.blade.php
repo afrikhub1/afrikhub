@@ -7,7 +7,7 @@
 @endsection
 
 @section('main')
-    <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+    <div class="container mx-auto p-2">
 
         {{-- Alerts success / danger --}}
         @foreach (['success', 'danger'] as $msg)
