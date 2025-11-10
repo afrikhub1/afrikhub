@@ -141,10 +141,7 @@
         <!-- Brand/Logo -->
         <div class="d-flex align-items-center">
             <a href="{{ route('accueil') }}">
-                <img class="h-auto"
-                     style="width: 80px;"
-                     src="{{ asset('assets/images/logo_01.png') }}"
-                     alt="Afrik'Hub Logo"/>
+                <img class="h-auto" style="width: 80px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
             </a>
         </div>
 
@@ -164,11 +161,11 @@
             <li class="nav-item mx-2">
                 <!-- Texte blanc sur fond sombre -->
                 @if(Auth::user()->type_compte == 'professionnel')
-                    <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold fa-user-circle mx-2">Profil</a>
+                    <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold fas fa-user-circle mx-2">Profil</a>
                 @endif
 
                 @if(Auth::user()->type_compte == 'client')
-                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold fa-user-circle mx-2">Profil</a>
+                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold fas fa-user-circle mx-2">Profil</a>
                 @endif
             </li>
             <a href="javascript:history.back()" class="nav-link text-white fw-bold">Retour</a>
