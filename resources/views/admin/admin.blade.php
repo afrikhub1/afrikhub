@@ -156,7 +156,7 @@
                             <td class="px-4 py-4 whitespace-nowrap hidden sm:table-cell">
                                 @php
                                     $statut_class = [
-                                        'verifie' => 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100',
+                                        'vérifiée' => 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100',
                                         'en_attente' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100',
                                         'desactive' => 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100',
                                     ][$residence->statut] ?? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
@@ -169,7 +169,7 @@
                                 <div class="flex space-x-2 items-center">
 
                                     {{-- Bouton d'action (Valider / Désactiver) --}}
-                                    @if ($residence->statut === 'verifie')
+                                    @if ($residence->statut === 'vérifiée')
                                         {{-- Si la résidence est vérifiée, on propose de la DÉSACTIVER --}}
                                         <form action="{{ route('admin.residences.desactivation', $residence->id) }}" method="POST">
                                             @csrf

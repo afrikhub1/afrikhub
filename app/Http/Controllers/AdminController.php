@@ -163,16 +163,16 @@ class AdminController extends Controller
             ->with('success', 'La résidence "' . $residence->nom . '" a été mise à jour avec succès.');
     }
 
-    // Active une résidence et la marque comme 'verifié'.
+    // Active une résidence et la marque comme 'vérifiée'.
     public function activation($id)
     {
         // Met à jour le statut de la résidence ciblée.
         Residence::where('id', $id)->update([
-            'statut' => 'verifié',
+            'statut' => 'vérifiée',
         ]);
 
         // Redirige l'utilisateur vers la page précédente avec un message de succès.
-        return back()->with('success', 'Résidence marquée comme vérifié ✅');
+        return back()->with('success', 'Résidence marquée comme vérifiée ✅');
     }
 
     // Désactive une résidence et la marque comme 'en attente'.

@@ -116,7 +116,7 @@
                            {{-- AJOUT de la classe d'erreur Tailwind CSS (pour select) --}}
                            class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3 bg-white focus:outline-none
                                   @error('statut') border-red-500 focus:ring-red-500 focus:border-red-500 @else border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 @enderror">
-                        <option value="verifie" {{ old('statut', $residence->statut) == 'verifie' ? 'selected' : '' }}>✅ Vérifiée</option>
+                        <option value="vérifiée" {{ old('statut', $residence->statut) == 'vérifiée' ? 'selected' : '' }}>✅ Vérifiée</option>
                         <option value="en_attente" {{ old('statut', $residence->statut) == 'en_attente' ? 'selected' : '' }}>⏳ En attente</option>
                         <option value="desactive" {{ old('statut', $residence->statut) == 'desactive' ? 'selected' : '' }}>❌ Désactivée</option>
                     </select>

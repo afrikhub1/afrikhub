@@ -65,7 +65,7 @@
                             {{-- Statut --}}
                             <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
                                 @switch($residence->statut)
-                                    @case('verifié') bg-green-500 text-white @break
+                                    @case('vérifiée') bg-green-500 text-white @break
                                     @case('en attente') bg-yellow-500 text-gray-900 @break
                                     @default bg-gray-500 text-white @endswitch">
                                 <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->statut) }}
@@ -109,7 +109,7 @@
                                 <p class="text-sm font-semibold text-gray-700 mb-2">Actions d'Administration :</p>
                                 <div class="flex flex-wrap justify-start gap-2">
 
-                                    @if ($residence->statut != 'verifié')
+                                    @if ($residence->statut != 'vérifiée')
                                         <form action="{{ route('admin.residences.activation', $residence->id) }}" method="POST" class="inline-block">
                                             @csrf
                                             <button type="submit" class="text-sm px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
