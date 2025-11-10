@@ -4,7 +4,7 @@
 
 @section('main')
     <!-- Main Content Area (Ajusté pour le Header) -->
-    <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+    <div class="container mx-auto p-4">
 
         <!-- Titre Principal de la Page -->
         <div class="page-header text-center mb-8">
@@ -101,7 +101,7 @@
                             </button>
                         @endif
 
-                            @if($res->status == 'en_attente' || $res->status == 'confirmée')
+                            @if($res->status == 'en_attente')
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
                                     <button type="submit" class="w-full py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
@@ -112,7 +112,7 @@
 
                             <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
                                 <button type="submit" class="w-full py-2 btn-primary-custom font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
-                                    <i class="fas fa-redo-alt mr-1"></i> Rebooker
+                                   Renouveler
                                 </button>
                             </form>
                         </div>
