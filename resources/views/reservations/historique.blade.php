@@ -88,8 +88,6 @@
                                 <p class="mb-0 text-gray-600">Prix/jour : {{ number_format($prixJournalier,0,',',' ') }} FCFA</p>
                             </div>
                         @endif
-
-
                         <!-- Boutons en bas -->
                         <div class="mt-4 flex gap-2 justify-center">
                             @if($res->status == 'confirmée')
@@ -99,10 +97,9 @@
                                         <i class="fas fa-credit-card mr-1"></i> Payer la facture
                                     </button>
                                 </form>
-
                             @else
                                 <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
-                                    <i class="fas fa-check-circle mr-1"></i> Payé
+                                    </i> En attente
                                 </button>
                             @endif
 
@@ -110,7 +107,7 @@
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
                                     <button type="submit" class="w-full py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
-                                        <i class="fas fa-times-circle mr-1"></i> Annuler
+                                        Annuler
                                     </button>
                                 </form>
                             @endif
