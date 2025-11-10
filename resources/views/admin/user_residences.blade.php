@@ -97,6 +97,10 @@
                                         {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'Suspendue' : 'Active' }}
                                     </span>
                                 </li>
+                                <li class="fw-bold mt-2 text-danger fw-600">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
+                                </li>
                             </ul>
 
                             <div class="mt-4 border-t pt-4">

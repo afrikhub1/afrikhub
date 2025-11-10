@@ -206,7 +206,11 @@ class AdminController extends Controller
         // On pagine (9 cartes par page)
         $residences = $user->residences()
             ->orderBy('created_at', 'desc')
-            ->paginate(9); // ← ICI on met paginate
+            ->paginate(9);
+        // Ajoute la prochaine date disponible à chaque résidence
+        foreach ($residences as $residence) {
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
+        }
 
         return view('admin.user_residences', compact('user', 'residences'));
     }
