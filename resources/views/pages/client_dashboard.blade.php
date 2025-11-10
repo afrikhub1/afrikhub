@@ -11,14 +11,17 @@
 
     <header class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <a href="/accueil" class="text-2xl font-bold text-indigo-700">AFRIK'HUB</a>
+            <a href="{{ route('accueil') }}" class="text-2xl font-bold text-indigo-700">AFRIK'HUB</a>
             <nav class="flex items-center space-x-6 text-sm font-medium">
-                <a href="/accueil" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-home mr-1"></i> Accueil</a>
-                <a href="/recherche" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-search mr-1"></i> Recherche</a>
-                <a href="/factures" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-file-invoice-dollar mr-1"></i> Factures</a>
-                <a href="/logout" class="py-2 px-3 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 shadow-md">
-                    <i class="fas fa-sign-out-alt mr-1"></i> Déconnexion
-                </a>
+                <a href="{{ route('accueil') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="{{ route('recherche') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-search mr-1"></i> Recherche</a>
+                <a href="{{ route('factures') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-file-invoice-dollar mr-1"></i> Factures</a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="py-2 px-3 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 shadow-md">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Déconnexion
+                    </button>
+                </form>
             </nav>
         </div>
     </header>
@@ -32,85 +35,98 @@
             <p class="text-gray-500">Retrouvez toutes vos réservations passées et à venir.</p>
         </div>
 
+        {{-- Liens de navigation INTERNE --}}
         <div class="flex justify-center space-x-4 mb-8 border-b pb-4">
-            <a href="/factures.html" class="py-2 px-4 text-indigo-700 rounded-lg hover:bg-indigo-50 transition duration-150 font-medium border border-indigo-100">
+            <a href="{{ route('factures') }}" class="py-2 px-4 text-indigo-700 rounded-lg hover:bg-indigo-50 transition duration-150 font-medium border border-indigo-100">
                 <i class="fas fa-file-invoice-dollar mr-1"></i> Voir mes Factures
             </a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            @forelse($reservations as $res)
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
+                    @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
+                    @elseif($res->status == 'en_attente') border-blue-500/50 hover:shadow-blue-300/50
+                    @elseif($res->status == 'terminée') border-gray-400/50 hover:shadow-gray-300/50
+                    @else border-red-500/50 hover:shadow-red-300/50 @endif
+                    transition duration-300 transform hover:scale-[1.01]">
 
-            <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4 border-green-500/50 hover:shadow-green-300/50 transition duration-300 transform hover:scale-[1.01]">
-                <div class="p-5 flex flex-col flex-grow text-center">
-                    <div class="mb-3">
-                        <span class="inline-block px-3 py-1 text-xs font-bold bg-green-600 text-white rounded-full shadow-md">CONFIRMÉE</span>
-                    </div>
-                    <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">Résidence La Palme</h5>
-                    <p class="text-sm text-gray-500 mb-4"><i class="fas fa-map-marker-alt text-amber-500 mr-1"></i> Abidjan</p>
+                    <div class="p-5 flex flex-col flex-grow text-center">
 
-                    <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100 mb-4 flex-grow">
-                        <li class="flex justify-between items-center">
-                            <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-amber-400"></i> Dates :</span>
-                            <span class="text-gray-900 font-semibold">01/12/25 ➡ 07/12/25</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Personnes :</span>
-                            <span class="text-gray-900 font-semibold">4</span>
-                        </li>
-                    </ul>
+                        <div class="mb-3">
+                            @php
+                                $statusClass = [
+                                    'en_attente' => 'bg-blue-600 text-white',
+                                    'confirmée' => 'bg-green-600 text-white',
+                                    'terminée' => 'bg-gray-500 text-white',
+                                    'annulée' => 'bg-red-600 text-white',
+                                ][$res->status] ?? 'bg-gray-400 text-gray-800';
+                            @endphp
+                            <span class="inline-block px-3 py-1 text-xs font-bold {{ $statusClass }} rounded-full shadow-md">
+                                {{ ucfirst(str_replace('_', ' ', $res->status)) }}
+                            </span>
+                        </div>
 
-                    <div class="mt-auto border-t pt-3">
-                         <p class="text-lg font-extrabold text-amber-600">Total : 750 000 FCFA</p>
-                        <p class="text-xs text-gray-400 mt-1">Réservé le 10/11/2025</p>
-                    </div>
+                        <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">{{ $res->residence->nom }}</h5>
+                        <p class="text-sm text-gray-500 mb-4">
+                            <i class="fas fa-map-marker-alt text-amber-500 mr-1"></i> {{ $res->residence->ville }}
+                        </p>
 
-                    <div class="mt-4 flex gap-2 justify-center">
-                        <a href="/payer/1" class="flex-1 py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
-                            <i class="fas fa-credit-card mr-1"></i> Payer
-                        </a>
-                        <a href="/annuler/1" class="flex-1 p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
-                            Annuler
-                        </a>
+                        <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100 mb-4 flex-grow">
+                            <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-amber-400"></i> Dates :</span>
+                                <span class="text-gray-900 font-semibold">{{ \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res->date_depart)->format('d/m/y') }}</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Personnes :</span>
+                                <span class="text-gray-900 font-semibold">{{ $res->personnes }}</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-auto border-t pt-3">
+                             <p class="text-lg font-extrabold text-amber-600">
+                                Total : {{ number_format($res->total, 0, ',', ' ') }} FCFA
+                            </p>
+                            <p class="text-xs text-gray-400 mt-1">
+                                Réservé le {{ $res->created_at->format('d/m/Y') }}
+                            </p>
+                        </div>
+
+                        <div class="mt-4 flex gap-2 justify-center">
+                            @if($res->status == 'confirmée')
+                                {{-- Assurez-vous que la route 'payer' existe --}}
+                                <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
+                                    <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
+                                        <i class="fas fa-credit-card mr-1"></i> Payer
+                                    </button>
+                                </form>
+                            @endif
+
+                            @if($res->status == 'en_attente' || $res->status == 'confirmée')
+                                {{-- Assurez-vous que la route 'annuler' existe --}}
+                                <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm" onclick="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
+                                        Annuler
+                                    </button>
+                                </form>
+                            @endif
+
+                            {{-- Assurez-vous que la route 'rebook' existe --}}
+                            <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
+                                <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
+                                    Renouveler
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4 border-gray-400/50 hover:shadow-gray-300/50 transition duration-300 transform hover:scale-[1.01]">
-                <div class="p-5 flex flex-col flex-grow text-center">
-                    <div class="mb-3">
-                        <span class="inline-block px-3 py-1 text-xs font-bold bg-gray-500 text-white rounded-full shadow-md">TERMINÉE</span>
-                    </div>
-                    <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">Studio Vingt-Deux</h5>
-                    <p class="text-sm text-gray-500 mb-4"><i class="fas fa-map-marker-alt text-amber-500 mr-1"></i> Dakar</p>
-
-                    <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100 mb-4 flex-grow">
-                        <li class="flex justify-between items-center">
-                            <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-amber-400"></i> Dates :</span>
-                            <span class="text-gray-900 font-semibold">01/09/25 ➡ 15/09/25</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Personnes :</span>
-                            <span class="text-gray-900 font-semibold">2</span>
-                        </li>
-                    </ul>
-
-                    <div class="mt-auto border-t pt-3">
-                         <p class="text-lg font-extrabold text-amber-600">Total : 1 200 000 FCFA</p>
-                        <p class="text-xs text-gray-400 mt-1">Réservé le 01/08/2025</p>
-                    </div>
-
-                    <div class="mt-4 flex gap-2 justify-center">
-                        <a href="/rebook/2" class="flex-1 p-2 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md text-sm">
-                            Renouveler
-                        </a>
-                        <a href="/facture/2/telecharger" class="flex-1 p-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md text-sm">
-                            Facture
-                        </a>
-                    </div>
+            @empty
+                <div class="col-span-full bg-white p-8 rounded-xl shadow-lg text-center mx-auto max-w-xl">
+                    <p class="text-lg text-gray-500"><i class="fas fa-box-open mr-2"></i> Vous n’avez encore aucune réservation.</p>
                 </div>
-            </div>
-
-            </div>
+            @endforelse
+        </div>
     </main>
 </body>
 </html>
