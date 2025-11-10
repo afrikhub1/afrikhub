@@ -16,7 +16,7 @@
 
   <style>
     :root{--primary:#ff7a00;--dark:#1a1a1a;--light:#f7f7f7}
-    body{font-family:'Poppins',sans-serif;background:var(--light);color:var(--dark);padding-top:80px}
+    body{font-family:'Poppins',sans-serif;background:var(--light);color:var(--dark);}
 
     /* NAVBAR */
     .navbar{background:var(--dark);box-shadow:0 4px 10px rgba(0,0,0,.08)}
