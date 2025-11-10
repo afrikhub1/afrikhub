@@ -114,7 +114,7 @@ class ReservationController extends Controller
 
         // Vérifier si la résidence est libre
         if ($residence->disponible == 0) {
-            return back()->with('danger', 'Impossible de confirmer : la résidence est actuellement occupée.');
+            return back()->with('error', 'Impossible de confirmer : la résidence est actuellement occupée.');
         }
 
         // Confirmer la réservation
