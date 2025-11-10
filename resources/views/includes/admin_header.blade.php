@@ -1,4 +1,4 @@
-<header class="bg-gray-900 shadow-lg top-0 left-0 right-0 z-40">
+<header class="bg-gray-900 shadow-lg top-0 left-0 right-0 z-40 sticky">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between py-3">
             <div class="flex items-center space-x-4">
@@ -44,3 +44,79 @@
         </div>
     </div>
 </header>
+
+<div id="sidebar" class="text-white flex flex-col items-center">
+    <button id="closeSidebar" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <div class="mt-12 w-full flex flex-col space-y-4">
+        <a href="{{ route('accueil') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition"><i class="fas fa-home mr-1"></i> Accueil</a>
+        <a href="{{ route('recherche') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Recherche</a>
+        <a href="{{ route('historique') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Réservation</a>
+        <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Mise en ligne</a>
+        <div class="py-2 w-full mx-auto row m-0">
+            <a href="{{ route('logout') }}" class="w-full text-center py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition shadow-lg">Déconnexion</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Logique existante de la sidebar
+    const toggleButton = document.getElementById('toggleSidebar');
+    const closeButton = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    if (toggleButton && sidebar) {
+        toggleButton.addEventListener('click', function() {
+            sidebar.classList.add('active');
+        });
+    }
+
+    if (closeButton && sidebar) {
+        closeButton.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+        });
+    }
+
+    // Logique AJOUTÉE pour le filtre de recherche (Ciblant les Résidences)
+    const searchOption = document.getElementById('searchOption');
+    if (searchOption) {
+        searchOption.addEventListener('change', filterElements);
+    }
+});
+
+/**
+ * Filtre les éléments de la liste de résidences basés sur le texte de recherche.
+ * CIBLE: les éléments ayant la classe 'residence-item'.
+ */
+function filterElements() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toUpperCase();
+    const option = document.getElementById('searchOption').value;
+    // Cible tous les éléments de résidence dans la page
+    const residenceItems = document.querySelectorAll('.residence-item');
+
+    residenceItems.forEach(item => {
+        let textValue;
+
+        if (option === 'name') {
+            // Utilise l'attribut data-name pour le nom de la résidence
+            textValue = item.getAttribute('data-name');
+        } else { // 'all'
+            // Utilise tout le contenu textuel de la carte de résidence
+            textValue = item.textContent;
+        }
+
+        // Vérifie si la valeur de recherche est présente dans le texte de comparaison
+        if (textValue && textValue.toUpperCase().indexOf(filter) > -1) {
+            item.style.display = ""; // Afficher l'élément
+        } else {
+            item.style.display = "none"; // Masquer l'élément
+        }
+    });
+}
+</script>
