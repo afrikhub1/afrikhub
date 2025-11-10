@@ -36,7 +36,7 @@ class AdminController extends Controller
         // Calcul du Taux d'Occupation
         $residencesOccupees = Residence::where('disponible', 0)->count();
         // Calcul du pourcentage, évite la division par zéro.
-        $tauxOccupation = $totalResidences > 0 ? round(($totalResidences / $residencesOccupees) * 100, 2) : 0;
+        $tauxOccupation = $residencesOccupees > 0 ? round(($totalResidences / $residencesOccupees) * 100, 2) : 0;
 
         // Passe toutes les statistiques à la vue 'admin.admin' (le tableau de bord).
         return view('admin.admin', compact(
