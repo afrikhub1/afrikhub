@@ -163,7 +163,13 @@
         <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4">
             <li class="nav-item mx-2">
                 <!-- Texte blanc sur fond sombre -->
-                <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
+                @if(Auth::user()->type_compte == 'professionnel')
+                    <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
+                @endif
+
+                @if(Auth::user()->type_compte == 'client')
+                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
+                @endif
             </li>
             <li class="nav-item mx-2">
                 <!-- Bouton orange pour contraste élevé -->
