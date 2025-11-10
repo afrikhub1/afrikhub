@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de la résidence</title>
 
-    <!-- Font Awesome pour les icônes (utilisé dans le nouveau menu) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -114,7 +113,7 @@
             display: block;
         }
 
-        /* Ajustement du bouton de menu pour être toujours visible */
+        /* 🚀 CORRECTION HEADER : S'assurer que le bouton est toujours à droite quand il apparaît */
         .navbar-menu-toggler {
              color: white;
              font-size: 1.5rem;
@@ -122,6 +121,7 @@
              background: transparent;
              cursor: pointer;
              padding: 0;
+             margin-left: auto !important; /* Force la position à droite sur mobile */
         }
         /* Fin du nouveau menu */
 
@@ -215,22 +215,13 @@
             transform: scale(1.05);
         }
 
-        /* MODALS pour remplacer alert/confirm */
+        /* Nouveaux styles Lightbox (CORRIGÉS) */
         .modal-content-custom {
             background-color: rgba(0, 0, 0, 0.95);
             border: none;
-        }
-        /* ... autres styles de modal ... */
-
-        /* Nouveaux styles Lightbox */
-        .modal-content-custom {
-            background-color: rgba(0, 0, 0, 0.95); /* Fond plus opaque */
-            border: none;
-            height: 100%; /* S'assurer qu'il prend toute la hauteur */
+            height: 100%;
             position: relative;
-            display: flex; /* Pour centrer le carrousel */
-            align-items: center;
-            justify-content: center;
+            /* 🛑 SUPPRESSION DES PROPRIÉTÉS FLEX ICI pour éviter le conflit */
         }
 
         /* Bouton de Fermeture */
@@ -238,7 +229,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            z-index: 1070; /* Au-dessus du modal */
+            z-index: 1070;
             background: rgba(255, 255, 255, 0.2);
             color: white;
             font-size: 2rem;
@@ -257,23 +248,22 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        /* Styles du carrousel dans la Lightbox */
+        /* Styles du carrousel dans la Lightbox (CORRIGÉS) */
         #carouselLightbox {
             width: 100%;
             height: 100%;
+            /* 🚀 AJOUT de flexbox pour centrer le carrousel dans le modal fullscreen */
             display: flex;
             align-items: center;
         }
 
         #carouselLightbox .carousel-inner {
             width: 100%;
-            /* Retire le padding vertical pour optimiser l'espace si vous souhaitez */
-            /* Remplace : py-5 (padding: 3rem 0) */
-            padding: 0;
+            /* Retire la classe py-5 dans le HTML, donc pas besoin d'override ici */
         }
 
         #carouselLightbox .carousel-item {
-            height: 80vh; /* Utilise 80% de la hauteur de la fenêtre pour l'image */
+            height: 100vh; /* Prend toute la hauteur de la fenêtre du modal fullscreen */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -281,16 +271,16 @@
 
         /* Style de l'image pour qu'elle s'adapte sans déborder et en conservant le ratio */
         #carouselLightbox img {
-            max-height: 100%;
-            max-width: 90%;
+            max-height: 90vh; /* 90% de la hauteur visible */
+            max-width: 90vw; /* 90% de la largeur visible */
             object-fit: contain; /* S'assure que l'image est entièrement visible */
-            border-radius: 8px; /* Petite touche esthétique */
+            border-radius: 8px;
         }
 
         /* Contrôles du carrousel */
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
-            width: 3rem; /* Agrandit les icônes */
+            width: 3rem;
             height: 3rem;
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
@@ -314,12 +304,10 @@
 </head>
 <body>
 
-    <!-- ===== HEADER MODIFIÉ ===== -->
     <nav class="navbar fixed-top">
         <div class="container-fluid d-flex justify-content-between align-items-center px-3 px-md-4">
             <a class="navbar-brand" href="{{ route('accueil') }}">🏠 Afrik'Hub</a>
 
-            <!-- Liens supplémentaires pour les grands écrans (lg) -->
             <div class="d-none d-lg-flex align-items-center me-auto ms-5">
                 <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
                 <a class="nav-link" href="{{ route('dashboard') }}">Mon Espace</a>
@@ -327,14 +315,11 @@
                 <a href="{{ route('login') }}" class="btn btn-header ms-3">Se connecter</a>
             </div>
 
-            <!-- Bouton Menu (TOUJOURS VISIBLE) -->
-            <button id="toggleSidebar" class="navbar-menu-toggler ms-auto" type="button" aria-label="Menu" onclick="toggleSidebar()">
+            <button id="toggleSidebar" class="navbar-menu-toggler d-lg-none" type="button" aria-label="Menu" onclick="toggleSidebar()">
                  <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
-    <!-- FIN HEADER -->
-
     {{-- SIDEBAR COULISSANTE --}}
     <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div id="sidebar" class="text-white d-flex flex-column">
@@ -365,10 +350,6 @@
             </div>
         </div>
     </div>
-    <!-- FIN SIDEBAR -->
-
-
-    <!-- ===== CONTENU PRINCIPAL (Code original conservé) ===== -->
     <div class="container">
         <div class="residence-header">
             <h1>Détails de la résidence</h1>
@@ -409,13 +390,12 @@
         </div>
     </div>
 
-    <!-- ===== MODAL LIGHTBOX ===== -->
     <div class="modal fade" id="lightboxModal" tabindex="-1" aria-labelledby="lightboxLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content modal-content-custom">
                 <button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button>
                 <div id="carouselLightbox" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner py-5">
+                    <div class="carousel-inner">
                         @if(!empty($images))
                             @foreach ($images as $index => $img)
                                 <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
@@ -439,15 +419,11 @@
             </div>
         </div>
     </div>
->
-
-    <!-- ===== MODAL DE RÉSERVATION ===== -->
     <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-4 rounded-4">
                 <h4 class="text-center fw-bold mb-3" style="color:var(--primary-color);">Réserver cette résidence</h4>
 
-                <!-- Message d'erreur/validation (remplace alert()) -->
                 <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
 
                 <form action="{{ route('reservation.store', $residence->id) }}" method="POST" id="reservationForm">
@@ -465,7 +441,6 @@
                         <input type="number" name="personnes" id="personnes" class="form-control" min="1" value="1" required>
                     </div>
 
-                    <!-- Section de préfacture -->
                     <div id="prefacture" class="border rounded-3 p-3 mt-3 bg-light d-none">
                         <h6 class="fw-bold text-center mb-3">🧾 Préfacture</h6>
                         <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
@@ -482,7 +457,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMATION (Remplace confirm()) -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 p-3 text-center">
@@ -490,7 +464,6 @@
                 <p class="my-3" id="confirmationMessage"></p>
                 <div class="d-flex justify-content-around">
                     <button type="button" class="btn btn-back" data-bs-dismiss="modal">Modifier</button>
-                    <!-- Ce bouton déclenchera la soumission finale -->
                     <button type="button" class="btn btn-reserver" id="btnFinalSubmit">Confirmer et Continuer</button>
                 </div>
             </div>
@@ -498,12 +471,12 @@
     </div>
 
 
-    <!-- ===== SCRIPT DE CALCUL DYNAMIQUE ET LOGIQUE ===== -->
     <script>
         // --- Code simulant la variable $residence pour le fonctionnement en mode preview ---
         const residenceData = {
             id: 1,
-            prix_journalier: {{ $residence->prix_journalier ?? 55000 }}, // 55000 FCFA par défaut
+            // 🚀 NOTE : Utilise la variable Blade (si elle existe) ou une valeur par défaut
+            prix_journalier: {{ $residence->prix_journalier ?? 55000 }},
         };
 
         function formatFCFA(amount) {
@@ -532,8 +505,11 @@
             const validationMessage = document.getElementById('validationMessage');
 
             // Références Modals
-            const reservationModalInstance = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
-            const confirmationModalInstance = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            // Utiliser un constructeur simple car on cache/montre directement dans le submit
+            const reservationModalElement = document.getElementById('reservationModal');
+            const reservationModalInstance = bootstrap.Modal.getOrCreateInstance(reservationModalElement);
+            const confirmationModalElement = document.getElementById('confirmationModal');
+            const confirmationModalInstance = new bootstrap.Modal(confirmationModalElement);
             const confirmationMessageEl = document.getElementById('confirmationMessage');
             const btnFinalSubmit = document.getElementById('btnFinalSubmit');
 
@@ -561,7 +537,9 @@
                     return;
                 }
 
-                if (debut < aujourdhui) {
+                // Assurez-vous que la date de début n'est pas passée (même si les navigateurs le gèrent avec type="date")
+                const debutSansHeure = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate());
+                if (debutSansHeure < aujourdhui) {
                     validationMessage.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
                     validationMessage.classList.remove('d-none');
                     prefacture.classList.add('d-none');

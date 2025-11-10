@@ -111,7 +111,7 @@
                             @endif
 
                             <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
-                                <button type="submit" class="w-full py-2 btn-primary-custom font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
+                                <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
                                    Renouveler
                                 </button>
                             </form>
