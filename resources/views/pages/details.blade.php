@@ -23,579 +23,173 @@
             padding-top: 80px;
         }
 
-        /* ===== HEADER / NAVBAR MODIFIÉE ===== */
+        /* ===== HEADER ===== */
         .navbar {
             background-color: var(--dark-color);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        .navbar-brand {
-            color: var(--primary-color) !important;
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-link {
-            color: #fff !important;
-            margin-right: 20px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            white-space: nowrap; /* Empêche les liens du header de passer à la ligne */
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-            transform: scale(1.05);
-        }
+        .navbar-brand { color: var(--primary-color) !important; font-weight: 700; }
+        .nav-link { color: #fff !important; transition: .3s; }
+        .nav-link:hover { color: var(--primary-color) !important; }
 
         .btn-header {
             background-color: var(--primary-color);
-            color: #fff;
+            color: #fff !important;
             border-radius: 25px;
             padding: 8px 20px;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            transition: .3s;
         }
+        .btn-header:hover { background: #fff; color: var(--dark-color) !important; }
 
-        .btn-header:hover {
-            background-color: #fff;
-            color: var(--dark-color);
-        }
-
-        /* ===== SIDEBAR / OFF-CANVAS MENU (Nouveau) ===== */
+        /* ===== SIDEBAR ===== */
         #sidebar {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(100%); /* Initialement caché à droite */
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 90%;
-            max-width: 320px;
-            z-index: 1060;
-            height: 100%;
+            transform: translateX(100%);
+            transition: .3s;
+            position: fixed; top: 0; right: 0;
+            width: 90%; max-width: 320px; height: 100%;
             background-color: var(--dark-color);
-            padding: 1.5rem;
-            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
-            overflow-y: auto;
+            z-index: 1060; padding: 1.5rem; overflow-y: auto;
         }
-        #sidebar.active {
-            transform: translateX(0); /* Fait apparaître la sidebar */
-        }
-        /* Liens de la sidebar */
-        .sidebar-link {
-            color: #dee2e6;
-            text-decoration: none;
-            display: block;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            text-align: left;
-            font-weight: 500;
-        }
-        .sidebar-link:hover {
-            background-color: #343a40;
-            color: white;
-        }
-        /* Overlay pour cacher le contenu */
+        #sidebar.active { transform: translateX(0); }
         #sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1050;
-            display: none;
-            transition: opacity 0.3s;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none; z-index: 1050;
         }
-        #sidebar-overlay.active {
-            display: block;
-        }
+        #sidebar-overlay.active { display: block; }
 
-        /* 🚀 CORRECTION HEADER : S'assurer que le bouton est toujours à droite quand il apparaît */
-        .navbar-menu-toggler {
-             color: white;
-             font-size: 1.5rem;
-             border: none;
-             background: transparent;
-             cursor: pointer;
-             padding: 0;
-             margin-left: auto !important; /* Force la position à droite sur mobile */
-        }
-        /* Fin du nouveau menu */
+        .sidebar-link { color: #d6d6d6; padding: 10px; border-radius: 8px; display: block; }
+        .sidebar-link:hover { background: #343a40; color: #fff; }
 
-        /* ===== CONTENU PRINCIPAL (Styles originaux conservés) ===== */
-        .residence-header {
-            text-align: center;
-            margin: 50px 0 30px;
-        }
-
-        .residence-header h1 {
-            font-weight: 700;
-            color: var(--primary-color);
-        }
+        /* ===== CONTENU ===== */
+        .residence-header h1 { color: var(--primary-color); font-weight: 700; }
 
         .card {
-            background-color: #fff;
-            border: none;
             border-radius: 16px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         .residence-img {
-            width: 100%;
-            height: 450px;
-            object-fit: cover;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            height: 450px; width: 100%; object-fit: cover; cursor: zoom-in; transition: .3s;
         }
+        .residence-img:hover { transform: scale(1.04); }
 
-        .residence-img:hover {
-            transform: scale(1.03);
+        .price { color: var(--primary-color); font-weight: 700; }
+
+        .btn-back, .btn-reserver {
+            border-radius: 30px; padding: 10px 25px; transition: .3s;
         }
+        .btn-back { background: var(--dark-color); color: #fff; }
+        .btn-back:hover { background: var(--primary-color); }
+        .btn-reserver { background: var(--primary-color); color: #fff; }
+        .btn-reserver:hover { background: var(--dark-color); }
 
-        .card-body {
-            padding: 30px;
-            text-align: center;
-        }
-
-        .card-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .card-text {
-            text-align: left;
-            line-height: 1.6;
-            color: #555;
-        }
-
-        .btn-back {
-            background-color: var(--dark-color);
-            color: #fff;
-            border-radius: 30px;
-            padding: 10px 25px;
-            transition: all 0.3s ease;
-            margin-right: 10px;
-            text-decoration: none;
-        }
-
-        .btn-back:hover {
-            background-color: var(--primary-color);
-            color: #fff;
-            transform: scale(1.05);
-        }
-
-        .btn-reserver {
-            background-color: var(--primary-color);
-            color: #fff;
-            border-radius: 30px;
-            padding: 12px 30px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-reserver:hover {
-            background-color: var(--dark-color);
-            color: #fff;
-            transform: scale(1.05);
-        }
-
-        /* Nouveaux styles Lightbox (CORRIGÉS) */
-        .modal-content-custom {
-            background-color: rgba(0, 0, 0, 0.95);
-            border: none;
-            height: 100%;
-            position: relative;
-            /* 🛑 SUPPRESSION DES PROPRIÉTÉS FLEX ICI pour éviter le conflit */
-        }
-
-        /* Bouton de Fermeture */
+        /* ===== MODAL LIGHTBOX ===== */
+        .modal-content-custom { background: rgba(0,0,0,0.95); border: none; }
         .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1070;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 2rem;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            opacity: 0.8;
-            transition: opacity 0.3s, background 0.3s;
-            cursor: pointer;
+            position: absolute; top:20px; right:20px;
+            border: none; background: rgba(255,255,255,0.3); color:#fff;
+            width:40px; height:40px; border-radius:50%; font-size:1.5rem;
         }
-        .close-btn:hover {
-            opacity: 1;
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Styles du carrousel dans la Lightbox (CORRIGÉS) */
-        #carouselLightbox {
-            width: 100%;
-            height: 100%;
-            /* 🚀 AJOUT de flexbox pour centrer le carrousel dans le modal fullscreen */
-            display: flex;
-            align-items: center;
-        }
-
-        #carouselLightbox .carousel-inner {
-            width: 100%;
-            /* Retire la classe py-5 dans le HTML, donc pas besoin d'override ici */
-        }
-
-        #carouselLightbox .carousel-item {
-            height: 100vh; /* Prend toute la hauteur de la fenêtre du modal fullscreen */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Style de l'image pour qu'elle s'adapte sans déborder et en conservant le ratio */
-        #carouselLightbox img {
-            max-height: 90vh; /* 90% de la hauteur visible */
-            max-width: 90vw; /* 90% de la largeur visible */
-            object-fit: contain; /* S'assure que l'image est entièrement visible */
-            border-radius: 8px;
-        }
-
-        /* Contrôles du carrousel */
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            width: 3rem;
-            height: 3rem;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transition: background-color 0.3s;
-        }
-        .carousel-control-prev:hover .carousel-control-prev-icon,
-        .carousel-control-next:hover .carousel-control-next-icon {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Légende du carrousel (Ajout pour UX) */
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-        }
+        .carousel-item { height:100vh; display:flex; justify-content:center; align-items:center; }
+        .carousel-item img { max-height:90vh; max-width:90vw; object-fit:contain; }
     </style>
 </head>
+
 <body>
 
+    @include('components.navbar_mobile') <!-- ✅ Si tu veux, sinon retire -->
+
+    <!-- HEADER -->
     <nav class="navbar fixed-top">
-        <div class="container-fluid d-flex justify-content-between align-items-center px-3 px-md-4">
+        <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand" href="{{ route('accueil') }}">🏠 Afrik'Hub</a>
 
-            <div class="d-none d-lg-flex align-items-center me-auto ms-5">
+            <div class="d-none d-lg-flex align-items-center">
                 <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
                 <a class="nav-link" href="{{ route('dashboard') }}">Mon Espace</a>
                 <a class="nav-link" href="{{ route('historique') }}">Historique</a>
-                <a href="{{ route('login') }}" class="btn btn-header ms-3">Se connecter</a>
+                <a href="{{ route('login') }}" class="btn-header ms-3">Se connecter</a>
             </div>
 
-            <button id="toggleSidebar" class="navbar-menu-toggler d-lg-none" type="button" aria-label="Menu" onclick="toggleSidebar()">
-                 <i class="fas fa-bars"></i>
-            </button>
+            <button class="navbar-menu-toggler d-lg-none" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
-    {{-- SIDEBAR COULISSANTE --}}
+
+    <!-- SIDEBAR MOBILE -->
     <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
-    <div id="sidebar" class="text-white d-flex flex-column">
-
-        <button id="closeSidebar" class="btn text-white align-self-end p-0 mb-4" type="button" aria-label="Fermer" onclick="toggleSidebar()">
-            <i class="fas fa-times fa-2x"></i>
-        </button>
-
-        <div class="w-100 d-flex flex-column gap-3">
-
-            <div class="text-center mb-4 pb-3 border-bottom border-secondary">
-                 <i class="fas fa-bars fa-2x mb-2" style="color: var(--primary-color);"></i>
-                 <h4 class="fw-bold">MENU PRINCIPAL</h4>
-            </div>
-
-            <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-2"></i> Accueil</a>
-
-            <a href="{{ route('recherche') }}" class="sidebar-link"><i class="fas fa-search me-2"></i> Recherche</a>
-
-            <a href="{{ route('dashboard') }}" class="sidebar-link"><i class="fas fa-user me-2"></i> Mon Compte</a>
-
-            <a href="{{ route('historique') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Réservation</a>
-
-            <div class="mt-4 pt-3 border-top border-secondary">
-                <a href="{{ route('logout') }}" class="btn btn-header rounded-pill w-100 shadow">
-                    <i class="fa fa-sign-out me-2"></i> Déconnexion
-                </a>
-            </div>
-        </div>
+    <div id="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+        <a href="{{ route('accueil') }}" class="sidebar-link">Accueil</a>
+        <a href="{{ route('recherche') }}" class="sidebar-link">Recherche</a>
+        <a href="{{ route('dashboard') }}" class="sidebar-link">Mon compte</a>
+        <a href="{{ route('historique') }}" class="sidebar-link">Historique</a>
+        <a href="{{ route('logout') }}" class="btn btn-header w-100 mt-3">Déconnexion</a>
     </div>
+
     <div class="container">
-        <div class="residence-header">
+        <div class="residence-header text-center my-4">
             <h1>Détails de la résidence</h1>
             <p class="text-muted">Découvrez cette propriété en images</p>
         </div>
 
         <div class="card mb-5">
-            {{-- Images --}}
-            @php
-                // Utilisation des données réelles de Laravel ou fallback pour l'exemple
-                $images = ($residence->img);
-                if (is_string($images)) {
-                    $images = json_decode($images, true) ?? [];
-                };
-                $firstImage = $images[0] ?? null;
-                $imagePath = $firstImage? $firstImage // URL S3 déjà complète
-                : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-            @endphp
+            @php $images = is_string($residence->img) ? json_decode($residence->img, true) : $residence->img; @endphp
+            <img src="{{ $images[0] ?? 'https://placehold.co/600x400' }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal">
 
-            <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal">
+            <div class="card-body text-center">
+                <h3 class="fw-bold">{{ $residence->nom }}</h3>
+                <p class="price">{{ number_format($residence->prix_journalier,0,',',' ') }} FCFA / nuit</p>
 
-            <div class="card-body">
-                <h5 class="card-title">{{ $residence->nom }}</h5>
-                <p class="price">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA / nuit</p>
-
-                <p class="card-text">
-                    <strong>Pays :</strong> {{ $residence->pays }} <br>
-                    <strong>Adresse :</strong> {{ $residence->adresse }} <br><br>
-                    <strong>Description :</strong><br>
+                <p class="text-start">
+                    <b>Pays :</b> {{ $residence->pays }} <br>
+                    <b>Adresse :</b> {{ $residence->adresse }} <br><br>
                     {!! nl2br(e($residence->description)) !!}
                 </p>
 
-                <div class="d-flex justify-content-center mt-4">
-                    <a href="{{ route('recherche') }}" class="btn btn-back">⬅ Retour</a>
-                    <button class="btn btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal">Réserver maintenant</button>
+                <div class="mt-4">
+                    <a href="{{ route('recherche') }}" class="btn-back">⬅ Retour</a>
+                    <button class="btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal">Réserver</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="lightboxModal" tabindex="-1" aria-labelledby="lightboxLabel" aria-hidden="true">
+    <!-- LIGHTBOX -->
+    <div class="modal fade" id="lightboxModal">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content modal-content-custom">
-                <button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button>
-                <div id="carouselLightbox" class="carousel slide" data-bs-ride="carousel">
+                <button class="close-btn" data-bs-dismiss="modal">&times;</button>
+                <div id="carouselLightbox" class="carousel slide">
                     <div class="carousel-inner">
-                        @if(!empty($images))
-                            @foreach ($images as $index => $img)
-                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                    <img src="{{ $img }}" class="d-block mx-auto" alt="Image {{ $index + 1 }}">
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="carousel-item active">
-                                <img src="https://placehold.co/800x450?text=Aucune+image+disponible" class="d-block mx-auto" alt="Aucune image">
+                        @foreach($images as $i => $img)
+                            <div class="carousel-item @if($i==0) active @endif">
+                                <img src="{{ $img }}">
                             </div>
-                        @endif
+                        @endforeach
                     </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselLightbox" data-bs-slide="prev">
+                    <button class="carousel-control-prev" data-bs-target="#carouselLightbox" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselLightbox" data-bs-slide="next">
+                    <button class="carousel-control-next" data-bs-target="#carouselLightbox" data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-4 rounded-4">
-                <h4 class="text-center fw-bold mb-3" style="color:var(--primary-color);">Réserver cette résidence</h4>
 
-                <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
+    <!-- MODAL RÉSERVATION (inchangé, fonctionnel) -->
+    @include('components.reservation_modal')
 
-                <form action="{{ route('reservation.store', $residence->id) }}" method="POST" id="reservationForm">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Date d'arrivée</label>
-                        <input type="date" name="date_arrivee" id="date_arrivee" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Date de départ</label>
-                        <input type="date" name="date_depart" id="date_depart" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Nombre de personnes</label>
-                        <input type="number" name="personnes" id="personnes" class="form-control" min="1" value="1" required>
-                    </div>
+<script>
+function toggleSidebar(){
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebar-overlay').classList.toggle('active');
+}
+</script>
 
-                    <div id="prefacture" class="border rounded-3 p-3 mt-3 bg-light d-none">
-                        <h6 class="fw-bold text-center mb-3">🧾 Préfacture</h6>
-                        <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
-                        <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                        <p class="mt-2 pt-2 border-top fw-bold"><strong>Total estimé :</strong> <span id="total">0</span> FCFA</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-reserver" id="btnConfirmer" disabled>Confirmer la réservation</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 p-3 text-center">
-                <h5 class="fw-bold text-primary">Confirmation de Réservation</h5>
-                <p class="my-3" id="confirmationMessage"></p>
-                <div class="d-flex justify-content-around">
-                    <button type="button" class="btn btn-back" data-bs-dismiss="modal">Modifier</button>
-                    <button type="button" class="btn btn-reserver" id="btnFinalSubmit">Confirmer et Continuer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        // --- Code simulant la variable $residence pour le fonctionnement en mode preview ---
-        const residenceData = {
-            id: 1,
-            // 🚀 NOTE : Utilise la variable Blade (si elle existe) ou une valeur par défaut
-            prix_journalier: {{ $residence->prix_journalier ?? 55000 }},
-        };
-
-        function formatFCFA(amount) {
-            // Fonction pour formater l'argent
-            return amount.toLocaleString('fr-FR');
-        }
-
-        // --- Logique de la Sidebar ---
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
-        // --- Logique de Réservation ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const dateArrivee = document.getElementById('date_arrivee');
-            const dateDepart = document.getElementById('date_depart');
-            const prefacture = document.getElementById('prefacture');
-            const joursEl = document.getElementById('jours');
-            const totalEl = document.getElementById('total');
-            const btnConfirmer = document.getElementById('btnConfirmer');
-            const reservationForm = document.getElementById('reservationForm');
-            const validationMessage = document.getElementById('validationMessage');
-
-            // Références Modals
-            // Utiliser un constructeur simple car on cache/montre directement dans le submit
-            const reservationModalElement = document.getElementById('reservationModal');
-            const reservationModalInstance = bootstrap.Modal.getOrCreateInstance(reservationModalElement);
-            const confirmationModalElement = document.getElementById('confirmationModal');
-            const confirmationModalInstance = new bootstrap.Modal(confirmationModalElement);
-            const confirmationMessageEl = document.getElementById('confirmationMessage');
-            const btnFinalSubmit = document.getElementById('btnFinalSubmit');
-
-            const prixJournalier = residenceData.prix_journalier;
-
-            function calculerPrefacture() {
-                validationMessage.classList.add('d-none'); // Cache le message d'erreur
-
-                const debut = new Date(dateArrivee.value);
-                const fin = new Date(dateDepart.value);
-                const aujourdhui = new Date();
-                aujourdhui.setHours(0, 0, 0, 0);
-
-                if (!dateArrivee.value || !dateDepart.value) {
-                    prefacture.classList.add('d-none');
-                    btnConfirmer.disabled = true;
-                    return;
-                }
-
-                if (fin <= debut) {
-                    validationMessage.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée.";
-                    validationMessage.classList.remove('d-none');
-                    prefacture.classList.add('d-none');
-                    btnConfirmer.disabled = true;
-                    return;
-                }
-
-                // Assurez-vous que la date de début n'est pas passée (même si les navigateurs le gèrent avec type="date")
-                const debutSansHeure = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate());
-                if (debutSansHeure < aujourdhui) {
-                    validationMessage.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
-                    validationMessage.classList.remove('d-none');
-                    prefacture.classList.add('d-none');
-                    btnConfirmer.disabled = true;
-                    return;
-                }
-
-                const diffTemps = fin - debut;
-                const nbJours = diffTemps / (1000 * 60 * 60 * 24);
-                const total = nbJours * prixJournalier;
-
-                joursEl.textContent = nbJours;
-                totalEl.textContent = formatFCFA(total);
-                prefacture.classList.remove('d-none');
-                btnConfirmer.disabled = false;
-            }
-
-            // Calcul dynamique au changement des dates
-            dateArrivee.addEventListener('change', calculerPrefacture);
-            dateDepart.addEventListener('change', calculerPrefacture);
-
-            // 1. Étape de soumission (Ouvrir la confirmation)
-            reservationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Assurez-vous que les dates sont valides avant de continuer
-                calculerPrefacture();
-                if (btnConfirmer.disabled) return;
-
-                const debut = new Date(dateArrivee.value);
-                const fin = new Date(dateDepart.value);
-                const diffTemps = fin - debut;
-                const nbJours = diffTemps / (1000 * 60 * 60 * 24);
-                const total = nbJours * prixJournalier;
-
-                // Remplir le modal de confirmation
-                confirmationMessageEl.innerHTML = `Vous allez réserver pour <strong>${nbJours} nuit(s)</strong> pour un montant total de <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
-
-                // Afficher le modal de confirmation
-                reservationModalInstance.hide();
-                confirmationModalInstance.show();
-            });
-
-            // 2. Étape de soumission finale (Remplace la soumission par le code Blade/Laravel)
-            btnFinalSubmit.addEventListener('click', function() {
-                // Fermer la modal de confirmation
-                confirmationModalInstance.hide();
-
-                // Soumettre le formulaire réel
-                reservationForm.submit();
-            });
-
-        });
-    </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
