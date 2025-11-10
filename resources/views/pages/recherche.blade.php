@@ -165,12 +165,13 @@
                 @endif
 
                 @if(Auth::user()->type_compte == 'client')
-                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold mx-2">fas fa-user-circle
-                        <i class="fa fa-sign-out me-2"></i>Profil
+                    <a href="{{ route('clients_historique') }}" class="nav-link text-white fw-bold mx-2">
+                        <i class="fa fa-user-circle me-2"></i>Profil
                     </a>
                 @endif
             </li>
-            <a href="javascript:history.back()" class="nav-link text-white fw-bold">Retour</a>
+            <a href="javascript:history.back()" class="nav-link text-white fw-bold">
+               <i class="fas fa-sign-out"></i> Retour</a>
             <li class="nav-item mx-2">
                 <!-- Bouton orange pour contraste élevé -->
                 <a href="{{ route('logout') }}" class="btn btn-custom-primary btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
