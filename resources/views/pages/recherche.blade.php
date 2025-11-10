@@ -157,7 +157,7 @@
         </form>
 
         <!-- User Actions (Desktop) -->
-        <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4">
+        <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4 g-4">
             <li class="nav-item mx-2">
                 <!-- Texte blanc sur fond sombre -->
                 @if(Auth::user()->type_compte == 'professionnel')

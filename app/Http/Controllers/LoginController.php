@@ -27,14 +27,22 @@ class LoginController extends Controller
 
         // 🔒 Vérification du statut
         if ($user->statut !== 'actif') {
-        return back()->withErrors([
-        'email' => 'Veuillez vérifier votre compte avant de vous connecter'
-        ]);
+            return back()->withErrors([
+            'email' => 'Veuillez vérifier votre compte avant de vous connecter'
+            ]);
+        }
+
+        if ($user->type_compte == 'professionnel') {
+
+            $route= 'client_dashboard';
+        }
+        else {
+            $route = 'dashboard';
         }
 
         // Connexion
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()->route($route);
     }
 }
