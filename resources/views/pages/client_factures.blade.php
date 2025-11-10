@@ -70,7 +70,7 @@
                     <div class="p-5 flex flex-col flex-grow text-center">
                         <div class="mb-3">
                             <span class="inline-block px-3 py-1 text-xs font-bold {{ $statusClass }} rounded-full shadow-md">
-                                {{ ucfirst(str_replace('_', ' ', $factureStatut)) }}
+                                {{ ucfirst(str_replace('_', ' ', $  )) }}
                             </span>
                         </div>
 
@@ -101,7 +101,7 @@
                                 <i class="fas fa-download mr-1"></i> Télécharger PDF
                             </a>
 
-                            @if($factureStatut == 'en_attente')
+                            @if($factureStatut == 'confirmée')
                                 <a href="{{ route('payer', $res->id) }}" class="w-full py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition duration-150 shadow-md text-sm">
                                     <i class="fas fa-credit-card mr-1"></i> Procéder au Paiement
                                 </a>
