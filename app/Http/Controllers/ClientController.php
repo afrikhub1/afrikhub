@@ -67,7 +67,7 @@ class ClientController extends Controller
             ->firstOrFail();
 
         // 2. Génération du PDF
-        $pdf = Pdf::loadView('factures.facture_template', compact('reservation'));
+        $pdf = Pdf::loadView('pages.client_facture_imprime', compact('reservation'));
 
         // 3. Nommage du fichier et téléchargement
         $nomFichier = 'facture-' . $reservation->id . '.pdf';
