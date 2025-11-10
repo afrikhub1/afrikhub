@@ -221,6 +221,95 @@
             border: none;
         }
         /* ... autres styles de modal ... */
+
+        /* Nouveaux styles Lightbox */
+        .modal-content-custom {
+            background-color: rgba(0, 0, 0, 0.95); /* Fond plus opaque */
+            border: none;
+            height: 100%; /* S'assurer qu'il prend toute la hauteur */
+            position: relative;
+            display: flex; /* Pour centrer le carrousel */
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Bouton de Fermeture */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1070; /* Au-dessus du modal */
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 2rem;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            opacity: 0.8;
+            transition: opacity 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Styles du carrousel dans la Lightbox */
+        #carouselLightbox {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        #carouselLightbox .carousel-inner {
+            width: 100%;
+            /* Retire le padding vertical pour optimiser l'espace si vous souhaitez */
+            /* Remplace : py-5 (padding: 3rem 0) */
+            padding: 0;
+        }
+
+        #carouselLightbox .carousel-item {
+            height: 80vh; /* Utilise 80% de la hauteur de la fenêtre pour l'image */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style de l'image pour qu'elle s'adapte sans déborder et en conservant le ratio */
+        #carouselLightbox img {
+            max-height: 100%;
+            max-width: 90%;
+            object-fit: contain; /* S'assure que l'image est entièrement visible */
+            border-radius: 8px; /* Petite touche esthétique */
+        }
+
+        /* Contrôles du carrousel */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 3rem; /* Agrandit les icônes */
+            height: 3rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        .carousel-control-prev:hover .carousel-control-prev-icon,
+        .carousel-control-next:hover .carousel-control-next-icon {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Légende du carrousel (Ajout pour UX) */
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
