@@ -53,8 +53,7 @@
     }
   </style>
 </head>
-<body>
-
+<body class="m-0">
   <!-- NAVBAR -->
     <header class="bg-dark m-0">
         <nav class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
