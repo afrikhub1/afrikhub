@@ -74,8 +74,11 @@
                 <div class="flex items-center justify-between py-3">
                     <div class="flex items-center space-x-4">
                         <!-- Placeholder Logo -->
-                        <div class="col-lg-1 col-xl-2 col-md-2 col-3">
-                            <img class="img-fluid" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo" />
+                        <div class="flex items-center">
+                            <img class="w-20 md:w-28 lg:w-32 h-auto"
+                                src="{{ asset('assets/images/logo_01.png') }}"
+                                alt="Afrik'Hub Logo"
+                            />
                         </div>
                         <h1 class="text-xl font-semibold text-white">{{ Auth::user()->name }}</h1>
                     </div>
