@@ -53,7 +53,7 @@
       <h2>hébergements</h2>
       <div class="row g-4 align-items-center col-lg-6 col-md-10">
         <div class="col-12">
-          <img src="../../public/img/hebergement.jpg" alt="Exemple d'hébergement" />
+          <img src="{{ asset('assets/images/hebergement.jpg') }}" alt="Exemple d'hébergement" />
         </div>
 
         <div class="col-12">
