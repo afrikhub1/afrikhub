@@ -94,7 +94,7 @@
                                 <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
                                     @csrf
                                     <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
-                                        <i class="fas fa-credit-card mr-1"></i> Payer la facture
+                                        <i class="fas fa-credit-card mr-1"></i> Payer
                                     </button>
                                 </form>
                             @else
