@@ -58,11 +58,18 @@ class ReservationController extends Controller
             'status' => 'en attente',
         ]);
 
-        return redirect()->route('historique')->with('success', 'Réservation enregistrée avec succès !');
+        // on verifie si le l'utilisateur est un client
+        if (Auth::user()->type_compte == 'client') {
+
+            $route = 'clients_historique';
+        }
+        // sinon il est forcement un user pro
+        else {
+            $route = 'dashboard';
+        }
+
+        return redirect()->route($route)->with('success', 'Réservation enregistrée avec succès !');
     }
-
-
-
 
     public function historique()
     {
