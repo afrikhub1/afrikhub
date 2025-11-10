@@ -4,7 +4,7 @@
 
 @section('main')
     <!-- Main Content Area (Ajusté pour le Header) -->
-    <div class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
+    <div class="container mx-auto p-2">
 
         <!-- Titre Principal de la Page -->
         <h1 class="text-3xl lg:text-4xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">

@@ -52,10 +52,12 @@
     <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
       <h2>hébergements</h2>
       <div class="row g-4 align-items-center col-lg-6 col-md-10">
-        <div class="col-12">
-          <img src="{{ asset('assets/images/hebergement.jpg') }}" alt="Exemple d'hébergement" />
+        <div class="flex items-center">
+            <img class="w-20 md:w-28 lg:w-32 h-auto"
+                src="{{ asset('assets/images/logo_01.png') }}"
+                alt="Afrik'Hub Logo"
+            />
         </div>
-
         <div class="col-12">
           <div class="accordion" id="accordionHebergement">
             <div class="accordion-item border-0" style="background: #e0f2f1;">
