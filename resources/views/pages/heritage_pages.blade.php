@@ -158,8 +158,6 @@
         <!-- FIN HEADER & SIDEBAR -->
 
 
-
-
     <main class="container mx-auto px-4 py-8 pt-44 lg:pt-40">
         {{-- Messages de succès --}}
         @if(session('success'))

@@ -105,7 +105,7 @@
                                 @php
                                     // On récupère la réservation en cours / confirmée pour cette résidence
                                     $reservationEnCours = $residence->reservations
-                                        ->->whereIn('status', ['confirmée', 'payé', 'suspendu'])
+                                        ->whereIn('status', ['confirmée', 'payé', 'suspendu'])
                                         ->first();
                                 @endphp
 
