@@ -20,26 +20,29 @@ class ReservationController extends Controller
 
         $residence = Residence::findOrFail($residenceId);
 
-        // Vérification des chevauchements de réservation
-        $conflit = $residence->reservations()
-            ->where('disponible', 0)
-            ->where(function ($query) use ($request) {
-                $query->whereBetween('date_arrivee', [$request->date_arrivee, $request->date_depart])
-                    ->orWhereBetween('date_depart', [$request->date_arrivee, $request->date_depart])
-                    ->orWhere(function ($q) use ($request) {
-                        $q->where('date_arrivee', '<=', $request->date_arrivee)
-                            ->where('date_depart', '>=', $request->date_depart);
-                    });
-            })
-            ->where('status', '!=', 'annule') // Ignorer les réservations annulées
-            ->exists();
+        // Vérification de la disponibilité dans la résidence
+        if ($residence->disponible == 0) {
+            return back()
+                ->withErrors(['date_arrivee' => 'Cette résidence n’est pas disponible.'])
+                ->withInput();
+        }
 
-        if ($conflit) {
-            return back()->withErrors(['date_arrivee' => 'Cette résidence est déjà réservée pour les dates sélectionnées.'])->withInput();
+        // Vérifier chevauchement avec les réservations existantes non annulées
+        $lastReservation = $residence->reservations()
+            ->where('status', '!=', 'annule')
+            ->orderBy('date_depart', 'desc')
+            ->first();
+
+        if ($lastReservation && $request->date_arrivee < $lastReservation->date_depart) {
+            return back()
+                ->withErrors(['date_arrivee' => 'Cette résidence est déjà réservée jusqu’au ' . $lastReservation->date_depart . '.'])
+                ->withInput();
         }
 
         // Calcul du nombre de nuits
-        $nbJours = (new \DateTime($request->date_arrivee))->diff(new \DateTime($request->date_depart))->days;
+        $nbJours = (new \DateTime($request->date_arrivee))
+            ->diff(new \DateTime($request->date_depart))
+            ->days;
 
         // Calcul du total
         $total = $nbJours * $residence->prix_journalier;
@@ -52,7 +55,7 @@ class ReservationController extends Controller
         // Enregistrement de la réservation
         $reservation = Reservation::create([
             'user_id' => Auth::id(),
-            'client' =>  Auth::user()->name,
+            'client' => Auth::user()->name,
             'reservation_code' => $code,
             'residence_id' => $residence->id,
             'proprietaire_id' => $residence->proprietaire_id,
@@ -61,11 +64,12 @@ class ReservationController extends Controller
             'date_validation' => null,
             'personnes' => $request->personnes,
             'total' => $total,
-            'status' => 'en attente', // ou autre statut par défaut
+            'status' => 'en attente',
         ]);
 
         return redirect()->route('historique')->with('success', 'Réservation enregistrée avec succès !');
     }
+
 
 
     public function historique()
