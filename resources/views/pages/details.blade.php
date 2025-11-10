@@ -57,7 +57,7 @@
 
   <!-- NAVBAR -->
     <nav class="navbar fixed-top bg-dark text-white p-3 shadow-lg">
-        <div class="flex items-center">
+        <div class="d-flex items-center">
                 <a class="navbar-brand" href="{{ route('accueil') }}">
                     <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
                 </a>
