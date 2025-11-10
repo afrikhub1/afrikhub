@@ -109,6 +109,17 @@
       <p class="text-muted">Découvrez cette propriété en images</p>
     </div>
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
     @php
       // décoder images (sécurisé pour Blade)
       $images = is_string($residence->img) ? json_decode($residence->img, true) : $residence->img;

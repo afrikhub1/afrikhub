@@ -22,6 +22,7 @@ class ReservationController extends Controller
 
         // Vérification des chevauchements de réservation
         $conflit = $residence->reservations()
+            ->where('disponible', 0)
             ->where(function ($query) use ($request) {
                 $query->whereBetween('date_arrivee', [$request->date_arrivee, $request->date_depart])
                     ->orWhereBetween('date_depart', [$request->date_arrivee, $request->date_depart])
