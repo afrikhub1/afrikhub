@@ -103,14 +103,20 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
+        // Récupérer la réservation et la résidence
+        $reservation = Reservation::findOrFail($id);
+        $residence = $reservation->residence;
+
+        // Vérifier si la résidence est libre
+        if ($residence->disponible == 0) {
+            return back()->with('danger', 'Impossible de confirmer : la résidence est actuellement occupée.');
+        }
+
         // Confirmer la réservation
         Reservation::where('id', $id)->update([
             'status' => 'confirmée',
             'date_validation' => now(),
         ]);
-
-        // Récupérer la réservation pour connaître la résidence et la date de départ
-        $reservation = Reservation::findOrFail($id);
 
         $dateDisponible = Carbon::parse($reservation->date_depart);
 
