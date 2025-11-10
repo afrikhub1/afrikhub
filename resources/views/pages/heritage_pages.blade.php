@@ -75,10 +75,7 @@
                     <div class="flex items-center space-x-4">
                         <!-- Placeholder Logo -->
                         <div class="flex items-center">
-                            <img class="w-20 md:w-28 lg:w-32 h-auto"
-                                src="{{ asset('assets/images/logo_01.png') }}"
-                                alt="Afrik'Hub Logo"
-                            />
+                            <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
                         </div>
                         <h1 class="text-xl font-semibold text-white">{{ Auth::user()->name }}</h1>
                     </div>

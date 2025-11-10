@@ -118,9 +118,9 @@
     <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
 
         <!-- Brand/Logo -->
-        <a class="navbar-brand fw-bold text-white d-flex align-items-center me-4" href="{{ route('accueil') }}">
-            <i class="fas fa-globe me-2 text-warning"></i> <span class="d-none d-sm-inline">AfrikHub</span>
-        </a>
+       <div class="flex items-center">
+            <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+        </div>
 
         <!-- Search Form (Central et prioritaire) -->
         <form class="d-flex mx-auto flex-grow-1" style="max-width: 500px;" method="GET" action="{{ route('recherche') }}">
