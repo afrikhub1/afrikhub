@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 class ReservationController extends Controller
 {
+
     public function store(Request $request, $residenceId)
     {
         $request->validate([
@@ -19,10 +20,13 @@ class ReservationController extends Controller
 
         $residence = Residence::findOrFail($residenceId);
 
-        // Vérification de la disponibilité
-        if ($residence->disponible == 0) {
+        // Vérification de la disponibilité par date
+        $dateArrivee = Carbon::parse($request->date_arrivee);
+        $dateDisponibleApres = $residence->date_disponible_apres ? Carbon::parse($residence->date_disponible_apres) : null;
+
+        if ($dateDisponibleApres && $dateArrivee < $dateDisponibleApres) {
             return back()
-                ->withErrors(['date_arrivee' => 'Cette résidence n’est pas disponible.'])
+                ->withErrors(['date_arrivee' => 'Cette résidence n’est pas disponible à la date choisie.'])
                 ->withInput();
         }
 
@@ -56,6 +60,7 @@ class ReservationController extends Controller
 
         return redirect()->route('historique')->with('success', 'Réservation enregistrée avec succès !');
     }
+
 
 
 
