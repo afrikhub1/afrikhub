@@ -45,7 +45,8 @@ class AdminController extends Controller
             'totalReservation',
             'pendingResidences',
             'totalGain',
-            'tauxOccupation'
+            'tauxOccupation',
+            'residencesactives'
         ));
     }
 
