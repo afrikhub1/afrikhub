@@ -133,4 +133,29 @@ class ReservationController extends Controller
         return back()->with('success', 'Réservation refusée ❌');
     }
 
+    public function checkDisponibilite(Request $request, $residenceId)
+    {
+        $request->validate([
+            'date_arrivee' => 'required|date',
+            'date_depart' => 'required|date|after:date_arrivee',
+        ]);
+
+        $residence = Residence::findOrFail($residenceId);
+        $arrivee = $request->date_arrivee;
+        $depart = $request->date_depart;
+
+        $conflit = $residence->reservations()
+            ->where(function ($q) use ($arrivee, $depart) {
+                $q->whereBetween('date_arrivee', [$arrivee, $depart])
+                    ->orWhereBetween('date_depart', [$arrivee, $depart])
+                    ->orWhere(function ($q2) use ($arrivee, $depart) {
+                        $q2->where('date_arrivee', '<=', $arrivee)
+                            ->where('date_depart', '>=', $depart);
+                    });
+            })
+            ->where('status', '!=', 'annulée')
+            ->exists();
+
+        return response()->json(['disponible' => !$conflit]);
+    }
 }
