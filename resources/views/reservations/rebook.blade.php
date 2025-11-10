@@ -103,6 +103,16 @@
         <p class="text-muted">Modifiez les détails de votre réservation et confirmez</p>
     </div>
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="form-container">
         <form action="{{ route('reservation.store', $reservation->residence_id) }}" method="POST">
             @csrf
