@@ -112,8 +112,8 @@ class ReservationController extends Controller
         // Récupérer la réservation pour connaître la résidence et la date de départ
         $reservation = Reservation::findOrFail($id);
 
-        // Calculer la nouvelle date de disponibilité (+2 jours après la date de départ)
-        $dateDisponible = Carbon::parse($reservation->date_depart)->addDays(2);
+        $dateDisponible = Carbon::parse($reservation->date_depart);
+
 
         Residence::where('id', $reservation->residence_id)->update([
             'disponible' => 0, // ou 1 si tu veux qu'elle reste disponible après ces 2 jours
