@@ -203,14 +203,18 @@
              @endauth
         </div>
 
+        @if(Auth::user()->type_compte == 'professionnel')
+            <a href="{{ route('historique') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
+            <a href="{{ route('dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
+            <a href="{{ route('residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
+            <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-2"></i> Mise en ligne</a>
+            <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Résidences Occupées</a>
+            <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes de Réservations</a>
+        @endif
+         @if(Auth::user()->type_compte == 'professionnel')
+            <a href="{{ route('clients_historique') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
+        @endif
         <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-2"></i> Accueil</a>
-        <a href="{{ route('recherche') }}" class="sidebar-link active bg-dark text-warning"><i class="fas fa-search me-2"></i> Recherche</a>
-        <a href="{{ route('historique') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
-        <a href="{{ route('dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
-        <a href="{{ route('residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
-        <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-2"></i> Mise en ligne</a>
-        <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Résidences Occupées</a>
-        <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes de Réservations</a>
 
         <div class="mt-4 pt-3 border-top border-secondary">
             <a href="{{ route('logout') }}" class="btn btn-custom-primary rounded-pill w-100 shadow">
