@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\Reservation;
 use App\Models\Residence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
 class ReservationController extends Controller
 {
     public function store(Request $request, $residenceId)
@@ -104,15 +103,25 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
+        // Confirmer la réservation
         Reservation::where('id', $id)->update([
             'status' => 'confirmée',
-            'date_validation' => now(), // date et heure actuelles
+            'date_validation' => now(),
         ]);
 
-        Residence::where('proprietaire_id', Auth::id())->update([
-            'disponible' => 0,
+        // Récupérer la réservation pour connaître la résidence et la date de départ
+        $reservation = Reservation::findOrFail($id);
+
+        // Calculer la nouvelle date de disponibilité (+2 jours après la date de départ)
+        $dateDisponible = Carbon::parse($reservation->date_depart)->addDays(2);
+
+        Residence::where('id', $reservation->residence_id)->update([
+            'disponible' => 0, // ou 1 si tu veux qu'elle reste disponible après ces 2 jours
+            'date_disponible' => $dateDisponible,
         ]);
-        return back()->with('success', 'Réservation acceptée ✅');
+
+        return back()->with('success', 'Réservation acceptée ✅, date de disponibilité mise à jour');
+
     }
 
     public function refuser($id)
