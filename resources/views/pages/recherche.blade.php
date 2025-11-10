@@ -20,8 +20,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-background);
-            /* Ajout d'une marge pour ne pas être caché par le header sticky */
-            padding-top: 60px;
+            /* RETIRÉ: padding-top pour s'adapter au header sticky */
         }
 
         /* Boutons personnalisés */
@@ -131,8 +130,8 @@
 
 <body>
 
-{{-- NOUVEAU HEADER --}}
-<header class="bg-white shadow sticky-top">
+{{-- HEADER (NON FIXE) --}}
+<header class="bg-white shadow">
     <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
 
         <!-- Brand/Logo -->
@@ -280,7 +279,7 @@
     </div>
 </div>
 
-{{-- PIED DE PAGE --}}
+{{-- PIED DE PAGE (NON FIXE) --}}
 <footer class="bg-dark text-white-50 mt-5 py-4">
     <div class="container text-center">
         <p class="mb-0">© {{ date('Y') }} Afrik'hub. Tous droits réservés.</p>
@@ -325,7 +324,7 @@
                 // Trouve tous les liens GLightbox pour cette galerie
                 const galleryLinks = document.querySelectorAll(`.glightbox[data-gallery="${link.getAttribute('data-gallery')}"]`);
 
-                // Déclenche l'ouverture de la galerie à la première image
+                // Déclenche l'ouverture de la galerie à l'indice 0
                 if (galleryLinks.length > 0) {
                      // Utilise la méthode d'API de GLightbox pour ouvrir la galerie à l'indice 0
                     lightbox.openAt(0, galleryLinks[0]);
