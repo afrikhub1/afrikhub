@@ -3,127 +3,155 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultats de recherche - Afrik'hub Résidences Meublées</title>
-      <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
-    <!-- GLightbox -->
-    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
-    <!-- FontAwesome -->
+    <title>Résultats de recherche - Afrik'hub</title>
+    <!-- Utilisation de CDN pour minimiser les dépendances locales -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
 
     <style>
-        /* Styles de base et couleurs */
+        /* Variables de couleur et Police */
+        :root {
+            --color-primary: #FF8C00; /* Orange Custom */
+            --color-primary-hover: #CC7000;
+            --color-secondary: #212529; /* Dark Bootstrap */
+            --color-background: #F8F9FA; /* Light Gray */
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F5F5F5;
-        }
-        .btn-custom-orange {
-            background-color: #FF8C00;
-            border-color: #FF8C00;
-            color: white;
-        }
-        .btn-custom-orange:hover {
-            background-color: #CC7000;
-            border-color: #CC7000;
-            color: white;
-        }
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-        }
-        .cursor-pointer {
-            cursor: pointer;
+            background-color: var(--color-background);
+            /* Ajout d'une marge pour ne pas être caché par le header sticky */
+            padding-top: 60px;
         }
 
-        /* Style spécifique pour la Sidebar Coulissante */
+        /* Boutons personnalisés */
+        .btn-custom-primary {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .btn-custom-primary:hover {
+            background-color: var(--color-primary-hover);
+            border-color: var(--color-primary-hover);
+            color: white;
+        }
+        .btn-dark-secondary {
+            background-color: var(--color-secondary);
+            border-color: var(--color-secondary);
+            color: white;
+        }
+        .btn-dark-secondary:hover {
+            background-color: #343a40;
+            border-color: #343a40;
+            color: white;
+        }
+
+        /* Styles des cartes de résidence */
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            height: 12rem;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        .card-text-truncate {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limite à 3 lignes */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Style spécifique pour la Sidebar Coulissante (amélioration de la lecture) */
         #sidebar {
             transition: transform 0.3s ease-in-out;
-            transform: translateX(100%); /* Initialement caché à droite */
+            transform: translateX(100%);
             position: fixed;
             top: 0;
             right: 0;
-            width: 100%; /* Pleine largeur sur mobile */
-            max-width: 350px; /* Limite la largeur sur desktop */
-            z-index: 1060; /* Au-dessus de Bootstrap modals */
+            width: 100%;
+            max-width: 300px; /* Légèrement plus petit pour Desktop */
+            z-index: 1060;
             height: 100%;
-            background-color: #212529; /* Couleur sombre */
+            background-color: var(--color-secondary);
             padding: 1.5rem;
-            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
+            box-shadow: -6px 0 16px rgba(0, 0, 0, 0.7);
             overflow-y: auto;
         }
         #sidebar.active {
-            transform: translateX(0); /* Fait apparaître la sidebar */
+            transform: translateX(0);
         }
-        /* Liens de la sidebar */
         .sidebar-link {
             color: #dee2e6;
-            text-decoration: none;
-            display: block;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            text-align: center;
+            padding: 12px 15px;
             font-weight: 500;
         }
         .sidebar-link:hover {
             background-color: #343a40;
             color: white;
         }
-
-        /* Bouton de déconnexion */
-        .btn-logout {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            font-weight: 600;
-            color: white;
-        }
-        .btn-logout:hover {
-            background-color: #c82333;
-            border-color: #c82333;
-            color: white;
-        }
-
-        /* Overlay pour cacher le contenu */
+        /* Overlay */
         #sidebar-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 1050;
             display: none;
-            transition: opacity 0.3s;
         }
         #sidebar-overlay.active {
             display: block;
         }
-        /* Ajustement du contenu */
-        .main-content {
-            padding-top: 20px;
+        /* HEADER - Ajustements pour la responsivité */
+        @media (max-width: 991.98px) {
+            .navbar-nav {
+                display: none !important; /* Cache les liens de bureau sur mobile/tablette */
+            }
+            .search-form-container {
+                /* Réduit la largeur de la recherche sur les petits écrans */
+                max-width: 90%;
+                margin: 0 auto;
+            }
         }
 
-        /* Supprime la règle qui cachait la sidebar sur desktop */
-        /* La sidebar est maintenant disponible sur toutes les tailles via le bouton */
     </style>
 </head>
 
 <body>
 
 {{-- NOUVEAU HEADER --}}
-<header class="bg-dark shadow sticky-top">
+<header class="bg-white shadow sticky-top">
     <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
 
         <!-- Brand/Logo -->
-       <div class="flex items-center">
-            <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+        <div class="d-flex align-items-center">
+            <a href="{{ route('accueil') }}">
+                <img class="h-auto"
+                     style="width: 80px;"
+                     src="{{ asset('assets/images/logo_01.png') }}"
+                     alt="Afrik'Hub Logo"/>
+            </a>
         </div>
 
         <!-- Search Form (Central et prioritaire) -->
-        <form class="d-flex mx-auto flex-grow-1" style="max-width: 500px;" method="GET" action="{{ route('recherche') }}">
+        <form class="d-flex mx-auto search-form-container" style="max-width: 500px;" method="GET" action="{{ route('recherche') }}">
             <input class="form-control me-2 rounded-pill border-secondary" type="search"
-                    placeholder="Ville, quartier, référence..." aria-label="Rechercher" name="ville_quartier" />
-            <button class="btn btn-custom-orange text-white rounded-pill" type="submit">
+                   placeholder="Ville, quartier, référence..." aria-label="Rechercher" name="ville_quartier"
+                   value="{{ request('ville_quartier') ?? '' }}"
+            />
+            <button class="btn btn-custom-primary text-white rounded-pill" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
@@ -131,23 +159,23 @@
         <!-- User Actions (Desktop) -->
         <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4">
             <li class="nav-item mx-2">
-                <a href="{{ route('dashboard') }}" class="nav-link text-white"><i class="fa fa-user me-1 text-warning"></i> Mon Espace</a>
+                <a href="{{ route('dashboard') }}" class="nav-link text-secondary fw-bold"><i class="fa fa-user me-1 text-primary"></i> Mon Espace</a>
             </li>
             <li class="nav-item mx-2">
-                <a href="{{ route('logout') }}" class="btn btn-logout btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
+                <a href="{{ route('logout') }}" class="btn btn-dark-secondary btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
                     <i class="fa fa-sign-out me-2"></i> Déconnexion
                 </a>
             </li>
         </ul>
 
         <!-- Menu Button (Visible sur TOUS les écrans) -->
-        <button id="toggleSidebar" class="btn btn-dark ms-3 p-0" type="button" aria-label="Menu">
-             <i class="fas fa-bars fa-lg text-white"></i>
+        <button id="toggleSidebar" class="btn btn-link ms-3 p-0" type="button" aria-label="Menu">
+             <i class="fas fa-bars fa-lg text-secondary"></i>
         </button>
     </div>
 </header>
 
-{{-- SIDEBAR COULISSANTE (Mobile First, mais visible sur Desktop via bouton) --}}
+{{-- SIDEBAR COULISSANTE --}}
 <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div id="sidebar" class="text-white d-flex flex-column">
 
@@ -156,29 +184,21 @@
     </button>
 
     <div class="w-100 d-flex flex-column gap-3">
-
-        <!-- Header esthétique -->
         <div class="text-center mb-4 pb-3 border-bottom border-secondary">
-             <h4 class="fw-bold">MENU PRINCIPAL</h4>
+             <h4 class="fw-bold text-white">MENU RAPIDE</h4>
+             @auth
+                 <p class="small text-muted mb-0">Connecté comme : {{ Auth::user()->name }}</p>
+             @endauth
         </div>
 
         <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-2"></i> Accueil</a>
-
-        <a href="{{ route('recherche') }}" class="sidebar-link active" style="background-color: #343a40;"><i class="fas fa-search me-2"></i> Recherche</a>
-
-        <a href="{{ route('historique') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Réservation</a>
-
-        <a href="{{ route('dashboard') }}" class="sidebar-link">
-            <i class="fas fa-user me-2"></i> Mon Compte
-        </a>
-
+        <a href="{{ route('recherche') }}" class="sidebar-link active bg-dark text-warning"><i class="fas fa-search me-2"></i> Recherche</a>
+        <a href="{{ route('historique') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
+        <a href="{{ route('dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
         <a href="{{ route('residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
-
         <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-2"></i> Mise en ligne</a>
-
-        <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Residence occupées</a>
-
-        <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes de reservations</a>
+        <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Résidences Occupées</a>
+        <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes de Réservations</a>
 
         <div class="mt-4 pt-3 border-top border-secondary">
             <a href="{{ route('logout') }}" class="btn btn-logout rounded-pill w-100 shadow">
@@ -190,94 +210,88 @@
 <!-- FIN SIDEBAR -->
 
 {{-- CONTENU PRINCIPAL --}}
-<div class="container-fluid">
+<div class="container my-5">
+    <h2 class="mb-5 text-center fw-bold fs-3 text-secondary">
+        Résultats de recherche pour : <span class="text-primary">{{ request('ville_quartier') ?: 'Toutes les résidences' }}</span>
+    </h2>
+
     <div class="row">
-
         <div class="col-12 main-content">
-            <main class="container my-5">
-                <h2 class="mb-4 text-center fw-bold fs-3">
-                    Résultats de recherche pour <span class="text-warning">{{ request('ville_quartier') }}</span>
-                </h2>
+            @if ($recherches->isEmpty())
+                <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
+                </div>
+            @else
+                <div class="row g-4 justify-content-center">
+                    @foreach($recherches as $residence)
+                        @php
+                            $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
+                            // Fallback pour la première image
+                            $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+                        @endphp
 
-                @if ($recherches->isEmpty())
-                    <div class="alert alert-info text-center">Aucune résidence trouvée pour cette recherche.</div>
-                @else
-                    <div class="row g-4 justify-content-center">
-                        @foreach($recherches as $residence)
-                            @php
-                                $images = ($residence->img);
-                                if (is_string($images)) {
-                                    $images = json_decode($images, true) ?? [];
-                                };
-                                $firstImage = $images[0] ?? null;
-                                $imagePath = $firstImage? $firstImage // URL S3 déjà complète
-                                : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-                            @endphp
+                        <div class="col-sm-6 col-md-6 col-lg-4 d-flex">
+                            <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
+                                <a href="javascript:void(0)"
+                                   class="glightbox-trigger-{{ $residence->id }}">
+                                    <img src="{{ $firstImage }}"
+                                         alt="Image de la résidence {{ $residence->nom }}"
+                                         class="card-img-top"
+                                         loading="lazy">
+                                </a>
 
-                            <div class="col-sm-6 col-md-6 col-lg-4">
-                                <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden">
-                                                                        {{-- Image principale cliquable pour galerie --}}
-                                    <img src="{{ $firstImage }}" alt="Image de la résidence {{ $residence->nom }}"
-                                        class="card-img-top rounded-top-3"
-                                        style="height: 12rem; object-fit: cover; cursor: pointer;">
+                                {{-- Liens GLightbox CACHÉS pour la galerie --}}
+                                @foreach($images as $key => $image)
+                                    <a href="{{ $image }}"
+                                       class="glightbox"
+                                       data-gallery="gallery-{{ $residence->id }}"
+                                       data-title="{{ $residence->nom }} - Image {{ $key + 1 }}"
+                                       style="display: none;"
+                                       aria-label="Voir l'image {{ $key + 1 }}"
+                                       data-index="{{ $key }}"
+                                       data-trigger=".glightbox-trigger-{{ $residence->id }}"
+                                    ></a>
+                                @endforeach
 
-                                    {{-- Autres images (liens cachés pour GLightbox) --}}
-                                    @foreach($images as $key => $image)
-                                        @if($key > 0)
-                                            <a href="{{ $firstImage }}"
-                                            class="glightbox"
-                                            data-gallery="gallery-{{ $residence->id }}"
-                                            data-title="{{ $residence->nom }}"
-                                            style="display: none;"></a>
-                                        @endif
-                                    @endforeach
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title fw-bold text-dark">{{ $residence->nom }}</h5>
+                                    <p class="card-text text-muted card-text-truncate" title="{{ $residence->description }}">
+                                        {{ Str::limit($residence->description, 100) }}
+                                    </p>
+                                    <ul class="list-unstyled small mb-3 mt-2">
+                                        <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
+                                        <li><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Ville :</strong> {{ $residence->ville ?? '-' }}</li>
+                                        <li class="fw-bold mt-2">
+                                            <i class="fas fa-money-bill-wave me-2 text-success"></i>
+                                            Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
+                                        </li>
+                                    </ul>
 
-
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">{{ $residence->nom }}</h5>
-                                        <p class="card-text text-truncate" title="{{ $residence->description }}">
-                                            {{ Str::limit($residence->description, 100) }}
-                                        </p>
-                                        <ul class="list-unstyled small mb-3">
-                                            <li><strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
-                                            <li><strong>Prix journalier :</strong> {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA</li>
-                                            <li><strong>Ville :</strong> {{ $residence->ville ?? '-' }}</li>
-                                        </ul>
-
-                                        <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded-pill mt-auto">
-                                            Détails
-                                        </a>
-                                    </div>
+                                    <a href="{{ route('details', $residence->id) }}" class="btn btn-dark-secondary rounded-pill mt-auto">
+                                        Voir les Détails <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                @endif
-            </main>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </div>
 </div>
 
+{{-- PIED DE PAGE --}}
+<footer class="bg-dark text-white-50 mt-5 py-4">
+    <div class="container text-center">
+        <p class="mb-0">© {{ date('Y') }} Afrik'hub. Tous droits réservés.</p>
+        <p class="small">Plateforme de Résidences Meublées.</p>
+    </div>
+</footer>
+
 <!-- GLightbox + Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Initialise GLightbox pour les galeries d'images
-    const lightbox = GLightbox({
-        selector: '.glightbox'
-    });
-
-    // Ajoute un écouteur de clic sur l'image principale pour ouvrir la galerie
-    document.querySelectorAll('.card-img-top').forEach(img => {
-        img.addEventListener('click', function() {
-            const card = this.closest('.card');
-            const firstLink = card.querySelector('.glightbox');
-            if (firstLink) {
-                firstLink.click();
-            }
-        });
-    });
-
-
     // --- Logique pour le menu latéral coulissant ---
     const sidebar = document.getElementById('sidebar');
     const toggleButton = document.getElementById('toggleSidebar');
@@ -290,12 +304,36 @@
         document.body.classList.toggle('overflow-hidden');
     }
 
-    // Lie les événements aux boutons
     if (toggleButton) {
         toggleButton.addEventListener('click', toggleSidebar);
     }
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    // --- Logique GLightbox pour la galerie --
+    // Initialise GLightbox
+    const lightbox = GLightbox();
+
+    // Ajoute un écouteur de clic sur le lien 'a' qui enveloppe l'image pour ouvrir le premier lien GLightbox
+    document.querySelectorAll('[data-trigger]').forEach(link => {
+        const triggerSelector = link.getAttribute('data-trigger');
+        const triggerElement = document.querySelector(triggerSelector);
+
+        if (triggerElement) {
+            // Empêche le comportement par défaut du lien pour le gérer manuellement
+            triggerElement.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Trouve tous les liens GLightbox pour cette galerie
+                const galleryLinks = document.querySelectorAll(`.glightbox[data-gallery="${link.getAttribute('data-gallery')}"]`);
+
+                // Déclenche l'ouverture de la galerie à la première image
+                if (galleryLinks.length > 0) {
+                     // Utilise la méthode d'API de GLightbox pour ouvrir la galerie à l'indice 0
+                    lightbox.openAt(0, galleryLinks[0]);
+                }
+            });
+        }
+    });
+
+</script>
 </body>
 </html>
