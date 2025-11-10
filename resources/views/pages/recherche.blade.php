@@ -164,7 +164,7 @@
             <li class="nav-item mx-2">
                 <!-- Texte blanc sur fond sombre -->
                 @if(Auth::user()->type_compte == 'professionnel')
-                    <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold"><i class="fa fa-user mx-2 text-primary"></i> Profil</a>
+                    <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold fa-user-circle mx-2">Profil</a>
                 @endif
 
                 @if(Auth::user()->type_compte == 'client')
