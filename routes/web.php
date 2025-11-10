@@ -175,7 +175,7 @@ use App\Http\Controllers\ClientController;
 
 Route::middleware(['auth'])->group(function () {
     // Historique des réservations (toutes)
-    Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('historique');
+    Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
 
     // Historique des factures (réservations facturables)
     Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');

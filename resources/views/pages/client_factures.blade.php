@@ -33,7 +33,7 @@
         </div>
 
         <div class="flex justify-center space-x-4 mb-8 border-b pb-4">
-            <a href="/historique_reservations.html" class="py-2 px-4 text-amber-700 rounded-lg hover:bg-amber-50 transition duration-150 font-medium border border-amber-100">
+            <a href="{{ route('clients_historique') }}" class="py-2 px-4 text-amber-700 rounded-lg hover:bg-amber-50 transition duration-150 font-medium border border-amber-100">
                 <i class="fas fa-history mr-1"></i> Voir toutes mes Réservations
             </a>
         </div>
