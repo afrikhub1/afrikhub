@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Détails de la résidence</title>
 
-  <!-- Icônes / Bootstrap / Font -->
+    <!-- Icônes / Bootstrap / Font -->
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- GLightbox (lightbox léger et mobile-friendly) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GLightbox (lightbox léger et mobile-friendly) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
 
   <style>
     :root{--primary:#ff7a00;--dark:#1a1a1a;--light:#f7f7f7}
