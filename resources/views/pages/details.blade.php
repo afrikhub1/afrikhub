@@ -109,7 +109,6 @@
 
     <article class="card custom mb-5">
       <img src="{{ $first }}" alt="{{ $residence->nom }}" class="residence-img" data-bs-toggle="modal" data-bs-target="#lightboxModal" />
-
       <div class="card-body text-center">
         <h2 class="fw-bold">{{ $residence->nom }}</h2>
         <p class="price mb-2">{{ number_format($residence->prix_journalier,0,',',' ') }} FCFA / nuit</p>
@@ -122,48 +121,18 @@
         </div>
       </div>
     </article>
+
+    {{-- Galerie invisible pour les autres images --}}
+        @if(is_array($images))
+            @foreach($images as $key => $image)
+                @if($key > 0)
+                    <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                @endif
+            @endforeach
+        @endif
+
   </main>
 
-  <!-- LIGHTBOX (FULLSCREEN) -->
-  <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content modal-light position-relative d-flex flex-column align-items-center justify-content-center">
-        <button class="light-close" data-bs-dismiss="modal" aria-label="Fermer">&times;</button>
-
-        <div id="lightCarousel" class="carousel slide w-100" data-bs-ride="false">
-          <div class="carousel-inner d-flex justify-content-center align-items-center" style="min-height:60vh">
-            @if(count($images))
-              @foreach($images as $i => $img)
-                <div class="carousel-item {{ $i===0 ? 'active' : '' }} text-center">
-                  <img src="{{ $img }}" class="light-img" alt="image-{{ $i }}">
-                </div>
-              @endforeach
-            @else
-              <div class="carousel-item active text-center">
-                <img src="https://placehold.co/900x500?text=Aucune+image" class="light-img" alt="no-image">
-              </div>
-            @endif
-          </div>
-
-          <button class="carousel-control-prev" type="button" data-bs-target="#lightCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#lightCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          </button>
-        </div>
-
-        <!-- miniatures -->
-        <div id="thumbs" class="w-100 px-3">
-          @if(count($images))
-            @foreach($images as $i => $img)
-              <img src="{{ $img }}" data-index="{{ $i }}" class="{{ $i===0 ? 'active' : '' }}" alt="thumb-{{ $i }}">
-            @endforeach
-          @endif
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- RESERVATION MODAL (tout inclus ici, pas d'include) -->
   <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
@@ -232,26 +201,11 @@
       document.getElementById('sidebar-overlay').classList.toggle('active');
     }
 
-    // lightbox thumbs sync
-    document.addEventListener('DOMContentLoaded', () => {
-      const carouselEl = document.getElementById('lightCarousel');
-      if (!carouselEl) return;
-      const carousel = new bootstrap.Carousel(carouselEl, {interval:false, ride:false});
-      const thumbs = document.querySelectorAll('#thumbs img');
+    document.addEventListener('DOMContentLoaded', function() {
+            // Initialisation GLightbox
+            GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+        });
 
-      thumbs.forEach(t => t.addEventListener('click', () => {
-        const idx = Number(t.dataset.index || 0);
-        carousel.to(idx);
-        document.querySelector('#thumbs img.active')?.classList.remove('active');
-        t.classList.add('active');
-      }));
-
-      carouselEl.addEventListener('slid.bs.carousel', (e) => {
-        const idx = e.to;
-        document.querySelector('#thumbs img.active')?.classList.remove('active');
-        thumbs[idx]?.classList.add('active');
-      });
-    });
 
     // reservation logic (calcul prefacture + confirmation)
     (function(){
