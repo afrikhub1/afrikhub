@@ -113,7 +113,7 @@
                     <i class="fas fa-exclamation-triangle me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
                 </div>
             @else
-                <div class="row g-4 justify-content-center my-2">
+                <div class="row g-4 justify-content-center mb-4">
                     @foreach($residences as $residence)
                         @php
                             $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
@@ -158,7 +158,7 @@
                                         </li>
                                     </ul>
 
-                                    <a href="{{ route('details', $residence->id) }}" class="btn btn-dark-secondary rounded-pill mt-auto">
+                                    <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded mt-auto">
                                         Voir les Détails <i class="fas fa-arrow-right ms-2"></i>
                                     </a>
                                 </div>

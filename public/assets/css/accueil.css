@@ -1,15 +1,3 @@
- /* ---------------- HEADER ET NAV ---------------- */
-:root {
-    --color-primary: #FF8C00;
-    /* Orange Custom */
-    --color-primary-hover: #CC7000;
-    --color-secondary: #212529;
-    /* Dark Bootstrap */
-    --color-background: #F8F9FA;
-    /* Light Gray */
-    --footer-height: 60px;
-    /* Hauteur estimée pour le footer fixe */
-}
  header {
   position: relative;
   background: linear-gradient(135deg, #006d77, #00afb9);
