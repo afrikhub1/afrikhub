@@ -108,7 +108,7 @@
 
     <div class="row">
         <div class="col-12 main-content">
-            @if ($recherches->isEmpty())
+            @if ($residences->isEmpty())
                 <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
                     <i class="fas fa-exclamation-triangle me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
                 </div>
