@@ -84,8 +84,11 @@ class ResidenceController extends Controller
         // Exemple de requête : récupérer les résidences selon la ville/quartier
         $recherches = Residence::where('ville', 'LIKE', "%{$ville}%")->get();
 
-        // Passer la variable à la vue
-        return view('pages.recherche', compact('recherches'));
+        $disponibilite = Residence::with('reservations')->get(); // ou selon ta recherche
+        foreach ($recherches as $residence) {
+            $residence->date_disponible = $residence->prochaineDisponibilite(2);
+        }
+        return view('pages.recherche', compact('recherches', 'disponibilite'));
     }
 
     public function accueil(Request $request)

@@ -57,4 +57,23 @@ class Residence extends Model
     {
         return $this->hasMany(Reservation::class, 'residence_id');
     }
+
+    // app/Models/Residence.php
+
+    public function prochaineDisponibilite(int $joursNettoyage = 2)
+    {
+        // Récupère les dernières réservations triées par date de départ
+        $dernieresReservations = $this->reservations()->orderBy('date_depart', 'desc')->get();
+
+        if ($dernieresReservations->isEmpty()) {
+            // Si pas de réservation, dispo dès aujourd'hui
+            return now()->addDays($joursNettoyage)->toDateString();
+        }
+
+        // On prend la dernière réservation
+        $dernierDepart = $dernieresReservations->first()->date_depart;
+
+        // Ajoute les jours pour nettoyage
+        return \Carbon\Carbon::parse($dernierDepart)->addDays($joursNettoyage)->toDateString();
+    }
 }
