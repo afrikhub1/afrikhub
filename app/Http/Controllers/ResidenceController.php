@@ -103,10 +103,10 @@ class ResidenceController extends Controller
         $today = \Carbon\Carbon::now()->subDay()->startOfDay();
 
         Residence::where('disponible', 0)
-            ->whereDate('date_depart_apres', '<', $today)
+            ->whereDate('date_disponible_apres', '<', $today)
             ->update([
                 'disponible' => 1,
-                'date_depart_apres' => null,
+                'date_disponible_apres' => null,
             ]);
 
 
