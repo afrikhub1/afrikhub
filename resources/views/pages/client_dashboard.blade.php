@@ -59,10 +59,12 @@
                         <div class="mb-3">
                             @php
                                 $statusClass = [
-                                    'en_attente' => 'bg-blue-600 text-white',
+                                    'en attente' => 'bg-blue-600 text-white',
                                     'confirmée' => 'bg-green-600 text-white',
                                     'terminée' => 'bg-gray-500 text-white',
                                     'annulée' => 'bg-red-600 text-white',
+                                    'interpmpue' => 'bg-orange-600 text-white',
+                                    'payé' => 'bg-indigo-600 text-white',
                                 ][$res->status] ?? 'bg-gray-400 text-gray-800';
                             @endphp
                             <span class="inline-block px-3 py-1 text-xs font-bold {{ $statusClass }} rounded-full shadow-md">

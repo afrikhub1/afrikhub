@@ -31,11 +31,12 @@ class LoginController extends Controller
             'email' => 'Veuillez vérifier votre compte avant de vous connecter'
             ]);
         }
-
+        // on verifie si le l'utilisateur est un client
         if ($user->type_compte == 'client') {
 
             $route= 'clients_historique';
         }
+        // sinon il est forcement un user pro
         else {
             $route = 'dashboard';
         }
