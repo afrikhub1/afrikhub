@@ -1,3 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique de Facturation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    {{-- Garder ou supprimer cette ligne selon votre configuration Tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                {{-- Utilisez 'asset' si vous avez un layout parent, sinon assurez-vous que le chemin est correct --}}
+                <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+            </div>
+            <nav class="flex items-center space-x-6 text-sm font-medium">
+                <a href="{{ route('accueil') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="{{ route('recherche') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-search mr-1"></i> Recherche</a>
+                <a href="{{ route('factures') }}" class="text-gray-600 hover:text-indigo-600 font-bold text-indigo-700"><i class="fas fa-file-invoice-dollar mr-1"></i> Factures</a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="py-2 px-3 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 shadow-md">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Déconnexion
+                    </button>
+                </form>
+            </nav>
+        </div>
+    </header>
+
 <main class="container mx-auto p-2 py-12">
 
     <div class="page-header text-center mb-8">
@@ -84,3 +117,6 @@
         </div>
     @endif
 </main>
+
+</body>
+</html>
