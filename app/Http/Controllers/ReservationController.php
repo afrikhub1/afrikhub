@@ -20,16 +20,33 @@ class ReservationController extends Controller
 
         $residence = Residence::findOrFail($residenceId);
 
+        // Vérification des chevauchements de réservation
+        $conflit = $residence->reservations()
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('date_arrivee', [$request->date_arrivee, $request->date_depart])
+                    ->orWhereBetween('date_depart', [$request->date_arrivee, $request->date_depart])
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('date_arrivee', '<=', $request->date_arrivee)
+                            ->where('date_depart', '>=', $request->date_depart);
+                    });
+            })
+            ->where('status', '!=', 'annule') // Ignorer les réservations annulées
+            ->exists();
+
+        if ($conflit) {
+            return back()->withErrors(['date_arrivee' => 'Cette résidence est déjà réservée pour les dates sélectionnées.'])->withInput();
+        }
+
         // Calcul du nombre de nuits
         $nbJours = (new \DateTime($request->date_arrivee))->diff(new \DateTime($request->date_depart))->days;
 
         // Calcul du total
         $total = $nbJours * $residence->prix_journalier;
-        do {
-            $code = 'RES-' . strtoupper(Str::random(6)); // Ex : RES-A1B2C3
-        } while (Reservation::where('reservation_code', $code)->exists());
 
-        $date_validation = null;
+        // Génération du code réservation unique
+        do {
+            $code = 'RES-' . strtoupper(Str::random(6));
+        } while (Reservation::where('reservation_code', $code)->exists());
 
         // Enregistrement de la réservation
         $reservation = Reservation::create([
@@ -40,13 +57,15 @@ class ReservationController extends Controller
             'proprietaire_id' => $residence->proprietaire_id,
             'date_arrivee' => $request->date_arrivee,
             'date_depart' => $request->date_depart,
-            'date_validation'=> $date_validation,
+            'date_validation' => null,
             'personnes' => $request->personnes,
             'total' => $total,
+            'status' => 'en attente', // ou autre statut par défaut
         ]);
 
         return redirect()->route('historique')->with('success', 'Réservation enregistrée avec succès !');
     }
+
 
     public function historique()
     {
