@@ -180,7 +180,8 @@ Route::middleware(['auth'])->group(function () {
     // Historique des factures (réservations facturables)
     Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
 
-    // Téléchargement du PDF
-    Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
-
+    Route::middleware('auth')->group(function () {
+        Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])
+            ->name('facture.telecharger');
+    });
 });

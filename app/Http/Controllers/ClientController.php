@@ -60,23 +60,19 @@ class ClientController extends Controller
      */
     public function telechargerFacture($reservationId)
     {
-        if (!Auth::check()) {
-            abort(403, 'Accès non autorisé.');
-        }
-
-        // 1. Recherche la réservation et s'assure qu'elle appartient à l'utilisateur
+        // 1. Recherche sécurisée (404 si non trouvé ou n'appartient pas à l'utilisateur)
         $reservation = Reservation::where('id', $reservationId)
             ->where('user_id', Auth::id())
-            ->with('residence', 'user') // Relations pour les détails
+            ->with('residence', 'user')
             ->firstOrFail();
 
-        // 2. Génère le PDF
-        // IMPORTANT : Utilise la vue 'pdf.facture_reservation_template'
-        $pdf = Pdf::loadView('pdf.facture_reservation_template', compact('reservation'));
+        // 2. Génération du PDF
+        $pdf = Pdf::loadView('factures.facture_template', compact('reservation'));
 
-        // 3. Télécharge le fichier PDF
-        $fileName = 'facture-res-' . $reservation->id . '-' . now()->format('Ymd') . '.pdf';
-        return $pdf->download($fileName);
+        // 3. Nommage du fichier et téléchargement
+        $nomFichier = 'facture-' . $reservation->id . '.pdf';
+
+        return $pdf->download($nomFichier);
     }
 
     // Vous pouvez ajouter ici d'autres méthodes comme annulerReservation(), payer(), etc.
