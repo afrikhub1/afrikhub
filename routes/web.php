@@ -66,6 +66,8 @@ Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('
 
 Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche')->middleware('auth');
 
+Route::get('/residences_accueil', [ResidenceController::class, 'accueil'])->name('residences_accueil')->middleware('auth');
+
 Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
 Route::get('residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
