@@ -104,7 +104,7 @@ class ResidenceController extends Controller
 
         // Ajoute la prochaine date disponible à chaque résidence
         foreach ($residences as $residence) {
-            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage(2);
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
         }
 
         // Passe la variable à la vue
