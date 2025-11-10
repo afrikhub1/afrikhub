@@ -123,16 +123,6 @@
                     @error('statut') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
-                {{-- Suspension (Checkbox) --}}
-                <div class="flex items-center pt-5">
-                    <input id="is_suspended" name="is_suspended" type="checkbox" value="1"
-                            {{ old('is_suspended', $residence->is_suspended) ? 'checked' : '' }}
-                           class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                    <label for="is_suspended" class="ml-2 block text-sm font-medium text-gray-700">
-                        Suspendre la Résidence (Accès bloqué)
-                    </label>
-                </div>
-
                 {{-- ID Propriétaire (Lecture Seule) --}}
                 <div>
                     <label for="proprietaire_id" class="block text-sm font-medium text-gray-700 mb-1">ID Propriétaire</label>
