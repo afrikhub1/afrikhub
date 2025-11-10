@@ -21,9 +21,7 @@ use App\Http\Controllers\PaiementController;
 // NOTE TRÈS IMPORTANTE : J'AI RETIRÉ L'IMPORTATION QUI CAUSAIT L'ERREUR DE FICHIER NON TROUVÉ.
 // use App\Http\Middleware\VerifyCsrfToken;
 
-Route::get('/', function () {
-    return view('accueil');
-})->name('accueil');
+Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -65,8 +63,6 @@ Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email
 Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verify');
 
 Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche')->middleware('auth');
-
-Route::get('/residences_accueil', [ResidenceController::class, 'accueil'])->name('residences_accueil')->middleware('auth');
 
 Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
