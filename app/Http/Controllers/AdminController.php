@@ -106,7 +106,7 @@ class AdminController extends Controller
             'quartier' => 'nullable|string|max:100',
 
             // Validation du statut avec les valeurs autorisées
-            'statut' => ['required', Rule::in(['verifiée', 'en_attente', 'desactive'])],
+            'statut' => ['required', Rule::in(['vérifiée', 'en_attente', 'desactive'])],
 
             'is_suspended' => 'nullable|boolean',
 
