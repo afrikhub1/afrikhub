@@ -109,7 +109,7 @@
                                         ->first();
                                 @endphp
 
-                                <li class="fw-bold mt-2 text-danger fw-600">
+                                <li class="fw-bold mt-2 text-secondary fw-light">
                                     <i class="fas fa-calendar-check me-2"></i>
                                     Statut : {{ $reservationEnCours?->status ?? 'Aucune réservation en cours' }}
                                 </li>
