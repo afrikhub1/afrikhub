@@ -10,7 +10,14 @@ use Illuminate\Support\Str;
 
 class PaiementController extends Controller
 {
-    // Déclenche le paiement
+    // *** NOTE : Le constructeur pour l'exclusion CSRF est retiré ici.
+    // L'exclusion se fait dans routes/web.php via withoutMiddleware(). ***
+
+    /**
+     * Déclenche le processus d'initialisation du paiement Paystack.
+     * @param Reservation $reservation
+     * @return \Illuminate\Http\RedirectResponse|string
+     */
     public function index(Reservation $reservation)
     {
         if (!$reservation) {
@@ -29,10 +36,9 @@ class PaiementController extends Controller
         $reservation->reference = 'RES-' . strtoupper(Str::random(10)) . '-' . time();
         $reservation->save();
 
-        $amount = $reservation->total * 100; // Paystack = kobo
+        $amount = $reservation->total * 100; // Paystack utilise Kobo
 
-        // 2. Préparation des métadonnées pour Paystack
-        // L'ID de la réservation est crucial pour le webhook
+        // 2. Préparation des métadonnées pour Paystack (pour identifier la réservation dans le webhook)
         $metadata = [
             'reservation_id' => $reservation->id,
             'custom_fields' => [
@@ -44,7 +50,7 @@ class PaiementController extends Controller
             ]
         ];
 
-        // Appel API Paystack
+        // Appel API Paystack pour initialisation
         try {
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('services.paystack.secret'),
@@ -54,7 +60,7 @@ class PaiementController extends Controller
                 'amount' => $amount,
                 'reference' => $reservation->reference,
                 'callback_url' => route('paiement.callback'),
-                'metadata' => $metadata, // <-- Ajout des métadonnées ici
+                'metadata' => $metadata,
             ]);
         } catch (\Exception $e) {
             Log::error("Erreur API Paystack lors de l'initialisation : " . $e->getMessage());
@@ -68,33 +74,39 @@ class PaiementController extends Controller
             return "❌ Erreur Paystack : " . ($data['message'] ?? 'Réponse inattendue');
         }
 
+        // Rediriger l'utilisateur vers la page de paiement Paystack
         return redirect()->away($data['data']['authorization_url']);
     }
 
-    // Callback après paiement
+    /**
+     * Gère le retour de l'utilisateur après le paiement.
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function callback(Request $request)
     {
         $reference = $request->query('reference');
 
         if (!$reference) {
-            // Log::warning('Callback Paystack: Référence manquante.', $request->all());
             return redirect()->route('historique')->with('error', 'Référence de paiement manquante. Le statut de paiement sera mis à jour par le webhook.');
         }
 
-        // On laisse le webhook mettre à jour le statut, et le callback rassure l'utilisateur
+        // Le callback rassure l'utilisateur en l'informant que la vérification est en cours.
         return redirect()->route('historique')->with('success', 'Paiement en cours de vérification. Le statut de votre réservation sera mis à jour sous peu.');
     }
 
-    // Webhook Paystack
+    /**
+     * Gère les notifications de paiement de serveur à serveur (Webhook).
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function webhook(Request $request)
     {
-        // 1. Répondre immédiatement (le plus important)
-        // La réponse HTTP 200 doit être envoyée rapidement, même si le traitement est différé.
-        // Si vous utilisez une file d'attente (Jobs), vous retournerez 200 ici et dispatcherez le Job.
+        // 1. Répondre immédiatement (le plus important pour Paystack)
 
         $signature = $request->header('x-paystack-signature');
         $secret = config('services.paystack.secret');
-        $payload = $request->getContent(); // Utiliser getContent() pour la vérification de signature
+        $payload = $request->getContent(); // Corps brut pour la vérification de signature
 
         // 2. Vérification de la signature (Sécurité)
         if (!$signature || $signature !== hash_hmac('sha512', $payload, $secret)) {
@@ -108,20 +120,18 @@ class PaiementController extends Controller
         // 3. Traitement de l'événement charge.success
         if (isset($data['event']) && $data['event'] === 'charge.success') {
 
-            // On récupère l'ID de réservation envoyé par la méthode index()
             $reservationId = $data['data']['metadata']['reservation_id'] ?? null;
 
             if ($reservationId) {
                 $reservation = Reservation::find($reservationId);
 
                 if ($reservation) {
-                    // Vérifier si le paiement a été effectué avec succès et que le statut est différent
                     $status_paystack = $data['data']['status'] ?? 'non-défini';
 
                     if ($status_paystack === 'success' && $reservation->status !== 'payé') {
                         // Mettre à jour la DB
                         $reservation->status = 'payé';
-                        $reservation->transaction_id = $data['data']['id']; // Optionnel : enregistrer l'ID Paystack
+                        $reservation->transaction_id = $data['data']['id'];
                         $reservation->save();
 
                         Log::info("Réservation ID {$reservation->id} mise à jour en PAYÉ via webhook. Référence: {$reservation->reference}");

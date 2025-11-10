@@ -15,23 +15,47 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResidenceController;
 use App\Models\User;
 
-Route::get('/', function () { return view('accueil'); })->name('accueil');
+use App\Http\Controllers\FileManagerController;
 
-Route::get('/login', function () { return view('auth.login'); })->name('login');
+use App\Http\Controllers\PaiementController;
+// NOTE TRÈS IMPORTANTE : J'AI RETIRÉ L'IMPORTATION QUI CAUSAIT L'ERREUR DE FICHIER NON TROUVÉ.
+// use App\Http\Middleware\VerifyCsrfToken;
 
-Route::get('/recherche', function () { return view('pages.recherche'); })->name('recherche');
+Route::get('/', function () {
+    return view('accueil');
+})->name('accueil');
 
-Route::get('/mise_en_ligne', function () { return view('pages.mise_en_ligne'); })->name('mise_en_ligne');
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
-Route::get('/register', function () { return view('auth.register'); })->name('register');
+Route::get('/recherche', function () {
+    return view('pages.recherche');
+})->name('recherche');
 
-Route::get('/message', function () { return view('pages.messages'); })->name('message');
+Route::get('/mise_en_ligne', function () {
+    return view('pages.mise_en_ligne');
+})->name('mise_en_ligne');
 
-Route::get('/residences', function () { return view('pages.residences'); })->name('residences');
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
 
-Route::get('/accueil', function () { return view('pages.dashboard'); })->middleware('auth')->name('accueil');
+Route::get('/message', function () {
+    return view('pages.messages');
+})->name('message');
 
-Route::get('/mise_en_ligne', function () { return view('pages.mise_en_ligne'); })->name('mise_en_ligne');
+Route::get('/residences', function () {
+    return view('pages.residences');
+})->name('residences');
+
+Route::get('/accueil', function () {
+    return view('pages.dashboard');
+})->middleware('auth')->name('accueil');
+
+Route::get('/mise_en_ligne', function () {
+    return view('pages.mise_en_ligne');
+})->name('mise_en_ligne');
 
 
 
@@ -127,15 +151,12 @@ Route::post('/admin/users/{user}/toggle', [AdminController::class, 'toggleUserSu
 Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 
 
-use App\Http\Controllers\FileManagerController;
-
 Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
 Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
 
 
 
-use App\Http\Controllers\PaiementController;
-
+// Routes de Paiement
 // Page de paiement
 Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
 
@@ -143,4 +164,7 @@ Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('
 Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
 
 // Webhook Paystack (POST uniquement)
-Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])->name('paiement.webhook');
+// L'utilisation du FQCN du framework évite l'erreur de "fichier non trouvé".
+Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
+    ->name('paiement.webhook')
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class); // <--- CORRECTION DÉFINITIVE
