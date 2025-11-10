@@ -31,9 +31,9 @@ class AdminController extends Controller
         $pendingResidences = Residence::whereIn('statut', ['en attente', 'suspendue'])->get();
 
         // Calcul du Taux d'Occupation
-        $residencesOccupees = Reservation::where('status', ['disponible',0 ])->count();
+        $residencesOccupees = Residence::where('disponible', 0)->count();
         // Calcul du pourcentage, évite la division par zéro.
-        $tauxOccupation = $totalResidences > 0 ? round(($residencesOccupees / $totalResidences) * 100, 2) : 0;
+        $tauxOccupation = $totalResidences > 0 ? round(($totalResidences / $residencesOccupees) * 100, 2) : 0;
 
         // Passe toutes les statistiques à la vue 'admin.admin' (le tableau de bord).
         return view('admin.admin', compact(
