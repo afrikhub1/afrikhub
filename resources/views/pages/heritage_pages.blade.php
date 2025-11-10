@@ -75,7 +75,7 @@
                     <div class="flex items-center space-x-4">
                         <!-- Placeholder Logo -->
                         <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">A'H</div>
-                        <h1 class="text-xl font-semibold text-white">gestionnaire@afrikhub.com</h1>
+                        <h1 class="text-xl font-semibold text-white">{{ Auth::user() }}</h1>
                     </div>
 
                     <!-- Toggle Button (pour ouvrir la Sidebar) -->
@@ -113,26 +113,43 @@
             </button>
             <div class="mt-12 w-full flex flex-col space-y-4">
 
-                <a href="{{ route('accueil') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="{{ route('accueil') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    <i class="fas fa-home mr-1"></i> Accueil
+                </a>
 
-                <a href="{{ route('recherche') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Recherche</a>
+                <a href="{{ route('recherche') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    Recherche
+                </a>
 
-                <a href="{{ route('historique') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Réservation</a>
+                <a href="{{ route('historique') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    Réservation
+                </a>
 
                 <a href="#" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
                     <i class="fas fa-user mr-1"></i> Mon Compte
                 </a>
 
-                <a href="{{ route('residences') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Mes Residences</a>
+                <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    Mise en ligne
+                </a>
 
-                <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Mise en ligne</a>
 
-                <a href="{{ route('occupees') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Residence occupées</a>
+                <a href="{{ route('residences') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    Mes Residences
+                </a>
 
-                <a href="{{ route('mes_demandes') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Demandes de reservations</a>
+                <a href="{{ route('occupees') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    Residence occupées
+                </a>
+
+                <a href="{{ route('mes_demandes') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">
+                    Demandes de reservations
+                </a>
 
                 <div class="py-2 w-full mx-auto row m-0">
-                    <a href="{{ route('logout') }}" class="w-full text-center py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition shadow-lg">Déconnexion</a>
+                    <a href="{{ route('logout') }}" class="w-full text-center py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition shadow-lg">
+                        Déconnexion
+                    </a>
                 </div>
             </div>
         </div>
