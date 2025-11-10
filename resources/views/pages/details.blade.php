@@ -15,14 +15,32 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
 
   <style>
-    :root{--primary:#ff7a00;--dark:#1a1a1a;--light:#f7f7f7}
-    body{font-family:'Poppins',sans-serif;background:var(--light);color:var(--dark);}
-
+    :root{
+        --primary:#ff7a00;
+        --dark:#1a1a1a;
+        --light:#f7f7f7}
+    body{
+        font-family:'Poppins',sans-serif;
+        background:var(--light);
+        color:var(--dark);
+    }
     /* NAVBAR */
-    .navbar{background:var(--dark);box-shadow:0 4px 10px rgba(0,0,0,.08)}
-    .navbar-brand{color:var(--primary)!important;font-weight:700}
-    .nav-link{color:#fff!important}
-    .btn-header{background:var(--primary);color:#fff;border-radius:25px;padding:8px 18px}
+    .navbar{
+        background:var(--dark);
+        box-shadow:0 4px 10px rgba(0,0,0,.08)
+    }
+    .navbar-brand{
+        color:var(--primary)!important;
+        font-weight:700
+    }
+    .nav-link{
+        color:#fff!important
+    }
+    .btn-header{
+        background:var(--primary);
+        color:#fff;border-radius:25px;
+        padding:8px 18px
+    }
 
     /* SIDEBAR (off-canvas simple) */
     #sidebar{position:fixed;
@@ -61,12 +79,33 @@
     .sidebar-link:hover{background:#343a40;color:#fff}
 
     /* CARD */
-    .card.custom{border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.06);max-width:900px;margin:0 auto;overflow:hidden}
-    .residence-img{width:100%;height:460px;object-fit:cover;cursor:pointer;transition:transform .25s}
-    .residence-img:hover{transform:scale(1.02)}
-    .price{color:var(--primary);font-weight:700;font-size:1.2rem}
+    .card.custom{
+        border-radius:14px;
+        box-shadow:0 8px 25px rgba(0,0,0,.06);
+        max-width:900px;
+        margin:0 auto;
+        overflow:hidden;
+    }
+    .residence-img{
+        width:100%;
+        height:460px;
+        object-fit:cover;
+        cursor:pointer;
+        transition:transform .25s
+    }
+    .residence-img:hover{
+        transform:scale(1.02)
+    }
+    .price{
+        color:var(--primary);
+        font-weight:700;font-size:1.2rem
+    }
 
-    .btn-back{background:var(--dark);color:#fff;border-radius:30px;padding:9px 22px;text-decoration:none}
+    .btn-back{
+        background:var(--dark);
+        color:#fff;border-radius:30px;
+        padding:9px 22px;text-decoration:none;
+    }
     .btn-reserver{background:var(--primary);color:#fff;border-radius:30px;padding:9px 22px;font-weight:600}
 
     /* mini-thumbnails (optionnel) */
@@ -132,7 +171,7 @@
         @if(Auth::user()->type_compte == 'client')
             <a class="sidebar-link" href="{{ route('clients_historique') }}"><i class="fas fa-user me-2"></i>Profil</a>
         @endif
-        <a class="sidebar-link me-3" href="javascript:history.back()">Retour</a>
+        <a class="sidebar-link me-3" href="javascript:history.back()"><i class="fa fa-arrow-left me-2">Retour</a>
         <a class="sidebar-link" href="{{ route('accueil') }}"><i class="fas fa-home me-2"></i>Accueil</a>
         <div class="mt-4">
         <a class="btn btn-header w-100" href="{{ route('logout') }}"><i class="fa fa-sign-out me-2"></i>Déconnexion</a>
