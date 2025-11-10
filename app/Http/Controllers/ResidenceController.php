@@ -97,19 +97,35 @@ class ResidenceController extends Controller
 
     public function accueil()
     {
-        // Récupère les résidences vérifiées avec leurs réservations
+
+        // Mise à jour des résidences dont la date de départ est dépassée
+
+        $today = \Carbon\Carbon::now()->subDay()->startOfDay();
+
+        Residence::where('disponible', 0)
+            ->whereDate('date_depart', '<', $today)
+            ->update([
+                'disponible' => 1,
+                'date_depart' => null,
+            ]);
+
+
+        // Récupération des résidences disponibles pour l'affichage
+
         $residences = Residence::where('statut', 'vérifiée')
-            ->where('disponible', 1)
+            ->where('disponible', 1) // 1 -> résidences disponibles
             ->get();
 
-        // Ajoute la prochaine date disponible à chaque résidence
+        // Ajoute la prochaine date disponible à chaque résidence (si nécessaire)
         foreach ($residences as $residence) {
             $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
         }
 
-        // Passe la variable à la vue
+
+        // Passage des données à la vue accueil
         return view('accueil', compact('residences'));
     }
+
 
     // Réserver à nouveau
     public function details($id)
