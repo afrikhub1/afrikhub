@@ -20,22 +20,10 @@ class ReservationController extends Controller
 
         $residence = Residence::findOrFail($residenceId);
 
-        // Vérification de la disponibilité dans la résidence
+        // Vérification de la disponibilité
         if ($residence->disponible == 0) {
             return back()
                 ->withErrors(['date_arrivee' => 'Cette résidence n’est pas disponible.'])
-                ->withInput();
-        }
-
-        // Vérifier chevauchement avec les réservations existantes non annulées
-        $lastReservation = $residence->reservations()
-            ->where('status', '!=', 'annule')
-            ->orderBy('date_depart', 'desc')
-            ->first();
-
-        if ($lastReservation && $request->date_arrivee < $lastReservation->date_depart) {
-            return back()
-                ->withErrors(['date_arrivee' => 'Cette résidence est déjà réservée jusqu’au ' . $lastReservation->date_depart . '.'])
                 ->withInput();
         }
 
@@ -52,7 +40,7 @@ class ReservationController extends Controller
             $code = 'RES-' . strtoupper(Str::random(6));
         } while (Reservation::where('reservation_code', $code)->exists());
 
-        // Enregistrement de la réservation
+        // Création de la réservation
         $reservation = Reservation::create([
             'user_id' => Auth::id(),
             'client' => Auth::user()->name,
