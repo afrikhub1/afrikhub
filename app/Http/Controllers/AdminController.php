@@ -28,7 +28,7 @@ class AdminController extends Controller
         $totalGain = Reservation::where('status', '!=', 'en attente')->sum('total');
 
         // Récupération des résidences nécessitant une action administrative (vérification).
-        $pendingResidences = Residence::whereIn('statut', ['en attente'])->get();
+        $pendingResidences = Residence::whereIn('statut', ['en attente', 'suspendue'])->get();
 
         // Calcul du Taux d'Occupation
         $residencesOccupees = Reservation::where('status', ['disponible',0 ])->count();
@@ -106,7 +106,7 @@ class AdminController extends Controller
             'quartier' => 'nullable|string|max:100',
 
             // Validation du statut avec les valeurs autorisées
-            'statut' => ['required', Rule::in(['vérifiée', 'en_attente', 'desactive'])],
+            'statut' => ['required', Rule::in(['vérifiée', 'en_attente', 'suspendue'])],
 
             'is_suspended' => 'nullable|boolean',
 
@@ -177,7 +177,7 @@ class AdminController extends Controller
     {
         // Met à jour le statut de la résidence ciblée.
         Residence::where('id', $id)->update([
-            'statut' => 'en attente',
+            'statut' => 'suspendue',
         ]);
 
         // Redirige l'utilisateur vers la page précédente avec un message d'avertissement.
