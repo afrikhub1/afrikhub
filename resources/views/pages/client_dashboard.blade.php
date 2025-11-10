@@ -10,7 +10,7 @@
 </head>
 <body class="bg-gray-50">
 
-    <header class="bg-white shadow-md">
+    <header class="bg-dark shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
