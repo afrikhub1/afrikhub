@@ -51,11 +51,7 @@
             @foreach($reservations as $res)
                 @php
                     // Logique PHP/Blade pour le statut et les dates
-                    $factureStatut = ($res->status == 'payée');
-                    $statusClass = [
-                        'en_attente' => 'bg-orange-600 text-white',
-                        'payée' => 'bg-green-600 text-white',
-                    ][$factureStatut] ?? 'bg-gray-400 text-gray-800';
+                    $factureStatut = $res->status == 'payée';
 
                     $dateArrivee = \Carbon\Carbon::parse($res->date_arrivee);
                     $dateDepart = \Carbon\Carbon::parse($res->date_depart);
@@ -69,7 +65,7 @@
 
                     <div class="p-5 flex flex-col flex-grow text-center">
                         <div class="mb-3">
-                            <span class="inline-block px-3 py-1 text-xs font-bold {{ $statusClass }} rounded-full shadow-md">
+                            <span class="inline-block px-3 py-1 text-xs font-bold bg_success {{ $statusClass }} rounded-full shadow-md">
                                 {{ ucfirst(str_replace('_', ' ', $  )) }}
                             </span>
                         </div>
