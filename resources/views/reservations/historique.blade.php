@@ -13,13 +13,6 @@
             </h1>
             <p class="text-gray-500">Retrouvez toutes vos réservations passées et à venir</p>
         </div>
-
-        @if(session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 text-center p-4 rounded-lg mb-8 shadow-md">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             @forelse($reservations as $res)
                 <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
@@ -96,11 +89,7 @@
                                     <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
                                         <i class="fas fa-credit-card mr-1"></i> Payer
                                     </button>
-                                </form>
-                            @else
-                                <button type="button" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-md text-sm">
-                                    </i> En attente
-                                </button>
+                                </form>>
                             @endif
 
                             @if($res->status == 'en attente')
