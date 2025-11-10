@@ -106,6 +106,14 @@
                                     <i class="fas fa-calendar-check me-2"></i>
                                     Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                 </li>
+
+                                <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+                                        Libérer la résidence
+                                    </button>
+                                </form>
+
                             </ul>
 
                             {{-- Actions d'administration --}}

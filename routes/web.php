@@ -121,6 +121,10 @@ Route::post('residences/{id}/desactivation', [AdminController::class, 'desactiva
 
 Route::delete('residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
 
+Route::post('/admin/residences/liberer/{id}', [App\Http\Controllers\AdminController::class, 'libererResidence'])
+    ->name('admin.libererResidence');
+
+
 
 //affichage du contenu de la bd sur une page specifique
 

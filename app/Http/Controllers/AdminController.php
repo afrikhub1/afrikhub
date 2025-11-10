@@ -246,4 +246,25 @@ class AdminController extends Controller
 
         return back()->with('danger', "L'utilisateur {$name} a été supprimé définitivement.");
     }
+
+    public function libererResidence($id)
+    {
+        // Récupère la résidence
+        $residence = Residence::findOrFail($id);
+
+        // Marque la résidence comme disponible
+        $residence->disponible = 1;
+        $residence->date_disponible_apres = null;
+        $residence->save();
+
+        // Met à jour toutes les réservations associées en "interrompue"
+        $reservations = Reservation::where('residence_id', $residence->id)->get();
+
+        foreach ($reservations as $reservation) {
+            $reservation->status = 'interrompue';
+            $reservation->save();
+        }
+
+        return back()->with('success', 'Résidence libérée et toutes les réservations associées interrompues.');
+    }
 }
