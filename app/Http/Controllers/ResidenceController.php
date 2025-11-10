@@ -98,8 +98,8 @@ class ResidenceController extends Controller
     public function accueil()
     {
         // Récupère les résidences vérifiées avec leurs réservations
-        $residences = Residence::with('reservations')
-            ->where('statut', 'vérifiée')
+        $residences = Residence::where('statut', 'vérifiée')
+            ->where('disponible', 1)
             ->get();
 
         // Ajoute la prochaine date disponible à chaque résidence
