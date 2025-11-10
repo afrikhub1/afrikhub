@@ -30,12 +30,15 @@
     <title>Historique de Facturation</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
 
     <header class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <a href="{{ route('accueil') }}" class="text-2xl font-bold text-indigo-700">AFRIK'HUB</a>
+            <div class="flex items-center">
+                <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+            </div>
             <nav class="flex items-center space-x-6 text-sm font-medium">
                 <a href="{{ route('accueil') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-home mr-1"></i> Accueil</a>
                 <a href="{{ route('recherche') }}" class="text-gray-600 hover:text-indigo-600"><i class="fas fa-search mr-1"></i> Recherche</a>
