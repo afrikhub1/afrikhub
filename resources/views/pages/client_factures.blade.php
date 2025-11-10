@@ -74,7 +74,7 @@
                             </span>
                         </div>
 
-                        <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">Facture Réf. #{{ $res->id }}</h5>
+                        <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">Facture Réf. #{{ $res->reservation_code }}</h5>
                         <p class="text-sm text-gray-500 mb-4">
                             <i class="fas fa-home text-indigo-500 mr-1"></i> {{ $res->residence->nom ?? 'Résidence inconnue' }}
                         </p>
