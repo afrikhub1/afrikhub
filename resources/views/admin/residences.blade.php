@@ -102,10 +102,18 @@
                                         {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'Suspendue' : 'Active' }}
                                     </span>
                                 </li>
+                                @php
+                                    // On récupère la réservation en cours / confirmée pour cette résidence
+                                    $reservationEnCours = $residence->reservations
+                                        ->where('status', ['confirmée', 'payé', 'suspendu'])  // ou 'en_attente', selon ton besoin
+                                        ->first();
+                                @endphp
+
                                 <li class="fw-bold mt-2 text-danger fw-600">
                                     <i class="fas fa-calendar-check me-2"></i>
-                                    Statut : {{ $residence->reservations->status }}
+                                    Statut : {{ $reservationEnCours?->status ?? 'Aucune réservation en cours' }}
                                 </li>
+
                                 <li class="fw-bold mt-2 text-danger fw-600">
                                     <i class="fas fa-calendar-check me-2"></i>
                                     Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
