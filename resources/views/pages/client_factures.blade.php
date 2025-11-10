@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-50">
 
-    <header class="bg-white shadow-md">
+    <header class="bg-dark shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 {{-- Utilisez 'asset' si vous avez un layout parent, sinon assurez-vous que le chemin est correct --}}
