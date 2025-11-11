@@ -29,9 +29,7 @@ class VerificationController extends Controller
             'email_verified_at' => now(),
         ]);
 
-        return response()->json([
-            'message' => 'Votre compte a été vérifié avec succès 🎉',
-        ]);
+        return redirect()->view('pages.message')->with('success', 'Votre compte a été vérifié avec succès 🎉');
     }
 
 }
