@@ -37,6 +37,12 @@
             </div>
         @endif
 
+        @if(session('error'))
+            <div class="alert alert-danger shadow-sm rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <a href="{{ url('/') }}" class="btn btn-primary btn-return">Retour à l'accueil</a>
     </div>
 </body>

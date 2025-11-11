@@ -17,9 +17,7 @@ class VerificationController extends Controller
 
         // Si aucun utilisateur ne correspond
         if (!$user) {
-            return response()->json([
-                'message' => 'Token invalide ou expiré.',
-            ], 400);
+            return redirect()->view('pages.message')->with('error', 'Votre compte a été vérifié avec succès 🎉');
         }
 
         // Mettre à jour l'utilisateur : token supprimé et compte activé
