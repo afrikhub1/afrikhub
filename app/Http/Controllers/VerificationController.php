@@ -17,7 +17,7 @@ class VerificationController extends Controller
 
         // Si aucun utilisateur ne correspond
         if (!$user) {
-            return redirect()->view('pages.message')->with('error', 'Votre compte a été vérifié avec succès 🎉');
+            return redirect()->view('pages.messages')->with('error', 'Votre compte a été vérifié avec succès 🎉');
         }
 
         // Mettre à jour l'utilisateur : token supprimé et compte activé
@@ -27,7 +27,7 @@ class VerificationController extends Controller
             'email_verified_at' => now(),
         ]);
 
-        return redirect()->view('pages.message')->with('success', 'Votre compte a été vérifié avec succès 🎉');
+        return redirect()->view('pages.messages')->with('success', 'Votre compte a été vérifié avec succès 🎉');
     }
 
 }
