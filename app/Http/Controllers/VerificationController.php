@@ -17,10 +17,15 @@ class VerificationController extends Controller
 
         // Si aucun utilisateur ne correspond
         if (!$user) {
-            return view('pages.messages')->with('error', 'Votre compte a été vérifié avec succès 🎉');
+            return view('pages.messages')->with('error', 'La confirmation a échoué ❌');
         }
 
-        // Mettre à jour l'utilisateur : token supprimé et compte activé
+        // Si le compte est déjà vérifié
+        if ($user->email_verified_at) {
+            return view('pages.messages')->with('info', 'Votre compte est déjà vérifié ✅');
+        }
+
+        // Mettre à jour l'utilisateur : suppression du token et activation du compte
         $user->update([
             'token' => null,
             'statut' => 'actif',
@@ -29,5 +34,4 @@ class VerificationController extends Controller
 
         return view('pages.messages')->with('success', 'Votre compte a été vérifié avec succès 🎉');
     }
-
 }
