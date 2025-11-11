@@ -47,8 +47,9 @@
                                         Libérer la Résidence
                                     </button>
                                 </div>
-                            @endforeach
-                        </div>
+
+                            </div>
+                        @endforeach
                     @endif
                 </div>
             </section>
