@@ -30,8 +30,8 @@
                             <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence actuellement occupée.
                         </div>
                     @else
+                    @foreach($reservationsConfirmees as $occupees)
                         <div class="flex flex-wrap gap-4">
-                            @foreach($reservationsConfirmees as $occupees)
                                 <div class="min-w-[320px] bg-red-100 border border-red-400 rounded-xl shadow-lg p-5 transition hover:shadow-2xl">
                                     <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
                                         <i class="fas fa-building mr-3 text-2xl"></i> {{ $occupees->nom }}
