@@ -68,7 +68,7 @@
 
         <table style="margin-bottom: 20px;">
             <tr>
-                <td style="width: 50%;">
+                <td style="width: 100%;">
                     <strong>Facturé à :</strong><br>
                     {{ $reservation->user->name }}<br>
                     {{ $reservation->user->email }}
