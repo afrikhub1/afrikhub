@@ -42,7 +42,7 @@
 
         @if(session('info'))
             <div class="alert alert-info shadow-sm rounded">
-                {{ session('success') }}
+                {{ session('info') }}
             </div>
         @endif
 

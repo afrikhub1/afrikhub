@@ -60,7 +60,8 @@ Route::get('/mise_en_ligne', function () {
 // lien vers une page avec un id ciblé ou un element ciblé dans l'url
 Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
 
-Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verify');
+Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('pages.messages');
+
 
 Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche')->middleware('auth');
 
