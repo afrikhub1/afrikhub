@@ -84,6 +84,22 @@ class CreateNewUser implements CreatesNewUsers
             'statut' => $statut,
             'password' => Hash::make($input['password']),
         ]);
+        LOG : afficher la pile d'exécution
+Log::debug('User created and about to login', [
+    'user_id' => $user->id,
+    'trace' => collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))->map(function($trace) {
+        return [
+            'file' => $trace['file'] ?? null,
+            'line' => $trace['line'] ?? null,
+            'function' => $trace['function'] ?? null,
+            'class' => $trace['class'] ?? null,
+        ];
+    })->toArray(),
+]);
+
+Auth::login($user);
+
+Log::debug('Auth::login executed', ['user_id' => $user->id]);
 
         // Envoi du mail avec le token
         \Illuminate\Support\Facades\Mail::to($utilisateur->email)->send(new \App\Mail\TokenMail($utilisateur));
