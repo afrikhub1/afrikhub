@@ -50,7 +50,7 @@ Route::get('/mise_en_ligne', function () {
 })->name('mise_en_ligne');
 
 Route::get('/accueil', function () {
-    return view('pages.dashboard');
+    return view('accueil');
 })->middleware('auth')->name('accueil');
 
 
