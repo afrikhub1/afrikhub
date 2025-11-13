@@ -1,188 +1,126 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\LogController;
-use Illuminate\Auth\Events\Logout;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ReservationController;
-use App\Mail\TestMail;
-use Illuminate\Support\Facades\Mail;
-
-use App\Http\Controllers\VerificationController;
-
-use App\Http\Controllers\LoginController;
-
-use App\Http\Controllers\ResidenceController;
-use App\Models\User;
-
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileManagerController;
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PaiementController;
-// NOTE TRÈS IMPORTANTE : J'AI RETIRÉ L'IMPORTATION QUI CAUSAIT L'ERREUR DE FICHIER NON TROUVÉ.
-// use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ResidenceController;
+use App\Http\Controllers\VerificationController;
+use Illuminate\Support\Facades\Route;
 
+// =========================================================================
+// 1. ROUTES PUBLIQUES (ACCUEIL, AUTH, VUES)
+// =========================================================================
+
+// Route d'accueil principale
 Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// Vues d'authentification et d'enregistrement
+Route::get('/login', fn() => view('auth.login'))->name('login');
+Route::get('/register', fn() => view('auth.register'))->name('register');
 
-Route::get('/recherche', function () {
-    return view('pages.recherche');
-})->name('recherche');
-
-Route::get('/mise_en_ligne', function () {
-    return view('pages.mise_en_ligne');
-})->name('mise_en_ligne');
-
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-Route::get('/message', function () {
-    return view('pages.messages');
-})->name('message');
-
-Route::get('/residences', function () {
-    return view('pages.residences');
-})->name('residences');
-
-Route::get('/accueil', function () {
-    return view('pages.dashboard');
-})->middleware('auth')->name('accueil');
-
-Route::get('/mise_en_ligne', function () {
-    return view('pages.mise_en_ligne');
-})->name('mise_en_ligne');
-
-
-
-// lien vers une page avec un id ciblé ou un element ciblé dans l'url
-Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
-
-Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('pages.messages');
-
-
-Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche')->middleware('auth');
-
-Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
-
-Route::get('residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
-
-
-
-//ces route recupere des infos dans la bd et les affiche sur la page concernée
-
+// Traitement de l'authentification et de la déconnexion
+Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post');
 Route::get('/logout', [LogController::class, 'logout'])->name('logout');
 
-//residence de l'utilisateur connecté
-Route::get('/residences', [ResidenceController::class, 'index'])->name('residences')->middleware('auth');
+// Vues publiques diverses
+Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
+Route::get('/message', fn() => view('pages.messages'))->name('message');
+Route::get('/recherche', fn() => view('pages.recherche'))->name('recherche'); // Vue de recherche générale
 
-//toutes les reservation seront visible pas l'admin
-Route::get('reservations', [AdminController::class, 'reservations'])->name('admin.reservations.all');
+// Détails d'une résidence
+Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
-//tout les utilisateurs seront visible pas l'admin
-Route::get('utilisateur', [AdminController::class, 'utilisateurs'])->name('admin.utilisateurs.all');
+// Logique de vérification d'email
+Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
+Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
 
-// toutes les residences seront visible pas l'admin
-Route::get('/admin/residences', [AdminController::class, 'residences'])->name('admin.residences');
-
-
-
-// route pour faire un action dans la base de données
-
-//login
-Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post');
-
-//pour enregistrer la résidence
-Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
-
-//faire une reservation
-Route::post('/reservation/{id}', [ReservationController::class, 'store'])->middleware('auth')->name('reservation.store');
-
-// annuler une reservation
-Route::post('/reservation/{id}/anulation', [ReservationController::class, 'annuler'])->name('annuler');
-
-//accepter une reservation
-Route::post('/reservation/{id}/accepter', [ReservationController::class, 'accepter'])->name('reservation.accepter');
-
-//refuser une reservation
-Route::post('/reservation/{id}/refuser', [ReservationController::class, 'refuser'])->name('reservation.refuser');
-
-// Rebooking
-Route::get('/reservation/{id}/rebook', [ReservationController::class, 'rebook'])->name('rebook');
-
-
-Route::post('residences/{id}/activation', [AdminController::class, 'activation'])->name('admin.residences.activation');
-
-// Route PUT pour la mise à jour
-Route::put('/residences/{residence}/update', [AdminController::class, 'update'])->name('admin.residences.update');
-
-Route::post('residences/{id}/desactivation', [AdminController::class, 'desactivation'])->name('admin.residences.desactivation');
-
-Route::delete('residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
-
-Route::post('/admin/residences/liberer/{id}', [App\Http\Controllers\AdminController::class, 'libererResidence'])
-    ->name('admin.libererResidence');
-
-
-
-//affichage du contenu de la bd sur une page specifique
-
-Route::get('/historique', [ReservationController::class, 'historique'])->middleware('auth')->name('historique');
-
-Route::get('/mes-demandes', [ReservationController::class, 'mesDemandes'])->middleware('auth')->name('mes_demandes');
-
-Route::get('/dashboard_resi_reserv', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard_resi_reserv')->middleware('auth');
-
-Route::get('/occupees', [ResidenceController::class, 'occupees'])->name('occupees')->middleware('auth');
-
-Route::get('/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->middleware('auth')->name('dashboard');
-
-Route::get('/admin_dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard');
-
-Route::get('/admin/reservations', [AdminController::class, 'reservations'])->name('admin.reservations');
-
-
-// Route pour afficher les résidences de l'utilisateur (méthode GET)
-Route::get('/admin/users/{user}/residences', [AdminController::class, 'showUserResidences'])->name('admin.users.residences');
-
-// Route pour suspendre/réactiver (méthode POST)
-Route::post('/admin/users/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('admin.users.toggle_suspension');
-
-// Route pour supprimer (méthode DELETE)
-Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
-
-
-Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
-Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
-
-
-
-// Routes de Paiement
-// Page de paiement
-Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
-
-// Callback après paiement (GET ou POST)
-Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
-
-// Webhook Paystack (POST uniquement)
-// L'utilisation du FQCN du framework évite l'erreur de "fichier non trouvé".
+// Webhook Paystack (sans middleware CSRF pour permettre la réception des notifications)
 Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
     ->name('paiement.webhook')
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
 
-use App\Http\Controllers\ClientController;
 
-Route::middleware(['auth'])->group(function () {
-    // Historique des réservations (toutes)
-    Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
+// =========================================================================
+// 2. ROUTES AUTHENTIFIÉES (UTILISATEUR CONNECTÉ)
+// =========================================================================
 
-    // Historique des factures (réservations facturables)
-    Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
+Route::middleware('auth')->group(function () {
 
-    Route::middleware('auth')->group(function () {
+    // --- Dashboard & Résidences Utilisateur ---
+    Route::get('/accueil', fn() => view('pages.dashboard'))->name('dashboard.user'); // Dashboard utilisateur
+    Route::get('/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard'); // Logique Résidences/Réservations
+
+    Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche.process'); // Recherche avec logique
+    Route::get('/occupees', [ResidenceController::class, 'occupees'])->name('occupees');
+
+    // CRUD Résidences
+    Route::get('/residences', [ResidenceController::class, 'index'])->name('residences'); // Résidences de l'utilisateur
+    Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
+
+    // --- Réservations (Actions Utilisateur) ---
+    Route::prefix('reservation')->group(function () {
+        Route::post('/{id}', [ReservationController::class, 'store'])->name('reservation.store');
+        Route::post('/{id}/anulation', [ReservationController::class, 'annuler'])->name('annuler');
+        Route::get('/{id}/rebook', [ReservationController::class, 'rebook'])->name('rebook');
+    });
+
+    // --- Historiques & Demandes ---
+    Route::get('/historique', [ReservationController::class, 'historique'])->name('historique'); // Historique de l'utilisateur
+    Route::get('/mes-demandes', [ReservationController::class, 'mesDemandes'])->name('mes_demandes'); // Mes demandes de résa
+
+    // --- Paiement ---
+    Route::get('/payer/{reservation}', [PaiementController::class, 'index'])->name('payer');
+    Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 'callback'])->name('paiement.callback');
+
+    // --- Gestion de Fichiers ---
+    Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
+    Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
+
+    // --- Routes Client (Historique des factures/réservations) ---
+    Route::prefix('client')->group(function () {
+        Route::get('/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
+        Route::get('/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
         Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])
             ->name('facture.telecharger');
+    });
+});
+
+
+//
+// 3. ROUTES ADMINISTRATEUR (admin.*)
+// 
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    // --- Gestion des Résidences ---
+    Route::prefix('residences')->name('residences.')->group(function () {
+        Route::get('/', [AdminController::class, 'residences'])->name('all');
+        Route::get('/{residence}/edit', [AdminController::class, 'modification'])->name('edit');
+        Route::put('/{residence}/update', [AdminController::class, 'update'])->name('update');
+        Route::post('/{id}/activation', [AdminController::class, 'activation'])->name('activation');
+        Route::post('/{id}/desactivation', [AdminController::class, 'desactivation'])->name('desactivation');
+        Route::delete('/{residence}/sup', [AdminController::class, 'suppression'])->name('sup');
+        Route::post('/liberer/{id}', [AdminController::class, 'libererResidence'])->name('libererResidence');
+    });
+
+    // --- Gestion des Réservations ---
+    Route::prefix('reservations')->name('reservations.')->group(function () {
+        Route::get('/', [AdminController::class, 'reservations'])->name('all');
+        Route::post('/{id}/accepter', [ReservationController::class, 'accepter'])->name('accepter');
+        Route::post('/{id}/refuser', [ReservationController::class, 'refuser'])->name('refuser');
+    });
+
+    // --- Gestion des Utilisateurs ---
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [AdminController::class, 'utilisateurs'])->name('all');
+        Route::get('/{user}/residences', [AdminController::class, 'showUserResidences'])->name('residences');
+        Route::post('/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('toggle_suspension');
+        Route::delete('/{user}', [AdminController::class, 'destroyUser'])->name('destroy');
     });
 });

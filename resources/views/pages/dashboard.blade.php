@@ -26,12 +26,12 @@
                 <div class="p-2 d-flex">
                     {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
 
-                    @if($reservationsConfirmees->isEmpty())
+                    @if($residences->isEmpty())
                         <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg text-center shadow-inner">
                             <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence actuellement occupée.
                         </div>
                     @else
-                    @foreach($reservationsConfirmees as $occupees)
+                    @foreach($residences as $occupees)
                         <div class="flex flex-wrap gap-4">
                                 <div class="min-w-[320px] bg-red-100 border border-red-400 rounded-xl shadow-lg p-5 transition hover:shadow-2xl">
                                     <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
