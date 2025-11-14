@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historique de Facturation</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
     {{-- Garder ou supprimer cette ligne selon votre configuration Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -41,7 +42,7 @@
     </div>
 
     <div class="flex justify-center space-x-4 mb-8 border-b pb-4">
-        <a href="{{ route('historique') }}" class="py-2 px-4 text-amber-700 rounded-lg hover:bg-amber-50 transition duration-150 font-medium border border-amber-100">
+        <a href="{{ route('clients_historique') }}" class="py-2 px-4 text-amber-700 rounded-lg hover:bg-amber-50 transition duration-150 font-medium border border-amber-100">
             <i class="fas fa-history mr-1"></i> Voir toutes mes Réservations
         </a>
     </div>
