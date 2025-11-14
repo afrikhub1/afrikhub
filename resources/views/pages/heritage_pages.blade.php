@@ -109,7 +109,7 @@
         </header>
 
         <div>
-            <a href="{{ route('recherche')}}"><i class="fa fa-search"></i></a>
+            <a href="{{ route('recherche')}}"><i class="fas fa-search mr-1"></i> Recherche</a>
         </div>
         <!-- Sidebar (Off-Canvas Menu) -->
         <div id="sidebar" class="text-white flex flex-col items-center">
