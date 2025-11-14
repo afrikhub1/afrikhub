@@ -107,7 +107,11 @@
                 </div>
             </div>
         </header>
-        <a href="{{ route('recherche')}}"><i class="fas fa-search mr-1"></i> Recherche</a>
+
+        <button class="btn btn-light">
+            <a href="{{ route('recherche')}}"><i class="fas fa-search mr-1"></i> Recherche</a>
+        </button>
+
         <!-- Sidebar -->
         <div id="sidebar" class="text-white flex flex-col items-center">
 
