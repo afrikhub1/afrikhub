@@ -72,7 +72,8 @@ class CreateNewUser implements CreatesNewUsers
             'statut'      => $statut,
             'password'    => Hash::make($input['password']),
         ]);
-        
+
+
         // Envoi du mail de confirmation
         Mail::to($utilisateur->email)->send(new \App\Mail\TokenMail($utilisateur));
 
