@@ -17,12 +17,12 @@ class VerificationController extends Controller
 
         // Si aucun utilisateur ne correspond
         if (!$user) {
-            return redirect()->route('messages')->with('error', 'La confirmation a échoué ❌');
+            return redirect()->route('message')->with('error', 'La confirmation a échoué ❌');
         }
 
         // Si le compte est déjà vérifié
         if ($user->email_verified_at) {
-            return redirect()->route('messages')->with('info', 'Votre compte est déjà vérifié ✅');
+            return redirect()->route('message')->with('info', 'Votre compte est déjà vérifié ✅');
         }
 
         // Mettre à jour l'utilisateur : suppression du token et activation du compte
@@ -32,6 +32,6 @@ class VerificationController extends Controller
             'email_verified_at' => now(),
         ]);
 
-        return redirect()->route('messages')->with('success', 'Votre compte a été vérifié avec succès 🎉');
+        return redirect()->route('message')->with('success', 'Votre compte a été vérifié avec succès 🎉');
     }
 }
