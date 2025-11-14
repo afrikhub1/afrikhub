@@ -80,6 +80,10 @@
                         <h1 class="text-xl text-capitalize font-semibold text-white">{{ Auth::user()->name }}</h1>
                     </div>
 
+                    <button class="btn btn-light">
+                        <a href="{{ route('recherche')}}"><i class="fas fa-search mr-1"></i> Recherche</a>
+                    </button>
+
                     <!-- Toggle Button (pour ouvrir la Sidebar) -->
                     <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 focus:outline-none transition duration-150">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -107,10 +111,6 @@
                 </div>
             </div>
         </header>
-
-        <button class="btn btn-light">
-            <a href="{{ route('recherche')}}"><i class="fas fa-search mr-1"></i> Recherche</a>
-        </button>
 
         <!-- Sidebar -->
         <div id="sidebar" class="text-white flex flex-col items-center">
