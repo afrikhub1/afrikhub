@@ -108,6 +108,9 @@
             </div>
         </header>
 
+        <div>
+            <a href="{{ route('recherche')}}"></a>
+        </div>
         <!-- Sidebar (Off-Canvas Menu) -->
         <div id="sidebar" class="text-white flex flex-col items-center">
             <button id="closeSidebar" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
