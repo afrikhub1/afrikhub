@@ -61,7 +61,7 @@
             <div class="col-12 col-md-6">
                 <label for="password" class="form-label">Mot de passe</label>
                 <input type="password" class="form-control" id="password" name="password"
-                value="{{ old('password') }}" required />
+                value="{{ old('password') }}" required placeholder="HArry--1234" />
                 <div class="invalid-feedback">Veuillez saisir un mot de passe.</div>
             </div>
 
@@ -112,7 +112,7 @@
             <div class="col-md-6">
                 <label for="adresse" class="form-label">Adresse</label>
                 <input type="text" class="form-control" id="adresse" name="adresse"
-                    value="{{ old('adresse') }}" required />
+                    value="{{ old('adresse') }}" required placeholder="Cocody-danga-PLCC" />
                 <div class="invalid-feedback">Veuillez indiquer votre adresse.</div>
             </div>
 
