@@ -15,7 +15,7 @@
                             <div class="col-lg-6">
                                 <div class="card-body p-md-5 mx-md-4">
                                     <div class="text-center">
-                                        <img src="../../public/logo/logo.png" alt="logo">
+                                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="logo">
                                     </div>
 
                                     <form action="{{ route('login.post') }}" method="POST">

@@ -59,7 +59,7 @@ Route::get('/accueil', function () {
 // --------------------------------------------------
 
 Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
-Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('pages.messages');
+Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::get('/logout', [LogController::class, 'logout'])->name('logout');
 
 
