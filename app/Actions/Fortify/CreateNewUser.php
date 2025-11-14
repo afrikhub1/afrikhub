@@ -77,6 +77,13 @@ class CreateNewUser implements CreatesNewUsers
         // Envoi du mail de confirmation
         Mail::to($utilisateur->email)->send(new \App\Mail\TokenMail($utilisateur));
 
+        // Déconnexion immédiate
+        Auth::logout();
+
+        // Redirection vers logout ou login
+        redirect()->route('logout')->send(); // <- ici on force la redirection
+
+        // On retourne quand même l’utilisateur pour Fortify (même si redirigé)
         return $utilisateur;
     }
 }
