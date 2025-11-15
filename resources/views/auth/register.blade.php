@@ -106,7 +106,7 @@
         <!-- Type de compte -->
         <div class="col-md-6">
             <label for="type_compte" class="form-label">Type de compte</label>
-            <select class="form-select bg-light" id="type_compte" name="type_compte" required>
+            <select class="form-select" id="type_compte" name="type_compte" required>
                 <option value="">-- sélectionnez un type de compte --</option>
                 <option value="client" {{ old('type_compte')=='client' ? 'selected' : '' }}>Client</option>
                 <option value="professionnel" {{ old('type_compte')=='professionnel' ? 'selected' : '' }}>Professionnel</option>
