@@ -14,7 +14,7 @@ class ClientMiddleware
         }
 
         if (Auth::user()->type_compte !== 'client') {
-            return redirect('/')->with('danger', 'Accès réservé aux clients.');
+            return redirect('/')->with('error', 'Accès réservé aux clients.');
         }
 
         return $next($request);
