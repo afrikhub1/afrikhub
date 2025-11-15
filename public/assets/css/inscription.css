@@ -15,7 +15,7 @@ body {
 }
 
 /* ==================================================
-   HEADER
+   HEADER / NAVBAR
 ================================================== */
 header {
     position: relative;
@@ -86,7 +86,7 @@ header {
 }
 
 /* ==================================================
-   FORMULAIRE
+   FORMULAIRE / CONTAINER
 ================================================== */
 .container {
     max-width: 900px;
@@ -135,7 +135,7 @@ form:hover {
     color: #fff;
 }
 
-/* Placeholders */
+/* Placeholder */
 .form-control::placeholder,
 .form-select::placeholder {
     color: #ffd166;
@@ -149,6 +149,33 @@ form:hover {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 10px rgba(255, 209, 102, 0.7);
     outline: none;
+    color: #fff;
+}
+
+/* ==================================================
+   SELECT / TYPE DE COMPTE
+================================================== */
+.form-select {
+    appearance: none;
+    /* retire le style natif */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65rem auto;
+}
+
+/* Placeholder option vide */
+.form-select option[value=""] {
+    color: #ffd166;
+    font-style: italic;
+}
+
+/* Options classiques */
+.form-select option {
+    color: #000;
+    background: #fff;
 }
 
 /* Checkbox CGU */
