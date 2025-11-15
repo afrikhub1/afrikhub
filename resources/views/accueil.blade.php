@@ -39,6 +39,7 @@
       </div>
     </header>
 <nav class="row col-12 justify-content-center">
+     @include('includes.messages')
         <!-- Section accueil -->
     <section id="accueil" class="text-center py-5">
       <div>
