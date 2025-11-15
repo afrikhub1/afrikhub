@@ -120,20 +120,6 @@ form:hover {
     margin-bottom: 0.3rem;
 }
 
-/* Champs de formulaire */
-.form-control,
-.form-select {
-    height: 50px;
-    font-size: 1rem;
-    padding: 0.6rem 1rem;
-    color: #050216;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
-
 .form-control::placeholder,
 .form-select::placeholder {
     color: #ffd166;
