@@ -157,7 +157,7 @@ button,
 }
 
 .btn-light {
-    background: linear-gradient(135deg, #006d77, #00b4a2);
+    background:  rgba(2, 190, 17, 0.5);
     color: white;
     border: none;
 }
