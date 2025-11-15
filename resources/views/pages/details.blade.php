@@ -15,10 +15,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
 
   <style>
-    :root{
-        --primary:#ff7a00;
-        --dark:#1a1a1a;
-        --light:#f7f7f7}
     body{
         font-family:'Poppins',sans-serif;
         background:var(--light);
@@ -181,7 +177,7 @@
   <!-- CONTENU -->
   <main class="container py-4">
     <div class="text-center mb-4">
-      <h1 class="fw-bold" style="color:var(--primary)">Détails de la résidence</h1>
+      <h1 class="fw-bold">Détails de la résidence</h1>
       <p class="text-muted">Découvrez cette propriété en images</p>
     </div>
 
