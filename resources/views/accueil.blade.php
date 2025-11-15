@@ -1,8 +1,5 @@
 @extends('heritage')
 @section('titre', 'accueil')
-@section('ux-ui')
-    <link rel="stylesheet" href="{{ asset('assets/css/accueil.css') }}">
-@endsection
 
 @section('contenu')
     <!-- HEADER -->
@@ -39,10 +36,11 @@
       </div>
     </header>
 <nav class="row col-12 justify-content-center">
-     @include('includes.messages')
+
         <!-- Section accueil -->
     <section id="accueil" class="text-center py-5">
       <div>
+        @include('includes.messages')
         <h2>Bienvenue</h2>
         <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
         <a href="../../accueil/php/redirection.php?action=recherche" class="btn-reserver me-2">Réserver</a>
