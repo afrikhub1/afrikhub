@@ -138,7 +138,7 @@
                                 @if(is_array($images))
                                     @foreach($images as $key => $image)
                                         @if($key > 0)
-                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}" style="display:none;"></a>
                                         @endif
                                     @endforeach
                                 @endif
