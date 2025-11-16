@@ -9,8 +9,9 @@ class AdminMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->type_compte !== 'admin') {
-            return redirect('/')->with('error', 'Accès refusé.');
+        // Vérifie si l'admin est connecté via le guard 'admin'
+        if (!Auth::guard('admin')->check()) {
+            return redirect()->route('admin.login')->with('error', 'Accès refusé.');
         }
 
         return $next($request);
