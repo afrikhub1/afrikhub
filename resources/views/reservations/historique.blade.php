@@ -64,6 +64,16 @@
                             <p class="text-xs text-gray-400 mt-1">
                                 Réservé le {{ $res->created_at->format('d/m/Y') }}
                             </p>
+                            <strong class="fw-bold mt-2 text-danger fw-600">
+                                <i class="fas fa-calendar-check me-2"></i>
+                                Prochaine disponibilité :
+                                @if(!empty($residence->date_disponible) && \Carbon\Carbon::parse($residence->date_disponible)->isFuture())
+                                    {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
+                                @else
+                                    Disponible maintenant
+                                @endif
+                            </strong>
+
                         </div>
 
                         <!-- Préfacture/Détails (Optionnel en Historique) -->
