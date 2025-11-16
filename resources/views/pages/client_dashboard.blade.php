@@ -140,7 +140,7 @@
                         </button>
                     @endif
 
-                    @if($status=='confirmée' || status=='en attente')
+                    @if($status=='confirmée' || $status=='en attente')
                         <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
                         @csrf
                         <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
