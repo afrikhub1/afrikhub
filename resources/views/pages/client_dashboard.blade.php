@@ -27,7 +27,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center space-x-4">
           <a href="{{ route('accueil') }}" class="block">
-            <img src="{{ asset('assets/images/logo_01.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
+            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
           </a>
           <div>
             <h1 class="text-lg font-semibold">{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
