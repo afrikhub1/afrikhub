@@ -92,8 +92,8 @@ Route::get('/auto/terminer', [Mise_a_jour::class, 'terminerReservationsDuJour'])
 // --------------------------------------------------
 // Login Admin (PUBLIC, en dehors du middleware auth)
 Route::prefix('admin')->group(function () {
-    Route::get('/login_admin', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('/login_admin', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
