@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
                 $totalResidences = Residence::where('proprietaire_id', $userId)->count();
                 $totalResidencesOccupees = Residence::where('proprietaire_id', $userId)->where('disponible', 0)->count();
                 $totalReservationsReçu = Reservation::where('proprietaire_id', $userId)->where('status', 'confirmée')->count();
-                $totalDemandesEnAttente = Reservation::where('proprietaire_id', $userId)->where('status', 'en_attente')->count();
+                $totalDemandesEnAttente = Reservation::where('proprietaire_id', $userId)->where('status', 'en attente')->count();
 
                 $view->with(compact('totalResidences', 'totalResidencesOccupees', 'totalReservationsReçu', 'totalDemandesEnAttente'));
             }
