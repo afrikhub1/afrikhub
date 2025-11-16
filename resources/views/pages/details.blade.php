@@ -299,7 +299,7 @@
       <div class="res-details" id="details-{{ $residence->id }}">
         <h2 id="res-title-{{ $residence->id }}">{{ $residence->nom }}</h2>
         <div class="res-meta">
-          <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residence->ville ?? 'Ville' }}, {{ $residence->pays ?? 'Pays' }}</span>
+          <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residence->ville ?? 'Ville' }}, {{ $residence->pays ?? 'Pays' }}</span> <br>
           <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residence->chambres ?? 1 }} chambres</span>
           <span><i class="fas fa-user-friends me-1"></i> {{ $residence->salons ?? 1 }} salons</span>
         </div>
