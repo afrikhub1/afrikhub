@@ -114,31 +114,34 @@
 
                         @foreach($residences as $res)
                             @php
-                                $images = $res->img;
-                                if (is_string($images)) {
-                                    $images = json_decode($images, true) ?? [];
-                                };
-                                $firstImage = $images[0] ?? null;
-                                $imagePath = $firstImage? $firstImage : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                                // Décodage JSON si nécessaire
+                        $images = $residence->img;
+                        if (is_string($images)) {
+                            $images = json_decode($images, true) ?? [];
+                        }
+
+                        $firstImage = $images[0] ?? null;
+                        $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
-                            <div class="w-full sm:w-[320px] bg-white rounded-2xl shadow-xl p-5 transition duration-500 hover:shadow-indigo-400/50 flex flex-col items-center border border-gray-200">
+                            <div class="w-full bg-white rounded-2xl shadow-xl p-2 transition duration-500 hover:shadow-indigo-400/50 flex flex-col items-center border border-gray-200">
 
                                 <!-- Image principale cliquable (Couverture du carrousel GLightbox) -->
                                 <div class="w-full">
-                                    <a href="{{ asset('storage/' . $firstImage) }}" class="glightbox" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}">
-                                        <img class="w-full h-48 object-cover rounded-xl mb-4 ring-4 ring-indigo-100 hover:ring-indigo-400 transition transform hover:scale-[1.02] cursor-pointer"
-                                            src="{{ asset('storage/' . $firstImage) }}"
-                                            alt="Image de la résidence: {{ $res->nom }}"
-                                            onerror="this.onerror=null; this.src='https://placehold.co/400x200/F0F4FF/1E40AF?text=Erreur+Image'">
+                                    <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                        <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
+                                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
+                                            alt="Image de la résidence">
                                     </a>
                                 </div>
 
                                 <!-- Autres images invisibles pour la galerie -->
-                                @foreach($images as $key => $image)
-                                    @if($key > 0)
-                                        <a href="{{ asset('storage/' . $image) }}" class="glightbox hidden" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}"></a>
-                                    @endif
-                                @endforeach
+                                @if(is_array($images))
+                                    @foreach($images as $key => $image)
+                                        @if($key > 0)
+                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                        @endif
+                                    @endforeach
+                                @endif
 
                                 <div class="text-lg uppercase font-bold text-gray-800 mb-3 border-b border-indigo-300 w-full text-center pb-2 truncate">
                                     {{ $res->nom }}
