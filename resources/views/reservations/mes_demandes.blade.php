@@ -18,7 +18,7 @@
                 <p class="text-sm mt-1">Revenez plus tard pour de nouvelles demandes.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 lg:grid-cols-5 gap-2 px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-4 gap-2 px-4">
                 @foreach($demandes as $res)
                     @php
                         // Assurez-vous que le modèle Reservation a la relation 'residence' chargée
@@ -79,7 +79,7 @@
 
                             <!-- LOGIQUE D'ACTION : ACCEPT/REFUS -->
                             @if($res->status == 'en attente')
-                                <div class="flex gap-3 justify-center mt-auto">
+                                <div class="flex gap-3 justify-center mt-auto px-4">
                                     <form action="{{ route('reservation.accepter', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
                                         <button type="submit" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
