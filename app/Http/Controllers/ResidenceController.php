@@ -45,6 +45,53 @@ class ResidenceController extends Controller
             }
         }
 
+        $comodites = [];
+
+        // Parking
+        if ($request->parking) {
+            $comodites[] = "Parking : " . implode(", ", $request->parking);
+        }
+
+        // Extérieurs
+        if ($request->exterieurs) {
+            $comodites[] = "Extérieurs : " . implode(", ", $request->exterieurs);
+        }
+
+        // Eau chaude
+        $comodites[] = $request->eau_chaude ? "Eau chaude disponible" : "Pas d'eau chaude";
+
+        // Split
+        $comodites[] = "Climatisation (split) : " . $request->split;
+
+        // Surveillance
+        if ($request->surveillance) {
+            $comodites[] = "Surveillance 24/24";
+        }
+
+        // Service ménage
+        if ($request->service_menager) {
+            $comodites[] = "Service ménager disponible";
+        }
+
+        // Salon
+        if ($request->salon) {
+            $comodites[] = "Salon : " . $request->salon . " places";
+        }
+
+        // Salle à manger
+        if ($request->salle_a_manger) {
+            $comodites[] = "Salle à manger : " . $request->salle_a_manger . " places";
+        }
+
+        // Électroménager
+        if ($request->electromenager) {
+            $comodites[] = "Électroménager : " . implode(", ", $request->electromenager);
+        }
+
+        // Convertir en texte séparé par tirets
+        $comoditesTexte = implode(" - ", $comodites);
+
+
         Residence::create([
             'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
             'nom' => $request->nom_residence,
@@ -58,6 +105,7 @@ class ResidenceController extends Controller
             'geolocalisation' => $request->geolocalisation,
             'img' => json_encode($imagesPath),
             'statut' => 'en_attente',
+            'comodites' => $comoditesTexte,
         ]);
 
         return redirect()->route('message')

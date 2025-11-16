@@ -87,7 +87,7 @@
     <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <!-- 🟧 Informations Générales -->
+        <!--  Informations Générales -->
         <fieldset>
             <legend>Informations Générales</legend>
 
@@ -114,7 +114,7 @@
             </div>
         </fieldset>
 
-        <!-- 🟧 Détails de la résidence -->
+        <!--  Détails de la résidence -->
         <fieldset>
             <legend>Détails de la résidence</legend>
 
@@ -168,7 +168,7 @@
             </div>
         </fieldset>
 
-        <!-- 🟧 Extérieurs, Parking, Confort -->
+        <!-- Extérieurs, Parking, Confort -->
         <fieldset>
             <legend>Commodités & Confort</legend>
 
@@ -275,7 +275,7 @@
             </div>
         </fieldset>
 
-        <!-- 🟧 Localisation -->
+        <!-- Localisation -->
         <fieldset>
             <legend>Localisation</legend>
 
@@ -283,7 +283,7 @@
             <input type="text" name="geolocalisation" class="form-control" required>
         </fieldset>
 
-        <!-- 🟧 Images -->
+        <!-- Images -->
         <fieldset>
             <legend>Images</legend>
 
