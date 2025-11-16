@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // --------------------------------------------------
 // Login Admin
 Route::get('/login_admin', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/login_admin', [AdminLoginController::class, 'login'])->name('admin.login.submit');
 Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
