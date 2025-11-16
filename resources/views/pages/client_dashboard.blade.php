@@ -153,7 +153,7 @@
 
                   {{-- Annuler: allowed when en attente or confirmée (normalize both formats) --}}
                   @if(in_array($rawStatus, ['en attente','en_attente','confirmée','confirmee','confirmée']))
-                    <form action="{{ route('annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
+                    <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
                       @csrf
                       <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
                         <i class="fas fa-ban"></i> Annuler
