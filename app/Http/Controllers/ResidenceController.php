@@ -169,6 +169,10 @@ class ResidenceController extends Controller
         $userId = Auth::id();
         $reservationsRecu = Reservation::where('proprietaire_id', $userId)->get();
 
+        foreach ($reservationsRecu as $reservationsRecu) {
+            $reservationsRecu->date_disponible = $reservationsRecu->dateDisponibleAvecNettoyage();
+        }
+
         return view('reservations.historique', compact('reservationsRecu'));
     }
 
