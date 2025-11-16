@@ -51,7 +51,7 @@
                         </a>
                     </div>
                     <h1 class="text-xl font-semibold text-white">
-                        gestionnaire@afrikhub.com
+                       {{ Auth::user()->name ?? 'Utilisateur' }}
                     </h1>
                 </div>
 
