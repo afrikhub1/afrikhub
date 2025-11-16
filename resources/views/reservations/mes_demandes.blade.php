@@ -83,14 +83,14 @@
                                     <form action="{{ route('reservation.accepter', $res->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="w-full px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
-                                            <i class="fas fa-check mr-1"></i> Accepter
+                                            <span class="fas fa-check mr-1"></span>Accepter
                                         </button>
                                     </form>
 
                                     <form action="{{ route('reservation.refuser', $res->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="w-full px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
-                                            <i class="fas fa-times mr-1"></i> Refuser
+                                            <span class="fas fa-times mr-1"></span> Refuser
                                         </button>
                                     </form>
                                 </div>
