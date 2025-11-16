@@ -30,11 +30,11 @@
                         $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=EN+ATTENTE';
                     @endphp
 
-                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-2
-                        @if($res->status == 'en_attente') border-indigo-500/50 hover:shadow-indigo-300/50
+                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-2 px-4
+                        @if($res->status == 'en attente') border-indigo-500/50 hover:shadow-indigo-300/50
                         @elseif($res->status == 'confirmée') border-green-500
-                        @elseif($res->status == 'annulée') border-yellow-500
-                        @else border-red-500 @endif
+                        @elseif($res->status == 'annulée') border-red-500
+                        @else border-yellow-500 @endif
                         transition duration-300 transform hover:scale-[1.01]">
 
                         <img src="{{ $firstImage}}" class="w-full h-48 object-cover"
