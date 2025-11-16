@@ -73,15 +73,6 @@ class ResidenceController extends Controller
             $comodites[] = "Service ménager disponible";
         }
 
-        // Salon
-        if ($request->salon) {
-            $comodites[] = "Salon : " . $request->salon . " places";
-        }
-
-        // Salle à manger
-        if ($request->salle_a_manger) {
-            $comodites[] = "Salle à manger : " . $request->salle_a_manger . " places";
-        }
 
         // Électroménager
         if ($request->electromenager) {
@@ -95,7 +86,7 @@ class ResidenceController extends Controller
         Residence::create([
             'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
             'nom' => $request->nom_residence,
-            'description' => $request->details_position,
+            'quartier' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
             'type_residence' => $request->type_residence,
             'nombre_salons' => $request->nb_salons,

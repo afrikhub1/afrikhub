@@ -153,13 +153,6 @@
                     <input type="number" name="prix_journalier" class="form-control" min="1" required>
                 </div>
 
-                <div class="col-md-4 d-flex align-items-center">
-                    <div class="form-check mt-3">
-                        <input type="checkbox" name="disponible" value="1" class="form-check-input" checked>
-                        <label class="form-check-label">Disponible</label>
-                    </div>
-                </div>
-
                 <div class="col-md-12">
                     <label class="form-label">Repère / Position</label>
                     <input type="text" name="details_position" class="form-control" placeholder="Ex: Cocody derrière la RTI">
@@ -221,27 +214,6 @@
                 <div class="col-md-6">
                     <label class="form-label">Service ménager</label>
                     <div><input type="checkbox" name="service_menager" value="1"> Oui</div>
-                </div>
-
-                <!-- Salon -->
-                <div class="col-md-6">
-                    <label class="form-label">Salon (Places)</label>
-                    <div class="check-group">
-                        @foreach(range(1,6) as $i)
-                            <label><input type="radio" name="salon" value="{{ $i }}"> {{ $i }} places</label>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Salle à manger -->
-                <div class="col-md-6">
-                    <label class="form-label">Salle à manger</label>
-                    <div class="check-group">
-                        @foreach([2,3,4,6] as $i)
-                            <label><input type="radio" name="salle_a_manger" value="{{ $i }}"> {{ $i }} places</label>
-                        @endforeach
-                        <label><input type="radio" name="salle_a_manger" value="autre"> Autre</label>
-                    </div>
                 </div>
 
                 <!-- Electro -->
