@@ -98,7 +98,7 @@ class ResidenceController extends Controller
     public function accueil()
     {
 
-        
+
 
         // Récupération des résidences disponibles pour l'affichage
 
@@ -132,9 +132,7 @@ class ResidenceController extends Controller
         // Résidences du propriétaire (table residences)
         $residences = Residence::where('proprietaire_id', $userId)->get();
 
-        $residences_occupees = Residence::where('proprietaire_id', $userId)
-            ->where('disponible', 0)
-            ->get();
+        $residences_occupees = Reservation::where('proprietaire_id', $userId)->get();
 
         // Réservations confirmées ou gestionnées (table reservations)
         $reservation_reçu = Reservation::where('proprietaire_id', $userId)->get();
