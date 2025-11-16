@@ -82,7 +82,13 @@
             <div class="p-5 flex flex-col h-full">
               {{-- Badge statut --}}
               <div class="mb-3 flex justify-center">
-                <span class="badge-sm badge font-semibold">{{ $status }}</span>
+                <span class="badge-sm badge font-semibold
+                    @if($res->status == 'en attente') bg-indigo-500/50 hover:shadow-indigo-300/50
+                    @elseif($res->status == 'confirmée') bg-green-500
+                    @elseif($res->status == 'annulée') bg-red-500
+                    @else bg-yellow-500 @endif">
+                    {{ $status }}
+                </span>
               </div>
 
               {{-- Titre résidence --}}
