@@ -46,22 +46,35 @@
             <div class="flex items-center justify-between py-3">
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('accueil') }}" class="block">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
+                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
                     </a>
-                <div>
-                    <h1 class="text-xl font-semibold text-white">
-                        {{ Auth::user()->name ?? 'Utilisateur' }}
-                    </h1>
-                </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-white">
+                            {{ Auth::user()->name ?? 'Utilisateur' }}
+                        </h1>
+                    </div>
                 </div>
 
-                <!-- Bouton toggle sidebar -->
-                <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M4 6h16M4 12h16m-7 6h7"/>
-                    </svg>
-                </button>
+                <!-- Zone recherche + icône utilisateur -->
+                <div class="flex items-center space-x-4">
+                    <!-- Logo recherche -->
+                    <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white">
+                        <i class="fas fa-search text-lg"></i>
+                    </a>
+
+                    <!-- Icône utilisateur -->
+                    <a href="{{ route('dashboard') }}" class="text-gray-300 hover:text-white">
+                        <i class="fas fa-user text-lg"></i>
+                    </a>
+
+                    <!-- Bouton toggle sidebar -->
+                    <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Ligne des statistiques -->
@@ -69,27 +82,28 @@
 
                 <a href="{{ route('residences') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-home mr-1"></i> Résidences
-                    <span class="ml-1 px-2 bg-red-600 text-xs font-bold rounded-full">{{ $totalResidences}}</span>
+                    <span class="ml-1 px-2 bg-red-600 text-xs font-bold rounded-full">{{ $totalResidences }}</span>
                 </a>
 
                 <a href="{{ route('occupees') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-lock mr-1"></i> Occupées
-                    <span class="ml-1 px-2 bg-yellow-500 text-xs font-bold rounded-full">{{ $totalResidencesOccupees}}</span>
+                    <span class="ml-1 px-2 bg-yellow-500 text-xs font-bold rounded-full">{{ $totalResidencesOccupees }}</span>
                 </a>
 
                 <a href="{{ route('mes_demandes') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-spinner mr-1"></i> Demandes
-                    <span class="ml-1 px-2 bg-gray-600 text-xs font-bold rounded-full">{{ $totalDemandesEnAttente}}</span>
+                    <span class="ml-1 px-2 bg-gray-600 text-xs font-bold rounded-full">{{ $totalDemandesEnAttente }}</span>
                 </a>
 
-                <a href="{{ route('reservationRecu') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
+                <a href="{{ route('reservations.recu') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-clock mr-1"></i> Historique
-                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">{{ $totalReservationsReçu}}</span>
+                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">{{ $totalReservationsReçu }}</span>
                 </a>
 
             </div>
         </div>
     </header>
+
 
     <!-- SIDEBAR (Menu latéral) -->
     <aside id="sidebar" class="bg-gray-900 text-white flex flex-col items-center">
