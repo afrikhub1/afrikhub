@@ -98,15 +98,7 @@ class ResidenceController extends Controller
     public function accueil()
     {
 
-        // Mise à jour des résidences dont la date de départ est dépassée
-        $today = \Carbon\Carbon::today();
-
-        Residence::where('disponible', 0)
-            ->whereDate('date_disponible_apres', '<=', $today)
-            ->update([
-                'disponible' => 1,
-                'date_disponible_apres' => null,
-            ]);
+        
 
         // Récupération des résidences disponibles pour l'affichage
 

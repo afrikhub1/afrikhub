@@ -117,3 +117,12 @@ Route::match(['get', 'post'], '/paiement/callback', [PaiementController::class, 
 Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
     ->name('paiement.webhook')
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
+
+
+//----------------------------------------------------------------------------------
+//mise a jours du statut, disponibilité et dates des reservations et residences
+//----------------------------------------------------------------------------------
+
+use App\Http\Controllers\Mise_a_jour;
+
+Route::get('/auto/terminer', [Mise_a_jour::class, 'terminerReservationsDuJour']);
