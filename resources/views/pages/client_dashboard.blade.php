@@ -86,7 +86,7 @@
                     @if($res->status == 'en attente') bg-indigo-500/50 hover:shadow-indigo-300/50
                     @elseif($res->status == 'confirmée') bg-green-500
                     @elseif($res->status == 'annulée') bg-red-500
-                    @else bg-yellow-500 @endif">
+                    @else bg-yellow-700 text-white @endif">
                     {{ $status }}
                 </span>
               </div>
@@ -144,7 +144,7 @@
 
                         <div>
                             <a href="{{ route('payer', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                                <i class="fas fa-credit-card"></i> interompre
+                                <i class="fas fa-stop"></i> interompre
                             </a>
                         </div>
                     @endif
