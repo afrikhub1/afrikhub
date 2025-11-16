@@ -202,7 +202,7 @@
     </aside>
 
     <!-- CONTENU PRINCIPAL -->
-    <main class="p-0 mb-16">
+    <main class="p-32 mb-16">
         <div class="max-w-7xl mx-auto px-4">
             @include('includes.messages')
             @yield('main')
