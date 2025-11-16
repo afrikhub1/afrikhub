@@ -96,6 +96,7 @@ class ReservationController extends Controller
     {
         // Récupérer les réservations de l'utilisateur connecté
         $demandes = Reservation::where('proprietaire_id', Auth::id())
+            ->where('status', 'en attente')
             ->with('residence')
             ->orderBy('created_at', 'desc')
             ->get();
