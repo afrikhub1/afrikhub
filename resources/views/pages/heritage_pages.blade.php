@@ -67,22 +67,22 @@
 
                 <a href="{{ route('residences') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-home mr-1"></i> Résidences
-                    <span class="ml-1 px-2 bg-red-600 text-xs font-bold rounded-full">3</span>
+                    <span class="ml-1 px-2 bg-red-600 text-xs font-bold rounded-full">{{ $residences->count() }}</span>
                 </a>
 
                 <a href="{{ route('occupees') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-lock mr-1"></i> Occupées
-                    <span class="ml-1 px-2 bg-yellow-500 text-xs font-bold rounded-full">1</span>
+                    <span class="ml-1 px-2 bg-yellow-500 text-xs font-bold rounded-full">{{ $reservationsConfirmees->count() }}</span>
                 </a>
 
                 <a href="{{ route('mes_demandes') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-spinner mr-1"></i> Demandes
-                    <span class="ml-1 px-2 bg-gray-600 text-xs font-bold rounded-full">2</span>
+                    <span class="ml-1 px-2 bg-gray-600 text-xs font-bold rounded-full">{{ $reservation->count() }}</span>
                 </a>
 
                 <a href="{{ route('historique') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-clock mr-1"></i> Historique
-                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">4</span>
+                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">{{ $reservationsConfirmees->count() }}</span>
                 </a>
 
             </div>

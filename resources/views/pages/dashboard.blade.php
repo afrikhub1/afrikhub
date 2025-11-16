@@ -105,7 +105,7 @@
                     <i class="fas fa-home text-indigo-500 mr-3"></i> Toutes Mes Résidences en Gestion
                 </h2>
 
-                @if($reservation->isEmpty())
+                @if($residences->isEmpty())
                     <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md text-center">
                         <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence enregistrée.
                     </div>
