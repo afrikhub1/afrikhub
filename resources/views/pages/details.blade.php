@@ -245,7 +245,7 @@
 
     {{-- Page title --}}
     <section class="page-title">
-      <h1 class="fw-bold">{{ $residences_details->nom ?? 'Nom de la résidence' }}</h1>
+      <h1 class="fw-bold">Residence - {{ $residences_details->nom ?? 'Nom de la résidence' }}</h1>
       <p class="small-note">Découvrez la propriété — photos, description et réservation</p>
     </section>
 
@@ -320,7 +320,7 @@
 
         {{-- Actions: Reserve / Back --}}
         <div class="res-actions mt-3">
-          <a class="btn btn-back" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
+          <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
 
           {{-- Reserve button opens modal (only for authenticated users) --}}
           @auth
@@ -378,7 +378,7 @@
             </div>
 
             <div class="d-flex justify-content-end gap-2 mt-3">
-              <button type="button" class="btn btn-back" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
               <button type="submit" class="btn btn-reserver" id="btnConfirmer" disabled>Confirmer</button>
             </div>
           </form>
@@ -395,7 +395,7 @@
         <h5 class="fw-bold">Confirmer la réservation</h5>
         <p id="confirmationMessage" class="my-3"></p>
         <div class="d-flex justify-content-center gap-3">
-          <button type="button" class="btn btn-back" data-bs-dismiss="modal">Modifier</button>
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Modifier</button>
           <button type="button" class="btn btn-reserver" id="btnFinalSubmit">Confirmer et payer</button>
         </div>
       </div>
