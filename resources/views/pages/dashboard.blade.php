@@ -131,7 +131,7 @@
                                 <!-- Image principale cliquable pour GLightbox -->
                                 <div class="w-full">
                                     {{-- Lien principal --}}
-                                    <a href="{{ $imagePath }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                    <a href="{{ $imagePath }}" class="glightbox block" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}">
                                         <img src="{{ $imagePath }}" class="w-full h-48 object-cover hover:opacity-90"
                                             onerror="this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
                                             alt="Image de la résidence">
@@ -141,7 +141,7 @@
                                     @if(is_array($images))
                                         @foreach($images as $key => $image)
                                             @if($key > 0)
-                                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" hidden></a>
+                                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}" hidden></a>
                                             @endif
                                         @endforeach
                                     @endif
