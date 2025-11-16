@@ -151,7 +151,6 @@
                     </button>
                   @endif
 
-                  {{-- Annuler: allowed when en attente or confirmée (normalize both formats) --}}
                   @if(in_array($rawStatus, ['en attente','en_attente','confirmée','confirmee','confirmée']))
                     <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
                       @csrf
@@ -159,16 +158,12 @@
                         <i class="fas fa-ban"></i> Annuler
                       </button>
                     </form>
-                  @else
-                    <button disabled class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
-                      <i class="fas fa-ban"></i> Annuler
-                    </button>
                   @endif
                 </div>
 
                 {{-- Rebook / Renouveler toujours disponible (GET) --}}
                 <div class="mt-3">
-                  <a href="{{ route('rebook', $res->id) }}" class="block text-center text-sm font-semibold text-slate-700 hover:text-slate-900">
+                  <a href="{{ route('reservation.rebook', $res->id) }}" class="block text-center text-sm font-semibold text-slate-700 hover:text-slate-900">
                     <i class="fas fa-redo mr-2"></i> Renouveler
                   </a>
                 </div>
