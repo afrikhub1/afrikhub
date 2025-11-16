@@ -32,23 +32,24 @@
                         </div>
                     @else
                         <div class="flex flex-wrap gap-4">
-                            @foreach($residences_occupees as $occupees)
-                                <div class="min-w-[320px] bg-red-100 border border-red-400 rounded-xl shadow-lg p-5 transition hover:shadow-2xl">
-                                    <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-2xl"></i> {{ $occupees->nom }}
+                            @foreach($residences_occupees as $residences_occupees)
+                            <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
+                                <div>
+                                    <h5 class="text-2xl font-bold text-red-800 mb-3 flex items-center">
+                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
                                     </h5>
-                                    @foreach($reservation_reçu as $occupees_details)
-                                        <p class="text-sm mb-1"><strong>Client :</strong> {{ $occupees_details->client }}</p>
-                                        <p class="text-sm mb-1"><strong>Début :</strong> <span class="text-gray-700">{{ \Carbon\Carbon::parse($occupees_details->date_arrivee)->format('d/m/Y') }}</span></p>
-                                        <p class="text-sm mb-3"><strong>Fin :</strong> <span class="text-red-700 font-bold">{{ \Carbon\Carbon::parse($occupees_details->date_depart)->format('d/m/Y') }}</span></p>
-                                        <p class="text-xs text-gray-600 mb-2"><strong>Code :</strong> <span class="font-mono bg-red-200 px-1 rounded">{{ $occupees_details->reservation_code }}</span></p>
-                                    @endforeach
-                                    <!-- Action Button -->
-                                    <button class="w-full bg-red-600 text-white p-2 rounded-lg font-semibold mt-3 hover:bg-red-700 transition duration-150">
-                                        Libérer la Résidence
-                                    </button>
+                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
+                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
+                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
+                                    <p class="text-sm mb-2"><strong>Type :</strong> {{ $residences_occupees->type_residences_occupees }}</p>
+                                    <p class="text-sm mb-2"><strong>Chambres :</strong> {{ $residences_occupees->nombre_chambres }}</p>
+                                    <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residences_occupees->nombre_salons }}</p>
                                 </div>
-                            @endforeach
+                                <button class="w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
+                                </button>
+                            </div>
+                        @endforeach
                         </div>
                     @endif
                 </div>
