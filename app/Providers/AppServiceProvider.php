@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
                 $totalReservationsReçu = Reservation::where('proprietaire_id', $userId)->where('status', 'confirmée')->count();
                 $totalDemandesEnAttente = Reservation::where('proprietaire_id', $userId)->where('status', 'en_attente')->count();
 
-                $view->with(compact('totalResidences', 'residencesOccupees', 'reservationsReçu', 'demandesEnAttente'));
+                $view->with(compact('totalResidences', 'totalResidencesOccupees', 'totalReservationsReçu', 'totalDemandesEnAttente'));
             }
         });
     }
