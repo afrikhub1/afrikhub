@@ -182,7 +182,7 @@
     </aside>
 
     <!-- CONTENU PRINCIPAL -->
-    <main class="pt-28 mb-16">
+    <main class="pt-32 mb-16">
         <div class="max-w-7xl mx-auto px-4">
             @include('includes.messages')
             @yield('main')
