@@ -47,7 +47,7 @@
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1.03M9 11h1.03M9 15h1.03M13 7h1.03M13 11h1.03M13 15h1.03M17 7h1.03M17 11h1.03M17 15h1.03"></path></svg>
                 Gestion Résidences
             </a>
-            <a href="{{ route('admin.reservations.all') }}" class="flex items-center p-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+            <a href="{{ route('admin.reservations') }}" class="flex items-center p-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M16 11h.01M21 21H3a2 2 0 01-2-2V8a2 2 0 012-2h18a2 2 0 012 2v11a2 2 0 01-2 2z"></path></svg>
                 Réservations
             </a>
