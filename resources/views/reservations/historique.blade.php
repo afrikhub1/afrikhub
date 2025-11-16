@@ -95,7 +95,7 @@
                             @endif
 
                             @if($res->status == 'en attente')
-                                <p class="fw-bold mt-2 text-danger fw-600">
+                                <p class="text-sm mt-2 text-danger">
                                     <i class="fas fa-calendar-check me-2"></i>
                                     Prochaine disponibilité :
                                     @if($res->residence)
