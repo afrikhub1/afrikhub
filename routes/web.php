@@ -19,11 +19,10 @@ use Illuminate\Support\Facades\Route;
 // --------------------------------------------------
 // ROUTES PUBLIQUES
 // --------------------------------------------------
-Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::get('/admin_login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
-
 Route::get('/message', fn() => view('pages.messages'))->name('message');
 
 // Actions publiques
