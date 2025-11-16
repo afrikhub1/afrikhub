@@ -164,37 +164,6 @@ class ResidenceController extends Controller
         return view('reservations.occupees', compact('residences_occupees'));
     }
 
-    public function compteur()
-    {
-        $userId = Auth::id();
-
-        // Compter les résidences du propriétaire
-        $totalResidences = Residence::where('proprietaire_id', $userId)->count();
-
-        // Compter les résidences occupées
-        $residencesOccupees = Residence::where('proprietaire_id', $userId)
-            ->where('disponible', 0)
-            ->count();
-
-        // Compter les réservations confirmées
-        $reservationsRecu = Reservation::where('proprietaire_id', $userId)
-            ->where('status', 'confirmée')
-            ->count();
-
-        // Compter les demandes en attente
-        $demandesEnAttente = Reservation::where('proprietaire_id', $userId)
-            ->where('status', 'en_attente')
-            ->count();
-
-        // Passer tout à la vue
-        return view('pages.heritage_pages', compact(
-            'totalResidences',
-            'residencesOccupees',
-            'reservationsRecu',
-            'demandesEnAttente'
-        ));
-    }
-
     public function reservationReçu()
     {
         $userId = Auth::id();
