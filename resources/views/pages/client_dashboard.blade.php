@@ -78,7 +78,7 @@
 
             @endphp
 
-        <article class="bg-white rounded-2xl card-shadow overflow-hidden border border-transparent {{ $stat['border'] }} transition transform hover:-translate-y-1">
+        <article class="bg-white rounded-2xl card-shadow overflow-hidden border transition transform hover:-translate-y-1">
             <div class="p-5 flex flex-col h-full">
               {{-- Badge statut --}}
               <div class="mb-3 flex justify-center">
@@ -158,7 +158,7 @@
                 </div>
               </div>
             </div>
-          </article>
+        </article>
 
         @empty
           <div class="col-span-full">
