@@ -66,13 +66,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/reservation/{id}/accepter', [ReservationController::class, 'accepter'])->name('reservation.accepter');
         Route::post('/reservation/{id}/refuser', [ReservationController::class, 'refuser'])->name('reservation.refuser');
         Route::get('/pro/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('pro.dashboard');
+        Route::get('/dashboard/compteurs', [ResidenceController::class, 'compteur'])->name('dashboard.compteurs');
         Route::get('/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard');
         Route::get('/historique', [ReservationController::class, 'historique'])->name('historique');
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
         Route::get('/residences', [ResidenceController::class, 'index'])->name('residences');
         Route::get('/occupees', [ResidenceController::class, 'occupees'])->name('occupees');
-        Route::get('/dashboard/compteurs', [ResidenceController::class, 'compteur'])->name('dashboard.compteurs');
-
 
     });
 

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
+use App\Models\Residence;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('pages.heritage_pages', function ($view) {
+            if (Auth::check()) {
+                $userId = Auth::id();
+                $totalResidences = Residence::where('proprietaire_id', $userId)->count();
+                $residencesOccupees = Residence::where('proprietaire_id', $userId)->where('disponible', 0)->count();
+                $reservationsReçu = Reservation::where('proprietaire_id', $userId)->where('status', 'confirmée')->count();
+                $demandesEnAttente = Reservation::where('proprietaire_id', $userId)->where('status', 'en_attente')->count();
+
+                $view->with(compact('totalResidences', 'residencesOccupees', 'reservationsReçu', 'demandesEnAttente'));
+            }
+        });
     }
 }
