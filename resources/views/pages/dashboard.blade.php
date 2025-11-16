@@ -20,9 +20,10 @@
 
             <!-- Résidences Occupées -->
             <section id="occupees" class="mb-10 row m-0">
-                <h2 class="text-3xl font-extrabold text-red-600 mb-6 flex items-center border-b pb-2">
-                    <i class="fas fa-key text-2xl mr-3"></i> Mes Résidences Occupées
+                 <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
+                    <i class="fas fa-home text-indigo-500 mr-3"></i> Résidences occupée
                 </h2>
+
                 <div class="p-2 d-flex">
                     {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
 
@@ -57,9 +58,10 @@
 
             <!-- Historique des Réservations -->
             <section id="historique" class="mb-10">
-                <h2 class="text-3xl font-extrabold text-indigo-600 mb-6 flex items-center border-b pb-2 text-center">
-                    <i class="fas fa-history text-2xl mr-3"></i> Historique des Demandes de Location
+                 <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
+                    <i class="fas fa-home text-indigo-500 mr-3"></i> Demandes réçu
                 </h2>
+
 
                 @if($reservation_reçu->isEmpty())
                     <div class="bg-blue-100 border border-blue-200 text-blue-700 p-4 rounded-lg text-center shadow-inner">
