@@ -177,7 +177,7 @@ class ResidenceController extends Controller
             ->count();
 
         // Compter les réservations confirmées
-        $reservationsReçu = Reservation::where('proprietaire_id', $userId)
+        $reservationsRecu = Reservation::where('proprietaire_id', $userId)
             ->where('status', 'confirmée')
             ->count();
 
@@ -190,7 +190,7 @@ class ResidenceController extends Controller
         return view('pages.heritage_pages', compact(
             'totalResidences',
             'residencesOccupees',
-            'reservationsReçu',
+            'reservationsRecu',
             'demandesEnAttente'
         ));
     }
