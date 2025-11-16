@@ -16,7 +16,7 @@
             </span>
         </div>
 
-        <main class="bg-white p-2 md:p-3 rounded-xl shadow-2xl border border-gray-200">
+        <main class="bg-white px-4 py-2 md:p-3 rounded-xl shadow-2xl border border-gray-200">
 
             <!-- Résidences Occupées -->
             <section id="occupees" class="mb-10 row m-0">
