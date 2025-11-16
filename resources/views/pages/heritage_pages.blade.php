@@ -104,19 +104,43 @@
         <!-- Liens -->
         <div class="mt-12 w-full flex flex-col space-y-4">
 
-            <a href="{{ route('accueil') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Accueil</a>
-            <a href="{{ route('recherche') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Recherche</a>
-            <a href="{{ route('historique') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Réservation</a>
-            <a href="#" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Mon Compte</a>
-            <a href="{{ route('residences') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Mes Résidences</a>
-            <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Mise en ligne</a>
-            <a href="{{ route('occupees') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Résidences occupées</a>
-            <a href="{{ route('mes_demandes') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">Demandes</a>
+            <a href="{{ route('accueil') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-house mr-2"></i> Accueil
+            </a>
+
+            <a href="{{ route('recherche') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-magnifying-glass mr-2"></i> Recherche
+            </a>
+
+            <a href="{{ route('historique') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-clock-rotate-left mr-2"></i> Réservation
+            </a>
+
+            <a href="{{ route('dashboard') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-user mr-2"></i> Mon Compte
+            </a>
+
+            <a href="{{ route('residences') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-building mr-2"></i> Mes Résidences
+            </a>
+
+            <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Mise en ligne
+            </a>
+
+            <a href="{{ route('occupees') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-lock mr-2"></i> Résidences occupées
+            </a>
+
+            <a href="{{ route('mes_demandes') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg">
+                <i class="fa-solid fa-envelope-open-text mr-2"></i> Demandes
+            </a>
 
             <a href="{{ route('logout') }}"
-               class="w-full text-center py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-lg">
-                Déconnexion
+            class="w-full text-center py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-lg">
+                <i class="fa-solid fa-right-from-brush mr-2"></i> Déconnexion
             </a>
+
         </div>
     </aside>
 
