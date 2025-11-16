@@ -115,19 +115,19 @@
                         @foreach($residences as $res)
                             @php
                                 // Décodage JSON si nécessaire
-                        $images = $res->img;
-                        if (is_string($images)) {
-                            $images = json_decode($images, true) ?? [];
-                        }
+                                $images = $res->img;
+                                if (is_string($images)) {
+                                    $images = json_decode($images, true) ?? [];
+                                }
 
-                        $firstImage = $images[0] ?? null;
-                        $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                                $firstImage = $images[0] ?? null;
+                                $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
                             <div class="w-full bg-white rounded-2xl shadow-xl p-2 transition duration-500 hover:shadow-indigo-400/50 flex flex-col items-center border border-gray-200">
 
                                 <!-- Image principale cliquable (Couverture du carrousel GLightbox) -->
                                 <div class="w-full">
-                                    <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                    <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}">
                                         <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
                                             onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
                                             alt="Image de la résidence">
@@ -155,7 +155,7 @@
                                 </ul>
 
                                 <!-- Badge dynamique (Statut d'occupation général) -->
-                                @if(isset($residences->status) && $residences->status === 'occupee')
+                                @if(isset($res->status) && $res->status === 'occupee')
                                     <span class="bg-red-500 w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
                                         <i class="fas fa-bed mr-2"></i> Déjà Occupée
                                     </span>
