@@ -207,8 +207,8 @@
     </aside>
 
     <!-- CONTENU PRINCIPAL -->
-    <main class="pt-32 mb-16">
-        <div class="max-w-7xl mx-auto p-4">
+    <main class="pt-32 mb-16 px-O mx-O">
+        <div class="m-0 p-4">
             @include('includes.messages')
             @yield('main')
         </div>
