@@ -59,13 +59,11 @@
                         <!-- TOTAL -->
                         <div class="mt-auto border-t pt-3">
                              <p class="text-lg font-extrabold text-amber-600">
-                                Total payé : {{ number_format($res->total, 0, ',', ' ') }} FCFA
+                                Total : {{ number_format($res->total, 0, ',', ' ') }} FCFA
                             </p>
                             <p class="text-xs text-gray-400 mt-1">
                                 Réservé le {{ $res->created_at->format('d/m/Y') }}
                             </p>
-
-
                         </div>
 
                         <!-- Préfacture/Détails (Optionnel en Historique) -->
@@ -83,6 +81,17 @@
                                 <p class="mb-0 text-gray-600">Prix/jour : {{ number_format($prixJournalier,0,',',' ') }} FCFA</p>
                             </div>
                         @endif
+
+                        <div class="mt-auto border-t pt-3">
+                            <p class="text-sm mt-2 text-red-600 w-full">
+                                <i class="fas fa-calendar-check me-2"></i>Prochaine disponibilité :
+                                @if($res->residence)
+                                    {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
+                                @else
+                                    Résidence indisponible
+                                @endif
+                            </p>
+                        </div>
                         <!-- Boutons en bas -->
                         <div class="mt-4 flex gap-2 justify-center">
                             @if($res->status == 'confirmée')
@@ -95,15 +104,6 @@
                             @endif
 
                             @if($res->status == 'en attente')
-                                <p class="text-sm mt-2 text-red-600 w-full">
-                                    <i class="fas fa-calendar-check me-2"></i>
-                                    Prochaine disponibilité :
-                                    @if($res->residence)
-                                        {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
-                                    @else
-                                        Résidence indisponible
-                                    @endif
-                                </p>
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
                                     <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
@@ -111,7 +111,6 @@
                                     </button>
                                 </form>
                             @endif
-
                             <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
                                 <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
                                    Renouveler
