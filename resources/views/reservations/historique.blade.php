@@ -14,7 +14,7 @@
             <p class="text-gray-500">Retrouvez toutes vos réservations reçu</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-            @forelse($reservationsReçu as $res)
+            @forelse($reservationsRecu as $res)
                 <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
                     @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
                     @elseif($res->status == 'en_attente') border-blue-500/50 hover:shadow-blue-300/50

@@ -167,9 +167,9 @@ class ResidenceController extends Controller
     public function reservationReçu()
     {
         $userId = Auth::id();
-        $reservationsReçu = Reservation::where('proprietaire_id', $userId)->get();
+        $reservationsRecu = Reservation::where('proprietaire_id', $userId)->get();
 
-        return view('reservations.historique', compact('reservationsReçu'));
+        return view('reservations.historique', compact('reservationsRecu'));
     }
 
 
