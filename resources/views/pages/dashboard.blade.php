@@ -181,8 +181,8 @@
                                 <!-- Badge Statut -->
                                 <span class="{{ $res->statut ? 'bg-red-500' : 'bg-green-500' }}
                                             w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
-                                    <i class="{{ $res->status ? 'fas fa-bed mr-2' : 'fas fa-check-circle mr-2' }}"></i>
-                                    {{ $res->status ? 'Déjà Occupée' : 'Disponible' }}
+                                    <i class="{{ $res->statut ? 'fas fa-bed mr-2' : 'fas fa-check-circle mr-2' }}"></i>
+                                    {{ $res->statut ? 'Déjà Occupée' : 'Disponible' }}
                                 </span>
 
                             </div>
