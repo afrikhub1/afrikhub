@@ -31,20 +31,28 @@
                             : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                         @endphp
 
-                        <a href="{{ $firstImage }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                            <img src="{{ $firstImage }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
+                        <a href="{{ $imagePath }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                            <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
                                 onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
                                 alt="Image de la résidence">
                         </a>
 
+
+                        {{-- Galerie invisible pour les autres images --}}
                         {{-- Galerie invisible pour les autres images --}}
                         @if (is_array($images))
                             @foreach($images as $key => $image)
                                 @if($key > 0)
-                                    <a href="{{ asset($image) }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                    {{-- Utiliser l'URL directe (pas asset() si l'URL est déjà complète) --}}
+                                    <a href="{{ $image }}"
+                                    class="glightbox"
+                                    data-gallery="residence-{{ $residence->id }}"
+                                    data-title="{{ $residence->nom }}"
+                                    hidden></a>
                                 @endif
                             @endforeach
                         @endif
+
 
                         <div class="p-6 flex flex-col flex-grow">
                             <h5 class="text-xl font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }}</h5>

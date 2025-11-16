@@ -9,6 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+
 
     <style>
         /* Police Inter pour un rendu propre et moderne */
@@ -232,6 +235,22 @@
     </script>
 
     @stack('scripts')
+
+        <!-- GLightbox JS -->
+        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+        <script>
+            // Initialise GLightbox une fois le DOM chargé
+            document.addEventListener('DOMContentLoaded', function () {
+                GLightbox({
+                    selector: '.glightbox',
+                    touchNavigation: true,
+                    loop: true,
+                    zoomable: true,
+                });
+            });
+        </script>
+
     @yield('script')
 </body>
 </html>
