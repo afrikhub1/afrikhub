@@ -135,11 +135,13 @@
                         <i class="fas fa-credit-card"></i> Payer
                         </a>
                     @elseif ($status=='payé')
-                        <div class="border">
-                            <button disabled class="block items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                        <div class="">
+                            <button disabled
+                                class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
                                 <i class="fas fa-credit-card"></i> Payé
                             </button>
                         </div>
+
 
                     @endif
 

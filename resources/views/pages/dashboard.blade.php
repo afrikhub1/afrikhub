@@ -112,60 +112,7 @@
                 @else
                     <div class="album-container flex flex-wrap gap-8 justify-center bg-gray-50 p-2  rounded-2xl shadow-inner border border-gray-100">
 
-                        @foreach($residences as $res)
-                            @php
-                                // Décodage JSON si nécessaire
-                                $images = $res->img;
-                                if (is_string($images)) {
-                                    $images = json_decode($images, true) ?? [];
-                                }
 
-                                $firstImage = $images[0] ?? null;
-                                $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-                            @endphp
-                            <div class="w-full bg-white rounded-2xl shadow-xl p-2 transition duration-500 hover:shadow-indigo-400/50 flex flex-col items-center border border-gray-200">
-
-                                <!-- Image principale cliquable (Couverture du carrousel GLightbox) -->
-                                <div class="w-full">
-                                    <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}">
-                                        <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
-                                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
-                                            alt="Image de la résidence">
-                                    </a>
-                                </div>
-
-                                <!-- Autres images invisibles pour la galerie -->
-                                @if(is_array($images))
-                                    @foreach($images as $key => $image)
-                                        @if($key > 0)
-                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}" style="display:none;"></a>
-                                        @endif
-                                    @endforeach
-                                @endif
-
-                                <div class="text-lg uppercase font-bold text-gray-800 mb-3 border-b border-indigo-300 w-full text-center pb-2 truncate">
-                                    {{ $res->nom }}
-                                </div>
-
-                                <ul class="text-sm text-gray-700 w-full space-y-1 mb-4">
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Chambres :</strong> <span>{{ $res->nombre_chambres }} <i class="fas fa-door-closed text-indigo-500"></i></span></li>
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Salons :</strong> <span>{{ $res->nombre_salons }} <i class="fas fa-couch text-indigo-500"></i></span></li>
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Prix/Jour :</strong> <span class="text-green-600 font-semibold">{{ $res->prix_journalier }} €</span></li>
-                                    <li class="flex justify-between items-center"><strong class="text-gray-600">Ville :</strong> <span>{{ $res->ville }} <i class="fas fa-map-marker-alt text-indigo-500"></i></span></li>
-                                </ul>
-
-                                <!-- Badge dynamique (Statut d'occupation général) -->
-                                @if(isset($res->status) && $res->status === 'occupee')
-                                    <span class="bg-red-500 w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
-                                        <i class="fas fa-bed mr-2"></i> Déjà Occupée
-                                    </span>
-                                @else
-                                    <span class="bg-green-500 w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
-                                        <i class="fas fa-check-circle mr-2"></i> Disponible
-                                    </span>
-                                @endif
-                            </div>
-                        @endforeach
                     </div>
                 @endif
             </section>
