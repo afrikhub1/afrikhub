@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 // --------------------------------------------------
 // ROUTES PUBLIQUES
 // --------------------------------------------------
+// Login Admin
+Route::get('/login_admin', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
 Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
@@ -74,9 +77,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Admin
     Route::prefix('admin')->group(function () {
-        // Login Admin
-        Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-        Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
         Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
         // Dashboard et gestion admin
