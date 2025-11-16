@@ -196,8 +196,7 @@
         {{-- Desktop links --}}
         <div class="nav-links d-none d-lg-flex align-items-center me-3">
           <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
-          <a class="nav-link" href="{{ route('dashboard') }}">Profil</a>
-          <a class="nav-link" href="{{ route('reservationRecu') }}">Réservations</a>
+          <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
         </div>
 
         {{-- Quick actions --}}

@@ -41,7 +41,7 @@
                                     </h5>
                                     <p class="text-sm mb-2"><strong>Occupant :</strong> {{ $residences_occupees->client }}</p>
                                     <p class="text-sm mb-2"><strong>Reference :</strong> {{ $residences_occupees->reservation_code }}</p>
-                                    <p class="text-sm mb-2"><strong>Totalr :</strong> {{ number_format($residences_occupees->total, 0, ',', ' ') }} FCFA</p>
+                                    <p class="text-sm mb-2"><strong>Total :</strong> {{ number_format($residences_occupees->total, 0, ',', ' ') }} FCFA</p>
                                     <p class="text-sm mb-2"><strong>Statut :</strong> {{ $residences_occupees->status }}</p>
                                     <p class="text-sm mb-2"><strong>Arrivée :</strong> {{ $residences_occupees->date_arrivee }}</p>
                                     <p class="text-sm mb-2"><strong>Depart :</strong> {{ $residences_occupees->date_depart }}</p>
