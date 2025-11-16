@@ -122,9 +122,11 @@
                                     ?: "https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d'image";
                             @endphp
 
-                            <div class="w-full bg-white rounded-2xl shadow-xl p-2 border border-gray-200
-                                        transition duration-500 hover:shadow-indigo-400/50
-                                        flex flex-col items-center">
+                            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl
+                                transition duration-500 hover:shadow-indigo-400/50
+                                flex flex-col items-center
+                                w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5
+                                p-2 sm:p-3 md:p-4">
 
                                 <!-- Image principale cliquable pour GLightbox -->
                                 <div class="w-full">
@@ -203,5 +205,14 @@
             </section>
         </main>
     </div>
+@endsection
+
+@section('script')
+    <script>
+    const lightbox = GLightbox({
+        selector: '.glightbox'
+    });
+</script>
+
 @endsection
 
