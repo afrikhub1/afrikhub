@@ -177,17 +177,12 @@
                                 </ul>
 
                                 <!-- Badge Statut -->
-                                @if($res->statut == 1)
-                                    <span class="bg-red-500 w-full p-3 text-white font-bold rounded-xl text-center
-                                                shadow-lg transition duration-150">
-                                        <i class="fas fa-bed mr-2"></i> Déjà Occupée
-                                    </span>
-                                @else
-                                    <span class="bg-green-500 w-full p-3 text-white font-bold rounded-xl text-center
-                                                shadow-lg transition duration-150">
-                                        <i class="fas fa-check-circle mr-2"></i> Disponible
-                                    </span>
-                                @endif
+                                <span class="{{ $res->statut ? 'bg-red-500' : 'bg-green-500' }}
+                                            w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
+                                    <i class="{{ $res->status ? 'fas fa-bed mr-2' : 'fas fa-check-circle mr-2' }}"></i>
+                                    {{ $res->status ? 'Déjà Occupée' : 'Disponible' }}
+                                </span>
+
                             </div>
                         @endforeach
 
