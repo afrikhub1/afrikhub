@@ -42,9 +42,12 @@ class ClientController extends Controller
             return redirect()->route('login')->with('danger', 'Veuillez vous connecter.');
         }
 
+        $userId = Auth::id();
+
         // Récupère uniquement les réservations qui peuvent servir de facture (payées, terminées ou confirmées)
-        $reservations = Reservation::where('status', 'payé')
-            ->with('residence') // Charger la relation 'residence'
+        $reservations = Reservation::where('user_id', $userId)   //  Cible les réservations du client connecté
+            ->whereIn('status', ['payé', 'terminée'])  // Statuts pour facture
+            ->with('residence')  // Charger la résidence
             ->orderByDesc('created_at')
             ->get();
 
