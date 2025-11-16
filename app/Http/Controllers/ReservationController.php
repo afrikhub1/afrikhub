@@ -108,42 +108,27 @@ class ReservationController extends Controller
         $reservation = Reservation::findOrFail($id);
         $residence = $reservation->residence;
 
-        if (!$residence) {
-            return back()->with('error', 'Résidence introuvable.');
-        }
-
         $reservationArrivee = \Carbon\Carbon::parse($reservation->date_arrivee);
         $reservationDepart  = \Carbon\Carbon::parse($reservation->date_depart);
 
-        // Parcours toutes les réservations confirmées existantes pour cette résidence
-        $conflits = $residence->reservations()
-            ->where('status', 'confirmée')
-            ->where(function ($query) use ($reservationArrivee, $reservationDepart) {
-                $query->whereBetween('date_arrivee', [$reservationArrivee, $reservationDepart])
-                    ->orWhereBetween('date_depart', [$reservationArrivee, $reservationDepart])
-                    ->orWhere(function ($q) use ($reservationArrivee, $reservationDepart) {
-                        $q->where('date_arrivee', '<=', $reservationArrivee)
-                            ->where('date_depart', '>=', $reservationDepart);
-                    });
-            })
-            ->exists();
+        // Date à partir de laquelle la résidence sera libre
+        $dateDisponible = $residence->dateDisponibleAvecNettoyage();
 
-        if ($conflits) {
-            return back()->with('error', 'Impossible de confirmer : la résidence est déjà réservée à ces dates.');
+        // Vérifie si la nouvelle réservation chevauche la période occupée
+        if ($reservationArrivee->lt($dateDisponible)) {
+            return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
         }
 
-        // Confirmation de la réservation
+
         $reservation->status = 'confirmée';
         $reservation->save();
 
-        // Mise à jour de la disponibilité de la résidence
         $residence->disponible = 0;
-        $residence->date_disponible_apres = $reservation->date_depart;
+        $residence->date_disponible_apres = $reservationDepart;
         $residence->save();
 
         return back()->with('success', 'Réservation confirmée avec succès !');
     }
-
 
 
     public function refuser($id)
