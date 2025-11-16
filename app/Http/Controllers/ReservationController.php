@@ -71,16 +71,6 @@ class ReservationController extends Controller
         return redirect()->route($route)->with('success', 'Réservation enregistrée avec succès !');
     }
 
-    public function historique()
-    {
-        $reservations = Reservation::where('user_id', Auth::id())
-            ->with('residence')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('reservations.historique', compact('reservations'));
-    }
-
     // Paiement
     public function annuler($id)
     {
