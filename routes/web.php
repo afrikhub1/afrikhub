@@ -71,6 +71,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
         Route::get('/residences', [ResidenceController::class, 'index'])->name('residences');
         Route::get('/occupees', [ResidenceController::class, 'occupees'])->name('occupees');
+        Route::get('/dashboard/compteurs', [ResidenceController::class, 'compteur'])->name('dashboard.compteurs');
+
 
     });
 
