@@ -18,7 +18,7 @@
                 <p class="text-sm mt-1">Revenez plus tard pour de nouvelles demandes.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
                 @foreach($demandes as $res)
                     @php
                         $residence = $res->residence;
@@ -32,19 +32,19 @@
                                 @elseif($res->status == 'annulée') border-red-500
                                 @else border-yellow-500 @endif
                                 transition duration-300 transform hover:scale-105
-                                h-full"> <!-- hauteur totale pour uniformité -->
+                                h-full">
 
                         <!-- Image -->
-                        <img src="{{ $firstImage }}" class="w-full h-48 object-cover"
+                        <img src="{{ $firstImage }}" class="w-full h-48 sm:h-56 md:h-48 lg:h-52 xl:h-60 object-cover"
                             onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=DEMANDE';"
                             alt="Image de la résidence">
 
                         <!-- Contenu -->
-                        <div class="p-5 flex flex-col flex-grow text-center">
-                            <h5 class="text-xl font-extrabold text-gray-800 mb-1 truncate">{{ $residence->nom }}</h5>
-                            <p class="text-sm text-gray-500 mb-4">📍 {{ $residence->ville }}</p>
+                        <div class="p-4 sm:p-5 flex flex-col flex-grow text-center">
+                            <h5 class="text-lg sm:text-xl font-extrabold text-gray-800 mb-1 truncate">{{ $residence->nom }}</h5>
+                            <p class="text-sm sm:text-base text-gray-500 mb-3">📍 {{ $residence->ville }}</p>
 
-                            <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100">
+                            <ul class="space-y-1 sm:space-y-2 text-sm sm:text-base text-gray-700 font-medium border-t pt-3 sm:pt-4 border-gray-100">
                                 <li class="flex justify-between items-center">
                                     <span class="text-gray-500"><i class="fas fa-plane-arrival mr-2 text-indigo-400"></i> Arrivée :</span>
                                     <span class="text-gray-900 font-bold">{{ $res->date_arrivee->format('d/m/Y') }}</span>
@@ -56,7 +56,7 @@
                             </ul>
 
                             <!-- Statut -->
-                            <div class="mt-4 mb-5">
+                            <div class="mt-3 sm:mt-4 mb-4">
                                 @php
                                     $statusColors = [
                                         'en attente' => 'bg-indigo-600 text-white',
@@ -73,24 +73,24 @@
                                         'payé' => 'Payé',
                                     ];
                                 @endphp
-                                <span class="inline-block px-4 py-1.5 text-sm font-bold rounded-full shadow-md {{ $statusColors[$res->status] ?? 'bg-red-600 text-white' }}">
+                                <span class="inline-block px-3 sm:px-4 py-1.5 text-sm sm:text-base font-bold rounded-full shadow-md {{ $statusColors[$res->status] ?? 'bg-red-600 text-white' }}">
                                     {{ $statusText[$res->status] ?? 'Refusée (Vous)' }}
                                 </span>
                             </div>
 
-                            <!-- Actions -->
+                            <!-- Actions alignées en bas -->
                             @if($res->status == 'en attente')
-                                <div class="flex gap-3 justify-center mt-auto px-4">
+                                <div class="flex flex-col sm:flex-row gap-2 justify-center mt-auto">
                                     <form action="{{ route('reservation.accepter', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
+                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
                                             <i class="fas fa-check"></i> Accepter
                                         </button>
                                     </form>
 
                                     <form action="{{ route('reservation.refuser', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
+                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
                                             <i class="fas fa-times"></i> Refuser
                                         </button>
                                     </form>
