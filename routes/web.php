@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 // --------------------------------------------------
 // ROUTES PUBLIQUES
 // --------------------------------------------------
-// Login Admin
-Route::get('/login_admin', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/login_admin', [AdminLoginController::class, 'login'])->name('admin.login.submit');
 Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
@@ -43,8 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
     Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
-    //recherche
-    Route::get('/recherche', fn() => view('pages.recherche'))->name('recherche');// page de recherche
+    // Recherche
+    Route::get('/recherche', fn() => view('pages.recherche'))->name('recherche'); // page de recherche
     Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche'); // fonction de recherche
 
     // Réservations
@@ -75,33 +72,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
     });
 
-    // Admin
-    Route::prefix('admin')->group(function () {
-        Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
-
-        // Dashboard et gestion admin
-        Route::middleware([AdminMiddleware::class])->group(function () {
-            Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-            Route::get('/residences', [AdminController::class, 'residences'])->name('admin.residences');
-            // Gestion des Residences
-            Route::delete('residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
-            Route::get('/residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
-            Route::put('/residences/{residence}/update', [AdminController::class, 'update'])->name('admin.residences.update');
-            Route::post('/residences/{id}/activation', [AdminController::class, 'activation'])->name('admin.residences.activation');
-            Route::post('/residences/{id}/desactivation', [AdminController::class, 'desactivation'])->name('admin.residences.desactivation');
-            Route::post('/residences/liberer/{id}', [AdminController::class, 'libererResidence'])->name('admin.libererResidence');
-
-            // Gestion des réservations
-            Route::get('/reservations', [AdminController::class, 'reservations'])->name('admin.reservations');
-            // Gestion des utilisateurs
-            Route::get('/utilisateurs', [AdminController::class, 'utilisateurs'])->name('admin.utilisateurs.all');
-            Route::get('/users/{user}/residences', [AdminController::class, 'showUserResidences'])->name('admin.users.residences');
-            Route::post('/users/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('admin.users.toggle_suspension');
-            Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
-
-        });
-    });
-
     // File Manager
     Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
     Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
@@ -116,3 +86,35 @@ Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
 
 // Mise à jour automatique des statuts / disponibilités
 Route::get('/auto/terminer', [Mise_a_jour::class, 'terminerReservationsDuJour']);
+
+// --------------------------------------------------
+// ROUTES ADMIN
+// --------------------------------------------------
+// Login Admin (PUBLIC, en dehors du middleware auth)
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+});
+
+// Dashboard et gestion admin (PROTÉGÉ par middleware AdminMiddleware)
+Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/residences', [AdminController::class, 'residences'])->name('admin.residences');
+    // Gestion des Residences
+    Route::delete('/residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
+    Route::get('/residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
+    Route::put('/residences/{residence}/update', [AdminController::class, 'update'])->name('admin.residences.update');
+    Route::post('/residences/{id}/activation', [AdminController::class, 'activation'])->name('admin.residences.activation');
+    Route::post('/residences/{id}/desactivation', [AdminController::class, 'desactivation'])->name('admin.residences.desactivation');
+    Route::post('/residences/liberer/{id}', [AdminController::class, 'libererResidence'])->name('admin.libererResidence');
+
+    // Gestion des réservations
+    Route::get('/reservations', [AdminController::class, 'reservations'])->name('admin.reservations');
+
+    // Gestion des utilisateurs
+    Route::get('/utilisateurs', [AdminController::class, 'utilisateurs'])->name('admin.utilisateurs.all');
+    Route::get('/users/{user}/residences', [AdminController::class, 'showUserResidences'])->name('admin.users.residences');
+    Route::post('/users/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('admin.users.toggle_suspension');
+    Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+});
