@@ -130,26 +130,22 @@
 
                                 <!-- Image principale cliquable pour GLightbox -->
                                 <div class="w-full">
-                                    <a href="{{ $imagePath }}"
-                                    class="glightbox block relative"
-                                    data-gallery="residence-{{ $res->id }}"
-                                    data-title="{{ $res->nom }}">
-
-                                        <img src="{{ $imagePath }}"
-                                            class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
-                                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
+                                    {{-- Lien principal --}}
+                                    <a href="{{ $imagePath }}" class="glightbox block" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                        <img src="{{ $imagePath }}" class="w-full h-48 object-cover hover:opacity-90"
+                                            onerror="this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
                                             alt="Image de la résidence">
                                     </a>
-                                </div>
 
-                                <!-- Images supplémentaires invisibles pour la galerie -->
-                                @if(is_array($images))
-                                    @foreach($images as $key => $image)
-                                        @if($key > 0)
-                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $res->id }}"hidden> </a>
-                                        @endif
-                                    @endforeach
-                                @endif
+                                    {{-- Images supplémentaires --}}
+                                    @if(is_array($images))
+                                        @foreach($images as $key => $image)
+                                            @if($key > 0)
+                                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" hidden></a>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </div>
 
                                 <!-- Nom résidence -->
                                 <div class="text-lg uppercase font-bold text-gray-800 mb-3
