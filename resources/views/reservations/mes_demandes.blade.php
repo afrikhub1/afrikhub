@@ -18,7 +18,7 @@
                 <p class="text-sm mt-1">Revenez plus tard pour de nouvelles demandes.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-3 px-2">
                 @foreach($demandes as $res)
                     @php
                         // Assurez-vous que le modèle Reservation a la relation 'residence' chargée
@@ -30,7 +30,7 @@
                         $firstImage = $images[0] ?? 'https://placehold.co/400x250/E0E7FF/4F46E5?text=EN+ATTENTE';
                     @endphp
 
-                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-2 px-4
+                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-2
                         @if($res->status == 'en attente') border-indigo-500/50 hover:shadow-indigo-300/50
                         @elseif($res->status == 'confirmée') border-green-500
                         @elseif($res->status == 'annulée') border-red-500
