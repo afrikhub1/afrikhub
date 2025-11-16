@@ -99,16 +99,14 @@ class ResidenceController extends Controller
     {
 
         // Mise à jour des résidences dont la date de départ est dépassée
-
-        $today = \Carbon\Carbon::now()->subDay()->startOfDay();
+        $today = \Carbon\Carbon::today();
 
         Residence::where('disponible', 0)
-            ->whereDate('date_disponible_apres', '<', $today)
+            ->whereDate('date_disponible_apres', '<=', $today)
             ->update([
                 'disponible' => 1,
                 'date_disponible_apres' => null,
             ]);
-
 
         // Récupération des résidences disponibles pour l'affichage
 
@@ -163,6 +161,7 @@ class ResidenceController extends Controller
 
         return view('reservations.occupees', compact('residences_occupees'));
     }
+
     public function reservationRecu()
     {
         $userId = Auth::id();
