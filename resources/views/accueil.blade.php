@@ -13,7 +13,7 @@
             <ul id="entete">
                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">connectiton</span></a></li>
               <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a></li>
-              <li><a href="{{ route('admin_dashboard') }}" class="bg-danger"><span class="fa fa-user-shield"></span><span class="badge">admin</span></a></li>
+              <li><a href="{{ route('admin.login') }}" class="bg-danger"><span class="fa fa-user-shield"></span><span class="badge">admin</span></a></li>
               <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">herbergement</span></a></li>
               <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
               <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
@@ -23,7 +23,7 @@
               <ul class="dropdown-menu row m-0 py-2 col-8 col-md-6" aria-label="submenu">
                 <li><a class="dropdown-item" href="{{ route('login') }}">connexion</a></li>
                 <li><a class="dropdown-item" href="{{ route('register') }}">inscription</a></li>
-                <li><a class="dropdown-item" href="{{ route('admin_dashboard') }}">admin</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.login') }}">admin</a></li>
                 <li><a class="dropdown-item" href="#hebergement">Hébergements</a></li>
                 <li><a class="dropdown-item" href="#location">Véhicules</a></li>
                 <li><a class="dropdown-item" href="#circuits">Circuits</a></li>

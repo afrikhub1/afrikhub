@@ -126,3 +126,9 @@ Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
 use App\Http\Controllers\Mise_a_jour;
 
 Route::get('/auto/terminer', [Mise_a_jour::class, 'terminerReservationsDuJour']);
+
+use App\Http\Controllers\AdminLoginController;
+
+Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
