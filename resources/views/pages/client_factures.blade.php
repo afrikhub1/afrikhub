@@ -12,16 +12,16 @@
 </head>
 <body class="bg-gray-50">
 
-    <header class="bg-dark shadow-md">
+    <header class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 {{-- Utilisez 'asset' si vous avez un layout parent, sinon assurez-vous que le chemin est correct --}}
                 <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
             </div>
             <nav class="flex items-center space-x-6 text-sm font-medium">
-                <a href="{{ route('accueil') }}" class="text-white-600 hover:text-indigo-600"><i class="fas fa-home mr-1"></i> Accueil</a>
-                <a href="{{ route('recherche') }}" class="text-white-600 hover:text-indigo-600"><i class="fas fa-search mr-1"></i> Recherche</a>
-                <a href="{{ route('factures') }}" class="text-white-600 hover:text-indigo-600 font-bold text-indigo-700"><i class="fas fa-file-invoice-dollar mr-1"></i> Factures</a>
+                <a href="{{ route('accueil') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="{{ route('recherche') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-search mr-1"></i> Recherche</a>
+                <a href="{{ route('factures') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-file-invoice-dollar mr-1"></i> Factures</a>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
                     <button type="submit" class="py-2 px-3 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 shadow-md">
