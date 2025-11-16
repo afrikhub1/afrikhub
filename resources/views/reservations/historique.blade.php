@@ -66,8 +66,8 @@
                             </p>
                             <strong class="fw-bold mt-2 text-danger fw-600">
                                 <i class="fas fa-calendar-check me-2"></i>
-                                @if(!empty($reservationsRecu->date_disponible) && \Carbon\Carbon::parse($reservationsRecu->date_disponible)->isFuture())
-                                    {{ \Carbon\Carbon::parse($reservationsRecu->date_disponible)->translatedFormat('d F Y') }}
+                                @if(!empty($residence->date_disponible) && \Carbon\Carbon::parse($residence->date_disponible)->isFuture())
+                                    {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                 @else
                                     &nbsp;
                                 @endif
