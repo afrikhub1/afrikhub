@@ -69,7 +69,7 @@
                                 @if(!empty($residence->date_disponible) && \Carbon\Carbon::parse($residence->date_disponible)->isFuture())
                                     {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                 @else
-                                    &nbsp;
+                                    {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                 @endif
                             </strong>
 
