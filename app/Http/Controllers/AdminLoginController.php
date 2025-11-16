@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
+    /**
+     * Affiche le formulaire de connexion admin.
+     */
     public function showLoginForm()
     {
         return view('admin.login');
@@ -23,21 +28,18 @@ class AdminLoginController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        // Récupère l'admin par email
+        $admin = Admin::where('email', $request->email)->first();
 
-        // Tentative de connexion
-        if (Auth::attempt($credentials)) {
-            // Vérifie le rôle
-            if (Auth::user()->role !== 'admin') {
-                Auth::logout();
-                return back()->withErrors(['email' => 'Accès refusé : vous n\'êtes pas administrateur.']);
-            }
+        // Vérifie si l'admin existe et que le mot de passe correspond
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            // Connecte l'admin manuellement
+            Auth::login($admin);
 
-            // Redirection vers le dashboard admin
-            return redirect()->view('admin.admin');
+            return redirect()->route('admin_dashboard'); // route vers dashboard admin
         }
 
-        // Si échec de connexion
+        // Si échec
         return back()->withErrors(['email' => 'Identifiants incorrects'])->withInput();
     }
 
