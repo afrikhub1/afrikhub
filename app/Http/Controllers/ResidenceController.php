@@ -20,6 +20,7 @@ class ResidenceController extends Controller
     // Traite la soumission du formulaire
     public function store(Request $request)
     {
+        // Validation des champs
         $request->validate([
             'nom_residence' => 'required|string|max:255',
             'pays' => 'required|string|max:255',
@@ -39,56 +40,71 @@ class ResidenceController extends Controller
             $nomDossier = 'residences/' . Str::slug($request->nom_residence) . '_' . time();
 
             foreach ($request->file('images') as $image) {
-                // Stocker sur S3
-                $path = $image->store($nomDossier, 's3');
-                $imagesPath[] = Storage::disk('s3')->url($path); // récupérer l'URL publique
+                $path = $image->store($nomDossier, 'public');
+                $imagesPath[] = $path;
             }
         }
 
+        /**
+         * ---------------------------------
+         *  GESTION DES COMMODITÉS
+         * ---------------------------------
+         */
         $comodites = [];
 
         // Parking
         if ($request->parking) {
-            $comodites[] = "Parking : " . implode(", ", $request->parking);
+            foreach ($request->parking as $item) {
+                $comodites[] = "Parking : $item";
+            }
         }
 
         // Extérieurs
         if ($request->exterieurs) {
-            $comodites[] = "Extérieurs : " . implode(", ", $request->exterieurs);
+            foreach ($request->exterieurs as $item) {
+                $comodites[] = "Extérieur : $item";
+            }
         }
 
         // Eau chaude
-        $comodites[] = $request->eau_chaude ? "Eau chaude disponible" : "Pas d'eau chaude";
+        $comodites[] = $request->eau_chaude
+            ? "Eau chaude disponible"
+            : "Eau chaude non disponible";
 
-        // Split
-        $comodites[] = "Climatisation (split) : " . $request->split;
+        // Split (climatisation)
+        $comodites[] = "Climatisation (split) : " . ($request->split ? "Oui" : "Non");
 
-        // Surveillance
+        // Surveillance 24/24
         if ($request->surveillance) {
-            $comodites[] = "Surveillance 24/24";
+            $comodites[] = "Surveillance 24h/24";
         }
 
-        // Service ménage
+        // Service de ménage
         if ($request->service_menager) {
-            $comodites[] = "Service ménager disponible";
+            $comodites[] = "Service de ménage disponible";
         }
-
 
         // Électroménager
         if ($request->electromenager) {
-            $comodites[] = "Électroménager : " . implode(", ", $request->electromenager);
+            foreach ($request->electromenager as $item) {
+                $comodites[] = "Électroménager : $item";
+            }
         }
 
-        // Convertir en texte séparé par tirets
+        // Conversion finale (séparée par tirets)
         $comoditesTexte = implode(" - ", $comodites);
 
 
+        /**
+         * ---------------------------------
+         *  CRÉATION DE LA RÉSIDENCE
+         * ---------------------------------
+         */
         Residence::create([
-            'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
+            'proprietaire_id' => Auth::id(),
             'nom' => $request->nom_residence,
-            'quartier' => $request->details_position,
+            'description' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
-            'type_residence' => $request->type_residence,
             'nombre_salons' => $request->nb_salons,
             'prix_journalier' => $request->prix_jour,
             'ville' => $request->ville,
@@ -102,6 +118,7 @@ class ResidenceController extends Controller
         return redirect()->route('message')
             ->with('success', '✅ Résidence ajoutée avec succès ! Elle est en attente de validation.');
     }
+
 
     public function index()
     {
