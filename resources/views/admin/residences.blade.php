@@ -83,7 +83,7 @@
                             @endforeach
                         @endif
 
-                        <div class="p-6 flex flex-col flex-grow">
+                        <div class="p-6 flex flex-col flex-grow border-gray-700/50 shadow">
                             <h5 class="text-xl font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
                             <ul class="space-y-2 text-sm text-gray-700 mb-4 flex-grow">
                                 <li class="flex justify-between items-center">
