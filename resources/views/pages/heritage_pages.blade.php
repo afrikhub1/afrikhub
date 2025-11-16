@@ -69,6 +69,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
+                    Profil
                 </a>
 
 
@@ -153,7 +154,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                Mon Compte
+                Profil
             </a>
 
             <a href="{{ route('residences') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2">
