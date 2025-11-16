@@ -82,7 +82,7 @@
             <div class="p-5 flex flex-col h-full">
               {{-- Badge statut --}}
               <div class="mb-3 flex justify-center">
-                <span class="badge-sm {{ $stat['badge'] }} font-semibold">{{ $status }}</span>
+                <span class="badge-sm badge font-semibold">{{ $status }}</span>
               </div>
 
               {{-- Titre résidence --}}
