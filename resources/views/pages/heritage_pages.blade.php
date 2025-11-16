@@ -108,7 +108,7 @@
 
                 <a href="{{ route('reservationRecu') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-clock mr-1"></i> Historique
-                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">{{ $totalReservationsReçu }}</span>
+                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">{{ $totalReservationsRecu }}</span>
                 </a>
 
             </div>
