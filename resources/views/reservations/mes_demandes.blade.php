@@ -80,22 +80,21 @@
                             <!-- LOGIQUE D'ACTION : ACCEPT/REFUS -->
                             @if($res->status == 'en attente')
                                 <div class="flex gap-3 justify-center mt-auto">
-                                    <form action="{{ route('reservation.accepter', $res->id) }}" method="POST">
+                                    <form action="{{ route('reservation.accepter', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
-                                        <button type="submit" class="w-full px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
-                                            <span class="fas fa-check mr-1"></span>Accepter
+                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
+                                            <i class="fas fa-check"></i> Accepter
                                         </button>
                                     </form>
 
-                                    <form action="{{ route('reservation.refuser', $res->id) }}" method="POST">
+                                    <form action="{{ route('reservation.refuser', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
-                                        <button type="submit" class="w-full px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
-                                            <span class="fas fa-times mr-1"></span> Refuser
+                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
+                                            <i class="fas fa-times"></i> Refuser
                                         </button>
                                     </form>
                                 </div>
                             @endif
-
                         </div>
 
                     </div>
