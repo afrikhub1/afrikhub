@@ -38,12 +38,12 @@
                                     <h5 class="text-2xl font-bold text-red-800 mb-3 flex items-center">
                                         <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
                                     </h5>
-                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
-                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
-                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>Type :</strong> {{ $residences_occupees->type_residences_occupees }}</p>
-                                    <p class="text-sm mb-2"><strong>Chambres :</strong> {{ $residences_occupees->nombre_chambres }}</p>
-                                    <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residences_occupees->nombre_salons }}</p>
+                                    <p class="text-sm mb-2"><strong>Occupant :</strong> {{ $residences_occupees->client }}</p>
+                                    <p class="text-sm mb-2"><strong>Reference :</strong> {{ $residences_occupees->reservation_code }}</p>
+                                    <p class="text-sm mb-2"><strong>Totalr :</strong> {{ number_format($residences_occupees->total, 0, ',', ' ') }} FCFA</p>
+                                    <p class="text-sm mb-2"><strong>Statut :</strong> {{ $residences_occupees->status }}</p>
+                                    <p class="text-sm mb-2"><strong>Arrivée :</strong> {{ $residences_occupees->date_arrivee }}</p>
+                                    <p class="text-sm mb-2"><strong>Depart :</strong> {{ $residences_occupees->date_depart }}</p>
                                 </div>
                                 <button class="w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
