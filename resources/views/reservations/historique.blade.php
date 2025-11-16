@@ -65,62 +65,6 @@
                                 Réservé le {{ $res->created_at->format('d/m/Y') }}
                             </p>
                         </div>
-
-                        <!-- Préfacture/Détails (Optionnel en Historique) -->
-                        @php
-                            $dateArrivee = $res->date_arrivee ? \Carbon\Carbon::parse($res->date_arrivee) : null;
-                            $dateDepart = $res->date_depart ? \Carbon\Carbon::parse($res->date_depart) : null;
-                            $jours = ($dateArrivee && $dateDepart) ? $dateDepart->diffInDays($dateArrivee) : 0;
-                            $prixJournalier = $res->residence->prix_journalier ?? 0;
-                            $totalEstime = $jours * $prixJournalier;
-                        @endphp
-
-                        @if($res->status == 'confirmée' && $dateArrivee && $dateDepart)
-                            <div class="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs shadow-inner">
-                                <h6 class="fw-bold mb-1 text-amber-700 text-sm">🧾 Détails : {{ $jours }} nuit(s)</h6>
-                                <p class="mb-0 text-gray-600">Prix/jour : {{ number_format($prixJournalier,0,',',' ') }} FCFA</p>
-                            </div>
-                        @endif
-
-                        @if($res->status == 'en attente')
-                            <div class="mt-auto border-t pt-3">
-                                <p class="text-sm mt-2 text-red-600 w-full">
-                                    <i class="fas fa-calendar-check me-2"></i>Disponibilité :
-                                    @if($res->residence)
-                                        {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
-                                    @else
-                                        Résidence indisponible
-                                    @endif
-                                </p>
-                            </div>
-                        @endif
-                        <!-- Boutons en bas -->
-                        <div class="mt-4 flex gap-2 justify-center">
-                            @if($res->status == 'confirmée')
-                                <form action="{{ route('payer', $res->id) }}" method="GET" class="flex-1">
-                                    @csrf
-                                    <button type="submit" class="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md text-sm">
-                                        <i class="fas fa-credit-card mr-1"></i> Payer
-                                    </button>
-                                </form>
-                            @endif
-
-                            @if($res->status == 'en attente')
-                                <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" class="flex-1">
-                                    @csrf
-                                    <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
-                                        Annuler
-                                    </button>
-                                </form>
-                            @endif
-                            <form action="{{ route('reservation.rebook', $res->id) }}" method="GET" class="flex-1">
-                                <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
-                                   Renouveler
-                                </button>
-                            </form>
-                        </div>
-
-
                     </div>
                 </div>
             @empty
