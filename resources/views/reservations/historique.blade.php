@@ -82,16 +82,18 @@
                             </div>
                         @endif
 
-                        <div class="mt-auto border-t pt-3">
-                            <p class="text-sm mt-2 text-red-600 w-full">
-                                <i class="fas fa-calendar-check me-2"></i>Prochaine disponibilité :
-                                @if($res->residence)
-                                    {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
-                                @else
-                                    Résidence indisponible
-                                @endif
-                            </p>
-                        </div>
+                        @if($res->status == 'en attente')
+                            <div class="mt-auto border-t pt-3">
+                                <p class="text-sm mt-2 text-red-600 w-full">
+                                    <i class="fas fa-calendar-check me-2"></i>Disponibilité :
+                                    @if($res->residence)
+                                        {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
+                                    @else
+                                        Résidence indisponible
+                                    @endif
+                                </p>
+                            </div>
+                        @endif
                         <!-- Boutons en bas -->
                         <div class="mt-4 flex gap-2 justify-center">
                             @if($res->status == 'confirmée')
