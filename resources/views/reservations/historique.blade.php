@@ -19,7 +19,7 @@
                     @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
                     @elseif($res->status == 'en_attente') border-blue-500/50 hover:shadow-blue-300/50
                     @elseif($res->status == 'terminée') border-gray-400/50 hover:shadow-gray-300/50
-                    @else border-red-500/50 hover:shadow-red-300/50 @endif
+                    @else border-yellow-500/50 hover:shadow-red-300/50 @endif
                     transition duration-300 transform hover:scale-[1.01]">
 
                     <div class="p-5 f   lex flex-col flex-grow text-center">
