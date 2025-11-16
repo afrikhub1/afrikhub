@@ -81,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware([AdminMiddleware::class])->group(function () {
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
             Route::get('/residences', [AdminController::class, 'residences'])->name('admin.residences');
+            // Gestion des Residences
+            Route::delete('residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
             Route::get('/residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
             Route::put('/residences/{residence}/update', [AdminController::class, 'update'])->name('admin.residences.update');
             Route::post('/residences/{id}/activation', [AdminController::class, 'activation'])->name('admin.residences.activation');
@@ -94,6 +96,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users/{user}/residences', [AdminController::class, 'showUserResidences'])->name('admin.users.residences');
             Route::post('/users/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('admin.users.toggle_suspension');
             Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+
         });
     });
 
