@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/accueil.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
