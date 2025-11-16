@@ -69,7 +69,7 @@
 
     @yield('header')   <!-- Header + Sidebar ici -->
         <!-- Header & Navigation Bar (FIXE) -->
-        <header class="bg-gray-900 shadow-lg fixed top-0 left-0 right-0 z-40">
+        <header class="bg-dark shadow-lg fixed top-0 left-0 right-0 z-40">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Top Row: Logo, Title, Toggle Button -->
                 <div class="flex items-center justify-between py-3">
