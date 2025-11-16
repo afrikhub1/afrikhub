@@ -21,7 +21,7 @@
             <!-- Résidences Occupées -->
             <section id="occupees" class="mb-10 row m-0">
                  <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
-                    <i class="fas fa-home text-indigo-500 mr-3"></i> Résidences occupée
+                    <i class="fas fa-key text-indigo-500 mr-3"></i> Résidences occupée
                 </h2>
 
                 <div class="p-2 d-flex">
@@ -59,7 +59,7 @@
             <!-- Historique des Réservations -->
             <section id="historique" class="mb-10">
                  <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
-                    <i class="fas fa-home text-indigo-500 mr-3"></i> Demandes réçu
+                    <i class="fas fa-history text-indigo-500 mr-3"></i> Demandes réçu
                 </h2>
 
 
