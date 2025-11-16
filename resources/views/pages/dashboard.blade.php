@@ -26,18 +26,18 @@
                 <div class="p-2 d-flex">
                     {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
 
-                    @if($reservationsConfirmees->isEmpty())
+                    @if($residences_occupees->isEmpty())
                         <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg text-center shadow-inner">
                             <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence actuellement occupée.
                         </div>
                     @else
-                    @foreach($reservationsConfirmees as $occupees)
+                    @foreach($residences_occupees as $occupees)
                         <div class="flex flex-wrap gap-4">
                                 <div class="min-w-[320px] bg-red-100 border border-red-400 rounded-xl shadow-lg p-5 transition hover:shadow-2xl">
                                     <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
                                         <i class="fas fa-building mr-3 text-2xl"></i> {{ $occupees->nom }}
                                     </h5>
-                                    @foreach($reservation as $occupees_details)
+                                    @foreach($reservation_reçu as $occupees_details)
                                         <p class="text-sm mb-1"><strong>Client :</strong> {{ $occupees_details->client }}</p>
                                         <p class="text-sm mb-1"><strong>Début :</strong> <span class="text-gray-700">{{ \Carbon\Carbon::parse($occupees_details->date_arrivee)->format('d/m/Y') }}</span></p>
                                         <p class="text-sm mb-3"><strong>Fin :</strong> <span class="text-red-700 font-bold">{{ \Carbon\Carbon::parse($occupees_details->date_depart)->format('d/m/Y') }}</span></p>
@@ -61,37 +61,37 @@
                     <i class="fas fa-history text-2xl mr-3"></i> Historique des Demandes de Location
                 </h2>
 
-                @if($reservation->isEmpty())
+                @if($reservation_reçu->isEmpty())
                     <div class="bg-blue-100 border border-blue-200 text-blue-700 p-4 rounded-lg text-center shadow-inner">
                         <i class="fas fa-info-circle mr-2"></i> Aucun historique de réservation trouvé.
                     </div>
                 @else
                     <ul class="divide-y divide-gray-200 border border-gray-200 rounded-xl overflow-hidden shadow-lg">
-                        @foreach($reservation as $reserve)
+                        @foreach($reservation_reçu as $reservation_reçu)
                         <li class="p-4 bg-white hover:bg-gray-50 transition duration-150">
                             <div class="flex justify-between items-start flex-wrap gap-2">
                                 <p class="text-gray-800 font-medium">
-                                    <strong class="uppercase text-indigo-700">{{ $reserve->residence->nom }}</strong>
-                                    <span class="text-sm text-gray-500">réservée par Mr/Mme <strong>{{ $reserve->client }}</strong>.</span>
+                                    <strong class="uppercase text-indigo-700">{{ $reservation_reçu->residence->nom }}</strong>
+                                    <span class="text-sm text-gray-500">réservée par Mr/Mme <strong>{{ $reservation_reçu->client }}</strong>.</span>
                                 </p>
                                 {{-- Badge de Statut --}}
-                                @if($reserve->status === 'confirmée')
+                                @if($reservation_reçu->status === 'confirmée')
                                     <span class="text-sm px-3 py-1 bg-green-500 text-white font-bold rounded-full capitalize shadow-md">Accepté</span>
-                                @elseif($reserve->status === 'en_attente')
+                                @elseif($reservation_reçu->status === 'en_attente')
                                     <span class="text-sm px-3 py-1 bg-yellow-500 text-white font-bold rounded-full capitalize shadow-md">En attente</span>
-                                @elseif($reserve->status === 'refusée')
+                                @elseif($reservation_reçu->status === 'refusée')
                                     <span class="text-sm px-3 py-1 bg-red-500 text-white font-bold rounded-full capitalize shadow-md">Refusé</span>
-                                @elseif($reserve->status == 'payé')
+                                @elseif($reservation_reçu->status == 'payé')
                                     <span class="text-sm px-3 py-1 bg-green-500 text-white font-bold rounded-full capitalize shadow-md">payé</span>
                                 @else
                                     <span class="text-sm px-3 py-1 bg-gray-500 text-white font-bold rounded-full capitalize shadow-md">Inconnu</span>
                                 @endif
                             </div>
                             <p class="text-xs text-gray-500 mt-1">
-                                <i class="fas fa-calendar-alt mr-1"></i> Période : du **{{ \Carbon\Carbon::parse($reserve->date_arrivee)->format('d/m/Y') }}** au **{{ \Carbon\Carbon::parse($reserve->date_depart)->format('d/m/Y') }}**
+                                <i class="fas fa-calendar-alt mr-1"></i> Période : du **{{ \Carbon\Carbon::parse($reservation_reçu->date_arrivee)->format('d/m/Y') }}** au **{{ \Carbon\Carbon::parse($reservation_reçu->date_depart)->format('d/m/Y') }}**
                             </p>
                             <div class="text-xs text-gray-400 mt-2">
-                                Réservée le {{ \Carbon\Carbon::parse($reserve->create_at)->format('d/m/Y') }} | Validée le {{ \Carbon\Carbon::parse($reserve->date_validation)->format('d/m/Y') }}
+                                Réservée le {{ \Carbon\Carbon::parse($reservation_reçu->create_at)->format('d/m/Y') }} | Validée le {{ \Carbon\Carbon::parse($reservation_reçu->date_validation)->format('d/m/Y') }}
                             </div>
                         </li>
                         @endforeach

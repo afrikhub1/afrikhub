@@ -10,7 +10,7 @@
             </h1>
 
             <section id="occupees">
-                @if($residences->isEmpty())
+                @if($residences_occupees->isEmpty())
                     <div class="bg-yellow-50 border border-yellow-200 text-yellow-700 p-6 rounded-lg text-center shadow-lg">
                         <i class="fas fa-info-circle text-2xl mb-2 block"></i>
                         <p class="font-semibold text-lg">Aucune résidence n'est actuellement occupée.</p>
@@ -18,18 +18,18 @@
                     </div>
                 @else
                     <div class="flex flex-wrap gap-6 justify-center">
-                        @foreach($residences as $residence)
+                        @foreach($residences_occupees as $residences_occupees)
                             <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
                                 <div>
                                     <h5 class="text-2xl font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $residence->nom }}
+                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
                                     </h5>
-                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residence->ville }}</p>
-                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residence->pays }}</p>
-                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>Type :</strong> {{ $residence->type_residence }}</p>
-                                    <p class="text-sm mb-2"><strong>Chambres :</strong> {{ $residence->nombre_chambres }}</p>
-                                    <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residence->nombre_salons }}</p>
+                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
+                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
+                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
+                                    <p class="text-sm mb-2"><strong>Type :</strong> {{ $residences_occupees->type_residences_occupees }}</p>
+                                    <p class="text-sm mb-2"><strong>Chambres :</strong> {{ $residences_occupees->nombre_chambres }}</p>
+                                    <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residences_occupees->nombre_salons }}</p>
                                 </div>
                                 <button class="w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence

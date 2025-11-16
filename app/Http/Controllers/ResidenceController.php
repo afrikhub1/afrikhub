@@ -130,8 +130,8 @@ class ResidenceController extends Controller
     // Réserver à nouveau
     public function details($id)
     {
-        $residence = Residence::findOrFail($id);
-        return view('pages.details', compact('residence'));
+        $residences_details = Residence::findOrFail($id);
+        return view('pages.details', compact('residences_details'));
     }
 
     // Réserver à nouveau
@@ -142,30 +142,58 @@ class ResidenceController extends Controller
         // Résidences du propriétaire (table residences)
         $residences = Residence::where('proprietaire_id', $userId)->get();
 
-        $reservationsConfirmees = Residence::where('proprietaire_id', $userId)
+        $residences_occupees = Residence::where('proprietaire_id', $userId)
             ->where('disponible', 0)
             ->get();
 
         // Réservations confirmées ou gestionnées (table reservations)
-        $reservation = Reservation::where('user_id', $userId)->get();
+        $reservation_reçu = Reservation::where('proprietaire_id', $userId)->get();
 
         // Passe les 3 variables à la vue
-        return view('pages.dashboard', compact('residences', 'reservation', 'reservationsConfirmees'));
+        return view('pages.dashboard', compact('residences', 'reservation_reçu', 'residences_occupees'));
     }
 
     public function occupees()
     {
         $userId = Auth::id();
         // On récupère les résidences occupées appartenant à l'utilisateur connecté
-        $residences = Residence::where('proprietaire_id', $userId)
+        $residences_occupees = Residence::where('proprietaire_id', $userId)
             ->where('disponible', 0)
             ->get();
 
-        return view('reservations.occupees', compact('residences'));
+        return view('reservations.occupees', compact('residences_occupees'));
     }
 
+    public function compteur()
+    {
+        $userId = Auth::id();
 
+        // Compter les résidences du propriétaire
+        $totalResidences = Residence::where('proprietaire_id', $userId)->count();
 
+        // Compter les résidences occupées
+        $residencesOccupees = Residence::where('proprietaire_id', $userId)
+            ->where('disponible', 0)
+            ->count();
+
+        // Compter les réservations confirmées
+        $reservationsConfirmees = Reservation::where('proprietaire_id', $userId)
+            ->where('status', 'confirmée')
+            ->count();
+
+        // Compter les demandes en attente
+        $demandesEnAttente = Reservation::where('proprietaire_id', $userId)
+            ->where('status', 'en_attente')
+            ->count();
+
+        // Passer tout à la vue
+        return view('pages.heritage_pages', compact(
+            'totalResidences',
+            'residencesOccupees',
+            'reservationsConfirmees',
+            'demandesEnAttente'
+        ));
+    }
 }
 
 

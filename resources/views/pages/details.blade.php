@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Détails — {{ $residence->nom ?? 'Résidence' }}</title>
+  <title>Détails — {{ $residences_details->nom ?? 'Résidence' }}</title>
 
   {{-- Assets principaux --}}
   <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
@@ -96,7 +96,7 @@
     .page-title p{ color:var(--muted); margin:0; font-size:.98rem; }
 
     /* ============================
-       RESIDENCE CARD (grid)
+       residences_details CARD (grid)
     ============================ */
     .res-card{
       display:grid;
@@ -245,7 +245,7 @@
 
     {{-- Page title --}}
     <section class="page-title">
-      <h1 class="fw-bold">{{ $residence->nom ?? 'Nom de la résidence' }}</h1>
+      <h1 class="fw-bold">{{ $residences_details->nom ?? 'Nom de la résidence' }}</h1>
       <p class="small-note">Découvrez la propriété — photos, description et réservation</p>
     </section>
 
@@ -261,13 +261,13 @@
 
     {{-- Decode images safely --}}
     @php
-      $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
+      $images = is_string($residences_details->img) ? json_decode($residences_details->img, true) : ($residences_details->img ?? []);
       if(!is_array($images)) $images = [];
       $first = $images[0] ?? asset('assets/images/placeholder-900x500.png');
     @endphp
 
-    {{-- Residence card: visual + details --}}
-    <article class="res-card" aria-labelledby="res-title-{{ $residence->id }}">
+    {{-- residences_details card: visual + details --}}
+    <article class="res-card" aria-labelledby="res-title-{{ $residences_details->id }}">
       {{-- Left: media --}}
       <div class="res-card__visual" aria-hidden="false">
         {{-- main preview (opens GLightbox) --}}
@@ -275,7 +275,7 @@
           id="mainPreview"
           class="res-card__media"
           src="{{ $first }}"
-          alt="{{ $residence->nom ?? 'Résidence' }}"
+          alt="{{ $residences_details->nom ?? 'Résidence' }}"
           loading="lazy"
           role="button"
           tabindex="0"
@@ -289,32 +289,32 @@
               <img src="{{ $img }}"
                    data-index="{{ $i }}"
                    class="{{ $i === 0 ? 'active' : '' }}"
-                   alt="Image {{ $i+1 }} de {{ $residence->nom }}" />
+                   alt="Image {{ $i+1 }} de {{ $residences_details->nom }}" />
             @endforeach
           </div>
         @endif
       </div>
 
       {{-- Right: details & actions --}}
-      <div class="res-details" id="details-{{ $residence->id }}">
-        <h2 id="res-title-{{ $residence->id }}">{{ $residence->nom }}</h2>
+      <div class="res-details" id="details-{{ $residences_details->id }}">
+        <h2 id="res-title-{{ $residences_details->id }}">{{ $residences_details->nom }}</h2>
         <div class="res-meta">
-          <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residence->ville ?? 'Ville' }}, {{ $residence->pays ?? 'Pays' }}</span> <br>
-          <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residence->chambres ?? 1 }} chambres</span>
-          <span><i class="fas fa-user-friends me-1"></i> {{ $residence->salons ?? 1 }} salons</span>
+          <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residences_details->ville ?? 'Ville' }}, {{ $residences_details->pays ?? 'Pays' }}</span> <br>
+          <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residences_details->chambres ?? 1 }} chambres</span>
+          <span><i class="fas fa-user-friends me-1"></i> {{ $residences_details->salons ?? 1 }} salons</span>
         </div>
 
-        <p class="small-note">{!! nl2br(e(Str::limit($residence->description ?? '-', 600))) !!}</p>
+        <p class="small-note">{!! nl2br(e(Str::limit($residences_details->description ?? '-', 600))) !!}</p>
 
         <div class="res-price">
-          {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
+          {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
         </div>
 
         {{-- Prefacture quick info (hidden until dates selected) --}}
         <div id="prefacture" class="prefacture d-none" aria-hidden="true">
           <h6 class="fw-bold text-center mb-2">Pré-facture</h6>
           <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
-          <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residence->prix_journalier ?? 0,0,',',' ') }} FCFA</p>
+          <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residences_details->prix_journalier ?? 0,0,',',' ') }} FCFA</p>
           <p class="mt-2 pt-2 border-top fw-bold"><strong>Total estimé :</strong> <span id="total">0</span> FCFA</p>
         </div>
 
@@ -337,7 +337,7 @@
     {{-- Hidden GLightbox anchors (one per image) — used by GLightbox, kept hidden from layout --}}
     <div style="display:none" aria-hidden="true">
       @foreach($images as $i => $img)
-        <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residence->id }}" data-title="{{ $residence->nom }}" data-index="{{ $i }}"></a>
+        <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residences_details->id }}" data-title="{{ $residences_details->nom }}" data-index="{{ $i }}"></a>
       @endforeach
     </div>
 
@@ -352,14 +352,14 @@
       <div class="modal-content">
 
         <div class="modal-header border-0 pb-0">
-          <h5 id="resModalLabel" class="modal-title">Réserver : {{ $residence->nom }}</h5>
+          <h5 id="resModalLabel" class="modal-title">Réserver : {{ $residences_details->nom }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
         </div>
 
         <div class="modal-body">
           <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
 
-          <form id="reservationForm" method="POST" action="{{ route('reservation.store', $residence->id) }}">
+          <form id="reservationForm" method="POST" action="{{ route('reservation.store', $residences_details->id) }}">
             @csrf
 
             <div class="mb-3">
@@ -471,7 +471,7 @@
     // - confirmation modal flow
     // -------------------------
     (function(){
-      const prix = Number(@json($residence->prix_journalier ?? 0));
+      const prix = Number(@json($residences_details->prix_journalier ?? 0));
       document.addEventListener('DOMContentLoaded', () => {
         const d1 = document.getElementById('date_arrivee');
         const d2 = document.getElementById('date_depart');
