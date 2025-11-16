@@ -72,34 +72,17 @@
     <section>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @forelse($reservations as $res)
-          @php
-            // Normalisation du statut (utilise lowercase + remplace underscore par espace)
-            $rawStatus = strtolower(str_replace('_', ' ', (string)$res->status));
-            // map statut => [badge classes, border color]
-            $statusMap = [
-              'en attente'   => ['badge' => 'bg-blue-600 text-white', 'border' => 'ring-2 ring-blue-100'],
-              'en_attente'   => ['badge' => 'bg-blue-600 text-white', 'border' => 'ring-2 ring-blue-100'],
-              'confirmée'    => ['badge' => 'bg-emerald-600 text-white', 'border' => 'ring-2 ring-emerald-100'],
-              'confirmee'    => ['badge' => 'bg-emerald-600 text-white', 'border' => 'ring-2 ring-emerald-100'],
-              'terminée'     => ['badge' => 'bg-slate-500 text-white', 'border' => 'ring-2 ring-slate-100'],
-              'terminee'     => ['badge' => 'bg-slate-500 text-white', 'border' => 'ring-2 ring-slate-100'],
-              'annulée'      => ['badge' => 'bg-red-600 text-white', 'border' => 'ring-2 ring-red-100'],
-              'annulee'      => ['badge' => 'bg-red-600 text-white', 'border' => 'ring-2 ring-red-100'],
-              'interrompue'  => ['badge' => 'bg-amber-500 text-white', 'border' => 'ring-2 ring-amber-100'],
-              'interrompue'  => ['badge' => 'bg-amber-500 text-white', 'border' => 'ring-2 ring-amber-100'],
-              'payé'         => ['badge' => 'bg-indigo-600 text-white', 'border' => 'ring-2 ring-indigo-100'],
-              'paye'         => ['badge' => 'bg-indigo-600 text-white', 'border' => 'ring-2 ring-indigo-100'],
-            ];
-            $stat = $statusMap[$rawStatus] ?? ['badge' => 'bg-slate-400 text-white', 'border' => 'ring-2 ring-slate-50'];
-            // affichage propre du statut
-            $displayStatus = ucfirst(str_replace('_', ' ', (string)$res->status));
-          @endphp
+            @php
+                // Normalisation du statut (utilise lowercase + remplace underscore par espace)
+                $status = $res->status;
 
-          <article class="bg-white rounded-2xl card-shadow overflow-hidden border border-transparent {{ $stat['border'] }} transition transform hover:-translate-y-1">
+            @endphp
+
+        <article class="bg-white rounded-2xl card-shadow overflow-hidden border border-transparent {{ $stat['border'] }} transition transform hover:-translate-y-1">
             <div class="p-5 flex flex-col h-full">
               {{-- Badge statut --}}
               <div class="mb-3 flex justify-center">
-                <span class="badge-sm {{ $stat['badge'] }} font-semibold">{{ $displayStatus }}</span>
+                <span class="badge-sm {{ $stat['badge'] }} font-semibold">{{ $status }}</span>
               </div>
 
               {{-- Titre résidence --}}
@@ -140,25 +123,31 @@
 
                 {{-- Actions (une seule occurrence par action) --}}
                 <div class="mt-4 grid grid-cols-2 gap-3">
-                  {{-- Payer: visible si payable (status confirmée --}}
-                  @if(in_array($rawStatus, ['confirmée','confirmee','confirmée','payé','paye']))
-                    <a href="{{ route('payer', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                      <i class="fas fa-credit-card"></i> Payer
-                    </a>
-                  @else
-                    <button disabled class="inline-flex items-center justify-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
-                      <i class="fas fa-credit-card"></i> Payé
-                    </button>
-                  @endif
+                    {{-- Payer: visible si payable (status confirmée --}}
+                    @if($status=='confirmée')
+                        <a href="{{ route('payer', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
+                        <i class="fas fa-credit-card"></i> Payer
+                        </a>
+                    @elseif ($status=='payé')
+                        <button disabled class="inline-flex items-center justify-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                        <i class="fas fa-credit-card"></i> Payé
+                        </button>
+                    @endif
 
-                  @if(in_array($rawStatus, ['en attente','en_attente','confirmée','confirmee','confirmée']))
-                    <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
-                      @csrf
-                      <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
-                        <i class="fas fa-ban"></i> Annuler
-                      </button>
-                    </form>
-                  @endif
+                    @if($status=='confirmée')
+                        <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
+                        @csrf
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
+                            <i class="fas fa-ban"></i> Annuler
+                        </button>
+                        </form>
+                    @endif
+
+                    @if ($status=='annulée')
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
+                            <i class="fas fa-ban"></i> Annulée
+                        </button>
+                    @endif
                 </div>
 
                 {{-- Rebook / Renouveler toujours disponible (GET) --}}
