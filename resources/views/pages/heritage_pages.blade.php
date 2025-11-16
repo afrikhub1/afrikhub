@@ -46,7 +46,9 @@
             <div class="flex items-center justify-between py-3">
                 <div class="flex items-center space-x-4">
                     <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                        A'H
+                         <a href="{{ route('accueil') }}" class="block">
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
+                        </a>
                     </div>
                     <h1 class="text-xl font-semibold text-white">
                         gestionnaire@afrikhub.com
