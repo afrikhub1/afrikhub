@@ -163,20 +163,20 @@ class ResidenceController extends Controller
 
         return view('reservations.occupees', compact('residences_occupees'));
     }
-
     public function reservationRecu()
     {
         $userId = Auth::id();
         $reservationsRecu = Reservation::where('proprietaire_id', $userId)->get();
 
-        foreach ($reservationsRecu as $reservationsRecu) {
-            $reservationsRecu->date_disponible = $reservationsRecu->dateDisponibleAvecNettoyage();
+        // Ajouter la prochaine date disponible pour chaque résidence de la réservation
+        foreach ($reservationsRecu as $reservation) {
+            if ($reservation->residence) { // Vérifie que la relation existe
+                $reservation->residence->date_disponible = $reservation->residence->dateDisponibleAvecNettoyage();
+            }
         }
 
         return view('reservations.historique', compact('reservationsRecu'));
     }
-
-
 }
 
 
