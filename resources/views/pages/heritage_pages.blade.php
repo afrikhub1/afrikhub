@@ -57,15 +57,20 @@
 
                 <!-- Zone recherche + icône utilisateur -->
                 <div class="flex items-center space-x-4">
-                    <!-- Logo recherche -->
-                    <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white">
-                        <i class="fas fa-search text-lg"></i>
-                    </a>
+                     <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1110 3a7.5 7.5 0 016.65 13.65z"/>
+                    </svg>
+                </a>
 
-                    <!-- Icône utilisateur -->
-                    <a href="{{ route('dashboard') }}" class="text-gray-300 hover:text-white">
-                        <i class="fas fa-user text-lg"></i>
-                    </a>
+                <!-- Icône utilisateur -->
+                <a href="{{ route('dashboard') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </a>
+
 
                     <!-- Bouton toggle sidebar -->
                     <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition">
