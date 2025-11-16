@@ -150,7 +150,7 @@
                     @endif
 
                     @if ($status=='annulée')
-                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700 cursor-not-allowed">
+                        <button type="submit" class="w-full block items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700 cursor-not-allowed">
                             <i class="fas fa-ban"></i> Annulée
                         </button>
                     @endif
