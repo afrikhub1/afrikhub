@@ -45,10 +45,14 @@ class ResidenceController extends Controller
             }
         }
 
+        $comodites = $request->has('autres_details') && is_array($request->autres_details)
+            ? implode(", ", array_map('htmlspecialchars', $request->autres_details))
+            : "";
+
         Residence::create([
             'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
             'nom' => $request->nom_residence,
-            'description' => $request->details_position,
+            'quartier' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
             'type_residence' => $request->type_residence,
             'nombre_salons' => $request->nb_salons,
@@ -58,6 +62,7 @@ class ResidenceController extends Controller
             'geolocalisation' => $request->geolocalisation,
             'img' => json_encode($imagesPath),
             'statut' => 'en_attente',
+            'comodites'=> $comodites
         ]);
 
         return redirect()->route('message')
