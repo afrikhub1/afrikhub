@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
-    /**
-     * Affiche le formulaire de login admin.
-     */
     public function showLoginForm()
     {
-        return view('admin.login'); // ton fichier Blade : resources/views/admin/login.blade.php
+        return view('admin.login');
     }
 
     /**
