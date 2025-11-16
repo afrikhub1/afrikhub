@@ -64,15 +64,6 @@
                             <p class="text-xs text-gray-400 mt-1">
                                 Réservé le {{ $res->created_at->format('d/m/Y') }}
                             </p>
-                            <li class="fw-bold mt-2 text-danger fw-600">
-                                <i class="fas fa-calendar-check me-2"></i>
-                                Prochaine disponibilité :
-                                @if($res->residence)
-                                    {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
-                                @else
-                                    Résidence indisponible
-                                @endif
-                            </li>
 
 
                         </div>
@@ -104,6 +95,15 @@
                             @endif
 
                             @if($res->status == 'en attente')
+                                <p class="fw-bold mt-2 text-danger fw-600">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    Prochaine disponibilité :
+                                    @if($res->residence)
+                                        {{ \Carbon\Carbon::parse($res->residence->date_disponible)->translatedFormat('d F Y') }}
+                                    @else
+                                        Résidence indisponible
+                                    @endif
+                                </p>
                                 <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
                                     <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
