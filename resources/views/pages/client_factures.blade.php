@@ -21,7 +21,7 @@
             <nav class="flex items-center space-x-6 text-sm font-medium">
                 <a href="{{ route('accueil') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-home mr-1"></i> Accueil</a>
                 <a href="{{ route('recherche') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-search mr-1"></i> Recherche</a>
-                <a href="{{ route('factures') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-file-invoice-dollar mr-1"></i> Factures</a>
+                <a href="{{ route('clients_historique') }}" class="text-sm text-slate-600 hover:text-slate-900"><i class="fas fa-history mr-1"></i> Mes reservations</a>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
                     <button type="submit" class="py-2 px-3 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 shadow-md">
