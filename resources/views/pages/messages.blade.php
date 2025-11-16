@@ -52,7 +52,7 @@
             </div>
         @endif
 
-        <a href="{{ url('/') }}" class="btn btn-primary btn-return">Retour à l'accueil</a>
+        <a href="javascript:history.back()" class="btn btn-primary btn-return">Retour</a>
     </div>
 </body>
 </html>
