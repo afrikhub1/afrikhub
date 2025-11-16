@@ -205,7 +205,7 @@
 
     <!-- CONTENU PRINCIPAL -->
     <main class="pt-32 mb-16">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-7xl mx-auto p-4">
             @include('includes.messages')
             @yield('main')
         </div>
