@@ -18,7 +18,7 @@
                 <p class="text-sm mt-1">Revenez plus tard pour de nouvelles demandes.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
                 @foreach($demandes as $res)
                     @php
                         $residence = $res->residence;
