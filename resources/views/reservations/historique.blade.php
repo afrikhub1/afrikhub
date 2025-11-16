@@ -9,12 +9,12 @@
         <!-- Titre Principal de la Page -->
         <div class="page-header text-center mb-8">
             <h1 class="text-3xl lg:text-4xl font-extrabold text-amber-600 mb-2 border-b-4 border-amber-500 pb-3 inline-block">
-                <i class="fas fa-history mr-3 text-3xl"></i> Historique de vos réservations
+                <i class="fas fa-history mr-3 text-3xl"></i> Historique de vos réservations reçu
             </h1>
-            <p class="text-gray-500">Retrouvez toutes vos réservations passées et à venir</p>
+            <p class="text-gray-500">Retrouvez toutes vos réservations reçu</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-            @forelse($reservations as $res)
+            @forelse($reservationsReçu as $res)
                 <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
                     @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
                     @elseif($res->status == 'en_attente') border-blue-500/50 hover:shadow-blue-300/50
