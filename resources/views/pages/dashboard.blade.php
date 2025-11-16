@@ -115,7 +115,7 @@
                         @foreach($residences as $res)
                             @php
                                 // Décodage JSON si nécessaire
-                        $images = $residence->img;
+                        $images = $res->img;
                         if (is_string($images)) {
                             $images = json_decode($images, true) ?? [];
                         }
