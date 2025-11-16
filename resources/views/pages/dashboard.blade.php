@@ -5,7 +5,7 @@
 
 @section('main')
     <!-- Main Content Area (avec votre padding original pour compenser le header) -->
-    <div class="container mx-auto p-2 mt-4">
+    <div class="container mx-auto p-2 mt-2">
 
         <!-- Simulation Message d'alerte (Static) -->
         <div id="alert-message" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-8 shadow-lg" role="alert">
@@ -16,7 +16,7 @@
             </span>
         </div>
 
-        <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
+        <main class="bg-white p-2 md:p-3 rounded-xl shadow-2xl border border-gray-200">
 
             <!-- Résidences Occupées -->
             <section id="occupees" class="mb-10 row m-0">
@@ -125,7 +125,7 @@
                             <div class="bg-white border border-gray-200 rounded-2xl shadow-xl
                                 transition duration-500 hover:shadow-indigo-400/50
                                 flex flex-col items-center
-                                w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5
+                                w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4
                                 p-2 sm:p-3 md:p-4">
 
                                 <!-- Image principale cliquable pour GLightbox -->
