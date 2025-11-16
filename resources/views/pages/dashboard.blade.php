@@ -128,7 +128,7 @@
                                 transition duration-500 hover:shadow-indigo-400/50
                                 flex flex-col items-center
                                 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4
-                                p-2 sm:p-3 md:p-4">
+                                p-4 sm:p-3">
 
                                 <!-- Image principale cliquable pour GLightbox -->
                                 <div class="w-full">
