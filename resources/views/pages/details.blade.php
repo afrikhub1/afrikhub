@@ -197,7 +197,7 @@
         <div class="nav-links d-none d-lg-flex align-items-center me-3">
           <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
           <a class="nav-link" href="{{ route('dashboard') }}">Profil</a>
-          <a class="nav-link" href="{{ route('historique') }}">Réservations</a>
+          <a class="nav-link" href="{{ route('reservationRecu') }}">Réservations</a>
         </div>
 
         {{-- Quick actions --}}
@@ -226,7 +226,7 @@
       <a class="sidebar-link" href="{{ route('dashboard') }}">Profil</a>
       <a class="sidebar-link" href="{{ route('recherche') }}">Recherche</a>
       <a class="sidebar-link" href="{{ route('mes_demandes') }}">Demandes</a>
-      <a class="sidebar-link" href="{{ route('historique') }}">Réservations</a>
+      <a class="sidebar-link" href="{{ route('reservationRecu') }}">Réservations</a>
     @elseif(Auth::check() && Auth::user()->type_compte === 'client')
       <a class="sidebar-link" href="{{ route('clients_historique') }}">Mon Profil</a>
     @endif
