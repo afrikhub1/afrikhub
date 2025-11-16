@@ -22,10 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
-Route::get('/recherche', fn() => view('pages.recherche'))->name('recherche');
 Route::get('/message', fn() => view('pages.messages'))->name('message');
-Route::get('/residences', fn() => view('pages.residences'))->name('residences');
-Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
 
 // Actions publiques
 Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
@@ -39,8 +36,13 @@ Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post'
 Route::middleware(['auth'])->group(function () {
 
     // Pages résidences
-    Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche');
+    Route::get('/residences', fn() => view('pages.residences'))->name('residences');
+    Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
     Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
+
+    //recherche
+    Route::get('/recherche', fn() => view('pages.recherche'))->name('recherche');// page de recherche
+    Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche'); // fonction de recherche
 
     // Réservations
     Route::post('/reservation/{id}', [ReservationController::class, 'store'])->name('reservation.store');
