@@ -105,32 +105,28 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
-        // Récupérer la réservation et la résidence
         $reservation = Reservation::findOrFail($id);
         $residence = $reservation->residence;
 
         // Vérifier si la résidence est libre
-        if ($residence->disponible == 0) {
+        if (!$residence->disponible) {
             return back()->with('error', 'Impossible de confirmer : la résidence est actuellement occupée.');
         }
 
-        // Confirmer la réservation
-        Reservation::where('id', $id)->update([
-            'status' => 'confirmée',
-            'date_validation' => now(),
-        ]);
+        if ($residence->date_disponible_apres && \Carbon\Carbon::parse($reservation->date_arrivee) < \Carbon\Carbon::parse($residence->date_disponible_apres)) {
+            return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
+        }
 
-        $dateDisponible = Carbon::parse($reservation->date_depart);
+        $reservation->status = 'confirmée';
+        $reservation->save();
 
+        $residence->disponible = 0;
+        $residence->date_disponible_apres = $reservation->date_depart;
+        $residence->save();
 
-        Residence::where('id', $reservation->residence_id)->update([
-            'disponible' => 0, // ou 1 si tu veux qu'elle reste disponible après ces 2 jours
-            'date_disponible_apres' => $dateDisponible,
-        ]);
-
-        return back()->with('success', 'Réservation acceptée ✅, date de disponibilité mise à jour');
-
+        return back()->with('success', 'Réservation confirmée avec succès !');
     }
+
 
     public function refuser($id)
     {
