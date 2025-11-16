@@ -110,7 +110,7 @@
                         <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence enregistrée.
                     </div>
                 @else
-                    <div class="album-container flex flex-wrap gap-8 justify-center bg-gray-50 p-6 md:p-8 rounded-2xl shadow-inner border border-gray-100">
+                    <div class="album-container flex flex-wrap gap-8 justify-center bg-gray-50 p-2  rounded-2xl shadow-inner border border-gray-100">
 
                         @foreach($residences as $res)
                             @php
