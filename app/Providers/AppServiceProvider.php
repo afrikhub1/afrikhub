@@ -27,9 +27,9 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $userId = Auth::id();
                 $totalResidences = Residence::where('proprietaire_id', $userId)->count();
-                $residencesOccupees = Residence::where('proprietaire_id', $userId)->where('disponible', 0)->count();
-                $reservationsReçu = Reservation::where('proprietaire_id', $userId)->where('status', 'confirmée')->count();
-                $demandesEnAttente = Reservation::where('proprietaire_id', $userId)->where('status', 'en_attente')->count();
+                $totalResidencesOccupees = Residence::where('proprietaire_id', $userId)->where('disponible', 0)->count();
+                $totalReservationsReçu = Reservation::where('proprietaire_id', $userId)->where('status', 'confirmée')->count();
+                $totalDemandesEnAttente = Reservation::where('proprietaire_id', $userId)->where('status', 'en_attente')->count();
 
                 $view->with(compact('totalResidences', 'residencesOccupees', 'reservationsReçu', 'demandesEnAttente'));
             }
