@@ -57,7 +57,7 @@
 
             <!-- Historique des Réservations -->
             <section id="historique" class="mb-10">
-                <h2 class="text-3xl font-extrabold text-indigo-600 mb-6 flex items-center border-b pb-2">
+                <h2 class="text-3xl font-extrabold text-indigo-600 mb-6 flex items-center border-b pb-2 text-center">
                     <i class="fas fa-history text-2xl mr-3"></i> Historique des Demandes de Location
                 </h2>
 
@@ -101,7 +101,7 @@
 
             <!-- SECTION PRINCIPALE DES RÉSIDENCES (avec Carrousel GLightbox) -->
             <section id="reservation" class="mb-10 border-t pt-8 border-gray-200">
-                <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
                     <i class="fas fa-home text-indigo-500 mr-3"></i> Toutes Mes Résidences en Gestion
                 </h2>
 
