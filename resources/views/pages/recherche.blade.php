@@ -204,7 +204,7 @@
         </div>
 
         @if(Auth::user()->type_compte == 'professionnel')
-            <a href="{{ route('historique') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
+            <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
             <a href="{{ route('dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
             <a href="{{ route('residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
             <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-2"></i> Mise en ligne</a>
