@@ -65,35 +65,58 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Éléments de la sidebar
+    const toggleButton = document.getElementById('toggleSidebar');
+    const closeButton = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    // Éléments de recherche
     const searchInput = document.getElementById('searchInput');
     const searchOption = document.getElementById('searchOption');
 
-    function filterElements() {
-        const filter = searchInput.value.toUpperCase();
-        const option = searchOption.value;
-        const residenceItems = document.querySelectorAll('.residence-item');
-
-        residenceItems.forEach(item => {
-            let textValue = '';
-
-            if (option === 'name') {
-                textValue = item.getAttribute('data-name') || '';
-            } else {
-                textValue = item.textContent || '';
-            }
-
-            textValue = textValue.trim().replace(/\s+/g, ' ');
-
-            if (textValue.toUpperCase().includes(filter)) {
-                item.style.display = "";
-            } else {
-                item.style.display = "none";
-            }
+    // Logique de la sidebar
+    if (toggleButton && sidebar) {
+        toggleButton.addEventListener('click', function() {
+            sidebar.classList.add('active');
+        });
+    }
+    if (closeButton && sidebar) {
+        closeButton.addEventListener('click', function() {
+            sidebar.classList.remove('active');
         });
     }
 
-    searchInput.addEventListener('keyup', filterElements);
-    searchOption.addEventListener('change', filterElements);
+    if (searchOption) {
+        searchOption.addEventListener('change', filterElements);
+    }
 });
 
+
+function filterElements() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toUpperCase();
+    const option = document.getElementById('searchOption').value;
+
+
+    const residenceItems = document.querySelectorAll('.residence-item');
+
+    residenceItems.forEach(item => {
+        let textValue = ''; // Initialiser à vide
+
+        if (option === 'name') {
+            // Utilise l'attribut data-name pour le nom de la résidence
+            textValue = item.getAttribute('data-name') || ''; // Utilise chaîne vide si attribut manquant
+        } else { // 'all'
+            // Utilise tout le contenu textuel de la carte de résidence
+            textValue = item.textContent || '';
+        }
+
+        // Vérifie si la valeur de recherche est présente dans le texte de comparaison
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+            item.style.display = ""; // Afficher l'élément
+        } else {
+            item.style.display = "none"; // Masquer l'élément
+        }
+    });
+}
 </script>
