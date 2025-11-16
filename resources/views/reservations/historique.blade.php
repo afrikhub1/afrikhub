@@ -106,14 +106,14 @@
                             @endif
 
                             @if($res->status == 'en attente')
-                                <form action="{{ route('annuler', $res->id) }}" method="POST" class="flex-1">
+                                <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" class="flex-1">
                                     @csrf
                                     <button type="submit" class="w-full p-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md text-sm">
                                         Annuler
                                     </button>
                                 </form>
                             @endif
-                            <form action="{{ route('rebook', $res->id) }}" method="GET" class="flex-1">
+                            <form action="{{ route('reservation.rebook', $res->id) }}" method="GET" class="flex-1">
                                 <button type="submit" class="w-full p-2 btn-primary font-semibold rounded-lg hover:bg-amber-700 transition duration-150 shadow-md text-sm">
                                    Renouveler
                                 </button>
