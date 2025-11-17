@@ -74,12 +74,7 @@ class SejourController extends Controller
      */
     public function adminDemandes()
     {
-        $demandes = InterruptionRequest::where('status', 'en_attente')
-            ->with(['user', 'residence', 'reservation'])
-            ->get();
-
-
-
+        $demandes = InterruptionRequest::with(['user', 'residence', 'reservation'])->get();
         return view('admin.admin_interruptions', compact('demandes'));
     }
 
