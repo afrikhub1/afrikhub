@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats de recherche - Afrik'hub</title>
     <!-- Utilisation de CDN pour minimiser les dépendances locales -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
@@ -290,11 +291,6 @@
                                             <i class="fas fa-money-bill-wave me-2 text-success"></i>
                                             Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
                                         </li>
-                                        <li class="fw-bold mt-2 text-danger fw-600">
-                                            <i class="fas fa-calendar-check me-2"></i>
-                                            Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
-                                        </li>
-
                                        @php
                                             $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
                                         @endphp
