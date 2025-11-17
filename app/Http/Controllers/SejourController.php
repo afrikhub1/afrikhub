@@ -63,7 +63,7 @@ class SejourController extends Controller
             ]);
 
             // Redirige vers la page de l'utilisateur avec un message
-            return redirect()->route('clients_historique')>with('success', 'Votre demande a été envoyée à l’admin.');
+            return redirect()->route('clients_historique')->with('success', 'Votre demande a été envoyée à l’admin.');
         } catch (\Exception $e) {
             return redirect()->route('clients_historique')->with('error', 'Erreur lors de l’envoi de la demande : ' . $e->getMessage());
         }
