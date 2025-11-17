@@ -38,7 +38,7 @@
           <a href="{{ route('recherche') }}" class="text-sm text-slate-600 hover:text-slate-900">Résidences</a>
           <a href="{{ route('factures') }}" class="text-sm text-slate-600 hover:text-slate-900">Factures</a>
           <a href="{{ route('devenir_pro') }}"
-            class="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
+            class="inline-block px-6 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
             Pro
         </a>
 
