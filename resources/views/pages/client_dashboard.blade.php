@@ -31,7 +31,6 @@
           </a>
           <div>
             <h1 class="text-lg font-semibold">{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
-            <p class="text-xs text-slate-400">Historique de vos réservations</p>
           </div>
         </div>
 
@@ -40,7 +39,7 @@
           <a href="{{ route('factures') }}" class="text-sm text-slate-600 hover:text-slate-900">Factures</a>
           <a href="{{ route('devenir_pro') }}"
             class="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
-            Devenir Pro
+            Pro
         </a>
 
 
