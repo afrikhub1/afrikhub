@@ -39,12 +39,11 @@
                                     <h5 class="text-2xl font-bold text-red-800 mb-3 flex items-center">
                                         <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
                                     </h5>
-                                    <<p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
-                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
+
+
                                     <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>Type :</strong> {{ $residences_occupees->type_residences_occupees }}</p>
-                                    <p class="text-sm mb-2"><strong>Chambres :</strong> {{ $residences_occupees->nombre_chambres }}</p>
-                                    <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residences_occupees->nombre_salons }}</p>
+                                    <p class="text-sm mb-2"><strong>Fin :</strong> {{ $residences_occupees->date_disponible_apres }}</p>
+
                                 </div>
                             </div>
                         @endforeach
