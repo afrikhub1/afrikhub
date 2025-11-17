@@ -26,42 +26,66 @@
             font-family: 'Poppins', Arial, sans-serif;
         }
 
-        header {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+        /* Styles du Header Navbar Bootstrap */
+        .navbar {
+            background-color: var(--primary-color) !important;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
 
-        header h1 {
-            margin: 0;
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 700;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-weight: 700;
-            font-size: 1.8rem;
         }
 
-        header h1 img {
+        .navbar-brand img {
             height: 40px;
             width: auto;
         }
 
-        .menu-links a {
-            text-decoration: none;
-            color: #fff;
+        /* Styles pour les liens du Header sur grand écran */
+        .desktop-nav-links .nav-link {
+            color: #fff !important;
             font-weight: 500;
-            margin: 0 0.5rem;
             transition: 0.3s;
         }
 
-        .menu-links a:hover {
-            color: #212529;
+        .desktop-nav-links .nav-link:hover {
+            color: #212529 !important;
         }
+
+        /* Ajustement de la couleur du Toggler (bouton burger) */
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Style spécifique pour les liens dans l'Offcanvas (Sidebar) */
+        .offcanvas-header {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .offcanvas-body .nav-link {
+            color: #212529;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+        .offcanvas-body .nav-link:hover {
+            background-color: #f0f0f0;
+            color: var(--primary-dark);
+        }
+        .offcanvas-body .nav-link i {
+            color: var(--primary-color);
+            width: 20px; /* Aligner les icônes */
+        }
+        /* Fin des Styles du Header */
+
 
         fieldset {
             background-color: #fff;
@@ -168,18 +192,54 @@
 </head>
 
 <body>
-    <header class="container-fluid">
-        <h1>
-            <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
-        </h1>
-        <div class="menu-links">
-            <a href="#"><i class="fas fa-home me-1"></i> Accueil</a>
-            <a href="#"><i class="fas fa-briefcase me-1"></i> Pro</a>
-            <a href="#"><i class="fas fa-user-circle me-1"></i> Utilisateur</a>
-            <a href="#"><i class="fas fa-search me-1"></i> Recherche</a>
-            <a href="#"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
+    <!-- HEADER RESPONSIVE -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <!-- Logo et Nom de l'application -->
+            <a class="navbar-brand" href="#">
+                <!-- Utilisation d'une icône Font Awesome pour le logo, en l'absence de l'image -->
+                <i class="fa-solid fa-house-chimney" style="font-size: 1.5em;"></i>
+                Afrik'Hub
+            </a>
+
+            <!-- Liens pour les grands écrans (affichés en ligne) -->
+            <div class="collapse navbar-collapse desktop-nav-links" id="navbarNavDesktop">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#"><i class="fas fa-home me-1"></i> Accueil</a>
+                    <a class="nav-link" href="#"><i class="fas fa-briefcase me-1"></i> Pro</a>
+                    <a class="nav-link" href="#"><i class="fas fa-user-circle me-1"></i> Utilisateur</a>
+                    <a class="nav-link" href="#"><i class="fas fa-search me-1"></i> Recherche</a>
+                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
+                </div>
+            </div>
+
+            <!-- Bouton Toggler pour Mobile (Ouvre l'Offcanvas) -->
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-    </header>
+    </nav>
+    <!-- FIN HEADER RESPONSIVE -->
+
+    <!-- OFF-CANVAS (SIDEBAR) pour petits écrans - Positionné à droite (offcanvas-end) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                <i class="fa-solid fa-house-chimney me-2"></i> Menu Afrik'Hub
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#"><i class="fas fa-home me-3"></i> Accueil</a>
+                <a class="nav-link" href="#"><i class="fas fa-briefcase me-3"></i> Pro</a>
+                <a class="nav-link" href="#"><i class="fas fa-user-circle me-3"></i> Utilisateur</a>
+                <a class="nav-link" href="#"><i class="fas fa-search me-3"></i> Recherche</a>
+                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-3"></i> Déconnexion</a>
+            </nav>
+        </div>
+    </div>
+    <!-- FIN OFF-CANVAS -->
 
     <div class="container mt-5 mb-5">
         <h2>Mettre votre résidence en location</h2>
@@ -326,6 +386,7 @@
         </form>
     </div>
 
+    <!-- Bootstrap JS Bundle (nécessaire pour le toggler et l'offcanvas) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
