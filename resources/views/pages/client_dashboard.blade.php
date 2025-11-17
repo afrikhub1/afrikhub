@@ -5,20 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Historique des Réservations — {{ config('app.name') }}</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
 
- <style>
-    .card-shadow {
-        box-shadow: 0 6px 20px rgba(12, 17, 36, 0.06); /* <-- Le point a été retiré ici */
-    }
-    .badge-sm { font-size: 0.70rem; padding: 0.25rem 0.5rem; border-radius: 9999px; }
-    .truncate-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-</style>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
+
+  <style>
+    .card-shadow { box-shadow: 0 6px 20px rgba(12, 17, 36, 0.06); }
+    .badge-sm { font-size: 0.70rem; padding: 0.25rem 0.5rem; border-radius: 9999px; }
+    .truncate-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-  <header class="bg-white border-b">
+    <header class="bg-white border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center space-x-4">
@@ -38,6 +37,8 @@
             Pro
         </a>
 
+
+          {{-- Logout as POST for security --}}
           <form action="{{ route('logout') }}" method="POST" class="inline">
             @csrf
             <button type="submit" class="ml-3 inline-flex items-center gap-2 rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
@@ -50,6 +51,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    {{-- Titre --}}
     <header class="mb-8 text-center">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 inline-flex items-center gap-3">
         <i class="fas fa-history text-amber-600 text-xl"></i>
@@ -58,6 +60,7 @@
       <p class="text-sm text-slate-500 mt-2">Retrouvez ici vos réservations passées, en cours et à venir.</p>
     </header>
 
+    {{-- Actions / liens internes --}}
     <div class="flex justify-center mb-8">
       <a href="{{ route('factures') }}" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:shadow card-shadow">
         <i class="fas fa-file-invoice-dollar text-slate-600"></i> Voir mes factures
@@ -66,17 +69,19 @@
 
      @include('includes.messages')
 
+    {{-- Grid de cartes --}}
     <section>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @forelse($reservations as $res)
             @php
                 $status = $res->status;
-                $fullWidth = ($status == 'confirmée');
+                $fullWidth = ($status == 'confirmée'); // si confirmée, prend toute la place
             @endphp
 
         <article class="bg-white rounded-2xl card-shadow overflow-hidden border transition transform hover:-translate-y-1
             {{ $fullWidth ? 'sm:col-span-2 lg:col-span-3 xl:col-span-4' : '' }}">
             <div class="p-5 flex flex-col h-full">
+                {{-- Badge statut --}}
                 <div class="mb-3 flex justify-center">
                     <span class="badge-sm badge font-semibold
                         @if($status=='en attente') bg-indigo-500/50 hover:shadow-indigo-300/50
@@ -87,6 +92,7 @@
                     </span>
                 </div>
 
+                {{-- Titre et détails --}}
                 <h3 class="text-lg font-semibold text-slate-900 mb-1 truncate-2">{{ $res->residence->nom ?? 'Résidence' }}</h3>
                 <p class="text-sm text-slate-500 mb-4 flex items-center gap-2">
                 <i class="fas fa-map-marker-alt text-amber-500"></i>
@@ -104,6 +110,7 @@
                 </li>
                 </ul>
 
+                {{-- Actions (TAILLE AJUSTÉE UNIQUEMENT) --}}
                 <div class="mt-auto space-y-3">
                     @if($status=='en attente')
                         <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" class="w-full" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
@@ -113,18 +120,22 @@
                             </button>
                         </form>
                     @elseif($status=='confirmée')
+                        {{-- Pour garantir la taille w-full --}}
                         <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                            {{-- L'élément <a> est conservé mais la taille du bouton parent est corrigée --}}
                             <a href="{{ route('payer', $res->id) }}">
                                 </i> Payer
                             </a>
                         </button>
                     @elseif ($status=='payé')
+                        {{-- Conteneur Flex pour deux boutons de même taille --}}
                         <div class="flex gap-2">
                             <button disabled class="flex-1 flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
                                 <i class="fas fa-credit-card"></i> Payé
                             </button>
                            
                             <div class="flex-1">
+                                {{-- Le bouton disabled d'origine est retiré, le lien 'a' est promu en bouton pour la taille w-full et l'uniformité --}}
                                 <a href="{{ route('sejour.interrompre', $res->id) }}"
                                     class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
                                     px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
@@ -133,9 +144,10 @@
                             </div>
                         </div>
                     @endif
+                    {{-- Rebook / Renouveler toujours disponible (GET) --}}
                     <div class="mt-3 pt-1">
                         <a href="{{ route('reservation.rebook', $res->id) }}"
-                            class="block text-center text-sm font-semibold text-slate-500 hover:text-slate-900">
+                            class="block text-center text-sm font-semibold text-slate-700 hover:text-slate-900">
                             <i class="fas fa-redo mr-2"></i> Renouveler
                         </a>
                     </div>
@@ -158,8 +170,9 @@
     </section>
   </main>
 
+  {{-- Scripts (aucun framework JS externe requis ici) --}}
   <script>
-    //
+    // nothing complex here — keep page JS minimal for the professional layout
   </script>
 
 </body>
