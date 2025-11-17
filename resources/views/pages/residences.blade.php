@@ -18,9 +18,9 @@
                 <p class="text-sm mt-1">Utilisez le menu latéral pour la mise en ligne.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
+            <div class="grid xs:w-[320px] sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
                 @foreach($residences as $residence)
-                    <div class="w-full sm:w-[320px] bg-blue-50 border-2 border-blue-400 rounded-xl shadow-2xl p-0 flex flex-col justify-between">
+                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
                         @php
                            $images = $residence->img;
                             if (is_string($images)) {
