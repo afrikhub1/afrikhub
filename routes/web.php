@@ -10,6 +10,7 @@ use App\Http\Controllers\Mise_a_jour;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResidenceController;
+use App\Http\Controllers\DevenirProController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ProMiddleware;
@@ -56,6 +57,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
         Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
     });
+
+    // Devenir Pro
+    Route::get('/devenir-pro', [DevenirProController::class, 'devenirPro'])
+        ->name('devenir_pro');
+
+    Route::post('/devenir-pro', [DevenirProController::class, 'validerDevenirPro'])
+        ->name('valider_devenir_pro');
+
+
 
     // Professionnel (Pro)
     Route::middleware([ProMiddleware::class])->group(function () {
