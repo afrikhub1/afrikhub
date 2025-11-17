@@ -89,7 +89,7 @@
                     </a>
 
                     <!-- Icône utilisateur -->
-                    <a href="{{ route('dashboard') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
+                    <a href="{{ route('pro.dashboard') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
@@ -109,7 +109,7 @@
             <!-- Ligne des statistiques -->
             <div class="flex flex-wrap justify-between text-center border-t border-gray-800 py-2 -mx-4">
 
-                <a href="{{ route('residences') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
+                <a href="{{ route('pro.residences') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-home mr-1"></i> Résidences
                     <span class="ml-1 px-2 bg-red-600 text-xs font-bold rounded-full">{{ $totalResidences }}</span>
                 </a>
@@ -171,7 +171,7 @@
                 Réservation
             </a>
 
-            <a href="{{ route('dashboard') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2">
+            <a href="{{ route('pro.dashboard') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2">
                 <!-- User -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -179,7 +179,7 @@
                 Profil
             </a>
 
-            <a href="{{ route('residences') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2">
+            <a href="{{ route('pro.residences') }}" class="w-full text-center py-2 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2">
                 <!-- Building -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18V7H3v14zM3 3h18v4H3V3z"/>

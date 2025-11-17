@@ -62,7 +62,6 @@ Route::middleware(['auth'])->group(function () {
     // Professionnel (Pro)
     Route::middleware([ProMiddleware::class])->group(function () {
         Route::get('/pro/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('pro.dashboard');
-        Route::get('/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard');
         Route::get('/dashboard_resi_reserv', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard_resi_reserv');
         Route::get('/reservationRecu', [ResidenceController::class, 'reservationRecu'])->name('reservationRecu');
         Route::post('/reservation/{id}/accepter', [ReservationController::class, 'accepter'])->name('reservation.accepter');
