@@ -66,6 +66,9 @@ class ResidenceController extends Controller
             'commodites'=> $commodites
         ]);
 
+        dd($request->all());
+
+
         return redirect()->route('message')
             ->with('success', '✅ Résidence ajoutée avec succès ! Elle est en attente de validation.');
     }
