@@ -59,7 +59,7 @@ class SejourController extends Controller
             InterruptionRequest::create([
                 'user_id' => $user->id,
                 'residence_id' => $residence->id,
-                'status' => 'en_attente'
+                'status' => 'en attente'
             ]);
 
             return redirect()->back()->with('success', 'Votre demande a été envoyée à l’admin.');

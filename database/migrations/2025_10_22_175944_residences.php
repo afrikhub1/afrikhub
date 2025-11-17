@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('prix_journalier')->default(0);
             $table->string('type_residence'); // Villa, Appartement, Studio...
             $table->text('description')->nullable();
+            $table->text('commodites')->nullable();
             $table->boolean('disponible')->default(true);
             $table->date('date_disponible_apres')->nullable();
             $table->string('geolocalisation')->nullable();
