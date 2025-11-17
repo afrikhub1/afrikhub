@@ -116,18 +116,23 @@
                                     Statut : {{ $reservationEnCours?->status ?? 'Aucune réservation en cours' }}
                                 </li>
 
-                                <li class="fw-bold mt-2 text-danger fw-600">
-                                    <i class="fas fa-calendar-check me-2"></i>
-                                    Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
-                                </li>
-
-                                <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
-                                        Libérer la résidence
-                                    </button>
-                                </form>
-
+                               @if($residence->disponible)
+                                    <li class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
+                                        <span class="text-gray-900">Indisponible</span>
+                                    </li>
+                                    <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+                                            Libérer la résidence
+                                        </button>
+                                    </form>
+                                @else
+                                    <li class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
+                                        <span class="text-gray-900">Disponible</span>
+                                    </li>
+                                @endif
                             </ul>
 
                             {{-- Actions d'administration --}}

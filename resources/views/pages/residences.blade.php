@@ -73,7 +73,7 @@
                                     <span class="text-gray-900">{{ $residence->ville }}</span>
                                 </li>
 
-                                @if($residence->disponible == 0 )
+                                @if($residence->disponible)
                                     <li class="flex justify-between items-center">
                                         <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
                                         <span class="text-gray-900">Indisponible</span>
