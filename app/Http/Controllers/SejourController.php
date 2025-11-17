@@ -79,9 +79,6 @@ class SejourController extends Controller
     public function validerDemande($id)
     {
         $demande = InterruptionRequest::where('id', $id)->first();
-        dd([
-            'demande_id' => $demande->id,
-        ]);
         if (!$demande) {
             return back()->with('error', 'Demande introuvable.');
         }
@@ -94,21 +91,9 @@ class SejourController extends Controller
         $reservation = Reservation::where('id', $demande->reservation_id)
             ->where('residence_id', $demande->residence_id)
             ->first();
-
         if (!$reservation) {
-            // Affiche toutes les valeurs impliquées
-            dd([
-                'demande_id' => $demande->id,
-                'demande_reservation_id' => $demande->reservation_id,
-                'demande_residence_id' => $demande->residence_id,
-                'reservations_table' => Reservation::select('id', 'residence_id')->get()->toArray(),
-                'query_attempt' => Reservation::where('id', $demande->reservation_id)
-                    ->where('residence_id', $demande->residence_id)
-                    ->toSql(),
-                'bindings' => [$demande->reservation_id, $demande->residence_id],
-            ]);
+            return back()->with('error', 'Réservation introuvable ou ne correspond pas à la résidence.');
         }
-
 
         // Libérer la résidence
         $residence->disponible = 1;
