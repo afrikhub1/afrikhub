@@ -157,34 +157,34 @@
 
         <div class="mt-3">
             <label class="form-label fw-semibold">Commodités</label>
-
             <div class="row g-3">
-                <?php
+                @php
                     $commodites = [
                         "Climatisation","Wi-Fi","Télévision","Eau chaude","Parking",
                         "Cuisine équipée","Machine à laver","Sécurité 24h/24","Piscine",
                         "Balcon/Terrasse","Générateur","Caméras de surveillance","Animaux autorisés"
                     ];
+                @endphp
 
-                    foreach ($commodites as $c) {
-                        $id = 'comodite_' . md5($c);
-
-                        echo '
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <div class="form-check d-flex align-items-center gap-2 p-2 shadow-sm rounded bg-light">
-                                <input class="form-check-input mt-0" type="checkbox"
-                                    name="autres_details[]" value="' . htmlspecialchars($c) . '" id="' . $id . '">
-                                <label class="form-check-label" for="' . $id . '">
-                                    ' . htmlspecialchars($c) . '
-                                </label>
-                            </div>
-                        </div>';
-                    }
-                ?>
+                @foreach ($commodites as $c)
+                    @php $id = 'comodite_' . md5($c); @endphp
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="form-check d-flex align-items-center gap-2 p-2 shadow-sm rounded bg-light">
+                            <input
+                                class="form-check-input mt-0"
+                                type="checkbox"
+                                name="autres_details[]"
+                                value="{{ $c }}"
+                                id="{{ $id }}"
+                            >
+                            <label class="form-check-label" for="{{ $id }}">
+                                {{ $c }}
+                            </label>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-
-
         <div class="mt-4">
           <label class="form-label">Coordonnées géographiques</label>
           <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Latitude, Longitude ou lien Google Maps" required>

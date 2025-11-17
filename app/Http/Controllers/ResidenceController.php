@@ -45,7 +45,7 @@ class ResidenceController extends Controller
             }
         }
 
-        $comodites = $request->has('autres_details') && is_array($request->autres_details)
+        $commodites = $request->has('autres_details') && is_array($request->autres_details)
             ? implode(", ", array_map('htmlspecialchars', $request->autres_details))
             : "";
 
@@ -62,7 +62,7 @@ class ResidenceController extends Controller
             'geolocalisation' => $request->geolocalisation,
             'img' => json_encode($imagesPath),
             'statut' => 'en_attente',
-            'comodites'=> $comodites
+            'commodites'=> $commodites
         ]);
 
         return redirect()->route('message')
