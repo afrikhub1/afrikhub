@@ -39,19 +39,18 @@ class SejourController extends Controller
      */
     public function demanderInterruption(Request $request, $id)
     {
-        $residence = Residence::find($id);
-        if (!$residence) {
-            return redirect()->back()->with('error', 'Résidence introuvable.');
-        }
-
-        $user = $request->user();
-
-        // Vérifie que l'utilisateur a une réservation
-        $reservation = Reservation::where('residence_id', $residence->id)
-            ->where('user_id', $user->id)
-            ->first();
+        // $id correspond maintenant à reservation_id
+        $reservation = Reservation::find($id);
 
         if (!$reservation) {
+            return redirect()->back()->with('error', 'Réservation introuvable.');
+        }
+
+        $residence = $reservation->residence; // relation Eloquent Reservation -> Residence
+        $user = $request->user();
+
+        // Vérifie que la réservation appartient bien à l'utilisateur
+        if ($reservation->user_id !== $user->id) {
             return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
@@ -59,12 +58,12 @@ class SejourController extends Controller
             InterruptionRequest::create([
                 'user_id' => $user->id,
                 'residence_id' => $residence->id,
-                'status' => 'en attente'
+                'reservation_id' => $reservation->id, // si tu as ce champ dans la table
+                'status' => 'en_attente'
             ]);
 
             return redirect()->back()->with('success', 'Votre demande a été envoyée à l’admin.');
         } catch (\Exception $e) {
-            // Affiche l'erreur si quelque chose ne va pas
             return redirect()->back()->with('error', 'Erreur lors de l’envoi de la demande : ' . $e->getMessage());
         }
     }
