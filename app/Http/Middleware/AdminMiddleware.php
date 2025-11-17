@@ -11,7 +11,6 @@ class AdminMiddleware
     {
         // Vérifie si l'admin est connecté via le guard 'admin'
         if (!Auth::guard('admin')->check()) {
-            Auth::logout();
             return redirect()->route('admin.login')->with('error', 'Accès refusé.');
         }
 
