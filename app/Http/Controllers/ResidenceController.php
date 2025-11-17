@@ -47,7 +47,9 @@ class ResidenceController extends Controller
 
         // Dans ton controller
         $comodites = $request->input('autres_details', []); // [] si rien coché
-        $comoditesTexte = 'wifi - clim - ventillé';                              // transforme en chaîne séparée par " - "
+$comoditesTexte = collect($comodites)
+    ->map(fn($c) => htmlspecialchars($c)) // sécurise le texte
+    ->implode(' - '); // conca                                       // transforme en chaîne séparée par " - "
 
         Residence::create([
             'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
