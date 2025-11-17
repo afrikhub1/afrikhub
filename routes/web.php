@@ -78,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/occupees', [ResidenceController::class, 'occupees'])->name('occupees');
 
         // Gestion des résidences pro
-        Route::get('/residences', [ResidenceController::class, 'index'])->name('residences');
+        Route::get('/mes-residences', [ResidenceController::class, 'index'])->name('pro.residences');
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
     });
 
