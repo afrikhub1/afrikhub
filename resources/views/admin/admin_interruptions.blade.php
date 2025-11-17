@@ -25,7 +25,58 @@
     @if($demandes->isEmpty())
         <p class="text-gray-700 text-center">Aucune demande.</p>
     @else
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @forelse($demandes as $demande)
+                @php
+                    // Couleur selon le statut
+                    $badgeColor = match($demande->status) {
+                        'en_attente' => 'bg-yellow-500',
+                        'validee'    => 'bg-green-500',
+                        'rejete'     => 'bg-red-500',
+                        default      => 'bg-gray-400',
+                    };
+                @endphp
 
+                <div class="bg-white rounded-2xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow residence-item"
+                    data-name="{{ $demande->residence->nom }}">
+
+                    {{-- Informations --}}
+                    <div class="space-y-2">
+                        <p><strong>Client :</strong> {{ $demande->user->name }}</p>
+                        <p><strong>Résidence :</strong> {{ $demande->residence->nom }}</p>
+                        <p>
+                            <strong>Statut :</strong>
+                            <span class="px-3 py-1 rounded text-white font-semibold {{ $badgeColor }}">
+                                {{ ucfirst(str_replace('_', ' ', $demande->status)) }}
+                            </span>
+                        </p>
+                        <p class="text-sm text-gray-500">Demandée le : {{ $demande->created_at->format('d/m/Y H:i') }}</p>
+                    </div>
+
+                    {{-- Actions --}}
+                    @if($demande->status == 'en_attente')
+                        <div class="mt-4 flex gap-2">
+                            <form action="{{ route('admin.demande.valider', $demande->id) }}" method="POST" class="flex-1">
+                                @csrf
+                                <button type="submit" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                                    Valider
+                                </button>
+                            </form>
+                            <form action="{{ route('admin.demande.rejeter', $demande->id) }}" method="POST" class="flex-1">
+                                @csrf
+                                <button type="submit" class="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                                    Rejeter
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                </div>
+            @empty
+                <div class="col-span-full text-center p-10 bg-white rounded-2xl shadow-md">
+                    <p class="text-gray-500 text-lg">Aucune demande pour le moment.</p>
+                </div>
+            @endforelse
+        </div>
     @endif
 
 </div>
