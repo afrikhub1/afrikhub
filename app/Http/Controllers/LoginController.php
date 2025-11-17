@@ -43,6 +43,7 @@ class LoginController extends Controller
 
         // Connexion
         Auth::login($user);
+        $request->session()->regenerate();
 
         return redirect()->route($route);
     }

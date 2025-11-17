@@ -25,6 +25,9 @@ class DevenirProController extends Controller
         // Mise à jour du type de compte
         $user->type_compte = 'professionnel';
         $user->save();
+        
+        // Regénère la session pour éviter le 419
+        $request->session()->regenerate();
 
         return redirect()->route('dashboard')->with('success', 'Votre compte est maintenant professionnel.');
     }
