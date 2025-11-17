@@ -14,12 +14,13 @@
         <p class="mb-4 text-gray-600">Résidence : <span class="font-semibold text-gray-900">{{ $residence->nom }}</span></p>
         <p class="mb-6 text-gray-500">En cliquant sur le bouton ci-dessous, vous envoyez une demande pour libérer cette résidence.</p>
 
-        <form action="#" method="POST">
+        <form action="{{ route('sejour.demander', $residence->id) }}" method="POST">
             @csrf
             <button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition">
                 Interrompre le séjour
             </button>
         </form>
+
 
         <a href="{{ url()->previous() }}" class="block mt-4 text-sm text-gray-600 hover:text-gray-900">Retour</a>
     </div>
