@@ -88,11 +88,11 @@ class PaiementController extends Controller
         $reference = $request->query('reference');
 
         if (!$reference) {
-            return redirect()->route('historique')->with('error', 'Référence de paiement manquante. Le statut de paiement sera mis à jour par le webhook.');
+            return redirect()->route('clients_historique')->with('error', 'Référence de paiement manquante. Le statut de paiement sera mis à jour par le webhook.');
         }
 
         // Le callback rassure l'utilisateur en l'informant que la vérification est en cours.
-        return redirect()->route('historique')->with('success', 'Paiement en cours de vérification. Le statut de votre réservation sera mis à jour sous peu.');
+        return redirect()->route('clients_historique')->with('success', 'Paiement en cours de vérification. Le statut de votre réservation sera mis à jour sous peu.');
     }
 
     /**
