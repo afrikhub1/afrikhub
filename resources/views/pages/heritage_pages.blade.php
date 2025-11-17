@@ -60,41 +60,41 @@
                     </div>
                 </div>
 
-                                <!-- Bouton Ajouter une résidence -->
-                <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    Ajouter
-                </a>
 
-                <a href="{{ route('clients_historique') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    Réservations
-                </a>
 
 
                 <!-- Zone recherche + icône utilisateur -->
                 <div class="flex items-center space-x-4">
+
+                    <!-- Bouton Ajouter une résidence -->
+                    <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Ajouter
+                    </a>
+
+                    <a href="{{ route('clients_historique') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Réservations
+                    </a>
+
                      <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1110 3a7.5 7.5 0 016.65 13.65z"/>
-                    </svg>
-                </a>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1110 3a7.5 7.5 0 016.65 13.65z"/>
+                        </svg>
+                    </a>
 
-                <!-- Icône utilisateur -->
-                <a href="{{ route('dashboard') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    Profil
-                </a>
-
-
-
+                    <!-- Icône utilisateur -->
+                    <a href="{{ route('dashboard') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.21.72 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Profil
+                    </a>
 
                     <!-- Bouton toggle sidebar -->
                     <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition">
@@ -132,7 +132,6 @@
             </div>
         </div>
     </header>
-
 
     <!-- SIDEBAR (Menu latéral) -->
     <aside id="sidebar" class="bg-gray-900 text-white flex flex-col items-center">
@@ -219,8 +218,6 @@
                 </svg>
                 Déconnexion
             </a>
-
-
         </div>
     </aside>
 
@@ -231,7 +228,6 @@
             @yield('main')
         </div>
     </main>
-
     <!-- FOOTER -->
     <footer class="text-center text-sm text-gray-500 mt-12 mb-8">
         © {{ date('Y') }} {{ config('app.name') }} — Tous droits réservés

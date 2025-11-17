@@ -141,7 +141,9 @@ $comoditesTexte = collect($comodites)
         // Résidences du propriétaire (table residences)
         $residences = Residence::where('proprietaire_id', $userId)->get();
 
-        $residences_occupees = Reservation::where('proprietaire_id', $userId)->get();
+        $residences_occupees = Residence::where('proprietaire_id', $userId)
+            ->where('disponible', 0)
+            ->get();
 
         // Réservations confirmées ou gestionnées (table reservations)
         $reservation_reçu = Reservation::where('proprietaire_id', $userId)->get();
