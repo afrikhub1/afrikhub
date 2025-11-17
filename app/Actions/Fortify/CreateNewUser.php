@@ -27,6 +27,13 @@ class CreateNewUser implements CreatesNewUsers
     {
         // Validation des champs
         Validator::make($input, [
+            // Mise à jour de la règle de taille maximale à 7 caractères pour 'nom'
+            'nom' => [
+                'required',
+                'string',
+                'max:7',
+                Rule::unique(User::class, 'name'),
+            ],
             'email' => [
                 'required',
                 'string',
@@ -42,12 +49,20 @@ class CreateNewUser implements CreatesNewUsers
                 'confirmed',
             ],
         ], [
+            // Mise à jour du message d'erreur pour la taille maximale du 'nom'
+            'nom.required' => 'Le nom est obligatoire.',
+            'nom.string'   => 'Le nom doit être une chaîne de caractères.',
+            'nom.max'      => 'Le nom ne doit pas dépasser 7 caractères.', // Message mis à jour
+            'nom.unique'   => 'Ce nom d\'utilisateur est déjà pris.',
+
+            // Messages d'erreur pour le champ 'email'
             'email.required' => 'L\'adresse email est obligatoire.',
             'email.string'   => 'L\'adresse email doit être une chaîne de caractères.',
             'email.email'    => 'Le format de l\'adresse email est invalide.',
             'email.max'      => 'L\'adresse email ne doit pas dépasser 255 caractères.',
             'email.unique'   => 'Cet email est déjà utilisé.',
 
+            // Messages d'erreur pour le champ 'password'
             'password.required'  => 'Le mot de passe est obligatoire.',
             'password.string'    => 'Le mot de passe doit être une chaîne de caractères.',
             'password.min'       => 'Le mot de passe doit contenir au moins 8 caractères.',
@@ -55,12 +70,12 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         // Récupération des champs
-        $email       = $input['email'];
-        $name        = $input['nom'];
-        $contact     = $input['contact'];
-        $typeCompte  = $input['type_compte'];
-        $statut      = 'inactif';
-        $token       = md5(uniqid() . $email);
+        $email      = $input['email'];
+        $name       = $input['nom'];
+        $contact    = $input['contact'];
+        $typeCompte = $input['type_compte'];
+        $statut     = 'inactif';
+        $token      = md5(uniqid() . $email);
 
         // Création de l'utilisateur
         $utilisateur = User::create([

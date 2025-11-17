@@ -33,12 +33,10 @@
 <div class="container mt-2">
     <h2 class="mb-4">Formulaire d'inscription</h2>
 
-    <!-- Affichage des erreurs -->
+    <!-- Affichage général des erreurs (si besoin d'un résumé, sinon les messages sous les champs suffisent) -->
     @if ($errors->any())
         <div class="alert alert-danger text-center">
-            @foreach ($errors->all() as $message)
-                <strong>{{ $message }}</strong>
-            @endforeach
+            <strong>Erreur de validation !</strong> Veuillez corriger les champs en rouge ci-dessous.
         </div>
     @endif
 
@@ -49,87 +47,147 @@
         <!-- Nom complet -->
         <div class="col-12 col-md-6">
             <label for="nom" class="form-label">Nom complet</label>
-            <input type="text" class="form-control" id="nom" name="nom"
+            <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom"
                 value="{{ old('nom') }}" required placeholder="John Doe"/>
-            <div class="invalid-feedback">Veuillez entrer votre nom complet.</div>
+            @error('nom')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez entrer votre nom complet.</div>
+            @enderror
         </div>
 
         <!-- Email -->
         <div class="col-12 col-md-6">
             <label for="email" class="form-label">Adresse e-mail</label>
-            <input type="email" class="form-control" id="email" name="email"
+            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
                 value="{{ old('email') }}" required placeholder="exemple@mail.com"/>
-            <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+            @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+            @enderror
         </div>
 
         <!-- Mot de passe -->
         <div class="col-12 col-md-6">
             <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="password" name="password"
-                required placeholder="Ex: Harry--1234"/>
-            <div class="invalid-feedback">Veuillez saisir un mot de passe.</div>
+            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
+                required placeholder="Ex: Harry@234"/>
+            @error('password')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez saisir un mot de passe.</div>
+            @enderror
         </div>
 
         <!-- Confirmation mot de passe -->
         <div class="col-12 col-md-6">
             <label for="password_confirmation" class="form-label">Confirmez le mot de passe</label>
-            <input type="password" class="form-control" id="password_confirmation"
+            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation"
                 name="password_confirmation" required placeholder="Confirmez votre mot de passe"/>
-            <div class="invalid-feedback">Veuillez confirmer le mot de passe.</div>
+            @error('password_confirmation')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez confirmer le mot de passe.</div>
+            @enderror
         </div>
 
         <!-- Téléphone -->
         <div class="col-12">
             <label for="contact" class="form-label">Numéro de téléphone</label>
-            <input type="tel" class="form-control" id="phone" name="contact"
+            <input type="tel" class="form-control @error('contact') is-invalid @enderror" id="phone" name="contact"
                 value="{{ old('contact') }}" pattern="^\+?[0-9\s\-]{7,15}$"
                 required placeholder="+225 01 23 45 67"/>
-            <div class="invalid-feedback">Veuillez entrer un numéro valide.</div>
+            @error('contact')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez entrer un numéro valide.</div>
+            @enderror
         </div>
 
         <!-- Ville -->
         <div class="col-md-6">
             <label for="ville" class="form-label">Ville</label>
-            <input type="text" class="form-control" id="ville" name="ville"
+            <input type="text" class="form-control @error('ville') is-invalid @enderror" id="ville" name="ville"
                 value="{{ old('ville') }}" required placeholder="Abidjan"/>
-            <div class="invalid-feedback">Veuillez indiquer une ville.</div>
+            @error('ville')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez indiquer une ville.</div>
+            @enderror
         </div>
 
         <!-- Pays -->
         <div class="col-md-6">
             <label for="pays" class="form-label">Pays</label>
-            <input type="text" class="form-control" id="pays" name="pays"
+            <input type="text" class="form-control @error('pays') is-invalid @enderror" id="pays" name="pays"
                 value="{{ old('pays') }}" required placeholder="Côte d'Ivoire"/>
-            <div class="invalid-feedback">Veuillez indiquer un pays.</div>
+            @error('pays')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez indiquer un pays.</div>
+            @enderror
         </div>
 
         <!-- Type de compte -->
         <div class="col-md-6">
             <label for="type_compte" class="form-label">Type de compte</label>
-            <select class="form-select" id="type_compte" name="type_compte"  required>
+            <select class="form-select @error('type_compte') is-invalid @enderror" id="type_compte" name="type_compte"  required>
                 <option value="" >-- sélectionnez un type de compte --</option>
                 <option value="client" {{ old('type_compte')=='client' ? 'selected' : '' }}>Client</option>
                 <option value="professionnel" {{ old('type_compte')=='professionnel' ? 'selected' : '' }}>Professionnel</option>
             </select>
-            <div class="invalid-feedback">Veuillez choisir un type de compte.</div>
+            @error('type_compte')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez choisir un type de compte.</div>
+            @enderror
         </div>
 
         <!-- Adresse -->
         <div class="col-md-6">
             <label for="adresse" class="form-label">Adresse</label>
-            <input type="text" class="form-control" id="adresse" name="adresse"
-                value="{{ old('adresse') }}" required placeholder="Ex: Cocody-danga-PLCC"/>
-            <div class="invalid-feedback">Veuillez indiquer votre adresse.</div>
+            <input type="text" class="form-control @error('adresse') is-invalid @enderror" id="adresse" name="adresse"
+                value="{{ old('adresse') }}" required placeholder="Ex: Cocody cité des arts"/>
+            @error('adresse')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">Veuillez indiquer votre adresse.</div>
+            @enderror
         </div>
 
         <!-- Acceptation CGU -->
         <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="cgu" name="cgu" required/>
+            <div class="form-check @error('cgu') is-invalid @enderror">
+                <input class="form-check-input @error('cgu') is-invalid @enderror" type="checkbox" id="cgu" name="cgu" required/>
                 <label class="form-check-label" for="cgu">
                     J’accepte les conditions générales d’utilisation
                 </label>
-                <div class="invalid-feedback">Vous devez accepter les conditions.</div>
+                @error('cgu')
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
+                    </div>
+                @else
+                    <div class="invalid-feedback">Vous devez accepter les conditions.</div>
+                @enderror
             </div>
         </div>
 
@@ -152,6 +210,7 @@
         const forms = document.querySelectorAll('.needs-validation');
         Array.from(forms).forEach(function(form) {
             form.addEventListener('submit', function(event) {
+                // Cette partie gère uniquement la validation côté client (HTML required)
                 if (!form.checkValidity()) {
                     event.preventDefault();
                     event.stopPropagation();
