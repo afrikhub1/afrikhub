@@ -20,7 +20,6 @@
             <!-- Option de filtre -->
             <select id="searchOption" class="py-2 px-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150">
                 <option value="name">Nom de la Résidence</option>
-                <option value="all">Tout le Contenu</option>
             </select>
 
             <!-- Toggle sidebar -->
