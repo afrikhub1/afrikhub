@@ -8,9 +8,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
 
-  <style>
+ <style>
     .card-shadow {
-        box-shadow: 0 6px 20px rgba(12, 17, 36, 0.06);
+        box-shadow: 0 6px 20px rgba(12, 17, 36, 0.06); /* <-- Le point a été retiré ici */
     }
     .badge-sm { font-size: 0.70rem; padding: 0.25rem 0.5rem; border-radius: 9999px; }
     .truncate-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
