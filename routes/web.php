@@ -16,6 +16,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ProMiddleware;
 use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SejourController;
 
 // --------------------------------------------------
 // ROUTES PUBLIQUES
@@ -84,6 +85,9 @@ Route::middleware(['auth'])->group(function () {
     // File Manager
     Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
     Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
+
+    Route::get('/interrompre/{id}', [SejourController::class, 'interrompreForm'])->name('sejour.interrompre');
+    Route::post('/interrompre/{id}', [SejourController::class, 'demanderInterruption'])->name('sejour.demander');
 });
 
 // Paiement
@@ -128,13 +132,6 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 });
 
-
-use App\Http\Controllers\SejourController;
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/interrompre/{id}', [SejourController::class, 'interrompreForm'])->name('sejour.interrompre');
-    Route::post('/interrompre/{id}', [SejourController::class, 'demanderInterruption'])->name('sejour.demander');
-});
 
 Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/interruptions', [SejourController::class, 'adminDemandes'])->name('admin.demande.interruptions');
