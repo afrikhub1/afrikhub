@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Demandes d'interruption</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
+@extends('admin.header_footer')
+
+@section('titre', 'Demandes-interruptions')
+
+@section('main')
 
     <h1 class="text-2xl font-bold mb-4">Demandes d'interruption en attente</h1>
 
@@ -52,6 +49,5 @@
             @endforeach
         </div>
     @endif
+@endsection
 
-</body>
-</html>
