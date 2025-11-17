@@ -61,7 +61,7 @@ class Residence extends Model
 
     public function dateDisponibleAvecNettoyage(int $joursNettoyage = 2)
     {
-        // Si la résidence est libre
+        // Si la résidence est libre dar disponible est un bouleen
         if ($this->disponible) {
             return now()->toDateString();
         }
