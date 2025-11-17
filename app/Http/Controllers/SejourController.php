@@ -85,10 +85,14 @@ class SejourController extends Controller
     {
         $demande = InterruptionRequest::findOrFail($id);
         $residence = $demande->residence;
+        $reservation = $demande->reservation;
 
         // Libérer la résidence
         $residence->disponible = 1;
         $residence->date_disponible_apres = null;
+
+        // actualiser le statut de la reservation
+        $reservation->status ='interrompue';
         $residence->save();
 
         $demande->status = 'validee';
