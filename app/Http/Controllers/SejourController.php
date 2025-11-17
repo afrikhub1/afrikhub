@@ -58,13 +58,14 @@ class SejourController extends Controller
             InterruptionRequest::create([
                 'user_id' => $user->id,
                 'residence_id' => $residence->id,
-                'reservation_id' => $reservation->id, // si tu as ce champ dans la table
+                'reservation_id' => $reservation->id, // assure-toi que ce champ existe
                 'status' => 'en_attente'
             ]);
 
-            return redirect()->back()->with('success', 'Votre demande a été envoyée à l’admin.');
+            // Redirige vers la page de l'utilisateur avec un message
+            return redirect()->route('client.reservations')->with('success', 'Votre demande a été envoyée à l’admin.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erreur lors de l’envoi de la demande : ' . $e->getMessage());
+            return redirect()->route('client.reservations')->with('error', 'Erreur lors de l’envoi de la demande : ' . $e->getMessage());
         }
     }
 
