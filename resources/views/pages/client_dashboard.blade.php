@@ -125,11 +125,11 @@
                             </button>
                         </form>
                     @elseif($status=='confirmée')
-                        <a href="{{ route('payer', $res->id) }}"
-                            class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2
-                            text-sm font-semibold text-white hover:bg-amber-700"> <i class="fas fa-credit-card">
-                            </i> Payer
-                        </a>
+                        <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                            <a href="{{ route('payer', $res->id) }}">
+                                </i> Payer
+                            </a>
+                        </button>
                     @elseif ($status=='payé')
                         <div>
                             <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
