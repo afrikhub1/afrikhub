@@ -23,7 +23,7 @@ class SejourController extends Controller
 
         // Vérifie si l'utilisateur a une réservation pour cette résidence
         $reservation = Residence::where('id', $reservation->id)
-            ->where('user_id', $userId)
+            ->where('proprietaire_id', $userId)
             ->first();
 
         if (!$reservation) {
