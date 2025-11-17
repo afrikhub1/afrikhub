@@ -30,6 +30,7 @@ class Residence extends Model
         'type_residence',
         'autres_details',
         'details_position',
+        'commodites',
     ];
 
     protected $casts = [
