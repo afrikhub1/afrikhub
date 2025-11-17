@@ -4,7 +4,9 @@
 
 @section('main')
 
-    <h1 class="text-2xl font-bold mb-4">Demandes d'interruption en attente</h1>
+    <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-8 drop-shadow-lg">
+        <i class="fas fa-stop-circle text-red-500 mr-3"></i>Demandes d'interruption en attente
+    </h1>
 
     @if(session('success'))
         <div class="bg-green-500 text-white p-3 rounded mb-4">{{ session('success') }}</div>
