@@ -18,7 +18,7 @@
                 <p class="text-sm mt-1">Utilisez le menu latéral pour la mise en ligne.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 sm:grid-col-2 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 gap-4">
                 @foreach($residences as $residence)
                     <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
                         @php
