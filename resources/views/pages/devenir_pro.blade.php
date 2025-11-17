@@ -41,7 +41,7 @@
             </p>
 
             <!-- Formulaire -->
-            <form method="POST" action="/devenir-pro/update">
+            <form method="POST" action="{{ route('valider_devenir_pro') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <button type="submit"
