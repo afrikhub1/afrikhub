@@ -51,12 +51,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservation/{id}/rebook', [ReservationController::class, 'rebook'])->name('reservation.rebook');
     Route::get('/mes-demandes', [ReservationController::class, 'mesDemandes'])->name('mes_demandes');
 
-    // Client
-    Route::middleware([ClientMiddleware::class])->group(function () {
-        Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
-        Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
-        Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
-    });
+    // Mode client
+
+    Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
+    Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
+    Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
 
     // Devenir Pro
     Route::get('/devenir-pro', [DevenirProController::class, 'devenirPro'])
