@@ -232,7 +232,7 @@
         <div class="offcanvas-body p-0">
             <nav class="nav flex-column">
                 <a class="nav-link" href="{{ route('accueil') }}"><i class="fas fa-home me-3"></i> Accueil</a>
-                    @if(Auth::user()->type_compte == 'client')
+                    @if(Auth::user()->type_compte == 'professionnel')
                         <a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-briefcase me-3"></i> Profil</a>
                     @else
                         <a class="nav-link" href="{{ route('clients_historique') }}"><i class="fas fa-briefcase me-3"></i> Profil</a>
