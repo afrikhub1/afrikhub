@@ -22,7 +22,17 @@
                     <div>
                         <p><strong>Client :</strong> {{ $demande->user->name }}</p>
                         <p><strong>Résidence :</strong> {{ $demande->residence->nom }}</p>
-                        <p><strong>Statut :</strong> {{ ucfirst($demande->status) }}</p>
+                        <p>
+                            <strong>Statut :</strong>
+                            <span class="px-2 py-1 rounded text-white
+                                @if($demande->status=='en_attente') bg-yellow-500
+                                @elseif($demande->status=='validee') bg-green-500
+                                @elseif($demande->status=='rejete') bg-red-500
+                                @endif">
+                                {{ ucfirst($demande->status) }}
+                            </span>
+                        </p>
+                        <p class="text-sm text-gray-500">Demandée le : {{ $demande->created_at->format('d/m/Y H:i') }}</p>
                     </div>
                     <div class="flex gap-2">
                         <form action="{{ route('admin.demande.valider', $demande->id) }}" method="POST">
