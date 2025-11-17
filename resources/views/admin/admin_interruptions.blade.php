@@ -49,6 +49,46 @@
                     </div>
                 </div>
             @endforeach
+
+            @foreach($validees as $validees)
+                <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+                    <div>
+                        <p><strong>Client :</strong> {{ $validees->user->name }}</p>
+                        <p><strong>Résidence :</strong> {{ $validees->residence->nom }}</p>
+                        <p>
+                            <strong>Statut :</strong>
+                            <span class="px-2 py-1 rounded text-white
+                                @if($validees->status=='en_attente') bg-yellow-500
+                                @elseif($validees->status=='validee') bg-green-500
+                                @elseif($validees->status=='rejete') bg-red-500
+                                @endif">
+                                {{ ucfirst($validees->status) }}
+                            </span>
+                        </p>
+                        <p class="text-sm text-gray-500">Demandée le : {{ $validees->created_at->format('d/m/Y H:i') }}</p>
+                    </div>
+                </div>
+            @endforeach
+
+            @foreach($rejetes as $rejete)
+                <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+                    <div>
+                        <p><strong>Client :</strong> {{ $rejete->user->name }}</p>
+                        <p><strong>Résidence :</strong> {{ $rejete->residence->nom }}</p>
+                        <p>
+                            <strong>Statut :</strong>
+                            <span class="px-2 py-1 rounded text-white
+                                @if($rejete->status=='en_attente') bg-yellow-500
+                                @elseif($rejete->status=='validee') bg-green-500
+                                @elseif($rejete->status=='rejete') bg-red-500
+                                @endif">
+                                {{ ucfirst($rejete->status) }}
+                            </span>
+                        </p>
+                        <p class="text-sm text-gray-500">Demandée le : {{ $rejete->created_at->format('d/m/Y H:i') }}</p>
+                    </div>
+                </div>
+            @endforeach
         </div>
     @endif
 @endsection
