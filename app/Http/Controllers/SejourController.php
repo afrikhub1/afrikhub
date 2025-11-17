@@ -84,22 +84,31 @@ class SejourController extends Controller
     public function validerDemande($id)
     {
         $demande = InterruptionRequest::findOrFail($id);
+
+        // Charger les relations
         $residence = $demande->residence;
         $reservation = $demande->reservation;
+
+        if (!$residence || !$reservation) {
+            return back()->with('error', 'Erreur : résidence ou réservation introuvable.');
+        }
 
         // Libérer la résidence
         $residence->disponible = 1;
         $residence->date_disponible_apres = null;
-
-        // actualiser le statut de la reservation
-        $reservation->status ='interrompue';
         $residence->save();
 
+        // Mettre à jour le statut de la réservation
+        $reservation->status = 'interrompue';
+        $reservation->save();
+
+        // Mettre à jour la demande d'interruption
         $demande->status = 'validee';
         $demande->save();
 
         return back()->with('success', 'Demande validée, résidence libérée.');
     }
+
 
     /**
      * Rejeter une demande (admin)
