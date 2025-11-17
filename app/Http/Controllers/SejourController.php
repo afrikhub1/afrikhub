@@ -83,35 +83,44 @@ class SejourController extends Controller
      */
     public function validerDemande($id)
     {
-        try {
-            $demande = InterruptionRequest::findOrFail($id);
-
-            // Charger les relations
-            $residence = $demande->residence;
-            $reservation = $demande->reservation;
-
-            if (!$residence || !$reservation) {
-                return back()->with('error', 'Erreur : résidence ou réservation introuvable.');
-            }
-
-            // Libérer la résidence
-            $residence->disponible = 1;
-            $residence->date_disponible_apres = null;
-            $residence->save();
-
-            // Mettre à jour le statut de la réservation
-            $reservation->status = 'interrompue';
-            $reservation->save();
-
-            // Mettre à jour la demande d'interruption
-            $demande->status = 'validee';
-            $demande->save();
-
-            return back()->with('success', 'Demande validée, résidence libérée.');
-        } catch (\Exception $e) {
-            // Affiche l'erreur complète pour debug
-            return back()->with('error', 'Erreur : ' . $e->getMessage() . "\n" . $e->getTraceAsString());
+        // Récupérer la demande
+        $demande = InterruptionRequest::find($id);
+        if (!$demande) {
+            return back()->with('error', 'Demande introuvable.');
         }
+
+        // Charger les relations
+        $residence = $demande->residence;
+        $reservation = $demande->reservation;
+
+        if (!$residence) {
+            return back()->with('error', 'Résidence introuvable pour cette demande.');
+        }
+
+        if (!$reservation) {
+            return back()->with('error', 'Réservation introuvable pour cette demande.');
+        }
+
+        // Libérer la résidence
+        $residence->disponible = 1;
+        $residence->date_disponible_apres = null;
+        if (!$residence->save()) {
+            return back()->with('error', 'Impossible de libérer la résidence.');
+        }
+
+        // Mettre à jour le statut de la réservation
+        $reservation->status = 'interrompue';
+        if (!$reservation->save()) {
+            return back()->with('error', 'Impossible de mettre à jour le statut de la réservation.');
+        }
+
+        // Mettre à jour le statut de la demande
+        $demande->status = 'validee';
+        if (!$demande->save()) {
+            return back()->with('error', 'Impossible de mettre à jour la demande.');
+        }
+
+        return back()->with('success', 'Demande validée, résidence libérée.');
     }
 
 
