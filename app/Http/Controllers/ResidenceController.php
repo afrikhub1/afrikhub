@@ -163,6 +163,7 @@ $comoditesTexte = collect($comodites)
         return view('reservations.occupees', compact('residences_occupees'));
     }
 
+
     public function reservationRecu()
     {
         $userId = Auth::id();
