@@ -76,128 +76,71 @@
 
     {{-- Grid de cartes --}}
     <section>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @forelse($reservations as $res)
             @php
-                // Normalisation du statut (utilise lowercase + remplace underscore par espace)
                 $status = $res->status;
-
+                $fullWidth = ($status == 'confirmée'); // si confirmée, prend toute la place
             @endphp
 
-        <article class="bg-white rounded-2xl card-shadow overflow-hidden border transition transform hover:-translate-y-1">
+        <article class="bg-white rounded-2xl card-shadow overflow-hidden border transition transform hover:-translate-y-1
+            {{ $fullWidth ? 'sm:col-span-2 lg:col-span-3 xl:col-span-4' : '' }}">
             <div class="p-5 flex flex-col h-full">
-              {{-- Badge statut --}}
-              <div class="mb-3 flex justify-center">
-                <span class="badge-sm badge font-semibold
-                    @if($res->status == 'en attente') bg-indigo-500/50 hover:shadow-indigo-300/50
-                    @elseif($res->status == 'confirmée') bg-green-500
-                    @elseif($res->status == 'annulée') bg-red-500
-                    @else bg-yellow-700 text-white @endif">
-                    {{ $status }}
-                </span>
-              </div>
+                {{-- Badge statut --}}
+                <div class="mb-3 flex justify-center">
+                    <span class="badge-sm badge font-semibold
+                        @if($status=='en attente') bg-indigo-500/50 hover:shadow-indigo-300/50
+                        @elseif($status=='confirmée') bg-green-500
+                        @elseif($status=='annulée') bg-red-500
+                        @else bg-yellow-700 text-white @endif">
+                        {{ $status }}
+                    </span>
+                </div>
 
-              {{-- Titre résidence --}}
-              <h3 class="text-lg font-semibold text-slate-900 mb-1 truncate-2">{{ $res->residence->nom ?? 'Résidence' }}</h3>
-
-              {{-- Localisation --}}
-              <p class="text-sm text-slate-500 mb-4 flex items-center gap-2">
+                {{-- Titre et détails --}}
+                <h3 class="text-lg font-semibold text-slate-900 mb-1 truncate-2">{{ $res->residence->nom ?? 'Résidence' }}</h3>
+                <p class="text-sm text-slate-500 mb-4 flex items-center gap-2">
                 <i class="fas fa-map-marker-alt text-amber-500"></i>
                 <span>{{ $res->residence->ville ?? '-' }}, {{ $res->residence->pays ?? '-' }}</span>
-              </p>
+                </p>
 
-              {{-- Détails (dates, personnes) --}}
-              <ul class="text-sm text-slate-700 mb-4 space-y-2 flex-1">
+                <ul class="text-sm text-slate-700 mb-4 space-y-2 flex-1">
                 <li class="flex justify-between">
-                  <span class="text-slate-500">Dates</span>
-                  <span class="font-semibold">
-                    {{ \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/Y') }} → {{ \Carbon\Carbon::parse($res->date_depart)->format('d/m/Y') }}
-                  </span>
+                    <span class="text-slate-500">Dates</span>
+                    <span class="font-semibold">{{ \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/Y') }} → {{ \Carbon\Carbon::parse($res->date_depart)->format('d/m/Y') }}</span>
                 </li>
                 <li class="flex justify-between">
-                  <span class="text-slate-500">Personnes</span>
-                  <span class="font-semibold">{{ $res->personnes }}</span>
+                    <span class="text-slate-500">Personnes</span>
+                    <span class="font-semibold">{{ $res->personnes }}</span>
                 </li>
-                <li class="flex justify-between">
-                  <span class="text-slate-500">Réservé le</span>
-                  <span class="text-xs text-slate-400">{{ optional($res->created_at)->format('d/m/Y') }}</span>
-                </li>
-              </ul>
+                </ul>
 
-              {{-- Total --}}
-              <div class="mt-auto border-t pt-3">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm text-slate-500">Total estimé</p>
-                    <p class="text-xl font-extrabold text-slate-900">{{ number_format($res->total ?? 0, 0, ',', ' ') }} FCFA</p>
-                  </div>
-                </div>
-
-                {{-- Actions (une seule occurrence par action) --}}
-                <div class="mt-4 grid grid-cols-2 gap-3">
-                    {{-- Payer: visible si payable (status confirmée --}}
+                {{-- Actions --}}
+                <div class="mt-auto">
                     @if($status=='confirmée')
-                        <a href="{{ route('payer', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                            <i class="fas fa-credit-card"></i> Payer
-                        </a>
-                    @elseif ($status=='payé')
-                        <div>
-                            <button disabled
-                                class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
-                                <i class="fas fa-credit-card"></i> Payé
+                        <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" class="w-full" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
+                            @csrf
+                            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
+                                <i class="fas fa-ban"></i> Annuler
                             </button>
-                        </div>
-
-                        <div>
-                            <a href="{{ route('sejour.interrompre', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                                <i class="fas fa-stop"></i> interompre
-                            </a>
-                        </div>
-                    @endif
-
-                    @if($status=='confirmée' || $status=='en attente')
-                        <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
-                        @csrf
-                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
-                            <i class="fas fa-ban"></i> Annuler
-                        </button>
                         </form>
                     @endif
-
-                    @if ($status=='annulée')
-                        <button type="submit" class="w-full block items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700 cursor-not-allowed">
-                            <i class="fas fa-ban"></i> Annulée
-                        </button>
-                    @endif
                 </div>
-
-                {{-- Rebook / Renouveler toujours disponible (GET) --}}
-                <div class="mt-3">
-                  <a href="{{ route('reservation.rebook', $res->id) }}" class="block text-center text-sm font-semibold text-slate-700 hover:text-slate-900">
-                    <i class="fas fa-redo mr-2"></i> Renouveler
-                  </a>
-                </div>
-              </div>
             </div>
         </article>
 
         @empty
-          <div class="col-span-full">
+        <div class="col-span-full">
             <div class="bg-white rounded-2xl p-8 text-center card-shadow">
-              <p class="text-lg text-slate-500">
-                <i class="fas fa-box-open text-2xl mb-2"></i>
-              </p>
-              <p class="text-lg font-medium text-slate-700">Vous n’avez encore aucune réservation.</p>
-              <p class="text-sm text-slate-500 mt-2">Commencez par rechercher une résidence et effectuer une réservation.</p>
-              <div class="mt-4">
-                <a href="{{ route('recherche') }}" class="inline-flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                  Parcourir les résidences
-                </a>
-              </div>
+            <p class="text-lg text-slate-500"><i class="fas fa-box-open text-2xl mb-2"></i></p>
+            <p class="text-lg font-medium text-slate-700">Vous n’avez encore aucune réservation.</p>
+            <div class="mt-4">
+                <a href="{{ route('recherche') }}" class="inline-flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700">Parcourir les résidences</a>
             </div>
-          </div>
+            </div>
+        </div>
         @endforelse
-      </div>
+    </div>
     </section>
   </main>
 
