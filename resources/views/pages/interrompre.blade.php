@@ -7,8 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
-    @include('includes.messages')
+
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
+        
+        @include('includes.messages')
+
         <h1 class="text-3xl font-bold mb-6 text-gray-800">Interrompre votre séjour</h1>
 
         <p class="mb-4 text-gray-600">Résidence : <span class="font-semibold text-gray-900">{{ $residence->nom }}</span></p>
