@@ -45,9 +45,10 @@ class ResidenceController extends Controller
             }
         }
 
-        $commodites = $request->has('autres_details') && is_array($request->autres_details)
-            ? implode(", ", array_map('htmlspecialchars', $request->autres_details))
-            : "";
+        // Dans ton controller
+        $commodites = collect($request->input('autres_details', [])) // récupère le tableau ou [] si vide
+            ->map(fn($c) => htmlspecialchars($c))                   // sécurise les valeurs
+            ->implode(' - ');                                       // transforme en chaîne séparée par " - "
 
         Residence::create([
             'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
