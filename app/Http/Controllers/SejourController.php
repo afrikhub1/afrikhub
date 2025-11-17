@@ -67,4 +67,48 @@ class SejourController extends Controller
             return redirect()->back()->with('error', 'Erreur lors de l’envoi de la demande : ' . $e->getMessage());
         }
     }
+
+    /**
+     * Liste des demandes pour l'admin
+     */
+    public function adminDemandes()
+    {
+        $demandes = InterruptionRequest::where('status', 'en_attente')
+            ->with(['user', 'residence', 'reservation'])
+            ->get();
+
+        return view('admin.admin_interruptions', compact('demandes'));
+    }
+
+    /**
+     * Valider une demande (admin)
+     */
+    public function validerDemande($id)
+    {
+        $demande = InterruptionRequest::findOrFail($id);
+        $residence = $demande->residence;
+
+        // Libérer la résidence
+        $residence->disponible = 1;
+        $residence->date_disponible_apres = null;
+        $residence->save();
+
+        $demande->status = 'validee';
+        $demande->save();
+
+        return back()->with('success', 'Demande validée, résidence libérée.');
+    }
+
+    /**
+     * Rejeter une demande (admin)
+     */
+    public function rejeterDemande($id)
+    {
+        $demande = InterruptionRequest::findOrFail($id);
+        $demande->status = 'rejete';
+        $demande->save();
+
+        return back()->with('success', 'Demande rejetée.');
+    }
+
 }
