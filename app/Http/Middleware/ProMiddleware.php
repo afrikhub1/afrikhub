@@ -11,8 +11,8 @@ class ProMiddleware
     {
         // Si l'utilisateur n'est pas connecté OU n'est pas PRO
         if (!Auth::check() || Auth::user()->type_compte !== 'professionnel') {
-            return redirect('/')
-                ->with('error', 'Accès réservé aux professionnels.');
+            Auth::logout();
+            return redirect('/')->with('error', 'Accès réservé aux professionnels.');
         }
 
         return $next($request);
