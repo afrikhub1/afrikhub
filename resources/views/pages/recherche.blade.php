@@ -276,7 +276,7 @@
                                     </p>
                                     <ul class="list-unstyled small mb-3 mt-2">
                                         <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
-                                        <i class="fas fa-bed me-2 text-primary"></i> <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}</li>
+                                        <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}</li>
                                         <li><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}</li>
                                         <li class="fw-bold mt-2">
                                             <i class="fas fa-money-bill-wave me-2 text-success"></i>
@@ -294,24 +294,21 @@
                                             $today = Carbon::today();
                                         @endphp
 
-                                        {{-- DISPONIBLE DEPUIS AVANT AUJOURD’HUI --}}
-                                        @if ($dateDispo->isPast())
-                                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
-                                                Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
-                                            </span>
-
-                                        {{-- DISPONIBLE AUJOURD’HUI --}}
-                                        @elseif ($dateDispo->isToday())
-                                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
-                                                Disponible
-                                            </span>
-
-                                        {{-- NON DISPONIBLE (DATE FUTURE) --}}
-                                        @else
-                                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
-                                                Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
-                                            </span>
-                                        @endif
+                                        <li class="mt-2">
+                                            @if ($dateDispo->isPast())
+                                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                                    Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                </span>
+                                            @elseif ($dateDispo->isToday())
+                                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                                    Disponible
+                                                </span>
+                                            @else
+                                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                                                    Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                </span>
+                                            @endif
+                                        </li>
 
                                     </ul>
 
