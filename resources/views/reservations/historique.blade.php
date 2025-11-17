@@ -22,7 +22,7 @@
                     @else border-yellow-500/50 hover:shadow-red-300/50 @endif
                     transition duration-300 transform hover:scale-[1.01]">
 
-                    <div class="p-5 f   lex flex-col flex-grow text-center">
+                    <div class="p-5 flex flex-col flex-grow text-center">
 
                         <!-- STATUT -->
                         <div class="mb-3">
