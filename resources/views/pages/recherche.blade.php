@@ -287,6 +287,32 @@
                                             Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                         </li>
 
+                                        @php
+                                            use Carbon\Carbon;
+
+                                            $dateDispo = Carbon::parse($residence->date_disponible); // date de la résidence
+                                            $today = Carbon::today();
+                                        @endphp
+
+                                        {{-- DISPONIBLE DEPUIS AVANT AUJOURD’HUI --}}
+                                        @if ($dateDispo->isPast())
+                                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                                Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                            </span>
+
+                                        {{-- DISPONIBLE AUJOURD’HUI --}}
+                                        @elseif ($dateDispo->isToday())
+                                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                                Disponible
+                                            </span>
+
+                                        {{-- NON DISPONIBLE (DATE FUTURE) --}}
+                                        @else
+                                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                                                Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                            </span>
+                                        @endif
+
                                     </ul>
 
                                     <a href="{{ route('details', $residence->id) }}" class="btn btn-dark-secondary rounded-pill mt-auto">
