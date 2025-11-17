@@ -79,6 +79,9 @@ class SejourController extends Controller
     public function validerDemande($id)
     {
         $demande = InterruptionRequest::where('id', $id)->first();
+        dd([
+            'demande_id' => $demande->id,
+        ]);
         if (!$demande) {
             return back()->with('error', 'Demande introuvable.');
         }
