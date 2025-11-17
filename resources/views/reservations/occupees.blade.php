@@ -3,7 +3,8 @@
 @section('dashboard', '- residences occupées')
 
 @section('main')
-    <div class="container mx-auto p-2">
+    <div class="container-fluid px-2 py-2 mt-2">
+
         <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
             <h1 class="text-4xl font-extrabold text-red-600 mb-8 text-center border-b-4 border-red-500 pb-3">
                 <i class="fas fa-lock-open text-3xl mr-3"></i> Résidences Actuellement Occupées
@@ -17,7 +18,7 @@
                         <p class="text-sm mt-1">Les résidences disponibles ne figurent pas dans cette liste.</p>
                     </div>
                 @else
-                    <div class="flex flex-wrap gap-6 justify-center">
+                    <div class="grid grid-cols-1 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
                         @foreach($residences_occupees as $residences_occupees)
                             <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
                                 <div>

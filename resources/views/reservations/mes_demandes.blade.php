@@ -4,7 +4,7 @@
 
 @section('main')
     <!-- Main Content Area (Ajusté pour le Header) -->
-    <div class="container mx-auto p-2 mt-4">
+    <div class="container-fluid px-2 py-2 mt-2">
 
         <!-- Titre Principal de la Page -->
         <h1 class="text-3xl lg:text-4xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
@@ -18,7 +18,7 @@
                 <p class="text-sm mt-1">Revenez plus tard pour de nouvelles demandes.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
                 @foreach($demandes as $res)
                     @php
                         $residence = $res->residence;
