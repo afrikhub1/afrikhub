@@ -36,9 +36,9 @@ class SejourController extends Controller
     /**
      * Envoyer la demande d'interruption
      */
-    public function demanderInterruption(Request $request, $reservationId)
+    public function demanderInterruption(Request $request, $reservation)
     {
-        $reservation = Reservation::where('id', $reservationId)->first();
+        $reservation = Reservation::where('id', $reservation)->first();
         if (!$reservation) {
             return redirect()->back()->with('error', 'Réservation introuvable.');
         }
