@@ -78,15 +78,9 @@ class SejourController extends Controller
             ->with(['user', 'residence', 'reservation'])
             ->get();
 
-        $validees = InterruptionRequest::where('status', 'validee')
-            ->with(['user', 'residence', 'reservation'])
-            ->get();
 
-        $validerefusees = InterruptionRequest::where('status', 'rejete')
-            ->with(['user', 'residence', 'reservation'])
-            ->get();
 
-        return view('admin.admin_interruptions', compact('demandes', 'validerefusees', 'validees'));
+        return view('admin.admin_interruptions', compact('demandes'));
     }
 
     /**
