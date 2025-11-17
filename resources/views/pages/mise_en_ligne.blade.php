@@ -196,7 +196,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-fluid">
            <h1>
-                <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
+                <img class="h-auto" style="width: 80px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
            </h1>
 
             <!-- Liens pour les grands écrans (affichés en ligne) -->

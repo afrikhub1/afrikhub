@@ -195,8 +195,15 @@
       <div class="d-flex align-items-center">
         {{-- Desktop links --}}
         <div class="nav-links d-none d-lg-flex align-items-center me-3">
-          <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
-          <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
+            <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
+
+            @if(Auth::user()->type_compte == 'client')
+                <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
+
+            @else
+                <a class="nav-link" href="{{ route('dashboard') }}">Profil</a>
+
+            @endif
         </div>
 
         {{-- Quick actions --}}
