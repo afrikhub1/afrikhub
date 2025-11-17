@@ -195,12 +195,9 @@
     <!-- HEADER RESPONSIVE -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-fluid">
-            <!-- Logo et Nom de l'application -->
-            <a class="navbar-brand" href="#">
-                <!-- Utilisation d'une icône Font Awesome pour le logo, en l'absence de l'image -->
-                <i class="fa-solid fa-house-chimney" style="font-size: 1.5em;"></i>
-                Afrik'Hub
-            </a>
+           <h1>
+                <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
+           </h1>
 
             <!-- Liens pour les grands écrans (affichés en ligne) -->
             <div class="collapse navbar-collapse desktop-nav-links" id="navbarNavDesktop">
