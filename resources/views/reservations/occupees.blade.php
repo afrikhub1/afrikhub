@@ -33,7 +33,7 @@
                                     <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residences_occupees->nombre_salons }}</p>
                                 </div>
                                 <button class="w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
-                                    <a href="{{ route('sejour.interrompre', $res->id) }}"
+                                    <a href="{{ route('sejour.interrompre', $residences_occupees->id) }}"
                                         class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
                                         px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
                                         <i class="fas fa-stop"></i> Interrompre
