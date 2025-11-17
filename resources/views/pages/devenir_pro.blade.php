@@ -27,7 +27,7 @@
         <div class="bg-white shadow-xl rounded-2xl p-10 max-w-lg w-full text-center">
 
             <!-- Logo -->
-            <img src="{{ asset('assets/images/logo_01.png') }}"
+            <img src="{{ asset('assets/images/logo.png') }}"
                 alt="AfrikHub Logo"
                 class="w-24 mx-auto mb-6">
 
