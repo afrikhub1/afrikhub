@@ -9,86 +9,133 @@
 
   <style>
     body {
-      background-color: #F5F5F5;
-      color: #000000;
-      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+      font-family: 'Poppins', Arial, sans-serif;
     }
 
     header {
       background-color: #FFA500;
-      color: #000000;
+      color: #fff;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     header h1 {
       margin: 0;
-      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    header h1 img {
+      height: 40px;
+      width: auto;
     }
 
     .menu-links a {
       text-decoration: none;
-      color: #000000;
-      font-weight: 600;
+      color: #fff;
+      font-weight: 500;
       margin: 0 0.5rem;
+      transition: 0.3s;
     }
 
     .menu-links a:hover {
-      color: #FFFFFF;
+      color: #212529;
     }
 
     fieldset {
-      background-color: #FFFFFF;
+      background-color: #fff;
       border: 2px solid #FFA500;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
     }
 
     legend {
-      font-weight: bold;
+      font-weight: 700;
       color: #FFA500;
+      padding: 0 0.5rem;
+      font-size: 1.2rem;
     }
 
     .form-label {
       font-weight: 600;
-      color: #000000;
     }
 
     .form-control, .form-select {
       border: 1px solid #FFA500;
+      border-radius: 0.375rem;
     }
 
     .form-control:focus, .form-select:focus {
-      border-color: #FFA500;
-      box-shadow: 0 0 5px rgba(255,165,0,0.5);
+      border-color: #ff8c00;
+      box-shadow: 0 0 8px rgba(255,165,0,0.3);
     }
 
     .btn-submit {
       background-color: #FFA500;
-      color: #FFFFFF;
+      color: #fff;
       border: none;
+      font-weight: 600;
+      padding: 0.6rem 2rem;
+      border-radius: 0.5rem;
+      transition: 0.3s;
     }
 
     .btn-submit:hover {
       background-color: #e69500;
+      color: #fff;
     }
 
     .container h2 {
       color: #FFA500;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
     }
 
     .form-check-label {
-      color: #000000;
+      color: #212529;
+      font-weight: 500;
+    }
+
+    .form-check {
+      cursor: pointer;
+    }
+
+    .form-check-input:checked {
+      background-color: #FFA500;
+      border-color: #FFA500;
+    }
+
+    .form-check-input {
+      cursor: pointer;
+    }
+
+    .shadow-sm {
+      transition: 0.3s;
+    }
+
+    .shadow-sm:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
   </style>
 </head>
 
 <body>
   <header class="container-fluid">
-    <h1>Afrik'Hub</h1>
+    <h1>
+      <img src="{{ asset('css/images/logo_01.png') }}" alt="Afrik'Hub Logo">
+      Afrik'Hub
+    </h1>
     <div class="menu-links">
       <a href="#">Accueil</a>
       <a href="#">Pro</a>
@@ -98,13 +145,14 @@
     </div>
   </header>
 
-  <div class="container mt-5">
+  <div class="container mt-5 mb-5">
     <h2>Mettre votre résidence en location</h2>
 
     <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+      @csrf
 
-      <fieldset class="mb-4 p-3 rounded">
+      <!-- Informations générales -->
+      <fieldset class="mb-4">
         <legend>Informations générales</legend>
         <div class="row g-3">
           <div class="col-md-6">
@@ -122,7 +170,8 @@
         </div>
       </fieldset>
 
-      <fieldset class="mb-4 p-3 rounded">
+      <!-- Détails de la résidence -->
+      <fieldset class="mb-4">
         <legend>Détails de la résidence</legend>
         <div class="row g-3">
           <div class="col-md-4">
@@ -155,43 +204,46 @@
           </div>
         </div>
 
-        <div class="mt-3">
-            <label class="form-label fw-semibold">Commodités</label>
-            <div class="row g-3">
-                @php
-                    $commodites = [
-                        "Climatisation","Wi-Fi","Télévision","Eau chaude","Parking",
-                        "Cuisine équipée","Machine à laver","Sécurité 24h/24","Piscine",
-                        "Balcon/Terrasse","Générateur","Caméras de surveillance","Animaux autorisés"
-                    ];
-                @endphp
+        <!-- Commodités -->
+        <div class="mt-4">
+          <label class="form-label fw-semibold">Commodités</label>
+          <div class="row g-3">
+            @php
+              $commodites = [
+                  "Climatisation","Wi-Fi","Télévision","Eau chaude","Parking",
+                  "Cuisine équipée","Machine à laver","Sécurité 24h/24","Piscine",
+                  "Balcon/Terrasse","Générateur","Caméras de surveillance","Animaux autorisés"
+              ];
+            @endphp
 
-                @foreach ($commodites as $c)
-                    @php $id = 'comodite_' . md5($c); @endphp
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="form-check d-flex align-items-center gap-2 p-2 shadow-sm rounded bg-light">
-                            <input
-                                class="form-check-input mt-0"
-                                type="checkbox"
-                                name="autres_details[]"
-                                value="{{ $c }}"
-                                id="{{ $id }}"
-                            >
-                            <label class="form-check-label" for="{{ $id }}">
-                                {{ $c }}
-                            </label>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+            @foreach ($commodites as $c)
+              @php $id = 'comodite_' . md5($c); @endphp
+              <div class="col-12 col-sm-6 col-md-4">
+                <div class="form-check d-flex align-items-center gap-2 p-2 shadow-sm rounded bg-light">
+                  <input
+                    class="form-check-input mt-0"
+                    type="checkbox"
+                    name="autres_details[]"
+                    value="{{ $c }}"
+                    id="{{ $id }}"
+                  >
+                  <label class="form-check-label" for="{{ $id }}">
+                    {{ $c }}
+                  </label>
+                </div>
+              </div>
+            @endforeach
+          </div>
         </div>
+
         <div class="mt-4">
           <label class="form-label">Coordonnées géographiques</label>
           <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Latitude, Longitude ou lien Google Maps" required>
         </div>
       </fieldset>
 
-      <fieldset class="mb-4 p-3 rounded">
+      <!-- Images -->
+      <fieldset class="mb-4">
         <legend>Images</legend>
         <label for="images" class="form-label">Ajouter des images (min. 1)</label>
         <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
