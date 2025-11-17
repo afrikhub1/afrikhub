@@ -41,7 +41,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($reservations as $reservation)
-                        <tr>
+                        <tr class="residence-item">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{ $reservation->id }}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap">

@@ -38,7 +38,7 @@
             </thead>
             <tbody>
                 @foreach ($utilisateurs as $user)
-                    <tr>
+                    <tr class="residence-item">
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
