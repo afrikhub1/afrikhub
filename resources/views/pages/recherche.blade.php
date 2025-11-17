@@ -180,9 +180,8 @@
             </li>
         </ul>
 
-        <!-- Menu Button (Visible sur TOUS les écrans) -->
+        <!--Bouton menu -->
         <button id="toggleSidebar" class="btn btn-link ms-3 p-0" type="button" aria-label="Menu">
-             <!-- Icône blanche sur fond sombre -->
              <i class="fas fa-bars fa-lg text-white"></i>
         </button>
     </div>
@@ -275,9 +274,18 @@
                                         {{ Str::limit($residence->description, 100) }}
                                     </p>
                                     <ul class="list-unstyled small mb-3 mt-2">
-                                        <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
-                                        <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}</li>
-                                        <li><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}</li>
+                                        <li>
+                                            <i class="fas fa-bed me-2 text-primary"></i>
+                                            <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-bed me-2 text-primary"></i>
+                                            <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                                            <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}
+                                        </li>
                                         <li class="fw-bold mt-2">
                                             <i class="fas fa-money-bill-wave me-2 text-success"></i>
                                             Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
@@ -287,28 +295,30 @@
                                             Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                         </li>
 
-                                        @php
-                                            use Carbon\Carbon;
-
-                                            $dateDispo = Carbon::parse($residence->date_disponible); // date de la résidence
-                                            $today = Carbon::today();
+                                       @php
+                                            $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
                                         @endphp
 
-                                        <li class="mt-2">
-                                            @if ($dateDispo->isPast())
+                                        @if ($dateDispo->isPast())
+                                            <li>
                                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
                                                     Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
                                                 </span>
-                                            @elseif ($dateDispo->isToday())
+                                            </li>
+                                        @elseif ($dateDispo->isToday())
+                                            <li>
                                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
                                                     Disponible
                                                 </span>
-                                            @else
+                                            </li>
+                                        @else
+                                            <li>
                                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
                                                     Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
                                                 </span>
-                                            @endif
-                                        </li>
+                                            </li>
+                                        @endif
+
 
                                     </ul>
 
