@@ -137,11 +137,13 @@
                             </button>
                         </div>
                         <div>
-                            <a href="{{ route('sejour.interrompre', $res->id) }}"
-                                class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
-                                px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                                <i class="fas fa-stop"></i> interompre
-                            </a>
+                            <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                                <a href="{{ route('sejour.interrompre', $res->id) }}"
+                                    class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
+                                    px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
+                                    <i class="fas fa-stop"></i> interompre
+                                </a>
+                            </button>
                         </div>
                     @endif
                     {{-- Rebook / Renouveler toujours disponible (GET) --}}
