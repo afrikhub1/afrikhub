@@ -92,7 +92,12 @@ class SejourController extends Controller
             ->where('residence_id', $demande->residence_id)
             ->first();
         if (!$reservation) {
-            return back()->with('error', 'Réservation introuvable ou ne correspond pas à la résidence.');
+            dd([
+                'demande' => $demande,
+                'reservation' => Reservation::where('id', $demande->reservation_id)
+                    ->where('residence_id', $demande->residence_id)
+                    ->first()
+            ]);
         }
 
         // Libérer la résidence
