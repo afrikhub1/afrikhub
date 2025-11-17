@@ -14,7 +14,10 @@ class AdminMiddleware
             Auth::guard('admin')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect()->route('admin.login')->with('error', 'Accès refusé.');
+            return response()->view('pages.force_logout', [
+                'redirect' => route('login'),
+                'message' => 'Accès réservé aux clients. Vous avez été déconnecté.'
+            ]);
         }
         return $next($request);
     }

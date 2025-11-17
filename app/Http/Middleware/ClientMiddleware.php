@@ -19,7 +19,10 @@ class ClientMiddleware
             Auth::logout();                       // Déconnexion du guard 'web' par défaut
             $request->session()->invalidate();    // Invalide la session
             $request->session()->regenerateToken(); // Régénère le token CSRF
-            return redirect('/')->with('error', 'Accès réservé aux clients.');
+            return response()->view('pages.force_logout', [
+                'redirect' => route('login'),
+                'message' => 'Accès réservé aux clients. Vous avez été déconnecté.'
+            ]);
         }
 
         return $next($request);
