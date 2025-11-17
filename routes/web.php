@@ -14,7 +14,6 @@ use App\Http\Controllers\DevenirProController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ProMiddleware;
-use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SejourController;
 
@@ -38,13 +37,12 @@ Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post'
 Route::middleware(['auth'])->group(function () {
 
     // Pages résidences
-    Route::get('liste_residences', fn() => view('pages.residences'))->name('residences');
+    Route::get('/liste_residences', fn() => view('pages.residences'))->name('residences');
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
     Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
     // Recherche
-    Route::get('/recherche', fn() => view('pages.recherche'))->name('recherche'); // page de recherche
-    Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche'); // fonction de recherche
+    Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche');
 
     // Réservations
     Route::post('/reservation/{id}', [ReservationController::class, 'store'])->name('reservation.store');
@@ -58,13 +56,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
 
     // Devenir Pro
-    Route::get('/devenir-pro', [DevenirProController::class, 'devenirPro'])
-        ->name('devenir_pro');
-
-    Route::post('/devenir-pro', [DevenirProController::class, 'validerDevenirPro'])
-        ->name('valider_devenir_pro');
-
-
+    Route::get('/devenir-pro', [DevenirProController::class, 'devenirPro'])->name('devenir_pro');
+    Route::post('/devenir-pro', [DevenirProController::class, 'validerDevenirPro'])->name('valider_devenir_pro');
 
     // Professionnel (Pro)
     Route::middleware([ProMiddleware::class])->group(function () {
@@ -85,6 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
     Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
 
+    // Interruption séjour
     Route::get('/interrompre/{id}', [SejourController::class, 'interrompreForm'])->name('sejour.interrompre');
     Route::post('/interrompre/{id}', [SejourController::class, 'demanderInterruption'])->name('sejour.demander');
 });
@@ -96,23 +90,25 @@ Route::post('/paiement/webhook', [PaiementController::class, 'webhook'])
     ->name('paiement.webhook')
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
 
-// Mise à jour automatique des statuts / disponibilités
+// Mise à jour automatique
 Route::get('/auto/terminer', [Mise_a_jour::class, 'terminerReservationsDuJour']);
 
 // --------------------------------------------------
 // ROUTES ADMIN
 // --------------------------------------------------
-// Login Admin (PUBLIC, en dehors du middleware auth)
+
+// Login Admin (PUBLIC)
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
-// Dashboard et gestion admin (PROTÉGÉ par middleware AdminMiddleware)
+// Dashboard et gestion admin (PROTÉGÉ)
 Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('admin_residences', [AdminController::class, 'residences'])->name('admin.residences');
+    Route::get('/admin_residences', [AdminController::class, 'residences'])->name('admin.residences');
+
     // Gestion des Residences
     Route::delete('/residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
     Route::get('/residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
@@ -129,10 +125,8 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::get('/users/{user}/residences', [AdminController::class, 'showUserResidences'])->name('admin.users.residences');
     Route::post('/users/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('admin.users.toggle_suspension');
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
-});
 
-
-Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
+    // Gestion interruptions
     Route::get('/interruptions', [SejourController::class, 'adminDemandes'])->name('admin.demande.interruptions');
     Route::post('/interruptions/{id}/valider', [SejourController::class, 'validerDemande'])->name('admin.demande.valider');
     Route::post('/interruptions/{id}/rejeter', [SejourController::class, 'rejeterDemande'])->name('admin.demande.rejeter');
