@@ -1,6 +1,10 @@
 @extends('admin.header_footer')
 
-@section('titre', 'Demandes d\'interruption')
+@section('titre', 'Demandes interruption')
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/admin_residences.css') }}">
+@endsection
 
 @section('main')
 
