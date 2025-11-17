@@ -38,7 +38,7 @@ Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post'
 Route::middleware(['auth'])->group(function () {
 
     // Pages résidences
-    Route::get('/residences', fn() => view('pages.residences'))->name('residences');
+    Route::get('admin_residences', fn() => view('pages.residences'))->name('residences');
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
     Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
@@ -113,7 +113,7 @@ Route::prefix('admin')->group(function () {
 // Dashboard et gestion admin (PROTÉGÉ par middleware AdminMiddleware)
 Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/residences', [AdminController::class, 'residences'])->name('admin.residences');
+    Route::get('admin_residences', [AdminController::class, 'residences'])->name('admin.residences');
     // Gestion des Residences
     Route::delete('/residences/{residence}/sup', [AdminController::class, 'suppression'])->name('admin.residences.sup');
     Route::get('/residences/{residence}/edit', [AdminController::class, 'modification'])->name('admin.residences.edit');
