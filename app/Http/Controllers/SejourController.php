@@ -15,15 +15,14 @@ class SejourController extends Controller
      */
     public function interrompreForm($id)
     {
-        $residence = Residence::find($id);
-        if (!$residence) {
+        $reservation = Reservation::find($id);
+        if (!$reservation) {
             return redirect()->back()->with('error', 'Résidence introuvable.');
         }
-
         $userId = Auth::id();
 
         // Vérifie si l'utilisateur a une réservation pour cette résidence
-        $reservation = Reservation::where('residence_id', $residence->id)
+        $reservation = Residence::where('reservation_id', $reservation->id)
             ->where('user_id', $userId)
             ->first();
 
