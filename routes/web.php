@@ -38,7 +38,7 @@ Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post'
 Route::middleware(['auth'])->group(function () {
 
     // Pages résidences
-    Route::get('admin_residences', fn() => view('pages.residences'))->name('residences');
+    Route::get('liste_residences', fn() => view('pages.residences'))->name('residences');
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
     Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
@@ -53,7 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mes-demandes', [ReservationController::class, 'mesDemandes'])->name('mes_demandes');
 
     // Mode client
-
     Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
     Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');
     Route::get('/facture/{reservationId}/telecharger', [ClientController::class, 'telechargerFacture'])->name('facture.telecharger');
