@@ -45,17 +45,18 @@ class ResidenceController extends Controller
             }
         }
 
-        // Dans ton controller
-        $commodites = collect($request->input('autres_details', [])) // récupère le tableau ou [] si vide
-            ->map(fn($c) => htmlspecialchars($c))                   // sécurise les valeurs
-            ->implode(' - ');                                       // transforme en chaîne séparée par " - "
+        // Récupérer les commodités cochées et transformer en texte séparé par tirets
+        $comodites = $request->input('autres_details', []); // [] si rien coché
+        $comoditesTexte = collect($comodites)
+            ->map(fn($c) => htmlspecialchars($c)) // sécurise le texte
+            ->implode(' - '); // concatène avec des tirets
 
+        // Ensuite, lors de la création
         Residence::create([
-            'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
+            'proprietaire_id' => Auth::id(),
             'nom' => $request->nom_residence,
-            'quartier' => $request->details_position,
+            'description' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
-            'type_residence' => $request->type_residence,
             'nombre_salons' => $request->nb_salons,
             'prix_journalier' => $request->prix_jour,
             'ville' => $request->ville,
@@ -63,7 +64,7 @@ class ResidenceController extends Controller
             'geolocalisation' => $request->geolocalisation,
             'img' => json_encode($imagesPath),
             'statut' => 'en_attente',
-            'commodites'=> $commodites
+            'comodites' => $comoditesTexte, // ← ici
         ]);
 
         dd($request->all());
