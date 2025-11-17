@@ -91,14 +91,21 @@ class SejourController extends Controller
         $reservation = Reservation::where('id', $demande->reservation_id)
             ->where('residence_id', $demande->residence_id)
             ->first();
+
         if (!$reservation) {
+            // Affiche toutes les valeurs impliquées
             dd([
-                'demande' => $demande,
-                'reservation' => Reservation::where('id', $demande->reservation_id)
+                'demande_id' => $demande->id,
+                'demande_reservation_id' => $demande->reservation_id,
+                'demande_residence_id' => $demande->residence_id,
+                'reservations_table' => Reservation::select('id', 'residence_id')->get()->toArray(),
+                'query_attempt' => Reservation::where('id', $demande->reservation_id)
                     ->where('residence_id', $demande->residence_id)
-                    ->first()
+                    ->toSql(),
+                'bindings' => [$demande->reservation_id, $demande->residence_id],
             ]);
         }
+
 
         // Libérer la résidence
         $residence->disponible = 1;
