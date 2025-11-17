@@ -77,6 +77,22 @@
                     Profil
                 </a>
 
+                <!-- Bouton Ajouter une résidence -->
+                <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Ajouter une résidence
+                </a>
+
+                <!-- Bouton Mes réservations -->
+                <a href="{{ route('clients_historique')}}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0h6"/>
+                    </svg>
+                    Mes réservations
+                </a>
+
 
                     <!-- Bouton toggle sidebar -->
                     <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition">
