@@ -2,259 +2,330 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mettre résidence en location - Afrik'Hub</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mettre résidence en location - Afrik'Hub</title>
+    <!-- Bootstrap 5 CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <style>
-    body {
-      background-color: #f8f9fa;
-      color: #212529;
-      font-family: 'Poppins', Arial, sans-serif;
-    }
+    <style>
+        :root {
+            --primary-color: #FFA500;
+            --primary-dark: #e69500;
+        }
 
-    header {
-      background-color: #FFA500;
-      color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
 
-    header h1 {
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 700;
-      font-size: 1.8rem;
-    }
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
 
-    header h1 img {
-      height: 40px;
-      width: auto;
-    }
+        header h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
 
-    .menu-links a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      margin: 0 0.5rem;
-      transition: 0.3s;
-    }
+        header h1 img {
+            height: 40px;
+            width: auto;
+        }
 
-    .menu-links a:hover {
-      color: #212529;
-    }
+        .menu-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: 0.3s;
+        }
 
-    fieldset {
-      background-color: #fff;
-      border: 2px solid #FFA500;
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-    }
+        .menu-links a:hover {
+            color: #212529;
+        }
 
-    legend {
-      font-weight: 700;
-      color: #FFA500;
-      padding: 0 0.5rem;
-      font-size: 1.2rem;
-    }
+        fieldset {
+            background-color: #fff;
+            border: 1px solid #dee2e6; /* Lighter border for modern look */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
 
-    .form-label {
-      font-weight: 600;
-    }
+        legend {
+            font-weight: 700;
+            color: var(--primary-color);
+            padding: 0 1rem;
+            font-size: 1.4rem;
+            width: inherit; /* Permet à la legend de prendre la taille de son contenu */
+            margin-left: -0.5rem;
+        }
 
-    .form-control, .form-select {
-      border: 1px solid #FFA500;
-      border-radius: 0.375rem;
-    }
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
 
-    .form-control:focus, .form-select:focus {
-      border-color: #ff8c00;
-      box-shadow: 0 0 8px rgba(255,165,0,0.3);
-    }
+        .form-control, .form-select {
+            border: 1px solid #ced4da;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            height: auto;
+        }
 
-    .btn-submit {
-      background-color: #FFA500;
-      color: #fff;
-      border: none;
-      font-weight: 600;
-      padding: 0.6rem 2rem;
-      border-radius: 0.5rem;
-      transition: 0.3s;
-    }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25);
+        }
 
-    .btn-submit:hover {
-      background-color: #e69500;
-      color: #fff;
-    }
+        /* Styles spécifiques pour l'input group pour les icônes */
+        .input-group-text {
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-right: none;
+            color: var(--primary-color);
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        .input-group .form-control:focus {
+            z-index: 10;
+        }
 
-    .container h2 {
-      color: #FFA500;
-      margin-bottom: 2rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 2rem;
-    }
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 0.8rem 3rem;
+            border-radius: 0.5rem;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+        }
 
-    .form-check-label {
-      color: #212529;
-      font-weight: 500;
-    }
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.6);
+            transform: translateY(-2px);
+        }
 
-    .form-check {
-      cursor: pointer;
-    }
+        .container h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
 
-    .form-check-input:checked {
-      background-color: #FFA500;
-      border-color: #FFA500;
-    }
+        /* Style des commodités */
+        .commodite-item {
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
 
-    .form-check-input {
-      cursor: pointer;
-    }
+        .commodite-item:hover {
+            background-color: #ffeccf !important;
+            border-color: var(--primary-dark);
+        }
 
-    .shadow-sm {
-      transition: 0.3s;
-    }
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
 
-    .shadow-sm:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-  </style>
+        /* Style pour l'input file */
+        #images {
+            padding: 1.5rem 1rem;
+            border: 2px dashed #ffddaf;
+        }
+
+    </style>
 </head>
 
 <body>
-  <header class="container-fluid">
-    <h1>
-      <img src="{{ asset('css/images/logo_01.png') }}" alt="Afrik'Hub Logo">
-      Afrik'Hub
-    </h1>
-    <div class="menu-links">
-      <a href="#">Accueil</a>
-      <a href="#">Pro</a>
-      <a href="#">Utilisateur</a>
-      <a href="#">Recherche</a>
-      <a href="#">Déconnexion</a>
-    </div>
-  </header>
-
-  <div class="container mt-5 mb-5">
-    <h2>Mettre votre résidence en location</h2>
-
-    <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
-      @csrf
-
-      <!-- Informations générales -->
-      <fieldset class="mb-4">
-        <legend>Informations générales</legend>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="nom_residence" class="form-label">Nom de la résidence</label>
-            <input type="text" class="form-control" id="nom_residence" name="nom_residence" required>
-          </div>
-          <div class="col-md-3">
-            <label for="pays" class="form-label">Pays</label>
-            <input type="text" class="form-control" id="pays" name="pays" required>
-          </div>
-          <div class="col-md-3">
-            <label for="ville" class="form-label">Ville</label>
-            <input type="text" class="form-control" id="ville" name="ville" required>
-          </div>
+    <header class="container-fluid">
+        <h1>
+            <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
+        </h1>
+        <div class="menu-links">
+            <a href="#"><i class="fas fa-home me-1"></i> Accueil</a>
+            <a href="#"><i class="fas fa-briefcase me-1"></i> Pro</a>
+            <a href="#"><i class="fas fa-user-circle me-1"></i> Utilisateur</a>
+            <a href="#"><i class="fas fa-search me-1"></i> Recherche</a>
+            <a href="#"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
         </div>
-      </fieldset>
+    </header>
 
-      <!-- Détails de la résidence -->
-      <fieldset class="mb-4">
-        <legend>Détails de la résidence</legend>
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label for="type_residence" class="form-label">Type de résidence</label>
-            <select class="form-select" id="type_residence" name="type_residence" required>
-              <option value="" disabled selected>Sélectionnez un type</option>
-              <option value="Appartement">Appartement</option>
-              <option value="Maison">Maison basse</option>
-              <option value="Studio">Studio</option>
-              <option value="Villa">Villa</option>
-              <option value="Chalet">Chalet</option>
-              <option value="Autre">Autre</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="nb_chambres" class="form-label">Nombre de chambres</label>
-            <input type="number" class="form-control" id="nb_chambres" name="nb_chambres" min="1" required>
-          </div>
-          <div class="col-md-4">
-            <label for="nb_salons" class="form-label">Nombre de salons</label>
-            <input type="number" class="form-control" id="nb_salons" name="nb_salons" min="0" required>
-          </div>
-          <div class="col-md-4">
-            <label for="prix_jour" class="form-label">Prix par jour (FCFA)</label>
-            <input type="number" class="form-control" id="prix_jour" name="prix_jour" min="1" required>
-          </div>
-          <div class="col-md-8">
-            <label for="details_position" class="form-label">Repère proche de la résidence</label>
-            <input type="text" class="form-control" id="details_position" name="details_position" placeholder="Ex: Cocody derrière la RTI" required>
-          </div>
-        </div>
+    <div class="container mt-5 mb-5">
+        <h2>Mettre votre résidence en location</h2>
 
-        <!-- Commodités -->
-        <div class="mt-4">
-          <label class="form-label fw-semibold">Commodités</label>
-          <div class="row g-3">
-            @php
-              $commodites = [
-                  "Climatisation","Wi-Fi","Télévision","Eau chaude","Parking",
-                  "Cuisine équipée","Machine à laver","Sécurité 24h/24","Piscine",
-                  "Balcon/Terrasse","Générateur","Caméras de surveillance","Animaux autorisés"
-              ];
-            @endphp
+        <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-            @foreach ($commodites as $c)
-              @php $id = 'comodite_' . md5($c); @endphp
-              <div class="col-12 col-sm-6 col-md-4">
-                <div class="form-check d-flex align-items-center gap-2 p-2 shadow-sm rounded bg-light">
-                  <input
-                    class="form-check-input mt-0"
-                    type="checkbox"
-                    name="autres_details[]"
-                    value="{{ $c }}"
-                    id="{{ $id }}"
-                  >
-                  <label class="form-check-label" for="{{ $id }}">
-                    {{ $c }}
-                  </label>
+            <!-- Informations générales -->
+            <fieldset class="mb-5">
+                <legend>Informations générales <i class="fas fa-info-circle"></i></legend>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label for="nom_residence" class="form-label">Nom de la résidence</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                            <input type="text" class="form-control" id="nom_residence" name="nom_residence" placeholder="Nom de votre annonce" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="pays" class="form-label">Pays</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-globe-africa"></i></span>
+                            <input type="text" class="form-control" id="pays" name="pays" placeholder="Ex: Côte d'Ivoire" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ville" class="form-label">Ville</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-city"></i></span>
+                            <input type="text" class="form-control" id="ville" name="ville" placeholder="Ex: Abidjan" required>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            @endforeach
-          </div>
-        </div>
+            </fieldset>
 
-        <div class="mt-4">
-          <label class="form-label">Coordonnées géographiques</label>
-          <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Latitude, Longitude ou lien Google Maps" required>
-        </div>
-      </fieldset>
+            <!-- Détails de la résidence -->
+            <fieldset class="mb-5">
+                <legend>Détails de la résidence <i class="fas fa-bed"></i></legend>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <label for="type_residence" class="form-label">Type de résidence</label>
+                        <select class="form-select" id="type_residence" name="type_residence" required>
+                            <option value="" disabled selected>Sélectionnez un type</option>
+                            <option value="Appartement">Appartement</option>
+                            <option value="Maison">Maison basse</option>
+                            <option value="Studio">Studio</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Chalet">Chalet</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nb_chambres" class="form-label">Nombre de chambres</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-person-booth"></i></span>
+                            <input type="number" class="form-control" id="nb_chambres" name="nb_chambres" min="1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nb_salons" class="form-label">Nombre de salons</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-couch"></i></span>
+                            <input type="number" class="form-control" id="nb_salons" name="nb_salons" min="0" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="prix_jour" class="form-label">Prix par jour (FCFA)</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
+                            <input type="number" class="form-control" id="prix_jour" name="prix_jour" min="1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="details_position" class="form-label">Repère proche de la résidence</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" class="form-control" id="details_position" name="details_position" placeholder="Ex: Cocody derrière la RTI" required>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Images -->
-      <fieldset class="mb-4">
-        <legend>Images</legend>
-        <label for="images" class="form-label">Ajouter des images (min. 1)</label>
-        <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
-      </fieldset>
+                <!-- Commodités -->
+                <div class="mt-5">
+                    <label class="form-label fw-semibold">Commodités <i class="fas fa-star"></i></label>
+                    <div class="row g-3">
+                        @php
+                            $commodites = [
+                                "Climatisation" => "fa-snowflake",
+                                "Wi-Fi" => "fa-wifi",
+                                "Télévision" => "fa-tv",
+                                "Eau chaude" => "fa-shower",
+                                "Parking" => "fa-car",
+                                "Cuisine équipée" => "fa-utensils",
+                                "Machine à laver" => "fa-washer",
+                                "Sécurité 24h/24" => "fa-shield-alt",
+                                "Piscine" => "fa-swimming-pool",
+                                "Balcon/Terrasse" => "fa-tree",
+                                "Générateur" => "fa-bolt",
+                                "Caméras de surveillance" => "fa-video",
+                                "Animaux autorisés" => "fa-paw"
+                            ];
+                        @endphp
 
-      <div class="d-flex justify-content-center mb-5">
-        <button type="submit" class="btn btn-submit">Soumettre</button>
-      </div>
-    </form>
-  </div>
+                        @foreach ($commodites as $c => $icon)
+                            @php $id = 'comodite_' . md5($c); @endphp
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <label class="form-check d-flex align-items-center gap-2 p-3 bg-light rounded shadow-sm h-100 mb-0 commodite-item" for="{{ $id }}">
+                                    <input
+                                        class="form-check-input mt-0"
+                                        type="checkbox"
+                                        name="autres_details[]"
+                                        value="{{ $c }}"
+                                        id="{{ $id }}"
+                                    >
+                                    <i class="fas {{ $icon }}" style="color: var(--primary-color);"></i>
+                                    <span class="form-check-label">{{ $c }}</span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                <div class="mt-5">
+                    <label class="form-label">Coordonnées géographiques (obligatoire pour la carte)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-compass"></i></span>
+                        <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Images -->
+            <fieldset class="mb-5">
+                <legend>Images <i class="fas fa-images"></i></legend>
+                <label for="images" class="form-label">Ajouter des images (min. 1, max. 5)</label>
+                <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
+            </fieldset>
+
+            <div class="d-flex justify-content-center mb-5">
+                <button type="submit" class="btn btn-submit">
+                    <i class="fas fa-check-circle me-2"></i> Soumettre la résidence
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
