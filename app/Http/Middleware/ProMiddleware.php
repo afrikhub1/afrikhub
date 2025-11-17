@@ -14,7 +14,10 @@ class ProMiddleware
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect('/')->with('error', 'Accès réservé aux professionnels.');
+            return response()->view('pages.force_logout', [
+                'redirect' => route('login'),
+                'message' => 'Accès réservé aux clients. Vous avez été déconnecté.'
+            ]);
         }
         return $next($request);
     }
