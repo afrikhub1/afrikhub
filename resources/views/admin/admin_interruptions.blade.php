@@ -25,45 +25,7 @@
     @if($demandes->isEmpty())
         <p class="text-gray-700 text-center">Aucune demande.</p>
     @else
-        <div class="space-y-4">
-            @foreach($demandes as $demande)
-                <div class="bg-white p-4 rounded shadow flex justify-between items-center residence-item"
-                     data-name="{{ $demande->residence->nom }}">
-                    <div>
-                        <p><strong>Client :</strong> {{ $demande->user->name }}</p>
-                        <p><strong>Résidence :</strong> {{ $demande->residence->nom }}</p>
-                        <p>
-                            <strong>Statut :</strong>
-                            <span class="px-2 py-1 rounded text-white
-                                @if($demande->status == 'en_attente') bg-yellow-500
-                                @elseif($demande->status == 'validee') bg-green-500
-                                @elseif($demande->status == 'rejete') bg-red-500
-                                @endif">
-                                {{ ucfirst(str_replace('_', ' ', $demande->status)) }}
-                            </span>
-                        </p>
-                        <p class="text-sm text-gray-500">Demandée le : {{ $demande->created_at->format('d/m/Y H:i') }}</p>
-                    </div>
 
-                    @if($demande->status == 'en_attente')
-                        <div class="flex gap-2">
-                            <form action="{{ route('admin.demande.valider', $demande->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                                    Valider
-                                </button>
-                            </form>
-                            <form action="{{ route('admin.demande.rejeter', $demande->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                                    Rejeter
-                                </button>
-                            </form>
-                        </div>
-                    @endif
-                </div>
-            @endforeach
-        </div>
     @endif
 
 </div>

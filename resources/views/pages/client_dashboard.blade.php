@@ -117,14 +117,40 @@
 
                 {{-- Actions --}}
                 <div class="mt-auto">
-                    @if($status=='confirmée')
+                    @if($status=='en attente')
                         <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" class="w-full" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
                             @csrf
                             <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">
                                 <i class="fas fa-ban"></i> Annuler
                             </button>
                         </form>
+                    @elseif($status=='confirmée')
+                        <a href="{{ route('payer', $res->id) }}"
+                            class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2
+                            text-sm font-semibold text-white hover:bg-amber-700"> <i class="fas fa-credit-card">
+                            </i> Payer
+                        </a>
+                    @elseif ($status=='payé')
+                        <div>
+                            <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                                <i class="fas fa-credit-card"></i> Payé
+                            </button>
+                        </div>
+                        <div>
+                            <a href="{{ route('sejour.interrompre', $res->id) }}"
+                                class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
+                                px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
+                                <i class="fas fa-stop"></i> interompre
+                            </a>
+                        </div>
                     @endif
+                    {{-- Rebook / Renouveler toujours disponible (GET) --}}
+                    <div class="mt-3">
+                        <a href="{{ route('reservation.rebook', $res->id) }}"
+                            class="block text-center text-sm font-semibold text-slate-700 hover:text-slate-900">
+                            <i class="fas fa-redo mr-2"></i> Renouveler
+                        </a>
+                    </div>
                 </div>
             </div>
         </article>
