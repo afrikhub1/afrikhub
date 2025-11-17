@@ -16,23 +16,23 @@ class SejourController extends Controller
     public function interrompreForm($id)
     {
         $reservation = Reservation::find($id);
+
         if (!$reservation) {
-            return redirect()->back()->with('error', 'Résidence introuvable.');
+            return redirect()->back()->with('error', 'Réservation introuvable.');
         }
+
+        $residence = $reservation->residence; // Relation Eloquent Reservation -> Residence
+
         $userId = Auth::id();
 
-        // Vérifie si l'utilisateur a une réservation pour cette résidence
-        $reservation = Residence::where('id', $reservation->id)
-            ->where('proprietaire_id', $userId)
-            ->first();
-
-        if (!$reservation) {
+        // Vérifie si la réservation appartient bien à l'utilisateur
+        if ($reservation->user_id !== $userId) {
             return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
-        // Retourne la vue avec résidence et reservation
         return view('pages.interrompre', compact('residence', 'reservation'));
     }
+
 
     /**
      * Envoyer la demande d'interruption
