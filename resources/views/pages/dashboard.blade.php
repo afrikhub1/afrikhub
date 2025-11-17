@@ -46,9 +46,6 @@
                                     <p class="text-sm mb-2"><strong>Arrivée :</strong> {{ $residences_occupees->date_arrivee }}</p>
                                     <p class="text-sm mb-2"><strong>Depart :</strong> {{ $residences_occupees->date_depart }}</p>
                                 </div>
-                                <button class="w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
-                                </button>
                             </div>
                         @endforeach
                         </div>

@@ -12,7 +12,7 @@ class CreateInterruptionRequestsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('residence_id')->constrained()->onDelete('cascade');
-            $table->enum('status', ['en attente', 'validee', 'rejete'])->default('en attente');
+            $table->string('status')->default('en_attente');
             $table->timestamps();
         });
     }
