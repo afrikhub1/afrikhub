@@ -116,21 +116,22 @@
                                     Statut : {{ $reservationEnCours?->status ?? 'Aucune réservation en cours' }}
                                 </li>
 
-                               @if($residence->disponible)
+                               @if($residence->disponible == 0)  <!-- Indisponible -->
                                     <li class="flex justify-between items-center">
                                         <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
                                         <span class="text-gray-900">Indisponible</span>
                                     </li>
-                                    <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST">
+
+                                    <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST" class="mt-2">
                                         @csrf
                                         <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
                                             Libérer la résidence
                                         </button>
                                     </form>
-                                @else
+                                @else  <!-- Disponible -->
                                     <li class="flex justify-between items-center">
                                         <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                        <span class="text-gray-900">Disponible</span>
+                                        <span class="text-green-600 font-semibold">Disponible</span>
                                     </li>
                                 @endif
                             </ul>
