@@ -115,8 +115,8 @@
                 </li>
                 </ul>
 
-                {{-- Actions --}}
-                <div class="mt-auto">
+{{-- Actions --}}
+                <div class="mt-auto space-y-3">
                     @if($status=='en attente')
                         <form action="{{ route('reservation.annuler', $res->id) }}" method="POST" class="w-full" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
                             @csrf
@@ -131,25 +131,27 @@
                             </a>
                         </button>
                     @elseif ($status=='payé')
-                        <div>
-                            <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                        {{-- Utilisation de flex et flex-1 pour deux colonnes de taille égale --}}
+                        <div class="flex gap-2">
+                            <button disabled class="flex-1 flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
                                 <i class="fas fa-credit-card"></i> Payé
                             </button>
-                        </div>
-                        <div>
-                            <button disabled class="w-full flex items-center justify-center gap-2 rounded-md bg-green-100 px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed">
+
+                            {{-- Le lien 'Interrompre' est contenu dans un div flex-1 pour équilibrer la taille --}}
+                            <div class="flex-1">
                                 <a href="{{ route('sejour.interrompre', $res->id) }}"
-                                    class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
+                                    class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-amber-600
                                     px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
-                                    <i class="fas fa-stop"></i> interompre
+                                    <i class="fas fa-stop"></i> Interrompre
                                 </a>
-                            </button>
+                            </div>
                         </div>
                     @endif
+
                     {{-- Rebook / Renouveler toujours disponible (GET) --}}
-                    <div class="mt-3">
+                    <div class="mt-3 pt-1">
                         <a href="{{ route('reservation.rebook', $res->id) }}"
-                            class="block text-center text-sm font-semibold text-slate-700 hover:text-slate-900">
+                            class="block text-center text-sm font-semibold text-slate-500 hover:text-slate-900">
                             <i class="fas fa-redo mr-2"></i> Renouveler
                         </a>
                     </div>
