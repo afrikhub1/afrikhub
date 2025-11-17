@@ -127,3 +127,17 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::post('/users/{user}/toggle', [AdminController::class, 'toggleUserSuspension'])->name('admin.users.toggle_suspension');
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 });
+
+
+use App\Http\Controllers\SejourController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/interrompre/{id}', [SejourController::class, 'interrompreForm'])->name('sejour.interrompre');
+    Route::post('/interrompre/{id}', [SejourController::class, 'demanderInterruption'])->name('sejour.demander');
+});
+
+Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
+    Route::get('/interruptions', [SejourController::class, 'adminDemandes'])->name('admin.demande.interruptions');
+    Route::post('/interruptions/{id}/valider', [SejourController::class, 'validerDemande'])->name('admin.demande.valider');
+    Route::post('/interruptions/{id}/rejeter', [SejourController::class, 'rejeterDemande'])->name('admin.demande.rejeter');
+});

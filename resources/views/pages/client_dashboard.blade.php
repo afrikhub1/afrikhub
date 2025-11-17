@@ -147,7 +147,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('payer', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
+                            <a href="{{ route('sejour.interrompre', $res->id) }}" class="inline-flex items-center justify-center gap-2 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-700">
                                 <i class="fas fa-stop"></i> interompre
                             </a>
                         </div>
