@@ -20,7 +20,11 @@
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($residences as $residence)
-                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-xl
+                                transition duration-500 hover:shadow-indigo-400/50
+                                flex flex-col items-center
+                                w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4
+                                p-4 sm:p-3">
                         @php
                            $images = $residence->img;
                             if (is_string($images)) {
