@@ -38,7 +38,7 @@ class LoginController extends Controller
         }
         // sinon il est forcement un user pro
         else {
-            $route = 'dashboard';
+            $route = 'pro.dashboard';
         }
 
         // Connexion

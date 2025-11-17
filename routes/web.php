@@ -37,7 +37,6 @@ Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post'
 Route::middleware(['auth'])->group(function () {
 
     // Pages résidences
-    Route::get('/liste_residences', fn() => view('pages.residences'))->name('residences');
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
     Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 

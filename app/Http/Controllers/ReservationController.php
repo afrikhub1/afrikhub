@@ -65,7 +65,7 @@ class ReservationController extends Controller
         }
         // sinon il est forcement un user pro
         else {
-            $route = 'dashboard';
+            $route = 'pro.dashboard';
         }
 
         return redirect()->route($route)->with('success', 'Réservation enregistrée avec succès !');
