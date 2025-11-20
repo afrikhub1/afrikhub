@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileManagerController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\Mise_a_jour;
 use App\Http\Controllers\PaiementController;
