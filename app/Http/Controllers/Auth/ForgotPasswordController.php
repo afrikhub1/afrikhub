@@ -53,9 +53,10 @@ class ForgotPasswordController extends Controller
     {
         return view('auth.reset-password', [
             'token' => $token,
-            'email' => $request->email,
+            'email' => $request->query('email'),
         ]);
     }
+
 
     // Traiter la réinitialisation
     public function reset(Request $request)
@@ -65,7 +66,7 @@ class ForgotPasswordController extends Controller
             'password' => 'required|confirmed|min:6',
             'token' => 'required',
         ]);
-        
+
 
         $record = \DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
