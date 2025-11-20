@@ -16,7 +16,7 @@ class ForgotPasswordController extends Controller
     // Afficher le formulaire "mot de passe oublié"
     public function showForgotForm()
     {
-        return view('auth.forgot-password');
+        return view('mails.forgot-password');
     }
 
     // Envoyer l'email de réinitialisation
