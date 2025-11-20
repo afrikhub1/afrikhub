@@ -138,8 +138,3 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
-
-Mail::send('emails.reset-password', ['url' => $resetUrl], function ($message) use ($request) {
-    $message->to($request->email);
-    $message->subject('Réinitialisation de votre mot de passe');
-});
