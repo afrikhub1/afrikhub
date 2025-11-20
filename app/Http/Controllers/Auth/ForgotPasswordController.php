@@ -28,8 +28,8 @@ class ForgotPasswordController extends Controller
 
         $token = Str::random(60);
 
-        // Stocker le token dans la base (table password_resets)
-        \DB::table('password_resets')->updateOrInsert(
+        // Stocker le token dans la base (table password_reset_tokens)
+        \DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $request->email],
             [
                 'token' => Hash::make($token),
@@ -78,7 +78,7 @@ class ForgotPasswordController extends Controller
         $user->save();
 
         // Supprimer le token
-        \DB::table('password_resets')->where('email', $request->email)->delete();
+        \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         return redirect('/login')->with('status', 'Votre mot de passe a été réinitialisé avec succès.');
     }
