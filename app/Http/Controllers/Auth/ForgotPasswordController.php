@@ -54,7 +54,7 @@ class ForgotPasswordController extends Controller
         $record = \DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
         if (!$record || !Hash::check($request->token, $record->token)) {
-            return back()->withErrors(['email' => 'Le token est invalide ou a expiré.']);
+            return(['email' => 'Le token est invalide ou a expiré.']);
         }
 
         return view('auth.reset-password', ['token' => $token,'email' => $request->email,]);
