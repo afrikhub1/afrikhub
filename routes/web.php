@@ -129,3 +129,12 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::post('/interruptions/{id}/valider', [SejourController::class, 'validerDemande'])->name('admin.demande.valider');
     Route::post('/interruptions/{id}/rejeter', [SejourController::class, 'rejeterDemande'])->name('admin.demande.rejeter');
 });
+
+
+use App\Http\Controllers\PasswordController;
+
+Route::get('/forgot-password', [PasswordController::class, 'showForgotForm'])->name('password.forgot');
+Route::post('/forgot-password', [PasswordController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('/reset-password/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.update');

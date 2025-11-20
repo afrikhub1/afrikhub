@@ -22,9 +22,7 @@ use Illuminate\View\View;
 
 class FortifyServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+
     public function register(): void
     {
         //
@@ -55,22 +53,14 @@ class FortifyServiceProvider extends ServiceProvider
 
         // Définit la vue du formulaire de login
         Fortify::loginView(function () {
-            return view('auth.login'); // ton fichier Blade login.blade.php
+            return view('auth.login');
         });
 
-        // (Optionnel) Définir l'enregistrement
+        //vue du formulaiaire d'inscription
         Fortify::registerView(function () {
-            return view('auth.register'); // si tu as register.blade.php
+            return view('auth.register');
         });
 
-        // resauration de mdt
-        Fortify::resetPasswordView(function ($request) {
-            return view('auth.reset-password', ['request' => $request]);
-        });
-
-        Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.forgot-password');
-        });
     }
 
 }
