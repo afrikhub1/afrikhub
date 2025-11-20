@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-class PasswordController extends Controller
+class ForgotPasswordController extends Controller
 {
     // Afficher le formulaire "mot de passe oublié"
     public function showForgotForm()
