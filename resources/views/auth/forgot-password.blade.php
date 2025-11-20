@@ -21,9 +21,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             background-color: #ffffff;
         }
-        h2 {
-            color: #333;
-        }
         .btn-primary {
             background: #667eea;
             border: none;
@@ -31,22 +28,11 @@
         .btn-primary:hover {
             background: #5a67d8;
         }
-        .btn-back {
-            margin-bottom: 1rem;
-            color: #667eea;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-back:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <a href="{{ url('/login') }}" class="btn-back">&larr; Retour à la connexion</a>
-
     <h2 class="text-center mb-4">Mot de passe oublié</h2>
 
     @if (session('status'))
@@ -57,7 +43,9 @@
         @csrf
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" required>
+            <input type="email" name="email" id="email"
+                   class="form-control @error('email') is-invalid @enderror"
+                   value="{{ old('email') }}" required autofocus>
             @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -65,6 +53,8 @@
 
         <button type="submit" class="btn btn-primary w-100">Envoyer le lien</button>
     </form>
+
+    <a href="{{ url('/login') }}" class="d-block text-center mt-3">← Retour à la connexion</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

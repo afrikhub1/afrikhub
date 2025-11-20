@@ -44,7 +44,6 @@
 <body>
 
 <div class="card">
-    <!-- Bouton retour -->
     <a href="{{ url('/login') }}" class="btn-back">&larr; Retour à la connexion</a>
 
     <h2 class="text-center mb-4">Réinitialiser le mot de passe</h2>
@@ -55,8 +54,6 @@
 
     <form method="POST" action="{{ route('password.update') }}">
         @csrf
-
-        <!-- On utilise les variables passées depuis le controller -->
         <input type="hidden" name="token" value="{{ $token }}">
 
         <div class="mb-3">
