@@ -74,7 +74,7 @@ class ForgotPasswordController extends Controller
 
         // Mettre à jour le mot de passe
         $user = User::where('email', $request->email)->first();
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->save();
 
         // Supprimer le token
