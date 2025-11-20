@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileManagerController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\Mise_a_jour;
 use App\Http\Controllers\PaiementController;
@@ -131,9 +131,9 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
 });
 
 
-use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\Auth\PasswordController;
 
-Route::get('/forgot-password', [PasswordController::class, 'showForgotForm'])->name('password.forgot');
+Route::get('/forgot-password', [PasswordController::class, 'showForgotForm'])->name('password.request');
 Route::post('/forgot-password', [PasswordController::class, 'sendResetLink'])->name('password.email');
 
 Route::get('/reset-password/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
