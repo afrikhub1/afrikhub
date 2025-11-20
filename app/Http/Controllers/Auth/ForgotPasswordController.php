@@ -16,7 +16,7 @@ class ForgotPasswordController extends Controller
     // Afficher le formulaire "mot de passe oublié"
     public function showForgotForm()
     {
-        return view('mails.forgot-password');
+        return view('auth.forgot-password');
     }
 
     // Envoyer l'email de réinitialisation
@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
     // Afficher le formulaire de réinitialisation
     public function showResetForm(Request $request, $token)
     {
-        return view('mails.reset-password', [
+        return view('auth.reset-password', [
             'token' => $token,
             'email' => $request->email,
         ]);
