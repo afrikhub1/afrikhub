@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -39,10 +38,10 @@ class ForgotPasswordController extends Controller
 
         $resetUrl = url('/reset-password/' . $token . '?email=' . urlencode($request->email));
 
-        // Envoyer l'email (exemple simple)
-        Mail::send('auth.reset-password', ['url' => $resetUrl], function ($message) use ($request) {
-            $message->to($request->email);
-            $message->subject('Réinitialisation de votre mot de passe');
+        // Envoyer un email simple avec le lien, sans utiliser la vue de formulaire
+        Mail::raw("Cliquez sur ce lien pour réinitialiser votre mot de passe : $resetUrl", function ($message) use ($request) {
+            $message->to($request->email)
+                ->subject('Réinitialisation de votre mot de passe');
         });
 
         return back()->with('status', 'Un lien de réinitialisation a été envoyé à votre email.');
@@ -51,10 +50,11 @@ class ForgotPasswordController extends Controller
     // Afficher le formulaire de réinitialisation
     public function showResetForm(Request $request, $token)
     {
-        return view('auth.reset-password', [ 'token' => $token,'email' => $request->query('email'),
+        return view('auth.reset-password', [
+            'token' => $token,
+            'email' => $request->query('email'),
         ]);
     }
-
 
     // Traiter la réinitialisation
     public function reset(Request $request)
@@ -65,19 +65,16 @@ class ForgotPasswordController extends Controller
             'token' => 'required',
         ]);
 
-
         $record = \DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
         if (!$record || !Hash::check($request->token, $record->token)) {
             return back()->withErrors(['email' => 'Le token est invalide ou a expiré.']);
         }
 
-        // Mettre à jour le mot de passe
         $user = User::where('email', $request->email)->first();
         $user->password = Hash::make($request->password);
         $user->save();
 
-        // Supprimer le token
         \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         return redirect('/login')->with('status', 'Votre mot de passe a été réinitialisé avec succès.');
