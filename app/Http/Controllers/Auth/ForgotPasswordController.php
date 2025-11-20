@@ -51,10 +51,13 @@ class ForgotPasswordController extends Controller
     // Afficher le formulaire de réinitialisation
     public function showResetForm(Request $request, $token)
     {
-        return view('auth.reset-password', [
-            'token' => $token,
-            'email' => $request->email,
-        ]);
+        $record = \DB::table('password_reset_tokens')->where('email', $request->email)->first();
+
+        if (!$record || !Hash::check($request->token, $record->token)) {
+            return back()->withErrors(['email' => 'Le token est invalide ou a expiré.']);
+        }
+
+        return view('auth.reset-password', ['token' => $token,'email' => $request->email,]);
     }
 
     // Traiter la réinitialisation
@@ -66,11 +69,7 @@ class ForgotPasswordController extends Controller
             'token' => 'required',
         ]);
 
-        $record = \DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
-        if (!$record || !Hash::check($request->token, $record->token)) {
-            return back()->withErrors(['email' => 'Le token est invalide ou a expiré.']);
-        }
 
         // Mettre à jour le mot de passe
         $user = User::where('email', $request->email)->first();
