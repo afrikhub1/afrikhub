@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
                 ->subject('Réinitialisation de votre mot de passe');
         });
 
-        return back()->with('status', 'Un lien de réinitialisation a été envoyé à votre email.');
+        return redirect()->route('login')->with('status', 'Un lien de réinitialisation a été envoyé à votre email.');
     }
 
     // Afficher le formulaire de réinitialisation
