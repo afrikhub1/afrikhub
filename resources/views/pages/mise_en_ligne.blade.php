@@ -189,12 +189,6 @@
             padding: 1.5rem 1rem;
             border: 2px dashed #ffddaf;
         }
-
-        /* Style spécifique pour la carte et les inputs de géo-localisation */
-        .geo-input-group .form-control {
-             border-radius: 0.5rem; /* Réappliquer le radius car Bootstrap le change dans input-group */
-             border-left: 1px solid #ced4da; /* Corriger la bordure gauche */
-        }
     </style>
 </head>
 
@@ -202,29 +196,20 @@
     <!-- HEADER RESPONSIVE -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-fluid">
-            <h1>
-                <a class="navbar-brand" href="#">
-                    {{-- Note: Assurez-vous que l'asset path est correct dans votre projet (Ex: {{ asset('assets/images/logo_01.png') }}) --}}
-                    <img class="h-auto" style="width: 80px;" src="https://placehold.co/80x80/FFA500/ffffff?text=Logo" alt="Afrik'Hub Logo">
-                </a>
-            </h1>
+           <h1>
+                <img class="h-auto" style="width: 80px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
+           </h1>
 
             <div class="collapse navbar-collapse desktop-nav-links" id="navbarNavDesktop">
                 <div class="navbar-nav ms-auto">
-                    {{-- Les routes suivantes dépendent de votre configuration Laravel (fortify) --}}
-                    <a class="nav-link" href="#"><i class="fas fa-home me-1"></i> Accueil</a>
-                    @php
-                        // Simuler l'utilisateur pour l'affichage du menu
-                        $is_professional = true;
-                    @endphp
-
-                    @if($is_professional)
-                        <a class="nav-link" href="#"><i class="fas fa-briefcase me-1"></i> Profil Pro</a>
+                    <a class="nav-link" href="{{ route('accueil') }}"><i class="fas fa-home me-1"></i> Accueil</a>
+                    @if(Auth::user()->type_compte == 'professionnel')
+                        <a class="nav-link" href="{{ route('pro.dashboard') }}"><i class="fas fa-briefcase me-1"></i> Profil</a>
                     @else
-                        <a class="nav-link" href="#"><i class="fas fa-briefcase me-1"></i> Profil Client</a>
+                        <a class="nav-link" href="{{ route('clients_historique') }}"><i class="fas fa-briefcase me-1"></i> Profil</a>
                     @endif
-                    <a class="nav-link" href="#"><i class="fas fa-search me-1"></i> Recherche</a>
-                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
+                    <a class="nav-link" href="{{ route('recherche') }}"><i class="fas fa-search me-1"></i> Recherche</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
                 </div>
             </div>
 
@@ -243,14 +228,14 @@
         </div>
         <div class="offcanvas-body p-0">
             <nav class="nav flex-column">
-                <a class="nav-link" href="#"><i class="fas fa-home me-3"></i> Accueil</a>
-                @if($is_professional)
-                    <a class="nav-link" href="#"><i class="fas fa-briefcase me-3"></i> Profil Pro</a>
-                @else
-                    <a class="nav-link" href="#"><i class="fas fa-briefcase me-3"></i> Profil Client</a>
-                @endif
-                <a class="nav-link" href="#"><i class="fas fa-search me-1"></i> Recherche</a>
-                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-3"></i> Déconnexion</a>
+                <a class="nav-link" href="{{ route('accueil') }}"><i class="fas fa-home me-3"></i> Accueil</a>
+                    @if(Auth::user()->type_compte == 'professionnel')
+                        <a class="nav-link" href="{{ route('pro.dashboard') }}"><i class="fas fa-briefcase me-3"></i> Profil</a>
+                    @else
+                        <a class="nav-link" href="{{ route('clients_historique') }}"><i class="fas fa-briefcase me-3"></i> Profil</a>
+                    @endif
+                    <a class="nav-link" href="{{ route('recherche') }}"><i class="fas fa-search me-1"></i> Recherche</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-3"></i> Déconnexion</a>
             </nav>
         </div>
     </div>
@@ -258,8 +243,7 @@
     <div class="container mt-5 mb-5">
         <h2>Mettre votre résidence en location</h2>
 
-        {{-- L'action et la méthode sont conservées comme dans votre code original --}}
-        <form action="{{ 'residences.store' }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Informations générales -->
@@ -287,13 +271,6 @@
                             <input type="text" class="form-control" id="ville" name="ville" placeholder="Ex: Abidjan" required>
                         </div>
                     </div>
-
-                    {{-- NOUVEAU: Champ de description détaillée --}}
-                    <div class="col-12 mt-4">
-                        <label for="description_detaillee" class="form-label">Description détaillée de la résidence</label>
-                        <textarea class="form-control" id="description_detaillee" name="description_detaillee" rows="4" placeholder="Décrivez votre bien, ses atouts, le quartier, et toute information importante pour les locataires potentiels." required></textarea>
-                    </div>
-
                 </div>
             </fieldset>
 
@@ -384,33 +361,19 @@
                     </div>
                 </div>
 
-                <!-- Géolocalisation - ALIGNEMENT CORRIGÉ -->
                 <div class="mt-5">
-                    <label class="form-label fw-semibold">Coordonnées géographiques <i class="fas fa-map-marked-alt"></i></label>
+                    <label class="form-label">Coordonnées géographiques (obligatoire pour la carte)</label>
 
-                    <!-- Carte -->
-                    <div id="map" style="height: 300px; border-radius: 10px; margin-bottom: 15px;"></div>
+                    <input type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                    <input type="text" id="longitude" name="longitude" placeholder="Longitude" required>
 
-                    <div class="row g-3 geo-input-group">
-                        <!-- Latitude -->
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude (Cliquez sur la carte)" readonly required>
-                        </div>
-                        <!-- Longitude -->
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" id="longitude" name="longitude" placeholder="Longitude (Cliquez sur la carte)" readonly required>
-                        </div>
-                        <!-- Géolocalisation (Adresse complète) -->
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-link"></i></span>
-                                <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Adresse complète (Générée automatiquement)" readonly required>
-                            </div>
-                        </div>
+                    <div id="map" style="height: 300px; border-radius: 10px; margin-top:10px;"></div>
+
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fas fa-compass"></i></span>
+                        <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
                     </div>
                 </div>
-
-
             </fieldset>
 
             <!-- Images -->
@@ -430,69 +393,37 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    // Initialisation de la carte (Abidjan par défaut)
-    // Coordonnées d'Abidjan : [5.345317, -4.024429]
-    var map = L.map('map').setView([5.345317, -4.024429], 13);
+    {{-- Script Leaflet et remplissage automatique de l'adresse --}}
+    <script>
+        var map = L.map('map').setView([5.345317, -4.024429], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-    // Tuiles OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-    }).addTo(map);
+        var marker;
 
-    var marker;
-
-    // Fonction pour mettre à jour l'adresse via l'API Nominatim (Reverse Geocoding)
-    function updateAddress(lat, lng) {
-        // Clear previous output while fetching
-        document.getElementById("geolocalisation").value = "Chargement de l'adresse...";
-
-        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur réseau lors de la récupération de l\'adresse');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && data.display_name) {
-                    // Repère le plus précis disponible (utilisation de l'adresse complète)
-                    document.getElementById("geolocalisation").value = data.display_name;
-
-                    // Le champ details_position sera rempli par le quartier ou la ville pour affiner la recherche
-                    let repere = data.address.neighbourhood || data.address.suburb || data.address.city || "Emplacement précis non trouvé";
-                    document.getElementById("details_position").value = repere;
-                } else {
-                     document.getElementById("geolocalisation").value = "Adresse non trouvée";
-                }
-            })
-            .catch(err => {
-                console.error("Erreur Nominatim:", err);
-                document.getElementById("geolocalisation").value = "Erreur de géocodage inverse.";
-            });
-    }
-
-    // Au clic sur la carte
-    map.on('click', function(e) {
-        var lat = parseFloat(e.latlng.lat).toFixed(7);
-        var lng = parseFloat(e.latlng.lng).toFixed(7);
-
-        // Ajouter ou déplacer le marqueur
-        if (marker) {
-            marker.setLatLng(e.latlng);
-        } else {
-            marker = L.marker(e.latlng).addTo(map);
+        function updateAddress(lat, lng) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.address) {
+                        let repere = data.address.neighbourhood || data.address.suburb || data.address.quarter || data.address.village || data.address.town || data.address.city || "Repère non disponible";
+                        document.getElementById("details_position").value = repere;
+                        document.getElementById("geolocalisation").value = data.display_name;
+                    }
+                });
         }
 
-        // Remplir les champs du formulaire (Latitude et Longitude)
-        document.getElementById("latitude").value = lat;
-        document.getElementById("longitude").value = lng;
+        map.on('click', function (e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
 
-        // Remplir automatiquement details_position et geolocalisation
-        updateAddress(lat, lng);
-    });
-</script>
+            if (marker) { marker.setLatLng(e.latlng); }
+            else { marker = L.marker(e.latlng).addTo(map); }
 
+            document.getElementById("latitude").value = lat;
+            document.getElementById("longitude").value = lng;
 
+            updateAddress(lat, lng);
+        });
+    </script>
 </body>
 </html>
