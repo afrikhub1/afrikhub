@@ -367,8 +367,24 @@
                     </div>
                 </div>
 
+                <div class="mt-5 row">
+                    <!-- Carte -->
+                    <div class="col-md-6">
+                        <label class="form-label">Coordonnées géographiques</label>
+                        <div id="map" style="height: 300px; border-radius: 10px;"></div>
+                    </div>
 
-
+                    <!-- Champs Latitude, Longitude, Geolocalisation -->
+                    <div class="col-md-6 d-flex flex-column justify-content-start">
+                        <label class="form-label invisible">Lat/Lng</label> <!-- Pour alignement avec la carte -->
+                        <input class="form-control mb-3" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                        <input class="form-control mb-3" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-compass"></i></span>
+                            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
+                        </div>
+                    </div>
+                </div>
             </fieldset>
 
             <!-- Images -->
