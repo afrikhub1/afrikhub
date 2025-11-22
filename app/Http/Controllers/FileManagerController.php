@@ -55,21 +55,27 @@ class FileManagerController extends Controller
             return back()->with('success', "Fichier supprimé : {$path}");
         }
 
-        // Sinon, supposons que c'est un "dossier" (préfixe)
-        $allFiles = $disk->allFiles($path); // récupère tous les fichiers sous ce dossier
-        if (!empty($allFiles)) {
-            $disk->delete($allFiles); // supprime tous les fichiers
-        }
-
-        // Supprimer les dossiers “virtuels” (clé vide) s’il en reste
-        $allDirs = $disk->allDirectories($path);
-        foreach ($allDirs as $dir) {
-            $filesInDir = $disk->allFiles($dir);
-            if (!empty($filesInDir)) {
-                $disk->delete($filesInDir);
-            }
-        }
+        // Supprimer récursivement tous les fichiers et sous-dossiers
+        $this->deleteS3Folder($disk, $path);
 
         return back()->with('success', "Dossier supprimé : {$path}");
+    }
+
+    /**
+     * Supprime un dossier S3 récursivement.
+     */
+    protected function deleteS3Folder($disk, $folder)
+    {
+        // Supprimer tous les fichiers
+        $files = $disk->allFiles($folder);
+        if (!empty($files)) {
+            $disk->delete($files);
+        }
+
+        // Supprimer tous les sous-dossiers
+        $dirs = $disk->allDirectories($folder);
+        foreach ($dirs as $dir) {
+            $this->deleteS3Folder($disk, $dir); // récursion
+        }
     }
 }
