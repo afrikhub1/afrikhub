@@ -28,6 +28,7 @@ class ResidenceController extends Controller
             'nb_chambres' => 'required|integer|min:1',
             'nb_salons' => 'required|integer|min:0',
             'prix_jour' => 'required|numeric|min:1',
+            'details' => 'required|string|max:2000',
             'details_position' => 'required|string|max:255',
             'geolocalisation' => 'required|string|max:255',
             'latitude' => 'required|numeric',
@@ -57,6 +58,7 @@ class ResidenceController extends Controller
         Residence::create([
             'proprietaire_id' => Auth::id(), // relation avec User
             'nom' => $request->nom_residence,
+            'details' => $request->details,
             'quartier' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
             'type_residence' => $request->type_residence,

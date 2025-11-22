@@ -318,6 +318,12 @@
                             <input type="text" class="form-control" id="details_position" name="details_position" placeholder="Ex: Cocody derrière la RTI" required>
                         </div>
                     </div>
+                    <div class="col-12 mt-3">
+                        <label for="details" class="form-label">Description détaillée de la résidence</label>
+                        <textarea class="form-control" id="details" name="details" rows="4"
+                                placeholder="Ex: Appartement lumineux de 3 chambres, cuisine équipée, proche des commerces et transports..." required></textarea>
+                    </div>
+
                 </div>
 
                 <!-- Commodités -->
