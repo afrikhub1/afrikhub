@@ -406,34 +406,113 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     {{-- affichage de la carte dans le div ciblé --}}
-    <script>
-    // Initialisation
-        var map = L.map('map').setView([5.345317, -4.024429], 13); // Exemple : Abidjan
+<script>
 
-        // Tuiles gratuites OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
+    // --- INITIALISATION DE LA CARTE ---
+    var map = L.map('map').setView([5.345317, -4.024429], 13);
 
-        var marker;
+    // Tuiles gratuites OSM
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
 
-        // Lorsque l'utilisateur clique sur la carte
-        map.on('click', function (e) {
-            var lat = e.latlng.lat;
-            var lng = e.latlng.lng;
+    var marker;
 
-            // Ajouter / déplacer le marqueur
-            if (marker) {
-                marker.setLatLng(e.latlng);
+    // --- FONCTION POUR METTRE À JOUR LE MARQUEUR ---
+    function updateMarker(lat, lng) {
+        if (marker) {
+            marker.setLatLng([lat, lng]);
+        } else {
+            marker = L.marker([lat, lng]).addTo(map);
+        }
+
+        document.getElementById("latitude").value = lat;
+        document.getElementById("longitude").value = lng;
+        map.setView([lat, lng], 16);
+    }
+
+
+    // --- CLICK SUR LA CARTE : AJOUT DU MARQUEUR ---
+    map.on('click', function (e) {
+        updateMarker(e.latlng.lat, e.latlng.lng);
+    });
+
+
+    // ----------------------------------------------------
+    // 🟧 AJOUT 1 : BOUTON "MA POSITION"
+    // ----------------------------------------------------
+
+    var locateBtn = L.control({position: 'topleft'});
+
+    locateBtn.onAdd = function () {
+        var btn = L.DomUtil.create('button', 'btn btn-light');
+        btn.innerHTML = "<i class='fas fa-location-crosshairs'></i>";
+        btn.style.width = "40px";
+        btn.style.height = "40px";
+        btn.style.borderRadius = "8px";
+        btn.style.border = "1px solid #ccc";
+        btn.style.cursor = "pointer";
+
+        btn.onclick = function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    updateMarker(lat, lng);
+                });
             } else {
-                marker = L.marker(e.latlng).addTo(map);
+                alert("La géolocalisation n'est pas supportée par votre appareil.");
             }
+        };
 
-            // Mettre dans les input
-            document.getElementById("latitude").value = lat;
-            document.getElementById("longitude").value = lng;
-        });
-    </script>
+        return btn;
+    };
+    locateBtn.addTo(map);
+
+
+    // ----------------------------------------------------
+    // 🟧 AJOUT 2 : BARRE DE RECHERCHE D’ADRESSE
+    // ----------------------------------------------------
+
+    // Création du champ de recherche
+    var searchControl = L.control({position: 'topright'});
+
+    searchControl.onAdd = function () {
+        var div = L.DomUtil.create('div');
+        div.innerHTML = `
+            <input id="search_address"
+                type="text"
+                class="form-control"
+                placeholder="Rechercher une adresse..."
+                style="width: 230px; border-radius: 8px; padding: 6px 10px;">
+        `;
+        return div;
+    };
+    searchControl.addTo(map);
+
+
+    // --- Fonction de recherche ---
+    document.addEventListener("keyup", function (e) {
+        if (e.target.id === "search_address" && e.key === "Enter") {
+            let query = document.getElementById("search_address").value;
+            if (!query) return;
+
+            // Requête vers Nominatim (gratuit)
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        let lat = data[0].lat;
+                        let lng = data[0].lon;
+                        updateMarker(lat, lng);
+                    } else {
+                        alert("Aucun résultat trouvé.");
+                    }
+                });
+        }
+    });
+
+</script>
 
 </body>
 </html>
