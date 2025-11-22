@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
                 ->subject('Réinitialisation de votre mot de passe');
         });
 
-        return redirect()->route('login')->with('success', 'Un lien de réinitialisation a été envoyé à votre email.');
+        return redirect()->route('login')->with('status', 'Un lien de réinitialisation a été envoyé à votre email.');
     }
 
     // Afficher le formulaire de réinitialisation
@@ -77,6 +77,6 @@ class ForgotPasswordController extends Controller
 
         \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
-        return redirect('/login')->with('success', 'Votre mot de passe a été réinitialisé avec succès.');
+        return redirect('/login')->with('status', 'Votre mot de passe a été réinitialisé avec succès.');
     }
 }

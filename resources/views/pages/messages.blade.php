@@ -40,6 +40,12 @@
             </div>
         @endif
 
+        @if(session('status'))
+            <div class="alert alert-info shadow-sm rounded">
+                {{ session('status') }}
+            </div>
+        @endif
+
         @if(session('info'))
             <div class="alert alert-info shadow-sm rounded">
                 {{ session('info') }}
