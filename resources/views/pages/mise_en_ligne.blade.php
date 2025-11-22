@@ -361,7 +361,7 @@
                     </div>
                 </div>
 
-                <div class="mt-5">
+                <div class="mt-5 col-md-8 col-lg-6">
                     <label class="form-label">Coordonnées géographiques</label>
 
                     <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
