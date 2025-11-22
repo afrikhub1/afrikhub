@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->integer('nombre_salons')->default(0);
             $table->integer('prix_journalier')->default(0);
             $table->string('type_residence');
-            $table->text('description')->nullable();
+            $table->text('details')->nullable();
             $table->text('commodites')->nullable();
             $table->boolean('disponible')->default(true);
             $table->date('date_disponible_apres')->nullable();

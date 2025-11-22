@@ -14,7 +14,7 @@ class Residence extends Model
     protected $fillable = [
         'proprietaire_id', // 👈 ajouté pour l'utilisateur connecté
         'nom',
-        'description',
+        'details',
         'nombre_chambres',
         'nombre_salons',
         'prix_journalier',
@@ -28,7 +28,6 @@ class Residence extends Model
         'img',
         'geolocalisation',
         'type_residence',
-        'autres_details',
         'details_position',
         'commodites',
         'latitude',
