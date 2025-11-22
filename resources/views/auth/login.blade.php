@@ -3,7 +3,6 @@
 @section('ux-ui')
     <link rel="stylesheet" href="{{ asset('assets/css/connexion.css') }}">
 @endsection
-
     <section class="h-100 gradient-form">
         @include('includes.messages')
         <div class="container py-5 h-100">

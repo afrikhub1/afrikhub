@@ -15,11 +15,7 @@
     @yield('ux-ui')
 </head>
 <body>
-
-
-
     @yield('header')
-
 
     @yield('contenu')
 
