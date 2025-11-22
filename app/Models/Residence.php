@@ -31,6 +31,8 @@ class Residence extends Model
         'autres_details',
         'details_position',
         'commodites',
+        'latitude',
+        'longitude',
     ];
 
     protected $casts = [
