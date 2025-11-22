@@ -364,8 +364,8 @@
                 <div class="mt-5">
                     <label class="form-label">Coordonnées géographiques</label>
 
-                    <input type="text" id="latitude" name="latitude" placeholder="Latitude" required>
-                    <input type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+                    <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                    <input class="form-control" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
 
                     <div id="map" style="height: 300px; border-radius: 10px; margin-top:10px;"></div>
 
