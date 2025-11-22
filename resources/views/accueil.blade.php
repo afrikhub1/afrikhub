@@ -43,8 +43,8 @@
         @include('includes.messages')
         <h2>Bienvenue</h2>
         <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-        <a href="../../accueil/php/redirection.php?action=recherche" class="btn-reserver me-2">Réserver</a>
-        <a href="../../accueil/php/redirection.php?action=mise_en_ligne" class="btn-reserver">Ajouter un bien</a>
+        <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
+        <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
       </div>
     </section>
     <!-- Section hébergement -->
@@ -98,7 +98,7 @@
             </div>
           </div>
           <div class="text-center">
-            <a href="../../annexe/php/recherche.php" class="btn-reserver">réserver</a>
+            <a href="{{ route('recherche')" class="btn-reserver">réserver</a>
           </div>
         </div>
       </div>
