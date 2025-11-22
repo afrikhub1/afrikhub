@@ -162,7 +162,7 @@
             <li class="nav-item mx-2">
                 <!-- Texte blanc sur fond sombre -->
                 @if(Auth::user()->type_compte == 'professionnel')
-                    <a href="{{ route('dashboard') }}" class="nav-link text-white fw-bold mx-2"> <i class="fas fa-user-circle"></i> Profil</a>
+                    <a href="{{ route('pro.dashboard') }}" class="nav-link text-white fw-bold mx-2"> <i class="fas fa-user-circle"></i> Profil</a>
                 @endif
 
                 @if(Auth::user()->type_compte == 'client')
@@ -205,8 +205,8 @@
 
         @if(Auth::user()->type_compte == 'professionnel')
             <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
-            <a href="{{ route('dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
-            <a href="{{ route('residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
+            <a href="{{ route('pro.dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
+            <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
             <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-2"></i> Mise en ligne</a>
             <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Résidences Occupées</a>
             <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes de Réservations</a>

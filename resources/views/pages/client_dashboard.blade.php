@@ -35,12 +35,15 @@
         </div>
 
         <nav class="flex items-center space-x-3">
-          <a href="{{ route('recherche') }}" class="text-sm text-slate-600 hover:text-slate-900">Résidences</a>
-          <a href="{{ route('factures') }}" class="text-sm text-slate-600 hover:text-slate-900">Factures</a>
-          <a href="{{ route('devenir_pro') }}"
-            class="inline-block px-6 py-1 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
-            Pro
-        </a>
+            <a href="{{ route('recherche') }}" class="text-sm text-slate-600 hover:text-slate-900">Résidences</a>
+            <a href="{{ route('factures') }}" class="text-sm text-slate-600 hover:text-slate-900">Factures</a>
+            @if(Auth::user()->type_compte == 'client')
+                <a href="{{ route('devenir_pro') }}"
+                    class="inline-block px-6 py-1 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
+                    Pro
+                </a>
+            @endif
+
 
 
           {{-- Logout as POST for security --}}
