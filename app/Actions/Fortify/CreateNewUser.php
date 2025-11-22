@@ -90,17 +90,8 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
 
-        // Envoi du mail de confirmation SANS passer par un Mailable
-        $htmlContent = view('emails.token', [
-            'user' => $utilisateur
-        ])->render();
-
-        Mail::send([], [], function ($message) use ($utilisateur, $htmlContent) {
-            $message->to($utilisateur->email)
-                ->subject("Vérification de votre compte Afrik'Hub")
-                ->setBody($htmlContent, 'text/html');
-        });
-
+        // Envoi du mail de confirmation
+        Mail::to($utilisateur->email)->send(new \App\Mail\TokenMail($utilisateur));
 
         // Déconnexion immédiate
         Auth::logout();
