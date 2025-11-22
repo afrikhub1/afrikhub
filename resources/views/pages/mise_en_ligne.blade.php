@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome (Icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {{-- liens pour le maps --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 
     <style>
         :root {
@@ -367,6 +371,15 @@
 
                 <div class="mt-5">
                     <label class="form-label">Coordonnées géographiques (obligatoire pour la carte)</label>
+
+                    <input type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                    <input type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+
+                    <div id="map" style="height: 300px; border-radius: 10px; margin-top:10px;">
+
+                    </div>
+
+
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-compass"></i></span>
                         <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
@@ -391,5 +404,36 @@
 
     <!-- Bootstrap JS Bundle (nécessaire pour le toggler et l'offcanvas) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    {{-- affichage de la carte dans le div ciblé --}}
+    <script>
+    // Initialisation
+        var map = L.map('map').setView([5.345317, -4.024429], 13); // Exemple : Abidjan
+
+        // Tuiles gratuites OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker;
+
+        // Lorsque l'utilisateur clique sur la carte
+        map.on('click', function (e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+
+            // Ajouter / déplacer le marqueur
+            if (marker) {
+                marker.setLatLng(e.latlng);
+            } else {
+                marker = L.marker(e.latlng).addTo(map);
+            }
+
+            // Mettre dans les input
+            document.getElementById("latitude").value = lat;
+            document.getElementById("longitude").value = lng;
+        });
+    </script>
+
 </body>
 </html>
