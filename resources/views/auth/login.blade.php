@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/connexion.css') }}">
 @endsection
 @section('contenu')
-    @include('includes.messages')
     <section class="h-100 gradient-form">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -24,18 +23,8 @@
                                         @csrf
 
                                         <p>Me connecter à mon compte</p>
-
-                                        @error('email')
-                                            <div class='alert alert-danger text-center' role="alert">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-
-                                        @error('password')
-                                            <div class='alert alert-danger text-center' role="alert">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        
+                                        @include('includes.messages')
 
                                         <div class="form-outline mb-4">
                                             <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required autocomplete="email" autofocus/>
