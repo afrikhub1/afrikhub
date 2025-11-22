@@ -3,9 +3,9 @@
 @section('ux-ui')
     <link rel="stylesheet" href="{{ asset('assets/css/connexion.css') }}">
 @endsection
-@section('contenu')
-    @include('includes.messages')
+
     <section class="h-100 gradient-form">
+        @include('includes.messages')
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
