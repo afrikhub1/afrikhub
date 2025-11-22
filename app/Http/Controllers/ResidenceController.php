@@ -30,6 +30,8 @@ class ResidenceController extends Controller
             'prix_jour' => 'required|numeric|min:1',
             'details_position' => 'required|string|max:255',
             'geolocalisation' => 'required|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
@@ -45,14 +47,15 @@ class ResidenceController extends Controller
             }
         }
 
-        // Dans ton controller
+        // Récupérer les commodités
         $comodites = $request->input('autres_details', []); // [] si rien coché
-$comoditesTexte = collect($comodites)
-    ->map(fn($c) => htmlspecialchars($c)) // sécurise le texte
-    ->implode(' - '); // conca                                       // transforme en chaîne séparée par " - "
+        $comoditesTexte = collect($comodites)
+            ->map(fn($c) => htmlspecialchars($c)) // sécurise le texte
+            ->implode(' - '); // transforme en chaîne séparée par " - "
 
+        // Création de la résidence
         Residence::create([
-            'proprietaire_id' => Auth::id(), // si vous avez la relation avec User
+            'proprietaire_id' => Auth::id(), // relation avec User
             'nom' => $request->nom_residence,
             'quartier' => $request->details_position,
             'nombre_chambres' => $request->nb_chambres,
@@ -62,12 +65,12 @@ $comoditesTexte = collect($comodites)
             'ville' => $request->ville,
             'pays' => $request->pays,
             'geolocalisation' => $request->geolocalisation,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'img' => json_encode($imagesPath),
             'statut' => 'en_attente',
-            'commodites'=> $comoditesTexte
+            'commodites' => $comoditesTexte,
         ]);
-
-
 
         return redirect()->route('message')
             ->with('success', '✅ Résidence ajoutée avec succès ! Elle est en attente de validation.');

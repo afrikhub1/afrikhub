@@ -362,7 +362,7 @@
                 </div>
 
                 <div class="mt-5">
-                    <label class="form-label">Coordonnées géographiques (obligatoire pour la carte)</label>
+                    <label class="form-label">Coordonnées géographiques</label>
 
                     <input type="text" id="latitude" name="latitude" placeholder="Latitude" required>
                     <input type="text" id="longitude" name="longitude" placeholder="Longitude" required>

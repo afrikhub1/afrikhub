@@ -15,15 +15,17 @@ return new class extends Migration {
             $table->integer('nombre_chambres')->default(0);
             $table->integer('nombre_salons')->default(0);
             $table->integer('prix_journalier')->default(0);
-            $table->string('type_residence'); // Villa, Appartement, Studio...
+            $table->string('type_residence');
             $table->text('description')->nullable();
             $table->text('commodites')->nullable();
             $table->boolean('disponible')->default(true);
             $table->date('date_disponible_apres')->nullable();
             $table->string('geolocalisation')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->text('img')->nullable();
             $table->unsignedBigInteger('proprietaire_id');
-            $table->string('statut')->default('en_attente'); // optionnel
+            $table->string('statut')->default('en_attente');
             $table->timestamps();
 
             $table->foreign('proprietaire_id')->references('id')->on('users')->onDelete('cascade');
