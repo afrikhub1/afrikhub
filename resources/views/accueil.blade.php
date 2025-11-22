@@ -98,7 +98,7 @@
             </div>
           </div>
           <div class="text-center">
-            <a href="{{ route('recherche')" class="btn-reserver">réserver</a>
+            <a href="{{ route('recherche') }}" class="btn-reserver">réserver</a>
           </div>
         </div>
       </div>
