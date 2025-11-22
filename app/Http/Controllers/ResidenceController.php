@@ -29,6 +29,7 @@ class ResidenceController extends Controller
             'nb_salons' => 'required|integer|min:0',
             'prix_jour' => 'required|numeric|min:1',
             'details_position' => 'required|string|max:255',
+            'description_detaillee' => 'required|string|max:255',
             'geolocalisation' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -70,6 +71,7 @@ class ResidenceController extends Controller
             'img' => json_encode($imagesPath),
             'statut' => 'en_attente',
             'commodites' => $comoditesTexte,
+            'description'=> $request->description_detaillee,
         ]);
 
         return redirect()->route('message')
