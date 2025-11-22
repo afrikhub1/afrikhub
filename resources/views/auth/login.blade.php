@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/connexion.css') }}">
 @endsection
     <section class="h-100 gradient-form">
-        @include('includes.messages')
         <div class="container py-5 h-100">
+            @include('includes.messages')
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
