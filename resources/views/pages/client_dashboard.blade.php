@@ -42,6 +42,11 @@
                     class="inline-block px-6 py-1 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
                     Pro
                 </a>
+            @else
+                <a href="{{ route('pro.dashboard') }}"
+                    class="inline-block px-6 py-1 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
+                    profil
+                </a>
             @endif
 
 
