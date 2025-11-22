@@ -1,37 +1,34 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class VerificationController extends Controller
+class VerifyAccountController extends Controller
 {
-    /**
-     * Vérifie le token de l'utilisateur lors de la confirmation du compte
-     */
-    public function verify($token)
+
+    public function verify(string $token, Request $request)
     {
-        // Recherche l'utilisateur correspondant au token
-        $user = User::where('token', $token)->first();
+        // Récupérer l'email depuis la query string
+        $email = $request->query('email');
 
-        // Si aucun utilisateur ne correspond
+        // Chercher l'utilisateur correspondant
+        $user = User::where('email', $email)
+            ->where('token', $token)
+            ->first();
+
         if (!$user) {
-            return redirect()->route('message')->with('error', 'La confirmation a échoué ❌');
+            // Lien invalide ou déjà utilisé
+            return redirect()->route('login')->with('error', 'Lien de vérification invalide.');
         }
 
-        // Si le compte est déjà vérifié
-        if ($user->email_verified_at) {
-            return redirect()->route('message')->with('info', 'Votre compte est déjà vérifié ✅');
-        }
+        // Activer le compte
+        $user->statut = 'actif';
+        $user->token = null; // supprimer le token
+        $user->save();
 
-        // Mettre à jour l'utilisateur : suppression du token et activation du compte
-        $user->update([
-            'token' => null,
-            'statut' => 'actif',
-            'email_verified_at' => now(),
-        ]);
-
-        return redirect()->route('message')->with('success', 'Votre compte a été vérifié avec succès 🎉');
+        return redirect()->route('login')->with('success', 'Votre compte a été vérifié avec succès.');
     }
 }
