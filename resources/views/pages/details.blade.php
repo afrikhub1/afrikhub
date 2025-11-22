@@ -198,7 +198,7 @@
             <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
 
             @if(Auth::user()->type_compte == 'professionnel')
-                <a class="nav-link" href="{{ route('dashboard') }}">Profil</a>
+                <a class="nav-link" href="{{ route('pro.dashboard') }}">Profil</a>
             @else
                 <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
             @endif
@@ -227,7 +227,7 @@
 
     {{-- Menu adapté selon le type de compte (sécurité côté backend) --}}
     @if(Auth::check() && Auth::user()->type_compte === 'professionnel')
-      <a class="sidebar-link" href="{{ route('dashboard') }}">Profil</a>
+      <a class="sidebar-link" href="{{ route('pro.dashboard') }}">Profil</a>
       <a class="sidebar-link" href="{{ route('recherche') }}">Recherche</a>
       <a class="sidebar-link" href="{{ route('mes_demandes') }}">Demandes</a>
       <a class="sidebar-link" href="{{ route('reservationRecu') }}">Réservations</a>

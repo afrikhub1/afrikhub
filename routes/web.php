@@ -16,6 +16,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ProMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SejourController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 // --------------------------------------------------
 // ROUTES PUBLIQUES
@@ -30,6 +31,12 @@ Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email
 Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::get('/logout', [LogController::class, 'logout'])->name('logout');
 Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post');
+
+// mots de passe oublié
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
 // --------------------------------------------------
 // ROUTES AUTHENTIFIÉES
@@ -131,9 +138,6 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
 });
 
 
-use App\Http\Controllers\Auth\ForgotPasswordController;
 
-Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
-Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
-Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
+
