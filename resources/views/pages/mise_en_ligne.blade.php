@@ -364,17 +364,22 @@
                 <div class="col-12 row m-0 p-4">
                     <div class="mt-5 col-md-8 col-lg-6">
                         <label class="form-label">Coordonnées géographiques</label>
+
+                        <!-- Carte -->
                         <div id="map" style="height: 300px; border-radius: 10px; margin-top:10px;"></div>
-                        <div class="mt-5 col-md-8 col-lg-6">
-                            <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
-                            <input class="form-control my-2" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
-                            <div class="input-group mt-2">
+
+                        <!-- Latitude et Longitude -->
+                        <input class="form-control mt-3" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                        <input class="form-control my-2" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+
+                        <!-- Geolocalisation (optionnel ou lien) -->
+                        <div class="input-group mt-2">
                             <span class="input-group-text"><i class="fas fa-compass"></i></span>
-                                <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
-                            </div>
+                            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
                         </div>
                     </div>
                 </div>
+
 
             </fieldset>
 
@@ -397,35 +402,48 @@
 
     {{-- Script Leaflet et remplissage automatique de l'adresse --}}
     <script>
+        // Initialisation de la carte
         var map = L.map('map').setView([5.345317, -4.024429], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+        // Tuiles OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
 
         var marker;
 
+        // Fonction pour remplir automatiquement l'adresse et le champ geolocalisation
         function updateAddress(lat, lng) {
             fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.address) {
+                        // Choix du repère le plus précis disponible
                         let repere = data.address.neighbourhood || data.address.suburb || data.address.quarter || data.address.village || data.address.town || data.address.city || "Repère non disponible";
                         document.getElementById("details_position").value = repere;
                         document.getElementById("geolocalisation").value = data.display_name;
                     }
-                });
+                })
+                .catch(err => console.error("Erreur Nominatim:", err));
         }
 
-        map.on('click', function (e) {
-            var lat = e.latlng.lat;
-            var lng = e.latlng.lng;
+        // Au clic sur la carte
+        map.on('click', function(e) {
+            var lat = e.latlng.lat.toFixed(6);  // Limiter les décimales
+            var lng = e.latlng.lng.toFixed(6);
 
+            // Ajouter ou déplacer le marqueur
             if (marker) { marker.setLatLng(e.latlng); }
             else { marker = L.marker(e.latlng).addTo(map); }
 
+            // Remplir les champs du formulaire
             document.getElementById("latitude").value = lat;
             document.getElementById("longitude").value = lng;
 
+            // Remplir automatiquement details_position et geolocalisation
             updateAddress(lat, lng);
         });
-    </script>
+</script>
+
 </body>
 </html>
