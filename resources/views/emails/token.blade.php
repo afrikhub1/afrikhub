@@ -18,11 +18,12 @@
                 </p>
 
                 <p style="text-align:center; margin:30px 0;">
-                    <a href="{{ url('/verify-account/' . $user->token . '?email=' . urlencode($user->email)) }}"
-                       style="background:#ff8c00; color:white; padding:12px 20px;
-                              text-decoration:none; border-radius:5px; font-weight:bold;">
+                    <a href="{{ url('/verify/' . $user->token . '?email=' . urlencode($user->email)) }}"
+                    style="background:#ff8c00; color:white; padding:12px 20px;
+                            text-decoration:none; border-radius:5px; font-weight:bold;">
                         Vérifier mon compte
                     </a>
+
                 </p>
 
                 <p>
