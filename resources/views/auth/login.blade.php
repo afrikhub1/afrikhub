@@ -56,6 +56,9 @@
                                 </div>
 
                                 <form action="{{ route('login.post') }}" method="POST" class="w-full max-w-md">
+
+                                    @csrf
+                                    
                                     <h1 class="text-2xl font-bold mb-4 text-gray-800 text-center">Me connecter à mon compte</h1>
 
                                     <!-- Placeholder pour les messages d'erreur/succès -->
