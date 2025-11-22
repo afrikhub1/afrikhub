@@ -51,8 +51,7 @@
                 {{ session('error') }}
             </div>
         @endif
-
-        <a href="javascript:history.back()" class="btn btn-primary btn-return">RetourNER</a>
+        <a href="javascript:history.back()" class="btn btn-primary btn-return">Retour</a>
     </div>
 </body>
 </html>
