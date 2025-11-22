@@ -400,50 +400,55 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- Script Leaflet et remplissage automatique de l'adresse --}}
-    <script>
-        // Initialisation de la carte
-        var map = L.map('map').setView([5.345317, -4.024429], 13);
+<script>
+    // Initialisation de la carte (Abidjan par défaut)
+    var map = L.map('map').setView([5.345317, -4.024429], 13);
 
-        // Tuiles OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19
-        }).addTo(map);
+    // Tuiles OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    }).addTo(map);
 
-        var marker;
+    var marker;
 
-        // Fonction pour remplir automatiquement l'adresse et le champ geolocalisation
-        function updateAddress(lat, lng) {
-            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.address) {
-                        // Choix du repère le plus précis disponible
-                        let repere = data.address.neighbourhood || data.address.suburb || data.address.quarter || data.address.village || data.address.town || data.address.city || "Repère non disponible";
-                        document.getElementById("details_position").value = repere;
-                        document.getElementById("geolocalisation").value = data.display_name;
-                    }
-                })
-                .catch(err => console.error("Erreur Nominatim:", err));
+    // Fonction pour remplir automatiquement l'adresse et le champ geolocalisation
+    function updateAddress(lat, lng) {
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.address) {
+                    // Repère le plus précis disponible
+                    let repere = data.address.neighbourhood || data.address.suburb || data.address.quarter || data.address.village || data.address.town || data.address.city || "Repère non disponible";
+                    // Remplir le champ details_position
+                    document.getElementById("details_position").value = repere;
+                    // Remplir le champ geolocalisation
+                    document.getElementById("geolocalisation").value = data.display_name;
+                }
+            })
+            .catch(err => console.error("Erreur Nominatim:", err));
+    }
+
+    // Au clic sur la carte
+    map.on('click', function(e) {
+        var lat = parseFloat(e.latlng.lat).toFixed(7);
+        var lng = parseFloat(e.latlng.lng).toFixed(7);
+
+        // Ajouter ou déplacer le marqueur
+        if (marker) {
+            marker.setLatLng(e.latlng);
+        } else {
+            marker = L.marker(e.latlng).addTo(map);
         }
 
-        // Au clic sur la carte
-        map.on('click', function(e) {
-            var lat = e.latlng.lat.toFixed(6);  // Limiter les décimales
-            var lng = e.latlng.lng.toFixed(6);
+        // Remplir les champs du formulaire
+        document.getElementById("latitude").value = lat;
+        document.getElementById("longitude").value = lng;
 
-            // Ajouter ou déplacer le marqueur
-            if (marker) { marker.setLatLng(e.latlng); }
-            else { marker = L.marker(e.latlng).addTo(map); }
-
-            // Remplir les champs du formulaire
-            document.getElementById("latitude").value = lat;
-            document.getElementById("longitude").value = lng;
-
-            // Remplir automatiquement details_position et geolocalisation
-            updateAddress(lat, lng);
-        });
+        // Remplir automatiquement details_position et geolocalisation
+        updateAddress(lat, lng);
+    });
 </script>
+
 
 </body>
 </html>
