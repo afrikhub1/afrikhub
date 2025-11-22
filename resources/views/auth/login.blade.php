@@ -8,14 +8,12 @@
 @section('contenu')
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
-    <div class="card">
-
-        <div class="row g-0">
+    <div class="card d-flex">
+        <div class="row g-0 d-flex align-items-center" style="min-height: 100%;">
 
             {{-- COL GAUCHE - FORMULAIRE --}}
-            <div class="card d-flex">
-                <div class="row g-0 d-flex align-items-center" style="min-height: 100%;">
-
+            <div class="col-lg-6">
+                <div class="card-body">
 
                     {{-- Logo --}}
                     <div class="text-center">
