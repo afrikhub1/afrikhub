@@ -361,19 +361,21 @@
                     </div>
                 </div>
 
-                <div class="mt-5 col-md-8 col-lg-6">
-                    <label class="form-label">Coordonnées géographiques</label>
-
-                    <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
-                    <input class="form-control" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
-
-                    <div id="map" style="height: 300px; border-radius: 10px; margin-top:10px;"></div>
-
-                    <div class="input-group mt-2">
-                        <span class="input-group-text"><i class="fas fa-compass"></i></span>
-                        <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
+                <div class="col-12 row m-0 p-4">
+                    <div class="mt-5 col-md-8 col-lg-6">
+                        <label class="form-label">Coordonnées géographiques</label>
+                        <div id="map" style="height: 300px; border-radius: 10px; margin-top:10px;"></div>
+                        <div class="mt-5 col-md-8 col-lg-6">
+                            <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                            <input class="form-control my-2" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+                            <div class="input-group mt-2">
+                            <span class="input-group-text"><i class="fas fa-compass"></i></span>
+                                <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </fieldset>
 
             <!-- Images -->
