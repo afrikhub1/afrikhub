@@ -52,7 +52,7 @@
             </div>
         @endif
 
-        <a href="javascript:history.back()" class="btn btn-primary btn-return">Retour</a>
+        <a href="javascript:history.back()" class="btn btn-primary btn-return">RetourNER</a>
     </div>
 </body>
 </html>
