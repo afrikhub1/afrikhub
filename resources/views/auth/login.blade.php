@@ -13,8 +13,9 @@
         <div class="row g-0">
 
             {{-- COL GAUCHE - FORMULAIRE --}}
-            <div class="col-lg-6">
-                <div class="card-body">
+            <div class="card d-flex">
+                <div class="row g-0 d-flex align-items-center" style="min-height: 100%;">
+
 
                     {{-- Logo --}}
                     <div class="text-center">
