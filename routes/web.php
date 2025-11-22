@@ -11,7 +11,7 @@ use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResidenceController;
 use App\Http\Controllers\DevenirProController;
-use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\Auth\VerifyAccountController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ProMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +28,7 @@ Route::get('/message', fn() => view('pages.messages'))->name('message');
 
 // Actions publiques
 Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
-Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::get('/verify/{token}', [VerifyAccountController::class, 'verify'])->name('verification.verify');
 Route::get('/logout', [LogController::class, 'logout'])->name('logout');
 Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post');
 
