@@ -73,13 +73,13 @@
 
                 {{-- Liens bas --}}
                 <div class="row m-0 col-8 g-2 justify-content-between">
-                    <a class="btn btn-outline-light p-2 w-40 shadow-sm"
+                    <a class="btn btn-outline-light p-2 w-25 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('register') }}">
                         Inscription
                     </a>
 
-                    <a class="btn btn-outline-light p-2 w-40 shadow-sm"
+                    <a class="btn btn-outline-light p-2 w-25 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('accueil') }}">
                         Accueil
