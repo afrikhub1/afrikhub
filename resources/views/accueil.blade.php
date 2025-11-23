@@ -1,259 +1,228 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accueil Afrik'Hub</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Accueil</title>
 
-<style>
-/* ======== RESET ======== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: "Poppins", sans-serif; background: #f4f4f4; }
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-/* ======== HEADER (desktop) ======== */
-header {
-    background: linear-gradient(135deg, #006d77, #00afb9);
-    color: white;
-    padding: 12px 20px;
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-}
-@media (min-width: 768px) {
-    header { display: flex; }
-}
+    <!-- AOS Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 
-header img {
-    height: 65px;
-    object-fit: contain;
-}
+    <!-- GLightbox -->
+    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
-header ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
+    <!-- ======================  CSS OPTIMISÉ  ====================== -->
+    <style>
+        /* GENERAL */
+        body {
+            scroll-behavior: smooth;
+            background: #f9fafb;
+        }
 
-header ul li a {
-    color: white;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 6px 12px;
-    transition: 0.3s;
-    border-radius: 8px;
-}
+        /* HEADER */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            height: 65px;
+        }
 
-header ul li a:hover {
-    background: rgba(255,255,255,0.3);
-}
+        .header-logo img {
+            height: 45px;
+        }
 
-/* ======== TOGGLER MOBILE ======== */
-#sidebarToggle {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 60;
-    background: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    display: block;
-}
-@media (min-width: 768px) {
-    #sidebarToggle { display: none; }
-}
+        /* SIDEBAR */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 260px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+            transition: 0.3s ease-in-out;
+            z-index: 100;
+            padding-top: 80px;
+        }
 
-/* ======== SIDEBAR ======== */
-#sidebarOverlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(3px);
-    z-index: 59;
-    display: none;
-}
+        #sidebar.open {
+            left: 0;
+        }
 
-#sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 100%;
-    width: 280px;
-    background: linear-gradient(180deg,#006d77,#00afb9);
-    color: white;
-    transform: translateX(-100%);
-    transition: 0.35s ease;
-    padding: 20px;
-    z-index: 60;
-}
+        #sidebar a {
+            display: block;
+            padding: 15px 20px;
+            font-size: 16px;
+            color: #111827;
+            font-weight: 500;
+            border-bottom: 1px solid #f3f4f6;
+        }
 
-#sidebar.open { transform: translateX(0); }
-#sidebarOverlay.show { display: block; }
+        #sidebar a:hover {
+            background: #f3f4f6;
+        }
 
-#sidebar .closeBtn {
-    font-size: 32px;
-    cursor: pointer;
-    position: absolute;
-    right: 15px;
-    top: 10px;
-}
+        /* HERO SECTION */
+        .hero {
+            padding-top: 120px;
+        }
 
-#sidebar ul { margin-top: 70px; list-style: none; }
-#sidebar ul li {
-    margin: 16px 0;
-}
-#sidebar ul li a {
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    font-weight: 600;
-    display: block;
-    padding: 10px 10px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-#sidebar ul li a:hover {
-    background: rgba(255,255,255,0.2);
-}
+        /* ACCORDION */
+        details summary {
+            cursor: pointer;
+            padding: 12px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
 
-/* ======== ACCUEIL SECTION ======== */
-#accueil {
-    margin-top: 80px;
-    background: linear-gradient(rgba(0,91,107,0.7), rgba(0,91,107,0.5)),
-                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover;
-    height: 680px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 1rem;
-    color: white;
-}
+        details[open] summary {
+            background: #d1d5db;
+        }
 
-#accueil h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    text-shadow: 3px 3px 10px rgba(0,0,0,0.6);
-}
+        /* CARDS */
+        .card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+            padding: 20px;
+            transition: transform .2s, box-shadow .2s;
+        }
 
-#accueil span {
-    font-size: 18px;
-    display: block;
-    margin-top: 10px;
-}
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        }
 
-/* BUTTON */
-.btn-reserver {
-    display: inline-block;
-    padding: 12px 28px;
-    margin: 12px 6px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background: #007bff;
-    border-radius: 30px;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease;
-    animation: bounce 2s infinite;
-}
-.btn-reserver:hover { background: #0056b3; }
+        .card img {
+            border-radius: 12px;
+        }
 
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
+        /* BUTTONS */
+        .btn {
+            background: #2563eb;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: 0.2s;
+            font-size: 15px;
+        }
 
-/* FOOTER */
-footer {
-    background: #006d77;
-    color: white;
-    padding: 18px;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 50px;
-}
-</style>
+        .btn:hover {
+            background: #1e40af;
+        }
+    </style>
 </head>
 
-<body>
+<body class="font-sans text-gray-800">
 
-<!-- BUTTON MOBILE -->
-<button id="sidebarToggle">☰</button>
+    <!-- ====================== HEADER ====================== -->
+    <header class="header flex items-center justify-between px-4">
+        <div class="header-logo">
+            <img src="{{ asset('assets/images/logo.png') }}" alt="Logo">
+        </div>
 
-<!-- SIDEBAR OVERLAY -->
-<div id="sidebarOverlay"></div>
+        <button onclick="toggleSidebar()" class="md:hidden text-gray-800 text-3xl">
+            ☰
+        </button>
+    </header>
 
-<!-- SIDEBAR -->
-<div id="sidebar">
-    <span class="closeBtn">&times;</span>
-    <ul>
-        <li><a href="#">Connexion</a></li>
-        <li><a href="#">Inscription</a></li>
-        <li><a href="#">Admin</a></li>
-        <li><a href="#hebergement">Hébergements</a></li>
-        <li><a href="#location">Location</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</div>
-
-<!-- HEADER DESKTOP -->
-<header>
-    <img src="https://via.placeholder.com/180x60?text=AfrikHub" alt="Logo">
-    <ul>
-        <li><a href="#">Connexion</a></li>
-        <li><a href="#">Inscription</a></li>
-        <li><a href="#">Admin</a></li>
-        <li><a href="#hebergement">Hébergements</a></li>
-        <li><a href="#location">Véhicules</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</header>
-
-<!-- ACCUEIL -->
-<section id="accueil">
-    <div>
-        <h2>Bienvenue</h2>
-        <span>Explorez l'Afrique autrement avec Afrik’Hub</span>
-        <br><br>
-        <a href="#" class="btn-reserver">Réserver</a>
-        <a href="#" class="btn-reserver">Ajouter un bien</a>
+    <!-- ====================== SIDEBAR ====================== -->
+    <div id="sidebar">
+        <a href="{{ route('accueil') }}">Accueil</a>
+        <a href="{{ route('reservation') }}">Réservations</a>
+        <a href="{{ route('factures') }}">Factures</a>
+        <a href="{{ route('logout') }}">Déconnexion</a>
     </div>
-</section>
 
-<footer>
-    © 2025 Afrik’Hub — Tous droits réservés
-</footer>
+    <!-- ====================== HERO ====================== -->
+    <section class="hero text-center px-6">
+        <h1 class="text-4xl font-bold" data-aos="fade-up">Bienvenue sur notre plateforme</h1>
+        <p class="mt-3 text-lg text-gray-600" data-aos="fade-up" data-aos-delay="150">
+            Trouvez les meilleures résidences pour votre séjour.
+        </p>
+    </section>
 
+    <!-- ====================== RÉSIDENCES ====================== -->
+    <section class="px-6 mt-10">
+        <h2 class="text-2xl font-bold mb-4">Nos résidences disponibles</h2>
 
-<script>
-// ========== SIDEBAR SCRIPT ==========
-const toggle = document.getElementById("sidebarToggle");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("sidebarOverlay");
-const closeBtn = document.querySelector(".closeBtn");
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-toggle.onclick = () => {
-    sidebar.classList.add("open");
-    overlay.classList.add("show");
-};
+            @foreach($residences as $residence)
+            <div class="card" data-aos="zoom-in">
+                @php
+                $images = json_decode($residence->images, true);
+                $firstImage = $images[0] ?? null;
+                @endphp
 
-closeBtn.onclick = () => {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("show");
-};
+                @if($firstImage)
+                <a href="{{ asset($firstImage) }}" class="glightbox">
+                    <img src="{{ asset($firstImage) }}" alt="Image résidence">
+                </a>
+                @endif
 
-overlay.onclick = () => {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("show");
-};
-</script>
+                <h3 class="text-xl font-bold mt-3">{{ $residence->nom }}</h3>
+                <p class="text-gray-600">{{ $residence->ville }}, {{ $residence->pays }}</p>
+                <p class="font-bold text-lg mt-2">{{ $residence->prix }} CFA / nuit</p>
+
+                <a href="{{ route('reservation.form', $residence->id) }}" class="btn mt-3 block text-center">
+                    Réserver
+                </a>
+            </div>
+            @endforeach
+
+        </div>
+    </section>
+
+    <!-- ====================== ACCORDÉON ====================== -->
+    <section class="px-6 mt-10 mb-16">
+        <h2 class="text-2xl font-bold mb-4">Informations utiles</h2>
+
+        <details>
+            <summary>Conditions de réservation</summary>
+            <div class="p-3">
+                <p>Voici les conditions complètes de réservation...</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Types d'hébergements</summary>
+            <div class="p-3">
+                <p>Nous proposons plusieurs types d’hébergements...</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- GLIGHTBOX -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+    <!-- AOS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <!-- ====================== JS GLOBAL ====================== -->
+    <script>
+        AOS.init();
+
+        const sidebar = document.getElementById("sidebar");
+
+        function toggleSidebar() {
+            sidebar.classList.toggle("open");
+        }
+
+        const lightbox = GLightbox({
+            touchNavigation: true,
+            loop: true,
+        });
+    </script>
 
 </body>
+
 </html>
