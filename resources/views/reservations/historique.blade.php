@@ -8,7 +8,7 @@
 
         <!-- Titre Principal de la Page -->
         <div class="page-header text-center mb-8">
-            <h1 class="text-3xl lg:text-4xl font-extrabold text-amber-600 mb-2 border-b-4 border-amber-500 pb-3 inline-block">
+            <h1 class="text-2xl lg:text-4xl font-extrabold text-amber-600 mb-2 border-b-4 border-amber-500 pb-3 inline-block">
                 <i class="fas fa-history mr-3 text-2xl"></i> Réservations reçu
             </h1>
             <p class="text-gray-500">Retrouvez toutes vos réservations reçu</p>
