@@ -79,9 +79,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
     });
 
-    // File Manager
-    Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
-    Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
+
 
     // Interruption séjour
     Route::get('/interrompre/{id}', [SejourController::class, 'interrompreForm'])->name('sejour.interrompre');
@@ -135,6 +133,11 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::get('/interruptions', [SejourController::class, 'adminDemandes'])->name('admin.demande.interruptions');
     Route::post('/interruptions/{id}/valider', [SejourController::class, 'validerDemande'])->name('admin.demande.valider');
     Route::post('/interruptions/{id}/rejeter', [SejourController::class, 'rejeterDemande'])->name('admin.demande.rejeter');
+
+    // file manager
+    // File Manager
+    Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
+    Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
 });
 
 
