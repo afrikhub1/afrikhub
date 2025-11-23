@@ -17,7 +17,7 @@
 <body class="bg-slate-50 p-0 m-0">
 
   <!-- Header -->
-  <header class="bg-white border-b fixed w-full z-50">
+  <header class="bg-white border-b fixed w-full z-50 top-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo + titre -->
