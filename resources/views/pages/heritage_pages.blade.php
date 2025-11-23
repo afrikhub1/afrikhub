@@ -34,7 +34,7 @@
     header h1 { font-size: 1.25rem; font-weight: 600; color: #fff; }
 
     /* ===== Stats ===== */
-    .stats-link, button {
+    .stats-link {
         flex: 1 1 20%;
         min-width: 120px;
         padding: 0.5rem;
