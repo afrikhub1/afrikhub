@@ -148,7 +148,7 @@
                                 </div>
 
                                 <!-- Nom résidence -->
-                                <div class="text-lg uppercase font-bold text-gray-800 mb-3
+                                <div class="uppercase font-bold text-gray-800 mb-3
                                             border-b border-indigo-300 w-full text-center pb-2 truncate">
                                     {{ $res->nom }}
                                 </div>
