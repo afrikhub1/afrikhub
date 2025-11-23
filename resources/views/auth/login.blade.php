@@ -9,7 +9,7 @@
 
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
-    <div class="row m-0 col-lg-3 col-md-5 col-10 col-sm-10 col-xs-10 shadow-lg border-0 p-4"
+    <div class="row m-0 col-lg-4 col-md-5 col-10 col-sm-10 col-xs-10 shadow-lg border-0 p-4"
          style="backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.342);
                 border-radius:25px;">
 
@@ -72,7 +72,7 @@
                 </div>
 
                 {{-- Liens bas --}}
-                <div class="d-flex g-2 justify-content-between">
+                <div class="row m-0 col-8 g-2 justify-content-between">
                     <a class="btn btn-outline-light p-2 w-40 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('register') }}">
