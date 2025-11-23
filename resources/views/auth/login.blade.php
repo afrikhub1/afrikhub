@@ -13,11 +13,11 @@
          style="backdrop-filter: blur(12px); background: rgba(255,255,255,0.15);
                 border-radius:25px;">
 
-        <div class="row g-0 d-flex align-items-center text-center" style="min-height: 100%;">
+        <div class="row g-4 d-flex align-items-center text-center" style="min-height: 100%;">
 
             {{-- Logo --}}
             <div class="mb-4 d-flex justify-content-center">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="logo"
+                <img src="{{ asset('assets/images/logo_01.png') }}" alt="logo"
                      style="max-width: 130px; filter: drop-shadow(0 5px 12px rgba(0,0,0,0.3));">
             </div>
 
@@ -87,13 +87,13 @@
 
                 {{-- Liens bas --}}
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-outline-dark p-2 w-48 shadow-sm"
+                    <a class="btn btn-outline-light p-2 w-48 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('register') }}">
                         Inscription
                     </a>
 
-                    <a class="btn btn-outline-dark p-2 w-48 shadow-sm"
+                    <a class="btn btn-outline-light p-2 w-48 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('accueil') }}">
                         Accueil
