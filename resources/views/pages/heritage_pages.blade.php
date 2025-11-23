@@ -174,7 +174,7 @@
 
     <!-- MAIN -->
     <main class="main">
-        <div class="m-0 p-2">
+        <div class="m-0 p-0">
             @include('includes.messages')
             @yield('main')
         </div>
