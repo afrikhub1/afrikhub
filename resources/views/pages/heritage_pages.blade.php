@@ -84,7 +84,7 @@
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
         body { font-size: 14px; }
-        header h1 { font-size: 0.9rem; }
+        header h1, .headerfixe_link { font-size: 0.9rem; }
         .stats-link { flex: 1 1 45%; font-size: 0.75rem; margin-bottom: 0.25rem; }
         #sidebar a { font-size: 0.875rem; }
     }
