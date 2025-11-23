@@ -1,27 +1,37 @@
-/* Header & Sidebar */
+/* Header */
 header {
     display: none;
 }
 
-/* Header remplacé par sidebar */
+@media (min-width: 768px) {
+    header {
+        display: flex;
+    }
+}
+
+/* Sidebar */
 #sidebar {
     transition: transform 0.3s ease;
+    z-index: 40;
 }
 
 #sidebar ul li a {
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
 }
 
 #sidebar ul li a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Section accueil */
+/* Section Accueil */
 #accueil {
-    background: linear-gradient(rgba(0, 91, 107, 0.7), rgba(0, 91, 107, 0.5)), url('../images/bg.jpg') center/cover no-repeat;
-    min-height: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,15 +44,15 @@ header {
 #accueil h2 {
     font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 900;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+    text-shadow: 3px3px10px rgba(0, 0, 0, 0.6);
 }
 
-#accueil span.fs-6 {
+#accueil span {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px2px8px rgba(0, 0, 0, 0.5);
 }
 
-/* Boutons */
+/* Buttons */
 .btn-reserver {
     display: inline-block;
     padding: 12px 28px;
@@ -52,7 +62,6 @@ header {
     background: #007bff;
     border-radius: 30px;
     text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
 }
 
@@ -64,11 +73,9 @@ header {
     background: #059669;
 }
 
-/* Section hébergement */
+/* Section Hébergement */
 #hebergement {
     padding: 3rem 1rem;
-    background: #e0f2f1;
-    color: #004d40;
     border-radius: 20px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
@@ -79,7 +86,6 @@ header {
     text-align: center;
     color: #006d77;
     text-transform: uppercase;
-    letter-spacing: 2px;
     margin-bottom: 2rem;
 }
 

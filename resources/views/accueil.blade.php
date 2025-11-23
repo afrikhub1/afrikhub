@@ -9,63 +9,77 @@
 </button>
 
 <!-- Sidebar -->
-<aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-teal-700 to-teal-500 text-white transform -translate-x-full md:translate-x-0 transition-transform z-40 shadow-lg">
-    <div class="p-4 flex items-center justify-between md:justify-center">
+<aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-teal-700 to-teal-500 text-white transform -translate-x-full md:hidden transition-transform z-40 shadow-lg">
+    <div class="p-4 flex items-center justify-between">
         <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo" class="h-12 w-auto">
-        <button id="sidebarClose" class="md:hidden text-white text-2xl">&times;</button>
+        <button id="sidebarClose" class="text-white text-2xl">&times;</button>
     </div>
     <ul class="mt-8 space-y-4 text-lg font-semibold">
-        <li><a href="{{ route('login') }}" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"> <i class="fas fa-sign-in-alt"></i> Connexion </a></li>
-        <li><a href="{{ route('register') }}" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"> <i class="fas fa-user-plus"></i> Inscription </a></li>
-        <li><a href="{{ route('admin.login') }}" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"> <i class="fas fa-user-shield"></i> Admin </a></li>
-        <li><a href="#hebergement" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"> <i class="fas fa-home"></i> Hébergements </a></li>
-        <li><a href="#location" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"> <i class="fas fa-car"></i> Véhicules </a></li>
-        <li><a href="#contact" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"> <i class="fas fa-phone"></i> Contact </a></li>
+        <li><a href="{{ route('login') }}" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+        <li><a href="{{ route('register') }}" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"><i class="fas fa-user-plus"></i> Inscription</a></li>
+        <li><a href="{{ route('admin.login') }}" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"><i class="fas fa-user-shield"></i> Admin</a></li>
+        <li><a href="#hebergement" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"><i class="fas fa-home"></i> Hébergements</a></li>
+        <li><a href="#location" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"><i class="fas fa-car"></i> Véhicules</a></li>
+        <li><a href="#contact" class="flex items-center gap-2 px-4 py-2 rounded hover:bg-white/20"><i class="fas fa-phone"></i> Contact</a></li>
     </ul>
 </aside>
 
-<main class="ml-0 md:ml-64 transition-all duration-300">
-    <!-- Section accueil -->
-    <section id="accueil" class="text-center py-5 flex flex-col items-center justify-center min-h-[700px] relative px-4">
-        @include('includes.messages')
-        <h2>Bienvenue</h2>
-        <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-        <div class="flex flex-wrap justify-center gap-4">
+<!-- Header (grande écran) -->
+<header class="hidden md:flex items-center justify-between bg-gradient-to-r from-teal-700 to-teal-500 text-white p-4 shadow-md fixed top-0 left-0 right-0 z-30">
+    <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo" class="h-12">
+    <nav>
+        <ul class="flex items-center gap-4 font-semibold text-white">
+            <li><a href="{{ route('login') }}" class="hover:underline flex items-center gap-1"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+            <li><a href="{{ route('register') }}" class="hover:underline flex items-center gap-1"><i class="fas fa-user-plus"></i> Inscription</a></li>
+            <li><a href="{{ route('admin.login') }}" class="hover:underline flex items-center gap-1"><i class="fas fa-user-shield"></i> Admin</a></li>
+            <li><a href="#hebergement" class="hover:underline flex items-center gap-1"><i class="fas fa-home"></i> Hébergements</a></li>
+            <li><a href="#location" class="hover:underline flex items-center gap-1"><i class="fas fa-car"></i> Véhicules</a></li>
+            <li><a href="#contact" class="hover:underline flex items-center gap-1"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="pt-20 md:pt-24">
+    <!-- Section Accueil -->
+    <section id="accueil" class="text-center py-10 flex flex-col items-center justify-center min-h-[600px] relative px-4 bg-[url('../images/bg.jpg')] bg-center bg-cover">
+        <h2 class="text-5xl font-bold text-white mb-4 drop-shadow-lg">Bienvenue</h2>
+        <span class="text-xl text-white drop-shadow-md">Explorez l'Afrique autrement avec Afrik’Hub</span>
+        <div class="flex flex-wrap justify-center gap-4 mt-6">
             <a href="{{ route('recherche') }}" class="btn-reserver">Réserver</a>
             <a href="{{ route('mise_en_ligne') }}" class="btn-reserver bg-green-500 hover:bg-green-600">Ajouter un bien</a>
         </div>
     </section>
 
-    <!-- Section hébergement -->
-    <section id="hebergement" class="my-2 mx-auto max-w-6xl p-6 rounded-xl shadow-lg">
-        <h2>Hébergements</h2>
-        <div class="flex flex-col md:flex-row items-center justify-center gap-6 mt-6">
-            <img class="w-full md:w-1/2 rounded-xl shadow-lg" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Hébergement"/>
+    <!-- Section Hébergement -->
+    <section id="hebergement" class="max-w-6xl mx-auto my-10 p-6 bg-teal-100 rounded-xl shadow-lg">
+        <h2 class="text-3xl font-bold text-center text-teal-800 uppercase mb-6">Hébergements</h2>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+            <img src="{{ asset('assets/images/hebergement.jpg') }}" class="w-full md:w-1/2 rounded-xl shadow-lg" alt="Hébergement"/>
             <div class="md:w-1/2">
                 <div class="accordion" id="accordionHebergement">
-                    <div class="accordion-item bg-teal-100 rounded-xl mb-4">
+                    <div class="accordion-item mb-4 rounded-xl">
                         <h2 class="accordion-header" id="headingTypes">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTypes" aria-expanded="true">
                                 Types d'hébergements
                             </button>
                         </h2>
-                        <div id="collapseTypes" class="accordion-collapse collapse show" aria-labelledby="headingTypes" data-bs-parent="#accordionHebergement">
+                        <div id="collapseTypes" class="accordion-collapse collapse show" data-bs-parent="#accordionHebergement">
                             <div class="accordion-body">
                                 <ul class="list-disc pl-5">
-                                    <li>Studio - Wifi gratuit, Ventilateur, Caméra de surveillance</li>
+                                    <li>Studio - Wifi gratuit, Ventilateur, Caméra</li>
                                     <li>Chambre unique - Wifi, Climatisation, Petit déjeuner inclus</li>
                                     <li>Villa avec piscine - Wifi, Piscine privée, Climatisation, Parking gratuit</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item bg-teal-100 rounded-xl">
+                    <div class="accordion-item rounded-xl">
                         <h2 class="accordion-header" id="headingConditions">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConditions" aria-expanded="false">
                                 Conditions de réservation
                             </button>
                         </h2>
-                        <div id="collapseConditions" class="accordion-collapse collapse" aria-labelledby="headingConditions" data-bs-parent="#accordionHebergement">
+                        <div id="collapseConditions" class="accordion-collapse collapse" data-bs-parent="#accordionHebergement">
                             <div class="accordion-body">
                                 <ul class="list-disc pl-5">
                                     <li>Réservation préalable requise</li>
@@ -82,43 +96,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Section résidences dynamiques -->
-    <div class="container mx-auto py-6">
-        @if ($residences->isEmpty())
-            <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
-                <i class="fas fa-exclamation-triangle me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
-            </div>
-        @else
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($residences as $residence)
-                    @php
-                        $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
-                        $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
-                    @endphp
-                    <div class="card shadow-lg rounded-xl overflow-hidden flex flex-col">
-                        <a href="javascript:void(0)" class="glightbox-trigger-{{ $residence->id }}">
-                            <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="w-full h-48 object-cover"/>
-                        </a>
-                        @foreach($images as $key => $image)
-                            <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display:none" data-trigger=".glightbox-trigger-{{ $residence->id }}"></a>
-                        @endforeach
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h5 class="font-bold text-lg mb-1">{{ $residence->nom }}</h5>
-                            <p class="text-gray-600 text-sm mb-2">{{ Str::limit($residence->description, 100) }}</p>
-                            <ul class="text-sm text-gray-700 flex-grow">
-                                <li>Chambres: {{ $residence->nombre_chambres ?? '-' }}</li>
-                                <li>Salon: {{ $residence->nombre_salons ?? '-' }}</li>
-                                <li>Situation: {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}</li>
-                                <li>Prix/jour: {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA</li>
-                            </ul>
-                            <a href="{{ route('details', $residence->id) }}" class="btn-reserver mt-2">Voir les détails</a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-    </div>
 </main>
 
 @endsection
