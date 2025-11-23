@@ -36,7 +36,7 @@
                             @foreach($residences_occupees as $residences_occupees)
                             <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
                                 <div>
-                                    <h5 class="text-2xl font-bold text-red-800 mb-3 flex items-center">
+                                    <h5 class=" font-bold text-red-800 mb-3 flex items-center">
                                         <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
                                     </h5>
 
