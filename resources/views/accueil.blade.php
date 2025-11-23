@@ -55,52 +55,78 @@
         </div>
 
         <div class="col-12 col-md-8 col-lg-6">
-          <div class="accordion" id="accordionHebergement">
-            <div class="accordion-item border-0" style="background: #e0f2f1;">
-              <h2 class="accordion-header mt-5" id="headingTypes">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTypes" aria-expanded="true" aria-controls="collapseTypes">
-                  types d'hébergements
-                </button>
-              </h2>
-              <div id="collapseTypes" class="accordion-collapse collapse" aria-labelledby="headingTypes" data-bs-parent="#accordionHebergement">
-                <div class="accordion-body">
-                  <div class="mb-3 border-0">
-                    <div class="d-flex align-items-center justify-content-between"><strong>Studio</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span></div>
-                    <ul class="services-list mt-2"><li>wifi gratuit</li><li>ventilateur</li><li>caméra de surveillance</li></ul>
-                  </div>
-                  <div class="mb-3">
-                    <div class="d-flex align-items-center justify-content-between"><strong>Chambre unique</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span></div>
-                    <ul class="services-list mt-2"><li>wifi gratuit</li><li>climatisation</li><li>petit déjeuner inclus</li></ul>
-                  </div>
-                  <div class="mb-3">
-                    <div class="d-flex align-items-center justify-content-between"><strong>Villa avec piscine</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span></div>
-                    <ul class="services-list mt-2"><li>wifi gratuit</li><li>piscine privée</li><li>climatisation</li><li>parking gratuit</li></ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="accordion" id="accordionHebergement">
 
+            <!-- Types d'hébergements -->
             <div class="accordion-item border-0" style="background: #e0f2f1;">
-              <h2 class="accordion-header" id="headingConditions">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConditions" aria-expanded="false" aria-controls="collapseConditions">
-                  conditions de réservation
-                </button>
-              </h2>
-              <div id="collapseConditions" class="accordion-collapse collapse" aria-labelledby="headingConditions" data-bs-parent="#accordionHebergement">
+                <h2 class="accordion-header mt-5" id="headingTypes">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTypes" aria-expanded="true" aria-controls="collapseTypes">
+                    types d'hébergements
+                    </button>
+                </h2>
+            <div id="collapseTypes" class="accordion-collapse collapse show" aria-labelledby="headingTypes">
                 <div class="accordion-body">
-                  <ul>
+                    <div class="mb-3 border-0">
+                        <div class="d-flex align-items-center justify-content-between">
+                        <strong>Studio</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="services-list mt-2">
+                        <li>wifi gratuit</li>
+                        <li>ventilateur</li>
+                        <li>caméra de surveillance</li>
+                        </ul>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                        <strong>Chambre unique</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="services-list mt-2">
+                        <li>wifi gratuit</li>
+                        <li>climatisation</li>
+                        <li>petit déjeuner inclus</li>
+                        </ul>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                        <strong>Villa avec piscine</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="services-list mt-2">
+                        <li>wifi gratuit</li>
+                        <li>piscine privée</li>
+                        <li>climatisation</li>
+                        <li>parking gratuit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Conditions de réservation -->
+            <div class="accordion-item border-0" style="background: #e0f2f1;">
+            <h2 class="accordion-header" id="headingConditions">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConditions" aria-expanded="false" aria-controls="collapseConditions">
+                conditions de réservation
+                </button>
+            </h2>
+            <div id="collapseConditions" class="accordion-collapse collapse" aria-labelledby="headingConditions">
+                <div class="accordion-body">
+                <ul>
                     <li>réservation préalable requise</li>
                     <li>acompte de 20% pour confirmation</li>
                     <li>annulation gratuite jusqu'à 48h avant l'arrivée</li>
-                  </ul>
+                </ul>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="text-center">
-            <a href="../../annexe/php/recherche.php" class="btn-reserver">réserver</a>
-          </div>
+            </div>
+
         </div>
+
+        <!-- Bouton réserver -->
+        <div class="text-center mt-4">
+            <a href="../../annexe/php/recherche.php" class="btn-reserver">réserver</a>
+        </div>
+        </div>
+
       </div>
     </section>
 </nav>
