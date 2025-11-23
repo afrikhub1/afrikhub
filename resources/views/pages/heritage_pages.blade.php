@@ -51,7 +51,7 @@
         justify-content: space-between;
         text-align: center;
         margin-top: 0.5rem;
-        font-size: 5px;
+        font-size: 15px;
         gap: 0.5rem;
     }
     a {
@@ -63,7 +63,7 @@
         a {
             flex: 1 1 22%;
             margin: 0.25rem;
-            font-size: 10px;
+            font-size: 12px;
         }
     }
     .header-buttons a, .header-buttons button {
