@@ -7,7 +7,7 @@
 
         <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
             <h1 class="text-2xl font-extrabold text-red-600 mb-8 text-center border-b-4 border-red-500 pb-3">
-                <i class="fas fa-lock-open text-3xl mr-3"></i> Résidences Occupées
+                <i class="fas fa-lock-open text-2xl mr-3"></i> Résidences Occupées
             </h1>
 
             <section id="occupees">

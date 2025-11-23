@@ -7,7 +7,7 @@
     <div class="container-fluid px-2 py-2 mt-2">
         <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
             <!-- Titre Principal de la Page -->
-            <h1 class="text-2xl lg:text-4xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
+            <h1 class="text-2xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
                 <i class="fas fa-spinner mr-3 text-2xl"></i> Demandes de Réservation
             </h1>
 
