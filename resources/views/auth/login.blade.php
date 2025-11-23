@@ -13,7 +13,7 @@
          style="backdrop-filter: blur(12px); background: rgba(255,255,255,0.15);
                 border-radius:25px;">
 
-        <div class="row g-4 d-flex align-items-center text-center" style="min-height: 100%;">
+        <div class="row g-0 d-flex align-items-center text-center" style="min-height: 100%;">
 
             {{-- Logo --}}
             <div class="mb-4 d-flex justify-content-center">
@@ -63,7 +63,7 @@
                 {{-- Lien mot de passe oublié --}}
                 <div class="text-end mb-3">
                     <a href="{{ route('password.request') }}"
-                       class="text-muted small"
+                       class="text-danger small"
                        style="transition:0.3s;">
                         Mot de passe oublié ?
                     </a>
@@ -86,7 +86,7 @@
                 </div>
 
                 {{-- Liens bas --}}
-                <div class="d-flex justify-content-between">
+                <div class="d-flex g-2 justify-content-between">
                     <a class="btn btn-outline-light p-2 w-48 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('register') }}">
