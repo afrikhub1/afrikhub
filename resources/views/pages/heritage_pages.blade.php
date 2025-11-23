@@ -68,7 +68,7 @@
     #sidebar a { font-size: 1rem; font-weight: 500; transition: color 0.2s; }
 
     /* ===== Main ===== */
-    main { padding-top: 15rem; padding-left: 1rem; padding-right: 1rem; }
+    main { padding-top: 15rem; padding-left: 0.5rem; padding-right: 0.5rem; }
 
     @media (min-width: 1024px) { main { padding-left: 2rem; padding-right: 2rem; } }
 
