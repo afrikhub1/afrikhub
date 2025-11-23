@@ -9,7 +9,7 @@
 
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
-    <div class="row m-0 col-lg-3 col-md-4 col-10 shadow-lg border-0 p-4"
+    <div class="row m-0 col-lg-3 col-md-5 col-6 col-sm-8 col-xs-10 shadow-lg border-0 p-4"
          style="backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.342);
                 border-radius:25px;">
 
@@ -52,18 +52,14 @@
 
                 {{-- Lien mot de passe oublié --}}
                 <div class="text-end mb-3">
-                    <a href="{{ route('password.request') }}"
-                       class="text-danger small"
-                       style="transition:0.3s;">
+                    <a href="{{ route('password.request') }}" class="text-danger small fw-light" style="transition:0.3s;">
                         Mot de passe oublié ?
                     </a>
                 </div>
 
                 {{-- Bouton Connexion --}}
                 <div class="text-center mb-4">
-                    <button type="submit"
-                            class="btn btn-primary w-100 py-2 shadow"
-                            style="border-radius:50px; font-size:1.1rem;">
+                    <button type="submit" class="btn btn-primary w-100 py-2 shadow" style="border-radius:50px; font-size:1.1rem;">
                         Se connecter
                     </button>
                 </div>
