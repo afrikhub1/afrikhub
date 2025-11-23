@@ -51,7 +51,7 @@
         justify-content: space-between;
         text-align: center;
         margin-top: 0.5rem;
-        font-size: 14px; /* un peu plus petit que le body */
+        font-size: 10px; /* un peu plus petit que le body */
     }
     .header-stats a {
         flex: 1 1 48%;
@@ -62,7 +62,7 @@
         .header-stats a {
             flex: 1 1 22%;
             margin: 0.25rem;
-            font-size: 16px;
+            font-size: 10px;
         }
     }
 
@@ -71,7 +71,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
-        font-size: 14px;
+        font-size: 10px;
     }
     .header-buttons a, .header-buttons button {
         flex: 1 1 auto;
@@ -82,7 +82,7 @@
         padding-top: 8rem;
         padding-left: 1rem;
         padding-right: 1rem;
-        font-size: 16px;
+        font-size: 10px;
     }
     @media (min-width: 1024px) {
         main {
@@ -94,7 +94,7 @@
     /* Footer spacing et texte */
     footer {
         padding: 1rem 0;
-        font-size: 14px;
+        font-size: 10px;
     }
 </style>
 
