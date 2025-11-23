@@ -403,57 +403,60 @@
     <!-- Section hébergement -->
     <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
       <h2>hébergements</h2>
-        <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
-            <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Afrik'Hub Logo"/>
-        </div>
-
-        <div class="accordion-css">
-            <!-- Premier item -->
-            <input type="checkbox" id="acc1" checked>
-            <label for="acc1">
-                Types d'hébergements
-                <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
-            </label>
-            <div class="content">
-                <div>
-                    <strong>Studio</strong>
-                    <ul class="services-list">
-                        <li>wifi gratuit</li>
-                        <li>ventilateur</li>
-                        <li>caméra de surveillance</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong>Chambre unique</strong>
-                    <ul class="services-list">
-                        <li>wifi gratuit</li>
-                        <li>climatisation</li>
-                        <li>petit déjeuner inclus</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong>Villa avec piscine</strong>
-                    <ul class="services-list">
-                        <li>wifi gratuit</li>
-                        <li>piscine privée</li>
-                        <li>climatisation</li>
-                        <li>parking gratuit</li>
-                    </ul>
-                </div>
+      <div class="row m-0 col-12">
+            <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
+                <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Afrik'Hub Logo"/>
             </div>
+        </div>
+        <div class="row m-0 col-12">
+            <div class="accordion-css">
+                <!-- Premier item -->
+                <input type="checkbox" id="acc1" checked>
+                <label for="acc1">
+                    Types d'hébergements
+                    <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                </label>
+                <div class="content">
+                    <div>
+                        <strong>Studio</strong>
+                        <ul class="services-list">
+                            <li>wifi gratuit</li>
+                            <li>ventilateur</li>
+                            <li>caméra de surveillance</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Chambre unique</strong>
+                        <ul class="services-list">
+                            <li>wifi gratuit</li>
+                            <li>climatisation</li>
+                            <li>petit déjeuner inclus</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Villa avec piscine</strong>
+                        <ul class="services-list">
+                            <li>wifi gratuit</li>
+                            <li>piscine privée</li>
+                            <li>climatisation</li>
+                            <li>parking gratuit</li>
+                        </ul>
+                    </div>
+                </div>
 
-            <!-- Deuxième item -->
-            <input type="checkbox" id="acc2">
-            <label for="acc2">
-                Conditions de réservation
-                <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
-            </label>
-            <div class="content">
-                <ul>
-                    <li>réservation préalable requise</li>
-                    <li>acompte de 20% pour confirmation</li>
-                    <li>annulation gratuite jusqu'à 48h avant l'arrivée</li>
-                </ul>
+                <!-- Deuxième item -->
+                <input type="checkbox" id="acc2">
+                <label for="acc2">
+                    Conditions de réservation
+                    <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                </label>
+                <div class="content">
+                    <ul>
+                        <li>réservation préalable requise</li>
+                        <li>acompte de 20% pour confirmation</li>
+                        <li>annulation gratuite jusqu'à 48h avant l'arrivée</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
