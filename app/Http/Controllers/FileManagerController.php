@@ -10,15 +10,20 @@ use League\Flysystem\FileAttributes;
 
 class FileManagerController extends Controller
 {
+    /**
+     * Affiche le contenu du dossier courant.
+     */
     public function index(Request $request)
     {
         $folder = $request->input('folder', ''); // dossier courant
 
-        $all = Storage::disk('s3')->listContents($folder, false); // false = non récursif
+        // Liste les fichiers et dossiers au niveau actuel (non récursif)
+        $all = Storage::disk('s3')->listContents($folder, false);
 
         $files = [];
         foreach ($all as $item) {
             if ($item instanceof FileAttributes) {
+                // Si c'est un fichier
                 $files[] = [
                     'type' => 'file',
                     'name' => basename($item->path()),
@@ -27,11 +32,12 @@ class FileManagerController extends Controller
                     'lastModified' => Carbon::createFromTimestamp($item->lastModified())->format('Y-m-d H:i'),
                 ];
             } elseif ($item instanceof DirectoryAttributes) {
+                // Si c'est un dossier
                 $files[] = [
                     'type' => 'dir',
                     'name' => basename($item->path()),
                     'path' => $item->path(),
-                    'size' => null,
+                    'size' => null, // La taille des dossiers n'est pas facilement disponible sur S3
                     'lastModified' => '-',
                 ];
             }
@@ -40,42 +46,68 @@ class FileManagerController extends Controller
         return view('file-manager', compact('files', 'folder'));
     }
 
-    public function delete(Request $request)
+    /**
+     * Crée un nouveau dossier.
+     */
+    public function store(Request $request)
     {
-        $path = $request->input('path');
-        if (!$path) {
-            return back()->with('error', 'Aucun fichier ou dossier sélectionné.');
-        }
+        $request->validate([
+            'folder_name' => 'required|string|max:255',
+            'current_path' => 'nullable|string',
+        ]);
+
+        $currentPath = $request->input('current_path', '');
+        $folderName = trim($request->input('folder_name'), '/');
+
+        // Construction du chemin complet et nettoyage des slashes doubles
+        $newPath = trim($currentPath . '/' . $folderName, '/');
 
         $disk = Storage::disk('s3');
 
-        // Si c'est un fichier simple
-        if ($disk->exists($path)) {
-            $disk->delete($path);
-            return back()->with('success', "Fichier supprimé : {$path}");
+        // Vérification de l'existence du dossier (important pour éviter les doublons)
+        if ($disk->exists($newPath) || $disk->directoryExists($newPath)) {
+            return back()->with('error', "Le dossier '{$folderName}' existe déjà à cet emplacement.");
         }
 
-        // Supprimer récursivement tous les fichiers et sous-dossiers
-        $this->deleteS3Folder($disk, $path);
+        // Création du dossier. Sur S3, cela crée l'objet du "dossier"
+        $disk->makeDirectory($newPath);
 
-        return back()->with('success', "Dossier supprimé : {$path}");
+        return back()->with('success', "Dossier '{$folderName}' créé avec succès.");
     }
 
+
     /**
-     * Supprime un dossier S3 récursivement.
+     * Supprime un ou plusieurs fichiers et/ou dossiers.
+     * La suppression des dossiers est gérée récursivement via deleteDirectory.
      */
-    protected function deleteS3Folder($disk, $folder)
+    public function delete(Request $request)
     {
-        // Supprimer tous les fichiers
-        $files = $disk->allFiles($folder);
-        if (!empty($files)) {
-            $disk->delete($files);
+        // On attend un tableau de chemins (paths[]) pour la suppression en masse depuis le frontend
+        $paths = $request->input('paths', []);
+
+        if (empty($paths) || !is_array($paths)) {
+            return back()->with('error', 'Aucun élément valide sélectionné pour la suppression.');
         }
 
-        // Supprimer tous les sous-dossiers
-        $dirs = $disk->allDirectories($folder);
-        foreach ($dirs as $dir) {
-            $this->deleteS3Folder($disk, $dir); // récursion
+        $disk = Storage::disk('s3');
+        $deletedCount = 0;
+
+        foreach ($paths as $path) {
+            if (empty($path)) continue;
+
+            // Tente de supprimer de manière récursive (supprime les dossiers non vides)
+            // C'est la méthode recommandée pour S3 qui utilise le préfixe de chemin.
+            if ($disk->deleteDirectory($path)) {
+                $deletedCount++;
+            }
+            // Si deleteDirectory retourne false (souvent le cas pour un simple fichier),
+            // on essaie de supprimer l'objet simple.
+            else if ($disk->delete($path)) {
+                $deletedCount++;
+            }
         }
+
+        $message = "{$deletedCount} élément(s) supprimé(s) ou ciblés pour la suppression.";
+        return back()->with('success', $message);
     }
 }
