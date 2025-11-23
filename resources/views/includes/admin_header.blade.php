@@ -70,7 +70,7 @@
 <div class="fixed inset-0 bg-black/50 opacity-0 pointer-events-none transition peer-checked:opacity-100 peer-checked:pointer-events-auto z-40"></div>
 
 <!-- SIDEBAR PANEL -->
-<aside class="fixed top-0 left-0 w-64 h-full bg-gray-900 shadow-xl transform -translate-x-full
+<aside class="fixed top-0 right-0 w-64 h-full bg-gray-900 shadow-xl transform -translate-x-full
             transition-all duration-300 peer-checked:translate-x-0 z-50 p-6">
 
     <!-- BUTTON CLOSE -->
