@@ -68,7 +68,7 @@
     #sidebar a { font-size: 1rem; font-weight: 500; transition: color 0.2s; }
 
     /* ===== Main ===== */
-    main { padding-top: 8rem; padding-left: 1rem; padding-right: 1rem; }
+    main { padding-top: 30rem; padding-left: 1rem; padding-right: 1rem; }
 
     @media (min-width: 1024px) { main { padding-left: 2rem; padding-right: 2rem; } }
 
@@ -173,7 +173,7 @@
     </aside>
 
     <!-- MAIN -->
-    <main class="pt-35 mb-16 px-2">
+    <main class="main">
         <div class="m-0 p-2">
             @include('includes.messages')
             @yield('main')
