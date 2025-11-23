@@ -12,9 +12,13 @@ class FileManagerController extends Controller
 {
     public function index(Request $request)
     {
-        $folder = $request->input('folder', ''); // dossier courant
+        $folder = urldecode($request->input('folder', '')); // Décodage URL pour compatibilité
 
-        $all = Storage::disk('s3')->listContents($folder, false); // false = non récursif
+        try {
+            $all = Storage::disk('s3')->listContents($folder, false); // false = non récursif
+        } catch (\Exception $e) {
+            return back()->with('error', 'Impossible de charger le dossier : ' . $e->getMessage());
+        }
 
         $files = [];
         foreach ($all as $item) {
@@ -49,33 +53,25 @@ class FileManagerController extends Controller
 
         $disk = Storage::disk('s3');
 
-        // Si c'est un fichier simple
-        if ($disk->exists($path)) {
-            $disk->delete($path);
-            return back()->with('success', "Fichier supprimé : {$path}");
-        }
+        try {
+            if ($disk->exists($path)) {
+                $disk->delete($path);
+                return back()->with('success', "Fichier supprimé : {$path}");
+            }
 
-        // Supprimer récursivement tous les fichiers et sous-dossiers
-        $this->deleteS3Folder($disk, $path);
+            // Supprimer récursivement tous les fichiers et sous-dossiers
+            $files = $disk->allFiles($path);
+            if (!empty($files)) $disk->delete($files);
 
-        return back()->with('success', "Dossier supprimé : {$path}");
-    }
+            $dirs = $disk->allDirectories($path);
+            foreach ($dirs as $dir) {
+                $subFiles = $disk->allFiles($dir);
+                if (!empty($subFiles)) $disk->delete($subFiles);
+            }
 
-    /**
-     * Supprime un dossier S3 récursivement.
-     */
-    protected function deleteS3Folder($disk, $folder)
-    {
-        // Supprimer tous les fichiers
-        $files = $disk->allFiles($folder);
-        if (!empty($files)) {
-            $disk->delete($files);
-        }
-
-        // Supprimer tous les sous-dossiers
-        $dirs = $disk->allDirectories($folder);
-        foreach ($dirs as $dir) {
-            $this->deleteS3Folder($disk, $dir); // récursion
+            return back()->with('success', "Dossier supprimé : {$path}");
+        } catch (\Exception $e) {
+            return back()->with('error', "Erreur lors de la suppression : " . $e->getMessage());
         }
     }
 }
