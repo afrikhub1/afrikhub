@@ -173,8 +173,8 @@
     </aside>
 
     <!-- MAIN -->
-    <main class="pt-35 mb-16 px-4">
-        <div class="m-0 p-4">
+    <main class="pt-35 mb-16 px-2">
+        <div class="m-0 p-2">
             @include('includes.messages')
             @yield('main')
         </div>
