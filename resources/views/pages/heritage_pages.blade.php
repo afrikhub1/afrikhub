@@ -105,7 +105,7 @@
                     <h1>{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo flex items-center gap-1 text-white">
+                    <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo flex items-center gap-1 text-white headerfixe_link">
                         <i class="fas fa-plus"></i> Ajouter
                     </a>
                     <a href="{{ route('clients_historique') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link">
