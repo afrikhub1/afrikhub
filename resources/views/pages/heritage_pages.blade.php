@@ -13,84 +13,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    <style>
+        /* Police Inter pour un rendu propre et moderne */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f3f4f6;
-    }
-
-    /* Sidebar */
-    #sidebar {
-        transition: transform 0.3s ease-in-out;
-        transform: translateX(100%);
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 80%; /* responsive width */
-        max-width: 350px;
-        height: 100%;
-        z-index: 50;
-        padding: 1.5rem;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
-        overflow-y: auto;
-    }
-
-    #sidebar.active {
-        transform: translateX(0);
-    }
-
-    /* Header stats responsive */
-    .header-stats {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        text-align: center;
-        margin-top: 0.5rem;
-    }
-    .header-stats a {
-        flex: 1 1 48%;
-        margin: 0.25rem;
-    }
-
-    @media (min-width: 768px) {
-        .header-stats a {
-            flex: 1 1 22%;
-            margin: 0.25rem;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
         }
-    }
 
-    /* Header buttons */
-    .header-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    .header-buttons a, .header-buttons button {
-        flex: 1 1 auto;
-    }
-
-    /* Main content padding */
-    main {
-        padding-top: 8rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    @media (min-width: 1024px) {
-        main {
-            padding-left: 2rem;
-            padding-right: 2rem;
+        /* Sidebar (menu latéral) */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100%;
+            z-index: 50;
+            padding: 1.5rem;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
         }
-    }
-
-    /* Footer spacing */
-    footer {
-        padding: 1rem 0;
-    }
-</style>
-
+        #sidebar.active {
+            transform: translateX(0);
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50">
@@ -100,8 +48,8 @@
         <div class="max-w-7xl mx-auto px-4">
 
             <!-- Première ligne : Logo, nom, bouton menu -->
-            <div class="flex flex-wrap items-center justify-between py-3 px-2 sm:px-4">
-                <div class="flex items-center space-x-2 sm:space-x-4">
+            <div class="flex items-center justify-between py-3">
+                <div class="flex items-center space-x-4">
                     <a href="{{ route('accueil') }}" class="block">
                         <img src="{{ asset('assets/images/logo_01.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
                     </a>
@@ -116,7 +64,7 @@
 
 
                 <!-- Zone recherche + icône utilisateur -->
-                 <div class="header-buttons flex flex-wrap items-center gap-2">
+                <div class="flex items-center space-x-4">
 
                     <!-- Bouton Ajouter une résidence -->
                     <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 text-white">
@@ -159,7 +107,7 @@
             </div>
 
             <!-- Ligne des statistiques -->
-            <div class="header-stats border-t border-gray-800 py-2 -mx-2 sm:-mx-4">
+            <div class="flex flex-wrap justify-between text-center border-t border-gray-800 py-2 -mx-4">
 
                 <a href="{{ route('pro.residences') }}" class="flex-1 min-w-[25%] p-2 text-gray-300 hover:bg-gray-800 rounded-lg">
                     <i class="fas fa-home mr-1"></i> Résidences
