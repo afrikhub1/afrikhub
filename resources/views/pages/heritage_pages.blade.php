@@ -51,17 +51,16 @@
         justify-content: space-between;
         text-align: center;
         margin-top: 0.5rem;
-        font-size: 10px; /* un peu plus petit que le body */
-        gap: 0.5rem;
         font-size: 10px;
+        gap: 0.5rem;
     }
     a {
         flex: 1 1 48%;
         margin: 0.25rem;
     }
 
-    @media (min-width: 768px) {
-        a {
+    @media (max-width: 768px) {
+        .header-stats {
             flex: 1 1 22%;
             margin: 0.25rem;
             font-size: 10px;
