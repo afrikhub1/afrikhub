@@ -107,16 +107,16 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo flex items-center gap-1 text-white">
                         <i class="fas fa-plus"></i> Ajouter
                     </a>
-                    <a href="{{ route('clients_historique') }}" class="btn btn-gray flex items-center gap-1 text-white">
+                    <a href="{{ route('clients_historique') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link">
                         <i class="fas fa-calendar-check"></i> Réservations
                     </a>
-                    <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg">
+                    <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg headerfixe_link">
                         <i class="fas fa-search"></i>
                     </a>
-                    <a href="{{ route('pro.dashboard') }}" class="btn btn-gray flex items-center gap-1 text-white">
+                    <a href="{{ route('pro.dashboard') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link">
                         <i class="fas fa-user"></i> Profil
                     </a>
-                    <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition">
+                    <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition headerfixe_link">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
