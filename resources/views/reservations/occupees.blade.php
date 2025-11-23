@@ -6,7 +6,7 @@
     <div class="container-fluid px-2 py-2 mt-2">
 
         <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
-            <h1 class="text-4xl font-extrabold text-red-600 mb-8 text-center border-b-4 border-red-500 pb-3">
+            <h1 class="text-xl font-extrabold text-red-600 mb-8 text-center border-b-4 border-red-500 pb-3">
                 <i class="fas fa-lock-open text-3xl mr-3"></i> Résidences Occupées
             </h1>
 
