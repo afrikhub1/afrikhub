@@ -175,7 +175,7 @@ span.bg-gray-500 {
     background-color: #6b7280;
 }
 
-/* --- Liste historique --- */
+
 ul {
     width: 100%;
     padding: 0;
@@ -183,7 +183,6 @@ ul {
     list-style: none;
 }
 
-/* --- Responsive --- */
 @media (max-width: 768px) {
     main {
         padding: 1rem;
