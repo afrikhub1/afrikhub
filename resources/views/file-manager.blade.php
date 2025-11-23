@@ -4,143 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestionnaire de Fichiers</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f7; padding: 20px; }
-    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
-    h2 { margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-    .file-list { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    .file-list th, .file-list td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
-    .file-list th { background: #f0f0f0; }
-    .file-list tr:hover { background: #f9f9ff; }
-    .btn-delete { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-    .btn-delete:hover { background: #c0392b; }
-    .btn-folder { background: #3498db; color: white; padding: 3px 7px; border-radius: 5px; text-decoration: none; }
-    .file-checkbox { margin-right: 5px; }
-    .selected { background-color: #e6f0ff; }
-    .search-bar { padding: 6px 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 10px; width: 100%; max-width: 400px; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f3f4f6; }
+    .file-card { background: #fff; border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer;
+        transition: all 0.2s; border: 2px solid transparent; }
+    .file-card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .file-card.selected { border-color: #2563eb; background: #e0f2fe; }
+    .file-name { margin-top: 0.5rem; font-size: 0.9rem; word-break: break-word; line-height: 1.2; max-height: 2.4em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .search-bar { padding: 0.5rem 1rem; border-radius: 12px; border: 1px solid #ccc; outline: none; transition: all 0.2s; }
+    .search-bar:focus { border-color: #3b82f6; box-shadow: 0 0 5px rgba(59,130,246,0.4); }
 </style>
 </head>
 <body>
-<div class="container">
-    <h2>📂 Gestionnaire de Fichiers</h2>
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-semibold mb-4">📂 Gestionnaire de Fichiers</h1>
 
-    @if(session('success'))
-        <p style="color:green">{{ session('success') }}</p>
-    @endif
-    @if(session('error'))
-        <p style="color:red">{{ session('error') }}</p>
-    @endif
+    @if(session('success')) <p class="text-green-600 mb-2">{{ session('success') }}</p> @endif
+    @if(session('error')) <p class="text-red-600 mb-2">{{ session('error') }}</p> @endif
 
-    <input type="text" id="search-input" class="search-bar" placeholder="Rechercher un fichier ou dossier...">
-
-    <table class="file-list">
-        <tr>
-            <th>Nom</th>
-            <th>Taille</th>
-            <th>Dernière modification</th>
-            <th>Actions</th>
-        </tr>
-
+    <!-- Barre d'outils -->
+    <div class="flex items-center justify-between mb-4 space-x-4">
         @if($folder)
-        <tr>
-            <td colspan="4">
-                <a class="btn-folder" href="{{ route('file.manager', ['folder' => dirname($folder)]) }}">⬅️ Retour</a>
-            </td>
-        </tr>
+        <a href="{{ route('file.manager', ['folder' => dirname($folder)]) }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 flex items-center">
+            ⬅️ Retour
+        </a>
         @endif
+        <input type="text" id="search-input" class="search-bar flex-1" placeholder="Rechercher un fichier ou dossier...">
+    </div>
 
+    <!-- Grille des fichiers -->
+    <div id="file-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         @foreach($files as $file)
-        <tr class="file-card" data-name="{{ strtolower($file['name']) }}" data-type="{{ $file['type'] }}" data-path="{{ $file['path'] }}">
-            <td>
-                <input type="checkbox" class="file-checkbox">
+        <div class="file-card relative" data-name="{{ strtolower($file['name']) }}">
+            <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
+            <div class="file-icon">
                 @if($file['type'] === 'dir')
-                    📁 <a href="{{ route('file.manager', ['folder' => $file['path']]) }}">{{ $file['name'] }}</a>
+                    <a href="{{ route('file.manager', ['folder' => $file['path']]) }}" class="block text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+                            <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
+                        </svg>
+                        <div class="file-name mt-1">{{ $file['name'] }}</div>
+                    </a>
                 @else
-                    🖼️ {{ $file['name'] }}
+                    <div class="file-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+                            <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
+                        </svg>
+                        <div class="file-name mt-1">{{ $file['name'] }}</div>
+                    </div>
                 @endif
-            </td>
-            <td>{{ $file['size'] ? round($file['size']/1024, 2).' Ko' : '-' }}</td>
-            <td>{{ $file['lastModified'] }}</td>
-            <td></td>
-        </tr>
+
+            </div>
+            <div class="file-name">{{ $file['name'] }}</div>
+            <div class="absolute inset-0 overlay-selected hidden rounded-xl pointer-events-none"></div>
+        </div>
         @endforeach
-    </table>
+    </div>
 
-    <p id="selected-text" class="mt-2 text-gray-700">Aucun fichier ou dossier sélectionné.</p>
-    <button id="delete-selected" class="btn-delete" disabled>Supprimer la sélection</button>
+    <!-- Bouton supprimer -->
+    <form method="POST" action="{{ route('file.manager.delete') }}" class="mt-4">
+        @csrf
+        <input type="hidden" name="path" id="delete-path">
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" id="delete-button" disabled>Supprimer sélection</button>
+    </form>
 </div>
-
-<!-- Formulaire global pour suppression multiple -->
-<form id="delete-form" method="POST" action="{{ route('file.manager.delete') }}" style="display:none;">
-    @csrf
-</form>
 
 <script>
 const fileCards = document.querySelectorAll('.file-card');
-const deleteBtn = document.getElementById('delete-selected');
+const deleteBtn = document.getElementById('delete-button');
+const deletePath = document.getElementById('delete-path');
 const searchInput = document.getElementById('search-input');
-const selectedText = document.getElementById('selected-text');
-const deleteForm = document.getElementById('delete-form');
 
 fileCards.forEach(card => {
     const checkbox = card.querySelector('.file-checkbox');
-    const type = card.dataset.type;
+    const link = card.querySelector('a'); // vérifie si c'est un dossier
 
-    // Clic simple = sélection
-    card.addEventListener('click', e => {
-        if(type==='dir' && e.target.tagName==='A') return;
+    if (link) return; // ne fait rien pour les dossiers
+
+    card.addEventListener('click', () => {
         const selected = !checkbox.checked;
         checkbox.checked = selected;
         card.classList.toggle('selected', selected);
-        updateSelectedText();
-    });
-
-    // Double-clic = ouvrir dossier
-    card.addEventListener('dblclick', e => {
-        if(type==='dir') {
-            window.location.href = `?folder=${encodeURIComponent(card.dataset.path)}`;
-        }
+        updateDeleteButton();
     });
 });
 
-function updateSelectedText() {
+
+function updateDeleteButton() {
     const selected = document.querySelectorAll('.file-checkbox:checked');
-    const count = selected.length;
-    deleteBtn.disabled = count === 0;
-    selectedText.textContent = count === 0
-        ? "Aucun fichier ou dossier sélectionné."
-        : `${count} élément(s) sélectionné(s)`;
+    if (selected.length === 1) {
+        deletePath.value = selected[0].dataset.path;
+        deleteBtn.disabled = false;
+    } else {
+        deletePath.value = '';
+        deleteBtn.disabled = true;
+    }
 }
 
-// Recherche
+// Recherche simple
 searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     fileCards.forEach(card => {
-        const name = card.dataset.name;
-        card.style.display = name.includes(query) ? 'table-row' : 'none';
+        card.style.display = card.dataset.name.includes(query) ? 'block' : 'none';
     });
-});
-
-// Suppression multiple
-deleteBtn.addEventListener('click', () => {
-    const selected = document.querySelectorAll('.file-checkbox:checked');
-    if(selected.length === 0) return;
-
-    if(!confirm(`Voulez-vous supprimer ${selected.length} élément(s) ?`)) return;
-
-    // Vider le formulaire
-    deleteForm.innerHTML = '@csrf';
-
-    // Ajouter tous les fichiers sélectionnés
-    selected.forEach(cb => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'paths[]';
-        input.value = cb.closest('.file-card').dataset.path;
-        deleteForm.appendChild(input);
-    });
-
-    deleteForm.submit();
 });
 </script>
 </body>
