@@ -200,30 +200,7 @@ nav ul li a:hover {
 
 #hebergement img:hover { transform: scale(1.05); }
 
-/* Accordion */
-.accordion-button {
-  background: linear-gradient(135deg, #006d77, #00afb9) !important;
-  color: white !important;
-  font-weight: 700;
-  border-radius: 12px !important;
-  transition: all 0.3s ease;
-}
 
-.accordion-button:not(.collapsed) {
-  background: linear-gradient(135deg, #004d55, #007f7a) !important;
-  color: #fff;
-}
-
-.accordion-body {
-  font-weight: 600;
-  color: #004d40;
-}
-
-
-.services-list li:hover {
-  background: rgba(0,109,119,0.1);
-  transform: translateX(5px);
-}
 
 .toggle-services i {
   transition: transform 0.3s ease, color 0.3s ease;
