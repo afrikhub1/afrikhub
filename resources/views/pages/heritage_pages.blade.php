@@ -13,32 +13,91 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
 
-    <style>
-        /* Police Inter pour un rendu propre et moderne */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
+    /* Police et taille globale */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f3f4f6;
+        font-size: 16px; /* Taille par défaut */
+        line-height: 1.6;
+    }
 
-        /* Sidebar (menu latéral) */
-        #sidebar {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(100%);
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 350px;
-            height: 100%;
-            z-index: 50;
-            padding: 1.5rem;
-            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
+    /* Sidebar (menu latéral) */
+    #sidebar {
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80%;       /* plus responsive */
+        max-width: 350px;
+        height: 100%;
+        z-index: 50;
+        padding: 1.5rem;
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+        font-size: 16px;  /* uniforme pour les liens */
+    }
+    #sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Header statistiques responsive */
+    .header-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        text-align: center;
+        margin-top: 0.5rem;
+        font-size: 14px; /* un peu plus petit que le body */
+    }
+    .header-stats a {
+        flex: 1 1 48%;
+        margin: 0.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .header-stats a {
+            flex: 1 1 22%;
+            margin: 0.25rem;
+            font-size: 16px;
         }
-        #sidebar.active {
-            transform: translateX(0);
+    }
+
+    /* Header boutons responsive */
+    .header-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        font-size: 14px;
+    }
+    .header-buttons a, .header-buttons button {
+        flex: 1 1 auto;
+    }
+
+    /* Main content padding */
+    main {
+        padding-top: 8rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 16px;
+    }
+    @media (min-width: 1024px) {
+        main {
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
-    </style>
+    }
+
+    /* Footer spacing et texte */
+    footer {
+        padding: 1rem 0;
+        font-size: 14px;
+    }
+</style>
+
 </head>
 
 <body class="bg-gray-50">
