@@ -14,7 +14,7 @@
     body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="bg-slate-50 p-0 m-0">
 
   <!-- Header -->
   <header class="bg-white border-b fixed w-full z-50">
