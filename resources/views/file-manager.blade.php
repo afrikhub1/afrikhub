@@ -88,36 +88,54 @@ const fileCards = document.querySelectorAll('.file-card');
 const deleteBtn = document.getElementById('delete-selected');
 const searchInput = document.getElementById('search-input');
 
-fileCards.forEach(card=>{
+// Ajouter un texte dynamique pour l'état de sélection
+const selectedText = document.createElement('p');
+selectedText.className = 'mt-2 text-gray-700';
+deleteBtn.parentNode.insertBefore(selectedText, deleteBtn);
+
+fileCards.forEach(card => {
     const checkbox = card.querySelector('.file-checkbox');
     const type = card.dataset.type;
 
-    if(type==='file'){
-        card.addEventListener('click', (e)=>{
-            // Ignore si on clique directement sur le lien (pour les dossiers)
-            if(e.target.tagName==='A') return;
+    card.addEventListener('click', e => {
+        // Si c'est un dossier et qu'on clique sur le lien, ouvrir le dossier
+        if(type === 'dir' && e.target.tagName === 'A') return;
 
-            const selected = !checkbox.checked;
-            checkbox.checked = selected;
-            card.classList.toggle('selected', selected);
-            updateDeleteButton();
-        });
-    }
+        // Toggle sélection
+        const selected = !checkbox.checked;
+        checkbox.checked = selected;
+        card.classList.toggle('selected', selected);
+
+        updateDeleteButton();
+    });
+
+    // Double-clic sur un dossier pour “ouvrir”
+    card.addEventListener('dblclick', e => {
+        if(type === 'dir') {
+            const folderPath = card.dataset.path;
+            window.location.href = `?folder=${encodeURIComponent(folderPath)}`;
+        }
+    });
 });
 
-function updateDeleteButton(){
-    const anySelected = document.querySelectorAll('.file-checkbox:checked').length > 0;
-    deleteBtn.disabled = !anySelected;
+function updateDeleteButton() {
+    const selected = document.querySelectorAll('.file-checkbox:checked');
+    const count = selected.length;
+    deleteBtn.disabled = count === 0;
+    selectedText.textContent = count === 0
+        ? "Aucun fichier ou dossier sélectionné."
+        : `${count} élément(s) sélectionné(s)`;
 }
 
 // Recherche
-searchInput.addEventListener('input', ()=>{
+searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
-    fileCards.forEach(card=>{
+    fileCards.forEach(card => {
         const name = card.dataset.name;
         card.style.display = name.includes(query) ? 'block' : 'none';
     });
 });
 </script>
+
 </body>
 </html>
