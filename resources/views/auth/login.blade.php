@@ -20,17 +20,7 @@
                 <img src="{{ asset('assets/images/logo_01.png') }}" alt="logo"
                      style="max-width: 130px; filter: drop-shadow(0 5px 12px rgba(0,0,0,0.3));">
             </div>
-
-            {{-- Titre stylé --}}
-            <h3 class="fw-bold mb-2"
-                style="color:#00eaff; letter-spacing:1px; text-transform:uppercase;">
-                Accéder à votre espace
-            </h3>
-
-            <p class="mb-4" style="color:#00ffe5;">
-                Heureux de vous revoir
-            </p>
-
+            
             @include('includes.messages')
 
             <form action="{{ route('login.post') }}" method="POST" class="w-100">
