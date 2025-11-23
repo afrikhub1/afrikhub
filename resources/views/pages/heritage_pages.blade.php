@@ -54,6 +54,9 @@
         font-size: 15px;
         gap: 0.5rem;
     }
+    span{
+        font-size: 10px;
+    }
     a {
         flex: 1 1 48%;
         margin: 0.25rem;
