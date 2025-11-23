@@ -72,6 +72,7 @@
 
     /* ===== Main ===== */
     main { padding-top: 8rem; padding-left: 1rem; padding-right: 1rem; }
+
     @media (min-width: 1024px) { main { padding-left: 2rem; padding-right: 2rem; } }
 
     /* ===== Footer ===== */
@@ -83,7 +84,7 @@
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
         body { font-size: 14px; }
-        header h1 { font-size: 1rem; }
+        header h1 { font-size: 0.5rem; }
         .stats-link { flex: 1 1 45%; font-size: 0.75rem; margin-bottom: 0.25rem; }
         #sidebar a { font-size: 0.875rem; }
     }
