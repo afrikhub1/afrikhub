@@ -403,12 +403,12 @@
     <!-- Section hébergement -->
     <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
       <h2>hébergements</h2>
-      <div class="row m-0 col-12">
+      <div class="row m-0 col-12 justify-content-center">
             <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
                 <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Afrik'Hub Logo"/>
             </div>
         </div>
-        <div class="row m-0 col-12">
+        <div class="row m-0 col-12 justify-content-center">
             <div class="accordion-css">
                 <!-- Premier item -->
                 <input type="checkbox" id="acc1" checked>
