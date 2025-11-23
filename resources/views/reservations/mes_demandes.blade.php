@@ -73,7 +73,7 @@
                                         'payé' => 'Payé',
                                     ];
                                 @endphp
-                                <span class="inline-block px-3 sm:px-4 py-1.5 text-sm sm:text-base font-bold rounded-full shadow-md {{ $statusColors[$res->status] ?? 'bg-red-600 text-white' }}">
+                                <span class="inline-block px-3 text-xs py-1 font-bold rounded-full shadow-md {{ $statusColors[$res->status] ?? 'bg-red-600 text-white' }}">
                                     {{ $statusText[$res->status] ?? 'Refusée (Vous)' }}
                                 </span>
                             </div>
@@ -83,14 +83,14 @@
                                 <div class="flex flex-col sm:flex-row gap-2 justify-center mt-auto">
                                     <form action="{{ route('reservation.accepter', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
+                                        <button type="submit" class="text-sm w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 shadow-md">
                                             <i class="fas fa-check"></i> Accepter
                                         </button>
                                     </form>
 
                                     <form action="{{ route('reservation.refuser', $res->id) }}" method="POST" class="flex-1">
                                         @csrf
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
+                                        <button type="submit" class="text-sm w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
                                             <i class="fas fa-times"></i> Refuser
                                         </button>
                                     </form>
