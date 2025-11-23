@@ -10,14 +10,11 @@ use League\Flysystem\FileAttributes;
 
 class FileManagerController extends Controller
 {
-    /**
-     * Affiche le contenu du dossier courant.
-     */
     public function index(Request $request)
     {
-        $folder = $request->input('folder', '');
+        $folder = $request->input('folder', ''); // dossier courant
 
-        $all = Storage::disk('s3')->listContents($folder, false);
+        $all = Storage::disk('s3')->listContents($folder, false); // false = non récursif
 
         $files = [];
         foreach ($all as $item) {
@@ -43,75 +40,42 @@ class FileManagerController extends Controller
         return view('file-manager', compact('files', 'folder'));
     }
 
-    /**
-     * Crée un nouveau dossier.
-     */
-    public function store(Request $request)
+    public function delete(Request $request)
     {
-        $request->validate([
-            'folder_name' => 'required|string|max:255',
-            'current_path' => 'nullable|string',
-        ]);
-
-        $currentPath = $request->input('current_path', '');
-        $folderName = trim($request->input('folder_name'), '/');
-
-        $newPath = trim($currentPath . '/' . $folderName, '/');
+        $path = $request->input('path');
+        if (!$path) {
+            return back()->with('error', 'Aucun fichier ou dossier sélectionné.');
+        }
 
         $disk = Storage::disk('s3');
 
-        if ($disk->exists($newPath) || $disk->directoryExists($newPath)) {
-            return back()->with('error', "Le dossier '{$folderName}' existe déjà à cet emplacement.");
+        // Si c'est un fichier simple
+        if ($disk->exists($path)) {
+            $disk->delete($path);
+            return back()->with('success', "Fichier supprimé : {$path}");
         }
 
-        $disk->makeDirectory($newPath);
+        // Supprimer récursivement tous les fichiers et sous-dossiers
+        $this->deleteS3Folder($disk, $path);
 
-        return back()->with('success', "Dossier '{$folderName}' créé avec succès.");
+        return back()->with('success', "Dossier supprimé : {$path}");
     }
 
     /**
-     * Supprime un ou plusieurs fichiers/dossiers (récursif pour dossiers non vides).
+     * Supprime un dossier S3 récursivement.
      */
-    public function delete(Request $request)
+    protected function deleteS3Folder($disk, $folder)
     {
-        $paths = $request->input('paths', []);
-
-        if (empty($paths) || !is_array($paths)) {
-            return back()->with('error', 'Aucun élément valide sélectionné pour la suppression.');
+        // Supprimer tous les fichiers
+        $files = $disk->allFiles($folder);
+        if (!empty($files)) {
+            $disk->delete($files);
         }
 
-        $disk = Storage::disk('s3');
-        $deletedCount = 0;
-
-        foreach ($paths as $path) {
-            if (empty($path)) continue;
-
-            // Supprime le contenu du dossier s'il s'agit d'un répertoire
-            if ($disk->directoryExists($path)) {
-                $allFiles = $disk->allFiles($path);
-                $allDirs  = $disk->allDirectories($path);
-
-                if (!empty($allFiles)) {
-                    $disk->delete($allFiles);
-                }
-
-                if (!empty($allDirs)) {
-                    foreach ($allDirs as $dir) {
-                        $disk->deleteDirectory($dir);
-                    }
-                }
-
-                // Supprime le dossier lui-même
-                $disk->deleteDirectory($path);
-                $deletedCount++;
-            }
-            // Sinon, supprime le fichier simple
-            else if ($disk->exists($path)) {
-                $disk->delete($path);
-                $deletedCount++;
-            }
+        // Supprimer tous les sous-dossiers
+        $dirs = $disk->allDirectories($folder);
+        foreach ($dirs as $dir) {
+            $this->deleteS3Folder($disk, $dir); // récursion
         }
-
-        return back()->with('success', "{$deletedCount} élément(s) supprimé(s) avec succès.");
     }
 }
