@@ -20,7 +20,7 @@
 
             <!-- Résidences Occupées -->
             <section id="occupees" class="mb-10 row m-0">
-                 <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
+                 <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
                     <i class="fas fa-key text-indigo-500 mr-3"></i> Résidences occupée
                 </h2>
 
@@ -54,7 +54,7 @@
 
             <!-- Historique des Réservations -->
             <section id="historique" class="mb-10">
-                 <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
+                 <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
                     <i class="fas fa-history text-indigo-500 mr-3"></i> Demandes réçu
                 </h2>
 
@@ -101,7 +101,7 @@
 
             <!-- SECTION PRINCIPALE DES RÉSIDENCES (avec Carrousel GLightbox) -->
             <section id="reservation" class="mb-10 border-t pt-8 border-gray-200">
-                <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
+                <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
                     <i class="fas fa-home text-indigo-500 mr-3"></i> Toutes Mes Résidences en Gestion
                 </h2>
 
