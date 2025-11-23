@@ -53,15 +53,13 @@
         margin-top: 0.5rem;
         font-size: 10px; /* un peu plus petit que le body */
     }
-    @env()
-
-    @endenva {
+    a {
         flex: 1 1 48%;
         margin: 0.25rem;
     }
 
     @media (min-width: 768px) {
-        .a {
+        a {
             flex: 1 1 22%;
             margin: 0.25rem;
             font-size: 10px;
@@ -69,7 +67,7 @@
     }
 
     /* Header boutons responsive */
-    .header-buttons {
+    .a {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
