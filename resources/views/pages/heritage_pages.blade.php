@@ -167,7 +167,7 @@
     </aside>
 
     <!-- MAIN -->
-    <main class="pt-md-32 pt-35 mb-16 px-md-4 p-1">
+    <main class="pt-35 mb-16 px-4">
         <div class="m-0 p-4">
             @include('includes.messages')
             @yield('main')
