@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             sidebar.classList.remove('hidden');
-            setTimeout(() => sidebarPanel.classList.remove('translate-x-[-100%]'), 10);
+            setTimeout(() => sidebarPanel.classList.remove('translate-x-[100%]'), 10);
         });
     });
 
