@@ -114,7 +114,7 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo flex items-center gap-1 text-white headerfixe_link">
                         <i class="fas fa-plus"></i> Ajouter
                     </a>
-                    <a href="{{ route('clients_historique') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link reservation">
+                    <a href="{{ route('clients_historique') }}" class="btn btn-gray d-none d-md-flex items-center gap-1 text-white headerfixe_link">
                         <i class="fas fa-calendar-check"></i> Réservations
                     </a>
                     <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg headerfixe_link">
