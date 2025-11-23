@@ -53,13 +53,13 @@
 
         <!-- NAV BAR -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-gray-800 py-2">
-            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.dashboard') }}"><i class="fas fa-user mr-1"></i> Dashboard</a>
-            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.residences') }}"><i class="fas fa-home mr-1"></i> Residences</a>
-            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.reservations') }}"><i class="fas fa-clock mr-1"></i> Reservation</a>
-            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.utilisateurs.all') }}"><i class="fas fa-users mr-1"></i> Utilisateurs</a>
         </div>
 
