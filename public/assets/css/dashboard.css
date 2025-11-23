@@ -82,14 +82,14 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    h2 {
-        font-size: 1.5rem;
-    }
+    body {
+            font-size: 0.5rem;
+        }
 }
 
 @media (max-width: 480px) {
-    * {
-        font-size: 1.3rem;
+    body {
+        font-size: 0.5rem;
     }
 }
 
