@@ -544,10 +544,7 @@
                     </div>
                 </div>
 
-                <!-- Fin de la Simulation de la boucle -->
-
             </div>
-            <!-- Simulation: @endif -->
         </div>
     </div>
 </div>
