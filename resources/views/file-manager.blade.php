@@ -40,14 +40,21 @@
             <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
             <div class="file-icon">
                 @if($file['type'] === 'dir')
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
-                        <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
-                    </svg>
+                    <a href="{{ route('file.manager', ['folder' => $file['path']]) }}" class="block text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+                            <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
+                        </svg>
+                        <div class="file-name mt-1">{{ $file['name'] }}</div>
+                    </a>
                 @else
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
-                        <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
-                    </svg>
+                    <div class="file-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+                            <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
+                        </svg>
+                        <div class="file-name mt-1">{{ $file['name'] }}</div>
+                    </div>
                 @endif
+
             </div>
             <div class="file-name">{{ $file['name'] }}</div>
             <div class="absolute inset-0 overlay-selected hidden rounded-xl pointer-events-none"></div>
