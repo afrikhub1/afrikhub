@@ -82,18 +82,6 @@
 
                 </div>
             </div>
-
-            {{-- COL DROITE --}}
-            <div class="col-lg-6 gradient-custom-2">
-                <div>
-                    <h4>Trouvez votre hébergement idéal</h4>
-                    <p>
-                        Résidences de vacances, séjours courts ou hébergements longue durée —
-                        notre plateforme vous connecte aux meilleures offres disponibles.
-                    </p>
-                </div>
-            </div>
-
         </div>
 
     </div>
