@@ -10,6 +10,36 @@ use League\Flysystem\FileAttributes;
 
 class FileManagerController extends Controller
 {
+    public function index(Request $request)
+    {
+        $folder = $request->input('folder', ''); // dossier courant
+
+        $all = Storage::disk('s3')->listContents($folder, false); // false = non récursif
+
+        $files = [];
+        foreach ($all as $item) {
+            if ($item instanceof FileAttributes) {
+                $files[] = [
+                    'type' => 'file',
+                    'name' => basename($item->path()),
+                    'path' => $item->path(),
+                    'size' => $item->fileSize(),
+                    'lastModified' => Carbon::createFromTimestamp($item->lastModified())->format('Y-m-d H:i'),
+                ];
+            } elseif ($item instanceof DirectoryAttributes) {
+                $files[] = [
+                    'type' => 'dir',
+                    'name' => basename($item->path()),
+                    'path' => $item->path(),
+                    'size' => null,
+                    'lastModified' => '-',
+                ];
+            }
+        }
+
+        return view('file-manager', compact('files', 'folder'));
+    }
+
     public function delete(Request $request)
     {
         $path = $request->input('path');
@@ -19,21 +49,16 @@ class FileManagerController extends Controller
 
         $disk = Storage::disk('s3');
 
+        // Si c'est un fichier simple
         if ($disk->exists($path)) {
-            // Vérifie si c'est un fichier ou un dossier
-            $metadata = $disk->getMetadata($path);
-            if (($metadata['type'] ?? 'file') === 'file') {
-                // Supprime le fichier
-                $disk->delete($path);
-                return back()->with('success', "Fichier supprimé : {$path}");
-            } else {
-                // Supprime récursivement le dossier
-                $this->deleteS3Folder($disk, $path);
-                return back()->with('success', "Dossier et son contenu supprimés : {$path}");
-            }
+            $disk->delete($path);
+            return back()->with('success', "Fichier supprimé : {$path}");
         }
 
-        return back()->with('error', "Le fichier ou dossier n'existe pas : {$path}");
+        // Supprimer récursivement tous les fichiers et sous-dossiers
+        $this->deleteS3Folder($disk, $path);
+
+        return back()->with('success', "Dossier supprimé : {$path}");
     }
 
     /**
@@ -52,8 +77,5 @@ class FileManagerController extends Controller
         foreach ($dirs as $dir) {
             $this->deleteS3Folder($disk, $dir); // récursion
         }
-
-        // Supprime enfin le dossier lui-même
-        $disk->deleteDirectory($folder);
     }
 }
