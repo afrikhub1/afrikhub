@@ -184,31 +184,5 @@
 
     <!-- Scripts -->
 @section('script')
-    <script>
-      document.querySelectorAll(".accordion-button").forEach(button => {
-        button.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const parent = button.closest(".accordion-item");
-          const content = parent.querySelector(".accordion-collapse");
-          if (parent.classList.contains("active")) {
-            parent.classList.remove("active");
-            content.style.maxHeight = null;
-          } else {
-            document.querySelectorAll(".accordion-item.active").forEach(item => {
-              item.classList.remove("active");
-              item.querySelector(".accordion-collapse").style.maxHeight = null;
-            });
-            parent.classList.add("active");
-            content.style.maxHeight = content.scrollHeight + "px";
-          }
-        });
-      });
-      document.addEventListener("click", () => {
-        document.querySelectorAll(".accordion-item.active").forEach(item => {
-          item.classList.remove("active");
-          item.querySelector(".accordion-collapse").style.maxHeight = null;
-        });
-      });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 @endsection
