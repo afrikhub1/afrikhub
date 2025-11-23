@@ -89,6 +89,12 @@
         h2 { font-size: 1.2rem; font-weight: 600; color: #111827; }
         h5 { font-size: 0.8rem; font-weight: 500; color: #111827; }
     }
+    /* faire disparaitre le bouton de reservation pour un ecran inferieur a 590px */
+    @media (max-width: 590px) {
+        .reservation {
+            display: none;
+        }
+    }
     </style>
 </head>
 
@@ -108,7 +114,7 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo flex items-center gap-1 text-white headerfixe_link">
                         <i class="fas fa-plus"></i> Ajouter
                     </a>
-                    <a href="{{ route('clients_historique') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link">
+                    <a href="{{ route('clients_historique') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link reservation">
                         <i class="fas fa-calendar-check"></i> Réservations
                     </a>
                     <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg headerfixe_link">
