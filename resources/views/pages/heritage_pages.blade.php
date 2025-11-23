@@ -68,6 +68,9 @@
             margin: 0.25rem;
             font-size: 12px;
         }
+        main{
+            font-size: 12px;
+        }
     }
     .header-buttons a, .header-buttons button {
         flex: 1 1 auto;
@@ -78,7 +81,7 @@
         padding-top: 8rem;
         padding-left: 1rem;
         padding-right: 1rem;
-        font-size: 10px;
+        font-size: 15px;
     }
     @media (min-width: 1024px) {
         main {
