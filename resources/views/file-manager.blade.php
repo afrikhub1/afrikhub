@@ -88,28 +88,31 @@ const fileCards = document.querySelectorAll('.file-card');
 const deleteBtn = document.getElementById('delete-selected');
 const searchInput = document.getElementById('search-input');
 
-// Ajouter un texte dynamique pour l'état de sélection
+// Création du texte dynamique pour l'état de sélection
 const selectedText = document.createElement('p');
 selectedText.className = 'mt-2 text-gray-700';
 deleteBtn.parentNode.insertBefore(selectedText, deleteBtn);
+
+// Créer un formulaire global pour la suppression multiple
+const deleteForm = document.createElement('form');
+deleteForm.method = 'POST';
+deleteForm.action = "{{ route('file.manager.delete') }}";
+deleteForm.style.display = 'none';
+deleteForm.innerHTML = '@csrf'; // Laravel CSRF
+document.body.appendChild(deleteForm);
 
 fileCards.forEach(card => {
     const checkbox = card.querySelector('.file-checkbox');
     const type = card.dataset.type;
 
     card.addEventListener('click', e => {
-        // Si c'est un dossier et qu'on clique sur le lien, ouvrir le dossier
         if(type === 'dir' && e.target.tagName === 'A') return;
-
-        // Toggle sélection
         const selected = !checkbox.checked;
         checkbox.checked = selected;
         card.classList.toggle('selected', selected);
-
         updateDeleteButton();
     });
 
-    // Double-clic sur un dossier pour “ouvrir”
     card.addEventListener('dblclick', e => {
         if(type === 'dir') {
             const folderPath = card.dataset.path;
@@ -135,7 +138,31 @@ searchInput.addEventListener('input', () => {
         card.style.display = name.includes(query) ? 'block' : 'none';
     });
 });
+
+// Suppression multiple
+deleteBtn.addEventListener('click', () => {
+    const selected = document.querySelectorAll('.file-checkbox:checked');
+    if(selected.length === 0) return;
+
+    if(!confirm(`Voulez-vous supprimer ${selected.length} élément(s) ?`)) return;
+
+    // Vider le formulaire
+    deleteForm.innerHTML = '@csrf';
+
+    // Ajouter tous les fichiers sélectionnés au formulaire
+    selected.forEach(cb => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'paths[]'; // Tableau pour Laravel
+        input.value = cb.dataset.path;
+        deleteForm.appendChild(input);
+    });
+
+    // Envoyer le formulaire
+    deleteForm.submit();
+});
 </script>
+
 
 </body>
 </html>
