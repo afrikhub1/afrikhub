@@ -10,7 +10,7 @@
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
     <div class="row m-0 col-lg-3 col-md-5 col-10 shadow-lg border-0 p-4"
-         style="backdrop-filter: blur(12px); background: rgba(255,255,255,0.15);
+         style="backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.342);
                 border-radius:25px;">
 
         <div class="row g-0 d-flex align-items-center text-center" style="min-height: 100%;">
@@ -20,7 +20,7 @@
                 <img src="{{ asset('assets/images/logo_01.png') }}" alt="logo"
                      style="max-width: 130px; filter: drop-shadow(0 5px 12px rgba(0,0,0,0.3));">
             </div>
-            
+
             @include('includes.messages')
 
             <form action="{{ route('login.post') }}" method="POST" class="w-100">
