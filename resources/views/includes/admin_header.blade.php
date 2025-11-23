@@ -1,123 +1,114 @@
 <header class="bg-gray-900 shadow-lg top-0 left-0 right-0 z-40 sticky">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row items-center justify-between py-3 gap-3 md:gap-0">
-            <!-- Logo et email -->
-            <div class="flex items-center space-x-4 flex-shrink-0">
-                <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
-                <h1 class="text-lg md:text-xl font-semibold text-white truncate">gestionnaire@afrikhub.com</h1>
+
+        <!-- TOP BAR -->
+        <div class="flex items-center justify-between py-3 flex-wrap gap-3">
+
+            <!-- Logo + email -->
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+                <img class="w-16 sm:w-20 md:w-28 h-auto" src="{{ asset('assets/images/logo_01.png') }}" alt="AfrikHub Logo">
+                <h1 class="text-white font-semibold text-base sm:text-lg md:text-xl truncate max-w-[160px] sm:max-w-none">
+                    gestionnaire@afrikhub.com
+                </h1>
+
+                <!-- Mobile toggle -->
+                <button id="toggleSidebar" class="sm:hidden p-2 rounded-lg text-white hover:bg-indigo-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
             </div>
 
-            <!-- Barre de recherche -->
-            <div class="relative flex-grow w-full md:w-auto">
-                <input type="text" id="searchInput" placeholder="Rechercher par nom ou statut de résidence..."
-                    class="w-full md:w-96 py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150"
-                    onkeyup="filterElements()">
-                <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <!-- Recherche -->
+            <div class="relative w-full sm:flex-grow sm:w-auto">
+                <input id="searchInput"
+                       type="text"
+                       placeholder="Rechercher par nom ou statut..."
+                       class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
 
-            <!-- Option de filtre -->
-            <select id="searchOption" class="py-2 px-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150">
+            <!-- Filtre -->
+            <select id="searchOption"
+                    class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg focus:ring-indigo-500 transition">
                 <option value="name">Chercher</option>
             </select>
 
-            <!-- Toggle sidebar -->
-            <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 focus:outline-none transition duration-150">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            <!-- Desktop toggle -->
+            <button id="toggleSidebar" class="hidden sm:block p-2 rounded-lg text-white hover:bg-indigo-700 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             </button>
+
         </div>
-        <div class="flex flex-wrap justify-between text-center border-t border-gray-800 py-2 -mx-4">
-            <a href="{{ route('admin.dashboard') }}" class="flex-1 min-w-[15%] p-2 text-sm md:text-base font-medium text-gray-300 hover:bg-gray-800 transition duration-150 rounded-lg">
+
+        <!-- NAV BAR (ICONS) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-gray-800 py-2">
+            <a href="{{ route('admin.dashboard') }}" class="p-2 text-sm md:text-base font-medium text-gray-300 text-center hover:bg-gray-800 rounded-lg transition">
                 <i class="fas fa-user mr-1"></i> Dashboard
             </a>
-            <a href="{{ route('admin.residences') }}" class="flex-1 min-w-[15%] p-2 text-sm md:text-base font-medium text-gray-300 hover:bg-gray-800 transition duration-150 rounded-lg">
+            <a href="{{ route('admin.residences') }}" class="p-2 text-sm md:text-base font-medium text-gray-300 text-center hover:bg-gray-800 rounded-lg transition">
                 <i class="fas fa-home mr-1"></i> Residences
             </a>
-            <a href="{{ route('admin.reservations') }}" class="flex-1 min-w-[15%] p-2 text-sm md:text-base font-medium text-gray-300 hover:bg-gray-800 transition duration-150 rounded-lg">
+            <a href="{{ route('admin.reservations') }}" class="p-2 text-sm md:text-base font-medium text-gray-300 text-center hover:bg-gray-800 rounded-lg transition">
                 <i class="fas fa-clock mr-1"></i> Reservation
             </a>
-            <a href="{{ route('admin.utilisateurs.all') }}" class="flex-1 min-w-[15%] p-2 text-sm md:text-base font-medium text-gray-300 hover:bg-gray-800 transition duration-150 rounded-lg">
+            <a href="{{ route('admin.utilisateurs.all') }}" class="p-2 text-sm md:text-base font-medium text-gray-300 text-center hover:bg-gray-800 rounded-lg transition">
                 <i class="fas fa-users mr-1"></i> Utilisateurs
             </a>
         </div>
+
     </div>
 </header>
 
-<div id="sidebar" class="text-white flex flex-col items-center">
-    <button id="closeSidebar" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-    </button>
+<!-- SIDEBAR -->
+<div id="sidebar"
+     class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm hidden z-50">
+    <div class="bg-gray-900 w-64 h-full p-6 shadow-xl transform translate-x-[-100%] transition-all duration-300" id="sidebarPanel">
 
-    <div class="mt-12 w-full flex flex-col space-y-4">
-        <a href="{{ route('accueil') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition"><i class="fas fa-home mr-1"></i> Accueil</a>
-        <a href="{{ route('recherche') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Recherche</a>
-        <a href="{{ route('admin.reservations') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Réservation</a>
-        <a href="{{ route('mise_en_ligne') }}" class="w-full text-center py-2 px-4 rounded-lg hover:bg-gray-700 transition">Mise en ligne</a>
-        <div class="py-2 w-full mx-auto row m-0">
-            <a href="{{ route('logout') }}" class="w-full text-center py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition shadow-lg">Déconnexion</a>
+        <button id="closeSidebar" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="mt-12 flex flex-col space-y-4">
+            <a href="{{ route('accueil') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Accueil</a>
+            <a href="{{ route('recherche') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Recherche</a>
+            <a href="{{ route('admin.reservations') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Réservation</a>
+            <a href="{{ route('mise_en_ligne') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Mise en ligne</a>
+
+            <a href="{{ route('logout') }}"
+               class="py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-lg text-center">
+                Déconnexion
+            </a>
         </div>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Éléments de la sidebar
-    const toggleButton = document.getElementById('toggleSidebar');
-    const closeButton = document.getElementById('closeSidebar');
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButtons = document.querySelectorAll('#toggleSidebar');
     const sidebar = document.getElementById('sidebar');
+    const sidebarPanel = document.getElementById('sidebarPanel');
+    const closeButton = document.getElementById('closeSidebar');
 
-    // Éléments de recherche
-    const searchInput = document.getElementById('searchInput');
-    const searchOption = document.getElementById('searchOption');
-
-    // Logique de la sidebar
-    if (toggleButton && sidebar) {
-        toggleButton.addEventListener('click', function() {
-            sidebar.classList.add('active');
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            sidebar.classList.remove('hidden');
+            setTimeout(() => sidebarPanel.classList.remove('translate-x-[-100%]'), 10);
         });
-    }
-    if (closeButton && sidebar) {
-        closeButton.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-        });
-    }
-
-    if (searchOption) {
-        searchOption.addEventListener('change', filterElements);
-    }
-});
-
-
-function filterElements() {
-    const input = document.getElementById('searchInput');
-    const filter = input.value.toUpperCase();
-    const option = document.getElementById('searchOption').value;
-
-
-    const residenceItems = document.querySelectorAll('.residence-item');
-
-    residenceItems.forEach(item => {
-        let textValue = ''; // Initialiser à vide
-
-        if (option === 'name') {
-            // Utilise l'attribut data-name pour le nom de la résidence
-            textValue = item.getAttribute('data-name') || ''; // Utilise chaîne vide si attribut manquant
-        } else { // 'all'
-            // Utilise tout le contenu textuel de la carte de résidence
-            textValue = item.textContent || '';
-        }
-
-        // Vérifie si la valeur de recherche est présente dans le texte de comparaison
-        if (textValue.toUpperCase().indexOf(filter) > -1) {
-            item.style.display = ""; // Afficher l'élément
-        } else {
-            item.style.display = "none"; // Masquer l'élément
-        }
     });
-}
+
+    closeButton.addEventListener('click', () => {
+        sidebarPanel.classList.add('translate-x-[-100%]');
+        setTimeout(() => sidebar.classList.add('hidden'), 300);
+    });
+});
 </script>
