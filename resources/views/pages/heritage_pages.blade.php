@@ -53,13 +53,15 @@
         margin-top: 0.5rem;
         font-size: 10px; /* un peu plus petit que le body */
     }
-    .header-stats a {
+    @env()
+
+    @endenva {
         flex: 1 1 48%;
         margin: 0.25rem;
     }
 
     @media (min-width: 768px) {
-        .header-stats a {
+        .a {
             flex: 1 1 22%;
             margin: 0.25rem;
             font-size: 10px;
