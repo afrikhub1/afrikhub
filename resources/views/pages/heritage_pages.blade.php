@@ -45,13 +45,15 @@
     }
 
     /* Header statistiques responsive */
-    a {
+    .header-stats {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         text-align: center;
         margin-top: 0.5rem;
         font-size: 10px; /* un peu plus petit que le body */
+        gap: 0.5rem;
+        font-size: 10px;
     }
     a {
         flex: 1 1 48%;
