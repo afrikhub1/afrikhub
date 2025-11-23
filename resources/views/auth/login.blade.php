@@ -9,7 +9,7 @@
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
     <div class="card d-flex">
-        <div class="row g-0 d-flex align-items-center" style="min-height: 100%;">
+        <div class="row g-0 d-flex justify-content-center" style="min-height: 100%;">
 
             {{-- COL GAUCHE - FORMULAIRE --}}
             <div class="col-lg-6">
