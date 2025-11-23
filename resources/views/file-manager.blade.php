@@ -78,6 +78,10 @@ const searchInput = document.getElementById('search-input');
 
 fileCards.forEach(card => {
     const checkbox = card.querySelector('.file-checkbox');
+    const link = card.querySelector('a'); // vérifie si c'est un dossier
+
+    if (link) return; // ne fait rien pour les dossiers
+
     card.addEventListener('click', () => {
         const selected = !checkbox.checked;
         checkbox.checked = selected;
@@ -85,6 +89,7 @@ fileCards.forEach(card => {
         updateDeleteButton();
     });
 });
+
 
 function updateDeleteButton() {
     const selected = document.querySelectorAll('.file-checkbox:checked');
