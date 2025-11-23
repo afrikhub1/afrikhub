@@ -17,10 +17,7 @@
         justify-content: space-between;
     }
 
-    header img {
-        max-height: 60px;
-        object-fit: contain;
-    }
+    header img { max-height: 60px; object-fit: contain; }
 
     nav ul {
         list-style: none;
@@ -43,68 +40,7 @@
         position: relative;
     }
 
-    nav ul li a::after {
-        content: '';
-        display: block;
-        height: 2px;
-        background: #ffddd2;
-        width: 0;
-        transition: width 0.3s;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-
-    nav ul li a:hover::after {
-        width: 100%;
-    }
-
-    nav ul li a.bg-danger { background-color: #dc3545; }
-    nav ul li a.bg-dark { background-color: #343a40; }
-
-    nav ul li a:hover {
-        background-color: rgba(255,255,255,0.2);
-        color: #fff;
-    }
-
-    /* Dropdown menu */
-    .nav-item.dropdown { position: relative; display: none; }
-    .dropdown-toggle { color: white; background: transparent; padding: 10px 15px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
-    .dropdown-toggle:hover { background-color: rgba(255,255,255,0.15); }
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        border-radius: 12px;
-        margin-top: 5px;
-        padding: 0.5rem 0;
-        z-index: 1000;
-        flex-direction: column;
-        box-shadow: 0 8px 18px rgba(0,77,85,0.3);
-        background-color: rgba(0, 0, 0, 0.4) !important;
-        backdrop-filter: blur(5px);
-    }
-    .dropdown-menu li a {
-        padding: 8px 15px;
-        color: white;
-        font-weight: 600;
-        width: 100%;
-        margin-top: 0;
-        text-align: center;
-        border-bottom: 1px solid #b2dfdb;
-    }
-    .dropdown-menu li a:hover { background-color: #00b4a2; color: white; }
-    .nav-item.dropdown:hover .dropdown-menu,
-    .nav-item.dropdown:focus-within .dropdown-menu { display: flex; }
-
-    @media screen and (max-width: 978px) {
-        #entete { display: none; }
-        .nav-item.dropdown { display: inline-flex; flex-direction: column; align-items: flex-end; }
-        .dropdown-menu { position: static; display: none; }
-        .dropdown-toggle:focus + .dropdown-menu,
-        .dropdown-toggle:hover + .dropdown-menu { display: flex; }
-    }
+    nav ul li a:hover { background-color: rgba(255,255,255,0.2); }
 
     /* ---------------- SECTION ACCUEIL ---------------- */
     #accueil {
@@ -129,31 +65,53 @@
         border-radius: 20px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         margin: 3rem auto;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    #hebergement:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
-    #hebergement h2 { font-weight: 800; margin-bottom: 2rem; text-align: center; font-size: 2.8rem; color: #006d77; text-transform: uppercase; letter-spacing: 2px; }
-    #hebergement img { border-radius: 15px; box-shadow: 0 8px 18px rgba(0,0,0,0.2); width: 100%; height: auto; object-fit: cover; transition: transform 0.3s ease; }
+    #hebergement h2 {
+        font-weight: 800;
+        margin-bottom: 2rem;
+        text-align: center;
+        font-size: 2.8rem;
+        color: #006d77;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    #hebergement img {
+        border-radius: 15px;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
     #hebergement img:hover { transform: scale(1.05); }
 
-    /* Accordion */
-    .accordion-button {
-        background: linear-gradient(135deg, #006d77, #00afb9) !important;
-        color: white !important;
-        font-weight: 700;
-        border-radius: 12px !important;
-        transition: all 0.3s ease;
-    }
-    .accordion-button:not(.collapsed) {
-        background: linear-gradient(135deg, #004d55, #007f7a) !important;
+    /* ---------------- ACCORDION CSS ---------------- */
+    .accordion-css { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .accordion-css input { display: none; }
+    .accordion-css label {
+        display: block;
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #006d77, #00afb9);
         color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.3s ease;
     }
-    .accordion-body { font-weight: 600; color: #004d40; }
-    .services-list li { padding: 8px 0; transition: transform 0.2s ease, background 0.3s ease; }
-    .services-list li:hover { background: rgba(0,109,119,0.1); transform: translateX(5px); }
-    .toggle-services i { transition: transform 0.3s ease, color 0.3s ease; }
-    .toggle-services:hover i { color: #004d40; }
+    .accordion-css label:hover { background: linear-gradient(135deg, #004d55, #007f7a); }
+    .accordion-css .content {
+        max-height: 0;
+        overflow: hidden;
+        background: #e0f2f1;
+        transition: max-height 0.35s ease;
+        padding: 0 20px;
+    }
+    .accordion-css input:checked ~ .content { max-height: 500px; padding: 15px 20px; }
+    .accordion-css .content ul { padding-left: 20px; margin: 0; }
+    .accordion-css .content li { margin-bottom: 8px; font-weight: 600; }
 
+    .toggle-services i { margin-left: 8px; }
+
+    /* Bouton réserver */
     .btn-reserver {
         display: inline-block;
         padding: 12px 28px;
@@ -168,30 +126,14 @@
         animation: bounce 2s infinite;
     }
     .btn-reserver:hover { background: #0056b3; }
+    @keyframes bounce { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
 
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    /* ---------------- FOOTER ---------------- */
-    footer {
-        background: linear-gradient(135deg, #006d77, #00afb9);
-        color: white;
-        padding: 1.5rem;
-        text-align: center;
-        font-size: 0.95rem;
-        letter-spacing: 1px;
-    }
-
-    /* ---------------- RESPONSIVE ---------------- */
+    /* Responsive */
     @media (max-width: 768px) {
         #hebergement { padding: 2rem 1rem; }
         #hebergement h2 { font-size: 2rem; }
-        .accordion-button { font-size: 1rem !important; padding: 0.75rem 1rem !important; }
         .btn-reserver { font-size: 1rem; padding: 12px 28px; }
     }
-
 </style>
 
 <!-- HEADER -->
@@ -202,27 +144,13 @@
         </div>
         <nav class="col-lg-10 col-md-10 col-9">
             <ul class="d-flex justify-content-end py-2" id="entete">
-                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-sign-in"></span><span class="badge">connexion</span></a></li>
-                <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a></li>
+                <li><a href="{{ route('login') }}" class="bg-dark"><span class="fa fa-sign-in"></span><span class="badge">connexion</span></a></li>
+                <li><a href="{{ route('register') }}" class="bg-dark"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a></li>
                 <li><a href="{{ route('admin.login') }}" class="bg-danger"><span class="fa fa-user-shield"></span><span class="badge">admin</span></a></li>
                 <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">hébergement</span></a></li>
                 <li><a href="#location"><span class="fa fa-car"></span><span class="badge">véhicule</span></a></li>
                 <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
             </ul>
-
-            <li class="nav-item dropdown col-12">
-                <a href="#" class="dropdown-toggle">menu</a>
-                <ul class="dropdown-menu row m-0 py-2 col-8 col-md-6" aria-label="submenu">
-                    <li><a class="dropdown-item" href="{{ route('login') }}">connexion</a></li>
-                    <li><a class="dropdown-item" href="{{ route('register') }}">inscription</a></li>
-                    <li><a class="dropdown-item" href="{{ route('admin.login') }}">admin</a></li>
-                    <li><a class="dropdown-item" href="#hebergement">Hébergements</a></li>
-                    <li><a class="dropdown-item" href="#location">Véhicules</a></li>
-                    <li><a class="dropdown-item" href="#circuits">Circuits</a></li>
-                    <li><a class="dropdown-item" href="#reservation">Réservation</a></li>
-                    <li><a class="dropdown-item" href="#contact">Contact</a></li>
-                </ul>
-            </li>
         </nav>
     </div>
 </header>
@@ -247,50 +175,34 @@
     </div>
 
     <div class="col-12 col-md-8 col-lg-6">
-        <div class="accordion" id="accordionHebergement">
+        <div class="accordion-css">
             <!-- Types d'hébergements -->
-            <div class="accordion-item border-0" style="background: #e0f2f1;">
-                <h2 class="accordion-header mt-5" id="headingTypes">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTypes" aria-expanded="true" aria-controls="collapseTypes">
-                        types d'hébergements
-                    </button>
-                </h2>
-                <div id="collapseTypes" class="accordion-collapse collapse show" aria-labelledby="headingTypes">
-                    <div class="accordion-body">
-                        <div class="mb-3 border-0">
-                            <div class="d-flex align-items-center justify-content-between"><strong>Studio</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span></div>
-                            <ul class="services-list mt-2"><li>wifi gratuit</li><li>ventilateur</li><li>caméra de surveillance</li></ul>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center justify-content-between"><strong>Chambre unique</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span></div>
-                            <ul class="services-list mt-2"><li>wifi gratuit</li><li>climatisation</li><li>petit déjeuner inclus</li></ul>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center justify-content-between"><strong>Villa avec piscine</strong><span class="toggle-services"><i class="fa fa-chevron-down"></i></span></div>
-                            <ul class="services-list mt-2"><li>wifi gratuit</li><li>piscine privée</li><li>climatisation</li><li>parking gratuit</li></ul>
-                        </div>
-                    </div>
+            <input type="checkbox" id="acc1" checked>
+            <label for="acc1">Types d'hébergements</label>
+            <div class="content">
+                <div><strong>Studio</strong> <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                    <ul><li>wifi gratuit</li><li>ventilateur</li><li>caméra de surveillance</li></ul>
+                </div>
+                <div><strong>Chambre unique</strong> <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                    <ul><li>wifi gratuit</li><li>climatisation</li><li>petit déjeuner inclus</li></ul>
+                </div>
+                <div><strong>Villa avec piscine</strong> <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
+                    <ul><li>wifi gratuit</li><li>piscine privée</li><li>climatisation</li><li>parking gratuit</li></ul>
                 </div>
             </div>
 
             <!-- Conditions de réservation -->
-            <div class="accordion-item border-0" style="background: #e0f2f1;">
-                <h2 class="accordion-header" id="headingConditions">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConditions" aria-expanded="false" aria-controls="collapseConditions">
-                        conditions de réservation
-                    </button>
-                </h2>
-                <div id="collapseConditions" class="accordion-collapse collapse" aria-labelledby="headingConditions">
-                    <div class="accordion-body">
-                        <ul>
-                            <li>réservation préalable requise</li>
-                            <li>acompte de 20% pour confirmation</li>
-                            <li>annulation gratuite jusqu'à 48h avant l'arrivée</li>
-                        </ul>
-                    </div>
-                </div>
+            <input type="checkbox" id="acc2">
+            <label for="acc2">Conditions de réservation</label>
+            <div class="content">
+                <ul>
+                    <li>réservation préalable requise</li>
+                    <li>acompte de 20% pour confirmation</li>
+                    <li>annulation gratuite jusqu'à 48h avant l'arrivée</li>
+                </ul>
             </div>
         </div>
+
         <div class="text-center mt-4">
             <a href="{{ route('recherche') }}" class="btn-reserver">réserver</a>
         </div>
@@ -317,7 +229,6 @@
                             <a href="javascript:void(0)" class="glightbox-trigger-{{ $residence->id }}">
                                 <img src="{{ $firstImage }}" alt="Image de la résidence {{ $residence->nom }}" class="card-img-top" loading="lazy">
                             </a>
-
                             @foreach($images as $key => $image)
                                 <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" data-title="{{ $residence->nom }} - Image {{ $key + 1 }}" style="display: none;" data-index="{{ $key }}" data-trigger=".glightbox-trigger-{{ $residence->id }}"></a>
                             @endforeach
@@ -332,7 +243,6 @@
                                     <li class="fw-bold mt-2"><i class="fas fa-money-bill-wave me-2 text-success"></i>Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA</li>
                                     <li class="fw-bold mt-2 text-danger fw-600"><i class="fas fa-calendar-check me-2"></i>Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}</li>
                                 </ul>
-
                                 <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded mt-auto">
                                     Voir les Détails <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
