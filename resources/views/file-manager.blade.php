@@ -6,107 +6,116 @@
 <title>Gestionnaire de Fichiers</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f3f4f6; }
-    .file-card { background: #fff; border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer;
-        transition: all 0.2s; border: 2px solid transparent; }
-    .file-card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .file-card.selected { border-color: #2563eb; background: #e0f2fe; }
-    .file-name { margin-top: 0.5rem; font-size: 0.9rem; word-break: break-word; line-height: 1.2; max-height: 2.4em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-    .search-bar { padding: 0.5rem 1rem; border-radius: 12px; border: 1px solid #ccc; outline: none; transition: all 0.2s; }
-    .search-bar:focus { border-color: #3b82f6; box-shadow: 0 0 5px rgba(59,130,246,0.4); }
+    body { font-family: 'Inter', sans-serif; background: #f5f5f7; }
+    .file-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        border: 2px solid transparent;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .file-card:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .file-card.selected { border-color: #007aff; background: #e6f0ff; }
+    .file-name { margin-top: 0.5rem; font-weight: 500; word-break: break-word; }
+    .overlay-selected { position: absolute; inset:0; background: rgba(0,122,255,0.15); border-radius: 10px; pointer-events:none; display:none; }
+    .file-card.selected .overlay-selected { display:block; }
+    .search-bar { padding:0.5rem 1rem; border-radius: 10px; border:1px solid #ccc; outline:none; width:100%; max-width:400px; }
+    .search-bar:focus { border-color:#007aff; box-shadow:0 0 5px rgba(0,122,255,0.4); }
 </style>
 </head>
 <body>
 <div class="container mx-auto p-6">
     <h1 class="text-2xl font-semibold mb-4">📂 Gestionnaire de Fichiers</h1>
 
-    @if(session('success')) <p class="text-green-600 mb-2">{{ session('success') }}</p> @endif
-    @if(session('error')) <p class="text-red-600 mb-2">{{ session('error') }}</p> @endif
+    @if(session('success'))
+        <p class="text-green-600 mb-2">{{ session('success') }}</p>
+    @endif
+    @if(session('error'))
+        <p class="text-red-600 mb-2">{{ session('error') }}</p>
+    @endif
 
-    <!-- Barre d'outils -->
-    <div class="flex items-center justify-between mb-4 space-x-4">
+    <div class="flex items-center justify-between mb-4">
         @if($folder)
-        <a href="{{ route('file.manager', ['folder' => dirname($folder)]) }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 flex items-center">
-            ⬅️ Retour
+        <a href="{{ route('file.manager', ['folder'=>dirname($folder)]) }}"
+           class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 flex items-center text-gray-700">
+           ⬅️ Retour
         </a>
         @endif
-        <input type="text" id="search-input" class="search-bar flex-1" placeholder="Rechercher un fichier ou dossier...">
+        <input type="text" id="search-input" class="search-bar" placeholder="Rechercher un fichier...">
     </div>
 
-    <!-- Grille des fichiers -->
-    <div id="file-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        @foreach($files as $file)
-        <div class="file-card relative" data-name="{{ strtolower($file['name']) }}">
-            <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
-            <div class="file-icon">
-                @if($file['type'] === 'dir')
-                    <a href="{{ route('file.manager', ['folder' => $file['path']]) }}" class="block text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+    <form id="delete-form" method="POST" action="{{ route('file.manager.delete') }}">
+        @csrf
+        <div id="file-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            @foreach($files as $file)
+            <div class="file-card relative" data-name="{{ strtolower($file['name']) }}" data-type="{{ $file['type'] }}">
+                @if($file['type']==='file')
+                    <input type="checkbox" name="paths[]" value="{{ $file['path'] }}" class="file-checkbox absolute top-2 left-2 w-5 h-5">
+                @endif
+                <div class="file-icon">
+                    @if($file['type']==='dir')
+                    <a href="{{ route('file.manager', ['folder'=>$file['path']]) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD93B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
                             <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
                         </svg>
-                        <div class="file-name mt-1">{{ $file['name'] }}</div>
                     </a>
-                @else
-                    <div class="file-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
-                            <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
-                        </svg>
-                        <div class="file-name mt-1">{{ $file['name'] }}</div>
-                    </div>
-                @endif
-
+                    @else
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#4B9CD3" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+                        <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
+                    </svg>
+                    @endif
+                </div>
+                <div class="file-name">{{ $file['name'] }}</div>
+                <div class="overlay-selected"></div>
             </div>
-            <div class="file-name">{{ $file['name'] }}</div>
-            <div class="absolute inset-0 overlay-selected hidden rounded-xl pointer-events-none"></div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
 
-    <!-- Bouton supprimer -->
-    <form method="POST" action="{{ route('file.manager.delete') }}" class="mt-4">
-        @csrf
-        <input type="hidden" name="path" id="delete-path">
-        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" id="delete-button" disabled>Supprimer sélection</button>
+        <button type="submit" id="delete-selected"
+            class="mt-6 px-6 py-2 bg-red-500 text-white rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled>
+            Supprimer la sélection
+        </button>
     </form>
 </div>
 
 <script>
 const fileCards = document.querySelectorAll('.file-card');
-const deleteBtn = document.getElementById('delete-button');
-const deletePath = document.getElementById('delete-path');
+const deleteBtn = document.getElementById('delete-selected');
 const searchInput = document.getElementById('search-input');
 
-fileCards.forEach(card => {
+fileCards.forEach(card=>{
     const checkbox = card.querySelector('.file-checkbox');
-    const link = card.querySelector('a'); // vérifie si c'est un dossier
+    const type = card.dataset.type;
 
-    if (link) return; // ne fait rien pour les dossiers
+    if(type==='file'){
+        card.addEventListener('click', (e)=>{
+            // Ignore si on clique directement sur le lien (pour les dossiers)
+            if(e.target.tagName==='A') return;
 
-    card.addEventListener('click', () => {
-        const selected = !checkbox.checked;
-        checkbox.checked = selected;
-        card.classList.toggle('selected', selected);
-        updateDeleteButton();
-    });
+            const selected = !checkbox.checked;
+            checkbox.checked = selected;
+            card.classList.toggle('selected', selected);
+            updateDeleteButton();
+        });
+    }
 });
 
-
-function updateDeleteButton() {
-    const selected = document.querySelectorAll('.file-checkbox:checked');
-    if (selected.length === 1) {
-        deletePath.value = selected[0].dataset.path;
-        deleteBtn.disabled = false;
-    } else {
-        deletePath.value = '';
-        deleteBtn.disabled = true;
-    }
+function updateDeleteButton(){
+    const anySelected = document.querySelectorAll('.file-checkbox:checked').length > 0;
+    deleteBtn.disabled = !anySelected;
 }
 
-// Recherche simple
-searchInput.addEventListener('input', () => {
+// Recherche
+searchInput.addEventListener('input', ()=>{
     const query = searchInput.value.toLowerCase();
-    fileCards.forEach(card => {
-        card.style.display = card.dataset.name.includes(query) ? 'block' : 'none';
+    fileCards.forEach(card=>{
+        const name = card.dataset.name;
+        card.style.display = name.includes(query) ? 'block' : 'none';
     });
 });
 </script>
