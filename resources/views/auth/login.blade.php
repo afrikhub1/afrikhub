@@ -8,13 +8,12 @@
 @section('contenu')
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
-    <div class="card d-flex shadow-lg border-0"
+    <div class="card d-flex col-6 shadow-lg border-0"
          style="backdrop-filter: blur(12px); background: rgba(255,255,255,0.15);">
 
         <div class="row g-0 d-flex align-items-center" style="min-height: 100%;">
 
-            {{-- COL GAUCHE - FORMULAIRE --}}
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card-body">
 
                     {{-- Logo --}}
@@ -104,29 +103,6 @@
 
                     </form>
                 </div>
-            </div>
-
-            {{-- COL DROITE --}}
-            <div class="col-lg-6 gradient-custom-2"
-                 style="padding:3rem; text-align:center;">
-
-                <div style="animation: fadeInRight 1.2s ease;">
-                    <h2 class="fw-bold mb-3" style="text-shadow:0 3px 10px rgba(0,0,0,0.3);">
-                        Bienvenue dans votre espace
-                    </h2>
-
-                    <p style="font-size:1.05rem; line-height:1.7;">
-                        Recherchez, réservez et gérez vos hébergements en toute simplicité.<br>
-                        Votre confort, notre priorité 🌿
-                    </p>
-
-                    {{-- Effet icône animée --}}
-                    <div class="mt-4">
-                        <i class="fa-solid fa-house-chimney-user"
-                           style="font-size:3.2rem; opacity:0.9; filter:drop-shadow(0 6px 12px rgba(0,0,0,0.3));"></i>
-                    </div>
-                </div>
-
             </div>
 
         </div>
