@@ -26,7 +26,7 @@
     <!-- Barre d'outils -->
     <div class="flex items-center justify-between mb-4 space-x-4">
         @if($folder)
-        <a href="{{ route('admin.file.manager', ['folder' => dirname($folder)]) }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 flex items-center">
+        <a href="{{ route('file.manager', ['folder' => dirname($folder)]) }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 flex items-center">
             ⬅️ Retour
         </a>
         @endif
@@ -40,7 +40,7 @@
             <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
             <div class="file-icon">
                 @if($file['type'] === 'dir')
-                    <a href="{{ route('admin.file.manager', ['folder' => $file['path']]) }}" class="block text-center">
+                    <a href="{{ route('file.manager', ['folder' => $file['path']]) }}" class="block text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
                             <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
                         </svg>
@@ -63,7 +63,7 @@
     </div>
 
     <!-- Bouton supprimer -->
-    <form method="POST" action="{{ route('admin.file.manager.delete') }}" class="mt-4">
+    <form method="POST" action="{{ route('file.manager.delete') }}" class="mt-4">
         @csrf
         <input type="hidden" name="path" id="delete-path">
         <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" id="delete-button" disabled>Supprimer sélection</button>
