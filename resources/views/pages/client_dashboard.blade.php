@@ -17,7 +17,7 @@
 <body class="bg-slate-50 p-0 m-0">
 
   <!-- Header -->
-  <header class="bg-white border-b fixed w-full z-50 top-0">
+<header class="bg-white border-b fixed w-full z-50 top-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo + titre -->
@@ -58,7 +58,7 @@
         </button>
       </div>
     </div>
-  </header>
+</header>
 
   <!-- Sidebar mobile -->
   <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-50 overflow-y-auto">
