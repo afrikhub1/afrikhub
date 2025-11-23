@@ -55,7 +55,7 @@
         gap: 0.5rem;
     }
     span{
-        font-size: 10px;
+        font-size: 5px;
     }
     a {
         flex: 1 1 48%;
