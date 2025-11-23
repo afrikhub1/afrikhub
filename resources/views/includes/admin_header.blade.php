@@ -53,13 +53,13 @@
 
         <!-- NAV BAR -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-gray-800 py-2">
-            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.dashboard') }}"><i class="fas fa-user mr-1"></i> Dashboard</a>
-            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.residences') }}"><i class="fas fa-home mr-1"></i> Residences</a>
-            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.reservations') }}"><i class="fas fa-clock mr-1"></i> Reservation</a>
-            <a class="p-2 text-sm md:text-base text-white-300 text-center hover:bg-gray-800 rounded-lg transition"
+            <a class="p-2 text-sm md:text-base text-gray-300 text-center hover:bg-gray-800 rounded-lg transition"
                 href="{{ route('admin.utilisateurs.all') }}"><i class="fas fa-users mr-1"></i> Utilisateurs</a>
         </div>
 
@@ -70,7 +70,7 @@
 <div class="fixed inset-0 bg-black/50 opacity-0 pointer-events-none transition peer-checked:opacity-100 peer-checked:pointer-events-auto z-40"></div>
 
 <!-- SIDEBAR PANEL -->
-<aside class="fixed top-0 right-0 w-64 h-full bg-gray-900 shadow-xl transform -translate-x-full
+<aside class="fixed top-0 left-0 w-64 h-full bg-gray-900 shadow-xl transform -translate-x-full
             transition-all duration-300 peer-checked:translate-x-0 z-50 p-6">
 
     <!-- BUTTON CLOSE -->
@@ -82,12 +82,12 @@
     </label>
 
     <div class="mt-12 flex flex-col space-y-4">
-        <a href="{{ route('accueil') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Accueil</a>
-        <a href="{{ route('recherche') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Recherche</a>
-        <a href="{{ route('admin.reservations') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Réservation</a>
-        <a href="{{ route('mise_en_ligne') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700">Mise en ligne</a>
+        <a href="{{ route('accueil') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Accueil</a>
+        <a href="{{ route('recherche') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Recherche</a>
+        <a href="{{ route('admin.reservations') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Réservation</a>
+        <a href="{{ route('mise_en_ligne') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Mise en ligne</a>
 
-        <a href="{{ route('logout') }}" class="py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg shadow-lg text-center">
+        <a href="{{ route('logout') }}" class="py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg shadow-lg text-center text-white">
             Déconnexion
         </a>
     </div>
