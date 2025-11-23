@@ -9,7 +9,7 @@
 
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
-    <div class="row m-0 col-lg-4 col-md-5 col-10 col-sm-8 col-xs-2 shadow-lg border-0 p-4"
+    <div class="row m-0 col-lg-5 col-xl-4 col-md-6 col-10 shadow-lg border-0 p-4"
          style="backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.342);
                 border-radius:25px;">
 
@@ -23,7 +23,7 @@
 
             @include('includes.messages')
 
-            <form action="{{ route('login.post') }}" method="POST" class="w-100">
+            <form action="{{ route('login.post') }}" method="POST" class="w-100 justify-content-center row m-0">
                 @csrf
 
                 {{-- Email --}}
@@ -52,34 +52,34 @@
 
                 {{-- Lien mot de passe oublié --}}
                 <div class="text-end mb-3">
-                    <a href="{{ route('password.request') }}" class="text-danger small fw-light" style="transition:0.3s;">
+                    <a href="{{ route('password.request') }}" class="text-light underline small fw-light" style="transition:0.3s;">
                         Mot de passe oublié ?
                     </a>
                 </div>
 
                 {{-- Bouton Connexion --}}
                 <div class="text-center mb-4">
-                    <button type="submit" class="btn btn-primary w-100 py-2 shadow" style="border-radius:50px; font-size:1.1rem;">
+                    <button type="submit" class="btn btn-primary w--à w-lg-50 py-2 shadow" style="border-radius:50px; font-size:1.1rem;">
                         Se connecter
                     </button>
                 </div>
 
                 {{-- Séparateur élégant --}}
                 <div class="text-center mb-3">
-                    <span style="font-size:0.9rem; color:#ddd;">
+                    <span style="font-size:0.9rem; color:#000000;">
                         — ou —
                     </span>
                 </div>
 
                 {{-- Liens bas --}}
-                <div class="row m-0 col-8 g-2 justify-content-between">
-                    <a class="btn btn-outline-light p-2 w-25 shadow-sm"
+                <div class="d-felx m-0 col-8 col-md-12">
+                    <a class="btn btn-light col-6 p-2 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('register') }}">
                         Inscription
                     </a>
 
-                    <a class="btn btn-outline-light p-2 w-25 shadow-sm"
+                    <a class="btn btn-dark col-4 p-2 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('accueil') }}">
                         Accueil
