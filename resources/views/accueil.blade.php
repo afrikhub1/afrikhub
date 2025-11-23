@@ -299,9 +299,9 @@
                 <li class="nav-item dropdown d-lg-none">
                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-label="submenu">
-                        <li><a class="dropdown-item" href="javascript:void(0)">Connexion</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0)">Inscription</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0)">Admin</a></li>
+                        <li><a class="dropdown-item" href="{{ route('login') }}">Connexion</a></li>
+                        <li><a class="dropdown-item" href="{{ route('register') }}">Inscription</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a></li>
                         <li><a class="dropdown-item" href="#hebergement">Hébergements</a></li>
                         <li><a class="dropdown-item" href="#location">Véhicules</a></li>
                         <li><a class="dropdown-item" href="#circuits">Circuits</a></li>
