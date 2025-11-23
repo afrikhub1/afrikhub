@@ -48,7 +48,7 @@
 </header>
 
 <!-- Sidebar Mobile -->
-<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-40 md:hidden">
+<aside id="mobileSidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-60 md:hidden">
     <div class="flex justify-between items-center p-4 border-b">
         <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-10 w-auto">
         <button id="closeSidebar" class="text-gray-600 hover:text-gray-900"><i class="fas fa-times text-xl"></i></button>
