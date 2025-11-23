@@ -15,15 +15,13 @@ class FileManagerController extends Controller
      */
     public function index(Request $request)
     {
-        $folder = $request->input('folder', ''); // dossier courant
+        $folder = $request->input('folder', '');
 
-        // Liste les fichiers et dossiers au niveau actuel (non récursif)
         $all = Storage::disk('s3')->listContents($folder, false);
 
         $files = [];
         foreach ($all as $item) {
             if ($item instanceof FileAttributes) {
-                // Si c'est un fichier
                 $files[] = [
                     'type' => 'file',
                     'name' => basename($item->path()),
@@ -32,12 +30,11 @@ class FileManagerController extends Controller
                     'lastModified' => Carbon::createFromTimestamp($item->lastModified())->format('Y-m-d H:i'),
                 ];
             } elseif ($item instanceof DirectoryAttributes) {
-                // Si c'est un dossier
                 $files[] = [
                     'type' => 'dir',
                     'name' => basename($item->path()),
                     'path' => $item->path(),
-                    'size' => null, // La taille des dossiers n'est pas facilement disponible sur S3
+                    'size' => null,
                     'lastModified' => '-',
                 ];
             }
@@ -59,30 +56,24 @@ class FileManagerController extends Controller
         $currentPath = $request->input('current_path', '');
         $folderName = trim($request->input('folder_name'), '/');
 
-        // Construction du chemin complet et nettoyage des slashes doubles
         $newPath = trim($currentPath . '/' . $folderName, '/');
 
         $disk = Storage::disk('s3');
 
-        // Vérification de l'existence du dossier (important pour éviter les doublons)
         if ($disk->exists($newPath) || $disk->directoryExists($newPath)) {
             return back()->with('error', "Le dossier '{$folderName}' existe déjà à cet emplacement.");
         }
 
-        // Création du dossier. Sur S3, cela crée l'objet du "dossier"
         $disk->makeDirectory($newPath);
 
         return back()->with('success', "Dossier '{$folderName}' créé avec succès.");
     }
 
-
     /**
-     * Supprime un ou plusieurs fichiers et/ou dossiers.
-     * La suppression des dossiers est gérée récursivement via deleteDirectory.
+     * Supprime un ou plusieurs fichiers/dossiers (récursif pour dossiers non vides).
      */
     public function delete(Request $request)
     {
-        // On attend un tableau de chemins (paths[]) pour la suppression en masse depuis le frontend
         $paths = $request->input('paths', []);
 
         if (empty($paths) || !is_array($paths)) {
@@ -95,19 +86,32 @@ class FileManagerController extends Controller
         foreach ($paths as $path) {
             if (empty($path)) continue;
 
-            // Tente de supprimer de manière récursive (supprime les dossiers non vides)
-            // C'est la méthode recommandée pour S3 qui utilise le préfixe de chemin.
-            if ($disk->deleteDirectory($path)) {
+            // Supprime le contenu du dossier s'il s'agit d'un répertoire
+            if ($disk->directoryExists($path)) {
+                $allFiles = $disk->allFiles($path);
+                $allDirs  = $disk->allDirectories($path);
+
+                if (!empty($allFiles)) {
+                    $disk->delete($allFiles);
+                }
+
+                if (!empty($allDirs)) {
+                    foreach ($allDirs as $dir) {
+                        $disk->deleteDirectory($dir);
+                    }
+                }
+
+                // Supprime le dossier lui-même
+                $disk->deleteDirectory($path);
                 $deletedCount++;
             }
-            // Si deleteDirectory retourne false (souvent le cas pour un simple fichier),
-            // on essaie de supprimer l'objet simple.
-            else if ($disk->delete($path)) {
+            // Sinon, supprime le fichier simple
+            else if ($disk->exists($path)) {
+                $disk->delete($path);
                 $deletedCount++;
             }
         }
 
-        $message = "{$deletedCount} élément(s) supprimé(s) ou ciblés pour la suppression.";
-        return back()->with('success', $message);
+        return back()->with('success', "{$deletedCount} élément(s) supprimé(s) avec succès.");
     }
 }

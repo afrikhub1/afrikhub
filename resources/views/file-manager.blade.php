@@ -71,44 +71,52 @@
 </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="text-3xl font-semibold mb-6">📁 Gestionnaire de Fichiers MacOS</h1>
-
-    <!-- Barre de recherche -->
-    <input type="text" id="search-input" class="search-bar mb-6" placeholder="Rechercher un fichier ou dossier...">
+<div class="container mx-auto px-6 py-8">
+    <!-- Barre de navigation / Retour -->
+    <div class="flex items-center justify-between mb-6">
+        <button id="back-button" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 flex items-center">
+            ← Retour
+        </button>
+        <input type="text" id="search-input" class="search-bar px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+               placeholder="Rechercher un fichier ou dossier...">
+    </div>
 
     <!-- Grille des fichiers/dossiers -->
     <div id="file-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
         @foreach($files as $file)
-        <div class="file-card relative" data-name="{{ strtolower($file['name']) }}">
+        <div class="file-card relative border border-transparent rounded-xl overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
+             data-name="{{ strtolower($file['name']) }}">
             <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
-            <div class="file-icon">
+            <div class="file-icon w-full flex justify-center items-center bg-gray-100 p-4 rounded-t-xl">
                 @if($file['type'] === 'dir')
-                    <!-- SVG Dossier -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD93B" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD93B" viewBox="0 0 24 24" class="w-12 h-12">
                         <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
                     </svg>
                 @else
-                    <!-- SVG Fichier -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#4B9CD3" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#4B9CD3" viewBox="0 0 24 24" class="w-12 h-12">
                         <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
                     </svg>
                 @endif
             </div>
-            <div class="file-name">{{ $file['name'] }}</div>
-            <div class="overlay-selected hidden"></div>
+            <div class="file-name p-2 text-center font-medium truncate">{{ $file['name'] }}</div>
+            <div class="overlay-selected hidden absolute inset-0 bg-blue-200 bg-opacity-25 rounded-xl pointer-events-none"></div>
         </div>
         @endforeach
     </div>
 
     <!-- Bouton supprimer sélection -->
-    <button id="delete-selected" class="mt-6 px-6 py-2 bg-red-500 text-white rounded-lg font-semibold disabled:opacity-50" disabled>Supprimer la sélection</button>
+    <div class="mt-6 flex justify-end">
+        <button id="delete-selected" class="px-6 py-2 bg-red-500 text-white rounded-lg font-semibold disabled:opacity-50" disabled>
+            Supprimer la sélection
+        </button>
+    </div>
 </div>
 
 <script>
     const fileCards = document.querySelectorAll('.file-card');
     const deleteBtn = document.getElementById('delete-selected');
     const searchInput = document.getElementById('search-input');
+    const backButton = document.getElementById('back-button');
 
     fileCards.forEach(card => {
         const checkbox = card.querySelector('.file-checkbox');
@@ -139,11 +147,14 @@
     deleteBtn.addEventListener('click', () => {
         if(!confirm('Voulez-vous supprimer tous les éléments sélectionnés ?')) return;
         const selected = document.querySelectorAll('.file-checkbox:checked');
-        selected.forEach(cb => {
-            cb.closest('.file-card').remove();
-        });
+        selected.forEach(cb => cb.closest('.file-card').remove());
         updateDeleteButton();
     });
+
+    backButton.addEventListener('click', () => {
+        alert('Naviguer vers le dossier parent'); // Ici tu peux intégrer ta logique S3
+    });
 </script>
+
 </body>
 </html>
