@@ -28,10 +28,7 @@
     /* ===== Titres ===== */
     h1 { font-size: 1.875rem; font-weight: 700; color: #111827; }
     h2 { font-size: 1.5rem; font-weight: 600; color: #111827; }
-    h3 { font-size: 1.25rem; font-weight: 600; color: #111827; }
-    h4 { font-size: 1.125rem; font-weight: 500; color: #111827; }
     h5 { font-size: 1rem; font-weight: 500; color: #111827; }
-    h6 { font-size: 0.875rem; font-weight: 500; color: #111827; }
 
     /* ===== Header ===== */
     header h1 { font-size: 1.25rem; font-weight: 600; color: #fff; }
@@ -87,6 +84,10 @@
         header h1, .headerfixe_link { font-size: 0.9rem; }
         .stats-link { flex: 1 1 45%; font-size: 0.75rem; margin-bottom: 0.25rem; }
         #sidebar a { font-size: 0.875rem; }
+        /* ===== Titres ===== */
+        h1 { font-size: 1.5rem; font-weight: 700; color: #111827; }
+        h2 { font-size: 1.2rem; font-weight: 600; color: #111827; }
+        h5 { font-size: 0.8rem; font-weight: 500; color: #111827; }
     }
     </style>
 </head>
