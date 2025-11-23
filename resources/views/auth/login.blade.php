@@ -77,13 +77,13 @@
 
                 {{-- Liens bas --}}
                 <div class="d-flex g-2 justify-content-between">
-                    <a class="btn btn-outline-light p-2 shadow-sm"
+                    <a class="btn btn-outline-light p-2 w-40 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('register') }}">
                         Inscription
                     </a>
 
-                    <a class="btn btn-outline-light p-2 shadow-sm"
+                    <a class="btn btn-outline-light p-2 w-40 shadow-sm"
                        style="border-radius:15px;"
                        href="{{ route('accueil') }}">
                         Accueil
