@@ -11,7 +11,6 @@
                 <h1 class="text-2xl font-extrabold text-amber-600 mb-2 border-b-4 border-amber-500 pb-3 inline-block">
                     <i class="fas fa-history mr-3 text-2xl"></i> Réservations reçu
                 </h1>
-                <p class="text-gray-500">Retrouvez toutes vos réservations reçu</p>
             </div>
             <div class="grid grid-cols-1 xs:grid-col-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
                 @forelse($reservationsRecu as $res)
