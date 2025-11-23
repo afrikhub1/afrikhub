@@ -45,13 +45,13 @@
     }
 
     /* Header statistiques responsive */
-    .header-stats {
+    a {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         text-align: center;
         margin-top: 0.5rem;
-        font-size: 10px;
+        font-size: 5px;
         gap: 0.5rem;
     }
     a {
@@ -60,7 +60,7 @@
     }
 
     @media (max-width: 768px) {
-        .header-stats {
+        a {
             flex: 1 1 22%;
             margin: 0.25rem;
             font-size: 10px;
