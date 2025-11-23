@@ -140,7 +140,7 @@
               </form>
               @elseif($res->status=='confirmée')
                 <button disabled class="w-full px-3 py-2 bg-green-100 text-slate-400 rounded-lg">
-                    <a href="{{ route('payer', $res->id) }}">payer</a>
+                    <a href="{{ route('payer', $res->id) }}" class="d-flex">payer</a>
                 </button>
               @elseif($res->status=='payé')
                 <div class="flex gap-2">
