@@ -23,12 +23,12 @@
 
             {{-- Titre stylé --}}
             <h3 class="fw-bold mb-2"
-                style="color:#006d77; letter-spacing:1px; text-transform:uppercase;">
+                style="color:#00eaff; letter-spacing:1px; text-transform:uppercase;">
                 Accéder à votre espace
             </h3>
 
-            <p class="mb-4" style="color:#009688;">
-                Heureux de vous revoir ✨
+            <p class="mb-4" style="color:#00ffe5;">
+                Heureux de vous revoir
             </p>
 
             @include('includes.messages')
