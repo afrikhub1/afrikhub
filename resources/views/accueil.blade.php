@@ -218,56 +218,56 @@
     #hebergement img:hover { transform: scale(1.05); }
 
     .accordion-css {
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 2rem;
-    max-width: 600px;
-}
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 2rem;
+        max-width: 600px;
+    }
 
-.accordion-css input { display: none; }
+    .accordion-css input { display: none; }
 
-.accordion-css label {
-    display: block;
-    padding: 15px 20px;
-    background: linear-gradient(135deg, #006d77, #00afb9);
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 12px;
-    margin-bottom: 5px;
-    transition: background 0.3s ease;
-}
+    .accordion-css label {
+        display: block;
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #006d77, #00afb9);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 12px;
+        margin-bottom: 5px;
+        transition: background 0.3s ease;
+    }
 
-.accordion-css label:hover {
-    background: linear-gradient(135deg, #004d55, #007f7a);
-}
+    .accordion-css label:hover {
+        background: linear-gradient(135deg, #004d55, #007f7a);
+    }
 
-.accordion-css .content {
-    max-height: 0;
-    overflow: hidden;
-    background: #e0f2f1;
-    transition: max-height 0.35s ease, padding 0.35s ease;
-    padding: 0 20px;
-}
+    .accordion-css .content {
+        max-height: 0;
+        overflow: hidden;
+        background: #e0f2f1;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+        padding: 0 20px;
+    }
 
-.accordion-css input:checked + label + .content {
-    max-height: 500px; /* ajustable selon le contenu */
-    padding: 15px 20px;
-}
+    .accordion-css input:checked + label + .content {
+        max-height: 500px; /* ajustable selon le contenu */
+        padding: 15px 20px;
+    }
 
-.accordion-css .services-list li {
-    padding: 6px 0;
-    font-weight: 600;
-}
+    .accordion-css .services-list li {
+        padding: 6px 0;
+        font-weight: 600;
+    }
 
-.toggle-services i {
-    float: right;
-    transition: transform 0.3s ease;
-}
+    .toggle-services i {
+        float: right;
+        transition: transform 0.3s ease;
+    }
 
-.accordion-css input:checked + label .toggle-services i {
-    transform: rotate(180deg);
-}
+    .accordion-css input:checked + label .toggle-services i {
+        transform: rotate(180deg);
+    }
 
     .btn-reserver {
         display: inline-block;
