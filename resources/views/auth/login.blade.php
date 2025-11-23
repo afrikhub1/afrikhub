@@ -9,7 +9,7 @@
 
 <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
-    <div class="card d-flex col-lg-3 col-md-5 col-10 shadow-lg border-0 p-4"
+    <div class="row m-0 col-lg-3 col-md-5 col-10 shadow-lg border-0 p-4"
          style="backdrop-filter: blur(12px); background: rgba(255,255,255,0.15);
                 border-radius:25px;">
 
