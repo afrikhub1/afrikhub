@@ -133,6 +133,30 @@
                 }
             }
 
+            /* Bouton fermer */
+            .sidebar .close-btn {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 24px;
+                color: white;
+                cursor: pointer;
+                padding: 5px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 50%;
+                width: 34px;
+                height: 34px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s;
+            }
+
+            .sidebar .close-btn:hover {
+                background: rgba(255,255,255,0.35);
+            }
+
+
 
 
             /* ---------------- SECTION ACCUEIL ---------------- */
@@ -352,9 +376,13 @@
                 <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
                 <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
                 </ul>
+
                 <span class="menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></span>
 
                 <div id="sidebar" class="sidebar">
+                    
+                    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+
                     <a href="{{ route('login') }}" class="fa fa-loggin"><span class="badge">connexion</span></a>
                     <a href="{{ route('register') }}" class="fa fa-sign-in"><span class="badge">inscription</span></a>
                     <a href="#hebergement" class="fa fa-home"><span class="badge">Hébergements</span></a>
