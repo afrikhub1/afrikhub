@@ -35,9 +35,7 @@
         </div>
     </div>
 </header>
-@endsection
 
-@section('contenu')
 <div class="container mt-2">
     <h2 class="mb-4">Formulaire d'inscription</h2>
 
