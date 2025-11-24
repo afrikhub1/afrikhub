@@ -110,8 +110,8 @@
                                         ->first();
                                 @endphp
 
-                                <div class="search-row bg-white ..."  data-name="{{ $residence->nom }}"
-                                    data-status="{{ $reservationEnCours?->status ?? 'aucune' }}">
+                                <div class="search-row bg-white ..." data-name="{{ $residence->nom }}"
+                                    data-status="{{ $residence?->status ?? 'inconnu' }}">
 
 
                                 <li class="fw-bold mt-2 text-secondary fw-light">
