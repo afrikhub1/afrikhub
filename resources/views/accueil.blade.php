@@ -78,7 +78,7 @@
             .sidebar {
                 position: fixed;
                 top: 0;
-                left: -260px; /* cachée */
+                right: -260px; /* cachée */
                 width: 260px;
                 height: 100vh;
                 background: linear-gradient(135deg, #006d77, #00afb9);
@@ -92,7 +92,7 @@
             }
 
             .sidebar.open {
-                left: 0;
+                right: 0;
             }
 
             .sidebar a {
