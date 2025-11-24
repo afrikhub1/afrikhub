@@ -1,12 +1,20 @@
-@extends('heritage')
-@section('titre', 'Inscription')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/inscription.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-@section('ux-ui')
-    <!-- CSS spécifique à l'inscription -->
-    <link rel="stylesheet" href="{{ asset('assets/css/inscription.css') }}">
-@endsection
+        <title> {{ config('app.name')}}-Connexion</title>
+    </head>
+<body>
 
-@section('header')
 <header class="navbar navbar-expand-lg px-4 py-3 mb-4">
     <div class="container-fluid">
         <!-- Logo / Titre -->
@@ -200,9 +208,8 @@
 
     </form>
 </div>
-@endsection
 
-@section('script')
+
 <script>
     // Validation bootstrap personnalisée
     (function() {
@@ -221,4 +228,5 @@
     })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-@endsection
+</body>
+</html>
