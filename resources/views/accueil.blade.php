@@ -74,84 +74,66 @@
             color: #fff;
             }
 
-            /* Dropdown menu */
-            .nav-item.dropdown {
-            position: relative;
-            display: none;
-            }
-
-            .dropdown-toggle {
-            color: white;
-            background-color: transparent;
-            padding: 10px 15px;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            }
-
-            .dropdown-toggle:hover { background-color: rgba(255,255,255,0.15); }
-
-            .dropdown-menu {
-            display: none;
-            position: relative;
-            top: 100%;
-            right: 0;
-            border-radius: 12px;
-            margin-top: 5px;
-            padding: 0.5rem 0;
-            z-index: 1000;
-            flex-direction: column;
-            box-shadow: 0 8px 18px rgba(0,77,85,0.3);
-            background-color: rgba(0, 0, 0, 0.4) !important;
-            backdrop-filter: blur(5px);
-            }
-
-
-            .dropdown-menu li a {
-            padding: 8px 15px;
-            color: white;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 0;
-            text-align: center;
-            border-bottom: 1px solid #b2dfdb;
-
-            }
-
-            .dropdown-menu li a:hover {
-            background-color: #00b4a2;
-            color: white;
-
-            }
-
-            /* Hover dropdown */
-            .nav-item.dropdown:hover .dropdown-menu,
-            .nav-item.dropdown:focus-within .dropdown-menu {
-            display: flex;
-            }
-
-            /* Responsive dropdown menu pure CSS */
-            @media screen and (max-width: 978px) {
-            #entete { display: none; }
-
-            .nav-item.dropdown {
-                display: inline-flex;
+            /* ---------------- SIDEBAR MOBILE ---------------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -260px; /* cachée */
+                width: 260px;
+                height: 100vh;
+                background: linear-gradient(135deg, #006d77, #00afb9);
+                backdrop-filter: blur(6px);
+                padding-top: 80px;
+                box-shadow: 4px 0 15px rgba(0,0,0,0.25);
+                transition: 0.35s ease-in-out;
+                display: flex;
                 flex-direction: column;
-                align-items: flex-end;
+                z-index: 2000;
             }
 
-            .dropdown-menu {
-                position: static;
+            .sidebar.open {
+                left: 0;
+            }
+
+            .sidebar a {
+                color: white;
+                padding: 15px 20px;
+                text-decoration: none;
+                font-weight: 600;
+                border-bottom: 1px solid rgba(255,255,255,0.25);
+            }
+
+            .sidebar a:hover {
+                background: rgba(255,255,255,0.15);
+            }
+
+            /* Bouton menu */
+            .menu-btn {
+                font-size: 22px;
+                padding: 8px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                color: white;
+                background: rgba(255,255,255,0.15);
                 display: none;
             }
 
-            .dropdown-toggle:focus + .dropdown-menu,
-            .dropdown-toggle:hover + .dropdown-menu {
-                display: flex;
+            /* Mobile */
+            @media screen and (max-width: 978px) {
+                #entete {
+                    display: none;
+                }
+
+                .menu-btn {
+                    display: inline-block;
+                }
+
+                .nav-item.dropdown {
+                    display: none !important; /* supprimé */
+                }
             }
-            }
+
+
 
             /* ---------------- SECTION ACCUEIL ---------------- */
             #accueil {
@@ -371,19 +353,18 @@
                 <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
                 <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
                 </ul>
-                <li class="nav-item dropdown col-12">
-                <a href="#" class="dropdown-toggle">menu</a>
-                <ul class="dropdown-menu row m-0 py-2 col-8 col-md-6" aria-label="submenu">
-                    <li><a class="dropdown-item" href="{{ route('login') }}">connexion</a></li>
-                    <li><a class="dropdown-item" href="{{ route('register') }}">inscription</a></li>
-                    <li><a class="dropdown-item" href="{{ route('admin.login') }}">admin</a></li>
-                    <li><a class="dropdown-item" href="#hebergement">Hébergements</a></li>
-                    <li><a class="dropdown-item" href="#location">Véhicules</a></li>
-                    <li><a class="dropdown-item" href="#circuits">Circuits</a></li>
-                    <li><a class="dropdown-item" href="#reservation">Réservation</a></li>
-                    <li><a class="dropdown-item" href="#contact">Contact</a></li>
-                </ul>
-                </li>
+                <span class="menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></span>
+
+                <div id="sidebar" class="sidebar">
+                    <a href="{{ route('login') }}">connexion</a>
+                    <a href="{{ route('register') }}">inscription</a>
+                    <a href="{{ route('admin.login') }}">admin</a>
+                    <a href="#hebergement">Hébergements</a>
+                    <a href="#location">Véhicules</a>
+                    <a href="#circuits">Circuits</a>
+                    <a href="#reservation">Réservation</a>
+                    <a href="#contact">Contact</a>
+                </div>
             </ul>
             </nav>
         </div>
