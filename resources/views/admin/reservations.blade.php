@@ -41,7 +41,9 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($reservations as $reservation)
-                        <tr class="residence-item">
+                        <tr class="search-row" data-name="{{ strtolower($reservation->residence->nom ?? '') }} {{ strtolower($reservation->user->name ?? '') }}"
+                            data-status="{{ strtolower($reservation->status) }}">
+
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{ $reservation->id }}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap">

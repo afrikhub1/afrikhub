@@ -38,7 +38,8 @@
             </thead>
             <tbody>
                 @foreach ($utilisateurs as $user)
-                    <tr class="residence-item">
+                    <tr class="search-row" data-name="{{ $user->name }}" data-status="{{ $user->status ?? 'inconnu' }}">
+
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
