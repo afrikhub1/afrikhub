@@ -53,10 +53,10 @@
                         $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                     @endphp
 
-                    <div class="residence-item"
-                    data-name="{{ $residence->nom }}"
-                    data-status="{{ $reservationEnCours?->status ?? 'aucune' }}"
-                    class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
+                    <div class="residence-item bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
+                            hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
+                            border border-gray-100" data-name="{{ $residence->nom }}"
+                            data-status="{{ $reservationEnCours?->status ?? 'aucune' }}">
 
                         {{-- Image principale --}}
                         <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">

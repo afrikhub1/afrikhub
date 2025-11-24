@@ -92,3 +92,33 @@
         </a>
     </div>
 </aside>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("searchInput");
+    const searchOption = document.getElementById("searchOption");
+
+    // Sélectionne toutes les cartes (ex : résidences, utilisateurs…)
+    const rows = document.querySelectorAll(".search-row");
+
+    searchInput.addEventListener("keyup", () => {
+        const query = searchInput.value.toLowerCase().trim();
+        const option = searchOption.value;
+
+        rows.forEach(row => {
+            let value = "";
+
+            // Selon l'option : on cherche dans le bon attribut
+            if (option === "name") value = row.dataset.name.toLowerCase();
+            if (option === "status") value = row.dataset.status.toLowerCase();
+
+            if (value.includes(query)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
