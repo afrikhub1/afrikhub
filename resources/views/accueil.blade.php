@@ -380,14 +380,14 @@
                 <span class="menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></span>
 
                 <div id="sidebar" class="sidebar">
-                    
+
                     <span class="close-btn" onclick="toggleSidebar()">&times;</span>
 
-                    <a href="{{ route('login') }}" class="fa fa-loggin"><span class="badge">connexion</span></a>
-                    <a href="{{ route('register') }}" class="fa fa-sign-in"><span class="badge">inscription</span></a>
-                    <a href="#hebergement" class="fa fa-home"><span class="badge">Hébergements</span></a>
-                    <a href="#location" class="fa fa-car"><span class="badge">éhicules</span></a>
-                    <a href="#contact" class="fa fa-phone"><span class="badge">Contact</span></a>
+                    <a href="{{ route('login') }}"><span class="fa fa-login"></span><span class="badge">connexion</span></a>
+                    <a href="{{ route('register') }}"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a>
+                    <a href="#hebergement"><span class="fa fa-home"></span><span class="badge">Hébergements</span></a>
+                    <a href="#location"><span class="fa fa-car"></span><span class="badge">éhicules</span></a>
+                    <a href="#contact"><span class="fa fa-phone"></span><span class="badge">Contact</span></a>
                 </div>
             </ul>
             </nav>
