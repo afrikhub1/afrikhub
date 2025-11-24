@@ -37,8 +37,10 @@
                     };
                 @endphp
 
-                <div class="bg-white rounded-2xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow residence-item"
-                    data-name="{{ $demande->residence->nom }}">
+               <div class="search-row bg-white rounded-2xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow residence-item"
+                    data-name="{{ $demande->residence->nom }} {{ $demande->user->name }}"
+                    data-status="{{ $demande->status }}">
+
 
                     {{-- Informations --}}
                     <div class="space-y-2">
