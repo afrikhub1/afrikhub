@@ -240,5 +240,20 @@
     });
 </script>
 
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main-content');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebar.classList.toggle('translate-x-0');
+
+        // décale le contenu quand la sidebar s’ouvre
+        main.classList.toggle('md:ml-64');
+    });
+</script>
+
+
 </body>
 </html>
