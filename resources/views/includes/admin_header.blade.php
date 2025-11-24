@@ -87,6 +87,7 @@
         <a href="{{ route('recherche') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Recherche</a>
         <a href="{{ route('admin.reservations') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Réservation</a>
         <a href="{{ route('mise_en_ligne') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Mise en ligne</a>
+        <a href="{{ route('admin.demande.interruptions') }}" class="py-2 px-4 rounded-lg hover:bg-gray-700 text-white">Interuption</a>
 
         <a href="{{ route('logout') }}" class="py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg shadow-lg text-center text-white">
             Déconnexion
