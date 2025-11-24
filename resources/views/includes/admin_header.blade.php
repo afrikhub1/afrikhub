@@ -40,6 +40,7 @@
             <!-- OPTION -->
             <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
                 <option value="name">Chercher</option>
+                <option value="status">status</option>
             </select>
 
             <!-- DESKTOP SIDEBAR OPEN -->
