@@ -33,6 +33,15 @@
 
     <!-- Sidebar -->
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex-shrink-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 md:block transition-transform duration-300 transform -translate-x-full md:translate-x-0 no-scrollbar overflow-y-auto">
+        <!-- Bouton fermer (mobile) -->
+        <button id="sidebar-close"
+                class="absolute top-4 right-4 md:hidden p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
         <div class="h-16 flex items-center justify-center border-b border-gray-200 dark:border-gray-700">
             <span class="text-2xl font-bold text-primary dark:text-primary-dark tracking-wide">
                 Afrik'<span class="text-gray-900 dark:text-white">Hub Admin</span>
@@ -251,6 +260,17 @@
 
         // décale le contenu quand la sidebar s’ouvre
         main.classList.toggle('md:ml-64');
+    });
+</script>
+
+{{-- fermeture du sidebare --}}
+<script>
+    const closeBtn = document.getElementById('sidebar-close');
+
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        main.classList.remove('md:ml-64'); // remet le contenu normal
     });
 </script>
 
