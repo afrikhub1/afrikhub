@@ -355,11 +355,11 @@
                 <span class="menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></span>
 
                 <div id="sidebar" class="sidebar">
-                    <a href="{{ route('login') }}" class="fa fa-loggin">connexion</a>
-                    <a href="{{ route('register') }}" class="fa fa-sign-in">inscription</a>
-                    <a href="#hebergement" class="fa fa-home">Hébergements</a>
-                    <a href="#location" class="fa fa-car">Véhicules</a>
-                    <a href="#contact" class="fa fa-phone">Contact</a>
+                    <a href="{{ route('login') }}" class="fa fa-loggin"><span class="badge">connexion</span></a>
+                    <a href="{{ route('register') }}" class="fa fa-sign-in"><span class="badge">inscription</span></a>
+                    <a href="#hebergement" class="fa fa-home"><span class="badge">Hébergements</span></a>
+                    <a href="#location" class="fa fa-car"><span class="badge">éhicules</span></a>
+                    <a href="#contact" class="fa fa-phone"><span class="badge">Contact</span></a>
                 </div>
             </ul>
             </nav>
