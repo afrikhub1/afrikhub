@@ -38,7 +38,7 @@
             </thead>
             <tbody>
                 @foreach ($utilisateurs as $user)
-                    <tr class="search-row" data-name="{{ $user->name }}" data-status="{{ $user->status ?? 'inconnu' }}">
+                    <tr class="search-row" data-name="{{ $user->name }}" data-status="{{ $user->statut ?? 'inconnu' }}">
 
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>

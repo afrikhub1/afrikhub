@@ -105,11 +105,14 @@
                                     </span>
                                 </li>
                                 @php
-                                    // On récupère la réservation en cours / confirmée pour cette résidence
                                     $reservationEnCours = $residence->reservations
                                         ->whereIn('status', ['confirmée', 'payé', 'suspendu'])
                                         ->first();
                                 @endphp
+
+                                <div class="search-row bg-white ..."  data-name="{{ $residence->nom }}"
+                                    data-status="{{ $reservationEnCours?->status ?? 'aucune' }}">
+
 
                                 <li class="fw-bold mt-2 text-secondary fw-light">
                                     <i class="fas fa-calendar-check me-2"></i>
