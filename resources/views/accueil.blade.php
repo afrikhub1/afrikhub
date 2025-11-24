@@ -370,7 +370,7 @@
             <nav class="col-lg-10 col-md-10 col-9">
             <ul class="d-flex justify-content-end py-2">
                 <ul id="entete">
-                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-sign-in"></span><span class="badge">connexion</span></a></li>
+                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-log-in"></span><span class="badge">connexion</span></a></li>
                 <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a></li>
                 <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">herbergement</span></a></li>
                 <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
