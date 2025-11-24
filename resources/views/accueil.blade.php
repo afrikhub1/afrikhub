@@ -346,9 +346,8 @@
             <nav class="col-lg-10 col-md-10 col-9">
             <ul class="d-flex justify-content-end py-2">
                 <ul id="entete">
-                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">connectiton</span></a></li>
+                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-sign-in"></span><span class="badge">connexion</span></a></li>
                 <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a></li>
-                <li><a href="{{ route('admin.login') }}" class="bg-danger"><span class="fa fa-user-shield"></span><span class="badge">admin</span></a></li>
                 <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">herbergement</span></a></li>
                 <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
                 <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
@@ -356,14 +355,11 @@
                 <span class="menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></span>
 
                 <div id="sidebar" class="sidebar">
-                    <a href="{{ route('login') }}">connexion</a>
-                    <a href="{{ route('register') }}">inscription</a>
-                    <a href="{{ route('admin.login') }}">admin</a>
-                    <a href="#hebergement">Hébergements</a>
-                    <a href="#location">Véhicules</a>
-                    <a href="#circuits">Circuits</a>
-                    <a href="#reservation">Réservation</a>
-                    <a href="#contact">Contact</a>
+                    <a href="{{ route('login') }}" class="fa fa-loggin">connexion</a>
+                    <a href="{{ route('register') }}" class="fa fa-sign-in">inscription</a>
+                    <a href="#hebergement" class="fa fa-home">Hébergements</a>
+                    <a href="#location" class="fa fa-car">Véhicules</a>
+                    <a href="#contact" class="fa fa-phone">Contact</a>
                 </div>
             </ul>
             </nav>
