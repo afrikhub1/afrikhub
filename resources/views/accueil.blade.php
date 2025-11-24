@@ -516,6 +516,11 @@
         <footer>
             <p id="contact">&copy; 2025 afrik’hub. tous droits réservés.<br />afrikhub@gmail.com</p>
         </footer>
+        <script>
+            function toggleSidebar() {
+                document.getElementById("sidebar").classList.toggle("open");
+            }
+        </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
