@@ -371,7 +371,7 @@
             <ul class="d-flex justify-content-end py-2">
                 <ul id="entete">
                 <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-right-to-bracket"></span><span class="badge">connexion</span></a></li>
-                <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a></li>
+                <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-user-plus"></span><span class="badge">inscription</span></a></li>
                 <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">herbergement</span></a></li>
                 <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
                 <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
@@ -384,7 +384,7 @@
                     <span class="close-btn" onclick="toggleSidebar()">&times;</span>
 
                     <a href="{{ route('login') }}"><span class="fa fa-right-to-bracket"></span><span class="badge">connexion</span></a>
-                    <a href="{{ route('register') }}"><span class="fa fa-sign-in"></span><span class="badge">inscription</span></a>
+                    <a href="{{ route('register') }}"><span class="fa fa-user-plus"></span><span class="badge">inscription</span></a>
                     <a href="#hebergement"><span class="fa fa-home"></span><span class="badge">Hébergements</span></a>
                     <a href="#location"><span class="fa fa-car"></span><span class="badge">éhicules</span></a>
                     <a href="#contact"><span class="fa fa-phone"></span><span class="badge">Contact</span></a>
