@@ -104,8 +104,10 @@
                                     </span>
                                 </li>
                                 @php
-                                    $reservationEnCours = $reservations
-                                        ->whereIn('status', ['confirmée', 'payé', 'suspendu']);
+                                    $statusText =  $reservations->filter(fn($r) => $r->residence_id == $residence->id)
+                                        ->pluck('status')
+                                        ->toArray();
+                                    $reservationEnCours = implode(', ', $statusText);
                                 @endphp
 
                                 <div>
