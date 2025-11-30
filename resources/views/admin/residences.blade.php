@@ -54,7 +54,7 @@
 
                     <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
                             hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
-                            border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residences->status}}">
+                            border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residences->statut}}">
 
                         {{-- Image principale --}}
                         <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
