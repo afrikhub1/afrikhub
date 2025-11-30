@@ -364,7 +364,7 @@
                 display: none;
             }
 
-            .type:active + .services-list {
+            .type.active + .services-list {
                 display: inline-block;
             }
 
