@@ -3,7 +3,7 @@
 @section('titre', 'Utilisateurs | Admin')
 
 @section('main')
-    <div class="container mx-auto p-2">
+    <div class="container-fluid mx-0 p-2">
 
         <h1 class="text-center display-3 text-primary fw-bold mb-4">
             Gestion des Utilisateurs
