@@ -51,7 +51,6 @@
     button[type="submit"],
     input[type="submit"],a {
         font-size: 1rem;
-        padding: 10px 18px;
         border-radius: 6px;
         cursor: pointer;
         font-weight: 600;

@@ -40,7 +40,7 @@
                 <p class=" mt-1">Utilisez le menu latéral pour la mise en ligne.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 @foreach($residences as $residence)
                     @php
                         // Décodage JSON si nécessaire
