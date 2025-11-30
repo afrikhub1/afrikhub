@@ -47,7 +47,8 @@
                     $images = is_string($residence->img) ? json_decode($residence->img, true) ?? [] : $residence->img;
                     $firstImage = $images[0] ?? null;
                     $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-                    $reservationEnCours = $reservations->whereIn('status', ['confirmée', 'payé', 'suspendu'])->first();
+                    $reservationEnCours = $reservations->where('residence_id', $residence->id)   // correspond à cette résidence
+                        ->whereIn('status', ['confirmée', 'payé', 'suspendu']);
                 @endphp
 
                 {{-- Carte résidence --}}
