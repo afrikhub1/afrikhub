@@ -2,10 +2,6 @@
 
 @section('titre', 'Demandes interruption')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/admin_residences.css') }}">
-@endsection
-
 @section('main')
 
 <div class="container mx-auto p-4">
