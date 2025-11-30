@@ -49,7 +49,7 @@
 
     /* Boutons submit */
     button[type="submit"],
-    input[type="submit"] {
+    input[type="submit"],a {
         font-size: 1rem;
         padding: 10px 18px;
         border-radius: 6px;
@@ -69,7 +69,7 @@
         h4 { font-size: 1.3rem; }
 
         button[type="submit"],
-        input[type="submit"] {
+        input[type="submit"],a {
             font-size: 1.05rem;
             padding: 11px 20px;
         }
@@ -87,7 +87,7 @@
         h4 { font-size: 1.4rem; }
 
         button[type="submit"],
-        input[type="submit"] {
+        input[type="submit"],a {
             font-size: 1.1rem;
             padding: 12px 22px;
         }
@@ -104,8 +104,8 @@
         h3 { font-size: 1.9rem; }
 
         button[type="submit"],
-        input[type="submit"] {
-            font-size: 0.5rem;
+        input[type="submit"],a {
+            font-size: 1rem;
             padding: 13px 24px;
         }
     }
