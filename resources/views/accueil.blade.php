@@ -475,6 +475,28 @@
 
                             <div class="service-item p-0 mb-1">
                                 <button class="type">
+                                    Chambre salon
+                                </button>
+                                <ul class="services-list mt-2 p-2 col-12">
+                                    <li>wifi gratuit</li>
+                                    <li>climatisation</li>
+                                    <li>petit déjeuner inclus</li>
+                                </ul>
+                            </div>
+
+                            <div class="service-item p-0 mb-1">
+                                <button class="type">
+                                    Trois pieces et plus
+                                </button>
+                                <ul class="services-list mt-2 p-2 col-12">
+                                    <li>wifi gratuit</li>
+                                    <li>climatisation</li>
+                                    <li>petit déjeuner inclus</li>
+                                </ul>
+                            </div>
+
+                            <div class="service-item p-0 mb-1">
+                                <button class="type">
                                     Villa avec piscine
                                 </button>
                                 <ul class="services-list mt-2 p-2 col-12">
