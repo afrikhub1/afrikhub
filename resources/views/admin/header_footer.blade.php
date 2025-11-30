@@ -43,7 +43,7 @@
     h5 { font-size: 1.05rem; }
     h6 { font-size: 1rem; }
 
-    p, a, li, span {
+    p, a, li, span,th,td {
         font-size: 1rem;
     }
 
@@ -69,7 +69,7 @@
         h4 { font-size: 1.3rem; }
 
         button[type="submit"],
-        input[type="submit"],a {
+        input[type="submit"],a,th,td {
             font-size: 0.8rem;
         }
     }
@@ -86,7 +86,7 @@
         h4 { font-size: 1.4rem; }
 
         button[type="submit"],
-        input[type="submit"],a {
+        input[type="submit"],a,th,td {
             font-size: 0.5rem;
         }
     }
