@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'contact',
         'password',
-        'statut',
+        'status',
         'type_compte',
         'email_verified_at',
         'token',

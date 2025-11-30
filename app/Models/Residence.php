@@ -18,7 +18,7 @@ class Residence extends Model
         'nombre_chambres',
         'nombre_salons',
         'prix_journalier',
-        'statut',
+        'status',
         'disponible',
         'ville',
         'pays',

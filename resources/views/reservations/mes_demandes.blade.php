@@ -55,7 +55,7 @@
                                     </li>
                                 </ul>
 
-                                <!-- Statut -->
+                                <!-- status -->
                                 <div class="mt-3 sm:mt-4 mb-4">
                                     @php
                                         $statusColors = [

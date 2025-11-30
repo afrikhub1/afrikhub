@@ -28,7 +28,7 @@
             <!-- RECHERCHE -->
             <div class="relative w-full sm:flex-grow sm:w-auto">
                 <input id="searchInput" type="text"
-                       placeholder="Rechercher par nom ou statut..."
+                       placeholder="Rechercher par nom ou status..."
                        class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
                 <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
                      fill="none" stroke="currentColor" viewBox="0 0 24 24">

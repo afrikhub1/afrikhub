@@ -75,7 +75,7 @@ class CreateNewUser implements CreatesNewUsers
         $name       = $input['nom'];
         $contact    = $input['contact'];
         $typeCompte = $input['type_compte'];
-        $statut     = 'inactif';
+        $status     = 'inactif';
         $token      = md5(uniqid() . $email);
 
         // Création de l'utilisateur
@@ -85,7 +85,7 @@ class CreateNewUser implements CreatesNewUsers
             'contact'     => $contact,
             'token'       => $token,
             'type_compte' => $typeCompte,
-            'statut'      => $statut,
+            'status'      => $status,
             'password'    => Hash::make($input['password']),
         ]);
 

@@ -54,7 +54,7 @@
 
                     <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
                             hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
-                            border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residence->statut}}"
+                            border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residence->status}}"
                             data-ville="{{ $residence->ville}}" data-proprietaire="{{ $residence->proprietaire_id}}">
 
                         {{-- Image principale --}}
@@ -63,13 +63,13 @@
                                 onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
                                 alt="Image de la résidence">
 
-                            {{-- Statut --}}
+                            {{-- status --}}
                             <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
-                                @switch($residence->statut)
+                                @switch($residence->status)
                                     @case('vérifiée') bg-green-500 text-white @break
                                     @case('en attente') bg-yellow-500 text-gray-900 @break
                                     @default bg-gray-500 text-white @endswitch">
-                                <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->statut) }}
+                                <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->status) }}
                             </span>
                         </a>
 
@@ -108,7 +108,7 @@
 
                                 <li class="fw-bold mt-2 text-secondary fw-light">
                                     <i class="fas fa-calendar-check me-2"></i>
-                                    Statut : {{ $residence?->statut }}
+                                    status : {{ $residence?->status }}
                                 </li>
 
                                @if($residence->disponible == 0)  <!-- Indisponible -->
@@ -136,7 +136,7 @@
                                 <p class="text-sm font-semibold text-gray-700 mb-2">Actions d'Administration :</p>
                                 <div class="flex flex-wrap justify-start gap-2">
 
-                                    @if ($residence->statut != 'vérifiée')
+                                    @if ($residence->status != 'vérifiée')
                                         <form action="{{ route('admin.residences.activation', $residence->id) }}" method="POST" class="inline-block">
                                             @csrf
                                             <button type="submit" class="text-sm px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">

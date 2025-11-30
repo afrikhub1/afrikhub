@@ -28,7 +28,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($demandes as $demande)
                 @php
-                    // Couleur selon le statut
+                    // Couleur selon le status
                     $badgeColor = match($demande->status) {
                         'en_attente' => 'bg-yellow-500',
                         'validee'    => 'bg-green-500',
@@ -47,7 +47,7 @@
                         <p><strong>Client :</strong> {{ $demande->user->name }}</p>
                         <p><strong>Résidence :</strong> {{ $demande->residence->nom }}</p>
                         <p>
-                            <strong>Statut :</strong>
+                            <strong>status :</strong>
                             <span class="px-3 py-1 rounded text-white font-semibold {{ $badgeColor }}">
                                 {{ ucfirst(str_replace('_', ' ', $demande->status)) }}
                             </span>

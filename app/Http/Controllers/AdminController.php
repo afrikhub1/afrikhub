@@ -22,16 +22,16 @@ class AdminController extends Controller
         // Récupération des compteurs simples
         $totalUsers = User::count();            // Nombre total d'utilisateurs.
         $totalResidences = Residence::count();  // Nombre total de résidences enregistrées.
-        $totalReservation = Reservation::count(); // Nombre total de réservations (tous statuts).
+        $totalReservation = Reservation::count(); // Nombre total de réservations (tous statuss).
 
         // Calcul du gain total (somme des montants 'total' pour les réservations non 'en attente').
         $totalGain = Reservation::where('status', '==', 'payé')->sum('total');
 
         // Récupération des résidences nécessitant une action administrative (vérification).
-        $pendingResidences = Residence::whereIn('statut', ['en attente', 'suspendue'])->get();
+        $pendingResidences = Residence::whereIn('status', ['en attente', 'suspendue'])->get();
 
         // Récuperation des residence actives
-        $residencesactives = Residence::where('statut', 'verifiée')->count();
+        $residencesactives = Residence::where('status', 'verifiée')->count();
 
         // Calcul du Taux d'Occupation
         $residencesOccupees = Residence::where('disponible', 0)->count();
@@ -117,8 +117,8 @@ class AdminController extends Controller
             'ville' => 'required|string|max:100',
             'quartier' => 'nullable|string|max:100',
 
-            // Validation du statut avec les valeurs autorisées
-            'statut' => ['required', Rule::in(['vérifiée', 'en_attente', 'suspendue'])],
+            // Validation du status avec les valeurs autorisées
+            'status' => ['required', Rule::in(['vérifiée', 'en_attente', 'suspendue'])],
 
             'is_suspended' => 'nullable|boolean',
 
@@ -135,7 +135,7 @@ class AdminController extends Controller
             'pays' => $validated['pays'],
             'ville' => $validated['ville'],
             'quartier' => $validated['quartier'],
-            'statut' => $validated['statut'],
+            'status' => $validated['status'],
 
             // Assurez-vous d'utiliser le nom de champ correct pour la suspension/disponibilité
             'disponible' => !$request->has('is_suspended'),
@@ -175,9 +175,9 @@ class AdminController extends Controller
     // Active une résidence et la marque comme 'vérifiée'.
     public function activation($id)
     {
-        // Met à jour le statut de la résidence ciblée.
+        // Met à jour le status de la résidence ciblée.
         Residence::where('id', $id)->update([
-            'statut' => 'vérifiée',
+            'status' => 'vérifiée',
         ]);
 
         // Redirige l'utilisateur vers la page précédente avec un message de succès.
@@ -187,9 +187,9 @@ class AdminController extends Controller
     // Désactive une résidence et la marque comme 'en attente'.
     public function desactivation($id)
     {
-        // Met à jour le statut de la résidence ciblée.
+        // Met à jour le status de la résidence ciblée.
         Residence::where('id', $id)->update([
-            'statut' => 'suspendue',
+            'status' => 'suspendue',
         ]);
 
         // Redirige l'utilisateur vers la page précédente avec un message d'avertissement.
@@ -224,17 +224,17 @@ class AdminController extends Controller
     }
 
 
-    // Fonction pour suspendre ou réactiver l'utilisateur en utilisant la colonne 'statut'.
+    // Fonction pour suspendre ou réactiver l'utilisateur en utilisant la colonne 'status'.
     public function toggleUserSuspension(User $user)
     {
-        // Vérifie le statut actuel de l'utilisateur.
-        if ($user->statut === 'suspendu') {
+        // Vérifie le status actuel de l'utilisateur.
+        if ($user->status === 'suspendu') {
             // Si suspendu, on le réactive.
-            $user->statut = 'actif';
+            $user->status = 'actif';
             $message = "L'utilisateur {$user->name} a été réactivé ✅.";
         } else {
             // Si actif (ou autre), on le suspend.
-            $user->statut = 'suspendu';
+            $user->status = 'suspendu';
             $message = "L'utilisateur {$user->name} a été suspendu 🔒.";
         }
 

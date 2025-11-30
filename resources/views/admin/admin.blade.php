@@ -164,7 +164,7 @@
                         <tr>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider rounded-tl-lg">Résidence</th>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Localisation</th>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">Statut</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">status</th>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider rounded-tr-lg" style="width: 250px;">Actions</th>
                         </tr>
                     </thead>
@@ -179,17 +179,17 @@
                                         'vérifiée' => 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100',
                                         'en_attente' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100',
                                         'desactive' => 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100',
-                                    ][$residence->statut] ?? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+                                    ][$residence->status] ?? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
                                 @endphp
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statut_class }}">
-                                    {{ ucfirst(str_replace('_', ' ', $residence->statut)) }}
+                                    {{ ucfirst(str_replace('_', ' ', $residence->status)) }}
                                 </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm">
                                 <div class="flex space-x-2 items-center">
 
                                     {{-- Bouton d'action (Valider / Désactiver) --}}
-                                    @if ($residence->statut === 'vérifiée')
+                                    @if ($residence->status === 'vérifiée')
                                         {{-- Si la résidence est vérifiée, on propose de la DÉSACTIVER --}}
                                         <form action="{{ route('admin.residences.desactivation', $residence->id) }}" method="POST">
                                             @csrf

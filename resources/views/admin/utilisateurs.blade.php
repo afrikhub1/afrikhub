@@ -30,7 +30,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Statut</th>
+                    <th scope="col">status</th>
                     <th scope="col">Date d'Inscription</th>
                     <th scope="col">Dernière Mise à Jour</th>
                     <th scope="col" class="text-center" style="width: 300px;">Actions Administratives</th>
@@ -38,16 +38,16 @@
             </thead>
             <tbody>
                 @foreach ($utilisateurs as $user)
-                    <tr class="search-row" data-name="{{ $user->name }}" data-status="{{ $user->statut ?? 'inconnu' }}">
+                    <tr class="search-row" data-name="{{ $user->name }}" data-status="{{ $user->status ?? 'inconnu' }}">
 
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
 
                         <td>
-                            @if ($user->email_verified_at && $user->statut === 'suspendu')
+                            @if ($user->email_verified_at && $user->status === 'suspendu')
                                 <span class="badge bg-danger p-2">Suspendu (Vérifié) <i class="fas fa-lock"></i></span>
-                            @elseif ($user->email_verified_at && $user->statut === 'actif')
+                            @elseif ($user->email_verified_at && $user->status === 'actif')
                                 <span class="badge bg-success p-2">Actif (Vérifié) <i class="fas fa-check-circle"></i></span>
                             @else
                                 <span class="badge bg-warning text-dark p-2">En attente <i class="fas fa-spinner fa-spin"></i></span>
@@ -69,7 +69,7 @@
                                             class="btn btn-warning btn-sm"
                                             title="Suspendre ou Réactiver l'accès"
                                             onclick="return confirm('Confirmer l\'action pour {{ $user->name }} ?')">
-                                        @if ($user->statut === 'suspendu')
+                                        @if ($user->status === 'suspendu')
                                             <i class="fas fa-unlock-alt me-1"></i> Réactiver
                                         @else
                                             <i class="fas fa-lock me-1"></i> Suspendre

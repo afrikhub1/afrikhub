@@ -72,7 +72,7 @@
                                     <strong class="uppercase text-indigo-700">{{ $reservation_reçu->residence->nom }}</strong>
                                     <span class="text-sm text-gray-500">réservée par Mr/Mme <strong>{{ $reservation_reçu->client }}</strong>.</span>
                                 </p>
-                                {{-- Badge de Statut --}}
+                                {{-- Badge de status --}}
                                 @if($reservation_reçu->status === 'confirmée')
                                     <span class="text-sm px-3 py-1 bg-green-500 text-white font-bold rounded-full capitalize shadow-md">Accepté</span>
                                 @elseif($reservation_reçu->status === 'en attente')
@@ -176,11 +176,11 @@
                                     </li>
                                 </ul>
 
-                                <!-- Badge Statut -->
-                                <span class="{{ $res->statut ? 'bg-red-500' : 'bg-green-500' }}
+                                <!-- Badge status -->
+                                <span class="{{ $res->status ? 'bg-red-500' : 'bg-green-500' }}
                                             w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
-                                    <i class="{{ $res->statut ? 'fas fa-bed mr-2' : 'fas fa-check-circle mr-2' }}"></i>
-                                    {{ $res->statut ? 'Déjà Occupée' : 'Disponible' }}
+                                    <i class="{{ $res->status ? 'fas fa-bed mr-2' : 'fas fa-check-circle mr-2' }}"></i>
+                                    {{ $res->status ? 'Déjà Occupée' : 'Disponible' }}
                                 </span>
 
                             </div>

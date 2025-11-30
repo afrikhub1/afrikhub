@@ -88,11 +88,11 @@ class PaiementController extends Controller
         $reference = $request->query('reference');
 
         if (!$reference) {
-            return redirect()->route('clients_historique')->with('error', 'Référence de paiement manquante. Le statut de paiement sera mis à jour par le webhook.');
+            return redirect()->route('clients_historique')->with('error', 'Référence de paiement manquante. Le status de paiement sera mis à jour par le webhook.');
         }
 
         // Le callback rassure l'utilisateur en l'informant que la vérification est en cours.
-        return redirect()->route('clients_historique')->with('success', 'Paiement en cours de vérification. Le statut de votre réservation sera mis à jour sous peu.');
+        return redirect()->route('clients_historique')->with('success', 'Paiement en cours de vérification. Le status de votre réservation sera mis à jour sous peu.');
     }
 
     /**
@@ -136,7 +136,7 @@ class PaiementController extends Controller
 
                         Log::info("Réservation ID {$reservation->id} mise à jour en PAYÉ via webhook. Référence: {$reservation->reference}");
                     } else {
-                        Log::info("Webhook Paystack : Réservation ID {$reservation->id} déjà payée ou statut Paystack: {$status_paystack}.");
+                        Log::info("Webhook Paystack : Réservation ID {$reservation->id} déjà payée ou status Paystack: {$status_paystack}.");
                     }
                 } else {
                     Log::error("Webhook Paystack : Réservation introuvable avec l'ID $reservationId.");

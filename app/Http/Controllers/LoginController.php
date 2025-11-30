@@ -25,8 +25,8 @@ class LoginController extends Controller
         return back()->withErrors(['email' => 'Identifiants invalides']);
         }
 
-        // 🔒 Vérification du statut
-        if ($user->statut !== 'actif') {
+        // 🔒 Vérification du status
+        if ($user->status !== 'actif') {
             return back()->withErrors([
             'email' => 'Veuillez vérifier votre compte avant de vous connecter'
             ]);

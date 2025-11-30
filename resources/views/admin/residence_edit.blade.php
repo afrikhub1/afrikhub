@@ -103,24 +103,24 @@
         </fieldset>
 
         {{-- ******************************************* --}}
-        {{-- SECTION 3 : ADMINISTRATION ET STATUT --}}
+        {{-- SECTION 3 : ADMINISTRATION ET status --}}
         {{-- ******************************************* --}}
         <fieldset class="border border-gray-300 p-4 rounded-lg mb-6 bg-indigo-50/50">
             <legend class="text-lg font-semibold text-indigo-700 px-2">Paramètres Administratifs</legend>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                {{-- Statut de Vérification (Select) --}}
+                {{-- status de Vérification (Select) --}}
                 <div>
-                    <label for="statut" class="block text-sm font-medium text-gray-700 mb-1">Statut de la Résidence</label>
-                    <select id="statut" name="statut"
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">status de la Résidence</label>
+                    <select id="status" name="status"
                            {{-- AJOUT de la classe d'erreur Tailwind CSS (pour select) --}}
                            class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3 bg-white focus:outline-none
-                                  @error('statut') border-red-500 focus:ring-red-500 focus:border-red-500 @else border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 @enderror">
-                        <option value="vérifiée" {{ old('statut', $residence->statut) == 'vérifiée' ? 'selected' : '' }}>✅ Vérifiée</option>
-                        <option value="en_attente" {{ old('statut', $residence->statut) == 'en_attente' ? 'selected' : '' }}>⏳ En attente</option>
-                        <option value="suspendue" {{ old('statut', $residence->statut) == 'suspendue' ? 'selected' : '' }}>❌ suspendue</option>
+                                  @error('status') border-red-500 focus:ring-red-500 focus:border-red-500 @else border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 @enderror">
+                        <option value="vérifiée" {{ old('status', $residence->status) == 'vérifiée' ? 'selected' : '' }}>✅ Vérifiée</option>
+                        <option value="en_attente" {{ old('status', $residence->status) == 'en_attente' ? 'selected' : '' }}>⏳ En attente</option>
+                        <option value="suspendue" {{ old('status', $residence->status) == 'suspendue' ? 'selected' : '' }}>❌ suspendue</option>
                     </select>
-                    @error('statut') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    @error('status') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- ID Propriétaire (Lecture Seule) --}}

@@ -100,11 +100,11 @@ class SejourController extends Controller
         $residence->date_disponible_apres = null;
         $residence->save();
 
-        // Mettre à jour le statut de la réservation
+        // Mettre à jour le status de la réservation
         $reservation->status = 'interrompue';
         $reservation->save();
 
-        // Mettre à jour le statut de la demande
+        // Mettre à jour le status de la demande
         $demande->status = 'validee';
         $demande->save();
 

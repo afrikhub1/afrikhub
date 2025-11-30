@@ -84,21 +84,21 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
             @foreach($reservations as $res)
                 @php
-                    $factureStatut = $res->status;
+                    $facturestatus = $res->status;
                     $dateArrivee = \Carbon\Carbon::parse($res->date_arrivee);
                     $dateDepart = \Carbon\Carbon::parse($res->date_depart);
                     $jours = $dateDepart->diffInDays($dateArrivee);
                 @endphp
 
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border-4
-                    @if($factureStatut == 'payée') border-green-500/50 hover:shadow-green-300/50
+                    @if($facturestatus == 'payée') border-green-500/50 hover:shadow-green-300/50
                     @else border-orange-500/50 hover:shadow-orange-300/50 @endif
                     transition duration-300 transform hover:scale-[1.01] card-shadow">
 
                     <div class="p-5 flex flex-col flex-grow text-center">
                         <div class="mb-3">
                             <span class="inline-block px-3 py-1 text-xs font-bold bg-green-200 rounded-full shadow-md">
-                               {{ $factureStatut }}
+                               {{ $facturestatus }}
                             </span>
                         </div>
 
@@ -129,7 +129,7 @@
                                 <i class="fas fa-download"></i> Télécharger PDF
                             </a>
 
-                            @if($factureStatut == 'confirmée')
+                            @if($facturestatus == 'confirmée')
                                 <a href="{{ route('payer', $res->id) }}" class="w-full py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition duration-150 shadow-md text-sm flex justify-center items-center gap-2">
                                     <i class="fas fa-credit-card"></i> Procéder au Paiement
                                 </a>

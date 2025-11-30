@@ -23,7 +23,7 @@
 
                         <div class="p-5 flex flex-col flex-grow text-center">
 
-                            <!-- STATUT -->
+                            <!-- status -->
                             <div class="mb-3">
                                 @php
                                     $statusClass = [

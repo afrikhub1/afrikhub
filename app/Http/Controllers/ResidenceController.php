@@ -70,7 +70,7 @@ class ResidenceController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'img' => json_encode($imagesPath),
-            'statut' => 'en_attente',
+            'status' => 'en_attente',
             'commodites' => $comoditesTexte,
         ]);
 
@@ -116,7 +116,7 @@ class ResidenceController extends Controller
 
         // Récupération des résidences disponibles pour l'affichage
 
-        $residences = Residence::where('statut', 'vérifiée')
+        $residences = Residence::where('status', 'vérifiée')
             ->where('disponible', 1) // 1 -> résidences disponibles
             ->get();
 

@@ -76,7 +76,7 @@
                 <td class="text-right">
                     <strong>N° Facture :</strong> {{ $reservation->id }}<br>
                     <strong>Date d'émission :</strong> {{ now()->format('d/m/Y') }}<br>
-                    <strong>Statut :</strong> Payée (ou à payer)
+                    <strong>status :</strong> Payée (ou à payer)
                 </td>
             </tr>
         </table>
