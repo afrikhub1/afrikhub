@@ -87,7 +87,7 @@
 
         button[type="submit"],
         input[type="submit"],a,th,td {
-            font-size: 0.5rem;
+            font-size: 0.9rem;
         }
     }
 
@@ -103,7 +103,7 @@
 
         button[type="submit"],
         input[type="submit"],a, th, td {
-            font-size: 0.8rem;
+            font-size: 1rem;
         }
     }
 </style>
