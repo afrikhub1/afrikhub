@@ -432,25 +432,25 @@
                             <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
                         </label>
                         <div class="content">
-                            <div class="service-item">
-                                <button class="type">Studio</button>
-                                <ul class="services-list">
+                            <div class="service-item border">
+                                <button class="type btn btn-ouline-success">Studio</button>
+                                <ul class="services-list border">
                                     <li>wifi gratuit</li>
                                     <li>ventilateur</li>
                                     <li>caméra de surveillance</li>
                                 </ul>
                             </div>
-                            <div class="service-item">
-                                <button class="type">Chambre unique</button>
-                                <ul class="services-list">
+                            <div class="service-item border">
+                                <button class="type btn btn-ouline-success">Chambre unique</button>
+                                <ul class="services-list border">
                                     <li>wifi gratuit</li>
                                     <li>climatisation</li>
                                     <li>petit déjeuner inclus</li>
                                 </ul>
                             </div>
-                            <div class="service-item">
-                                <button class="type">Villa avec piscine</button>
-                                <ul class="services-list">
+                            <div class="service-item border">
+                                <button class="type btn btn-ouline-success">Villa avec piscine</button>
+                                <ul class="services-list border">
                                     <li>wifi gratuit</li>
                                     <li>piscine privée</li>
                                     <li>climatisation</li>
