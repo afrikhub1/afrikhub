@@ -59,7 +59,8 @@ class User extends Authenticatable
 
     public function reservation()
     {
-        // On indique à Laravel que la clé étrangère dans la table 'residences' est 'proprietaire_id'.
+        //  On cible user_id et un client peut avoir plusieurs reservation a lui : hasmany'.
         return $this->hasMany(Reservation::class, 'proprietaire_id');
     }
+
 }
