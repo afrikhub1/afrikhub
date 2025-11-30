@@ -23,7 +23,7 @@
 
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 shadow-sm">
-                    <ul class="list-disc pl-5 text-sm">
+                    <ul class="list-disc pl-5 ">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -58,7 +58,7 @@
                 </button>
             </form>
 
-            <p class="text-center text-gray-600 text-sm mt-6">
+            <p class="text-center text-gray-600  mt-6">
                 &copy; {{ date('Y') }} Mon Application — Tous droits réservés
             </p>
         </div>

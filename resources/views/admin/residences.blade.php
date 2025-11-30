@@ -37,7 +37,7 @@
             <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 rounded-lg text-center shadow-lg mx-auto max-w-lg">
                 <i class="fas fa-info-circle text-2xl mb-2 block"></i>
                 <p class="font-semibold text-lg">Vous n'avez aucune résidence enregistrée.</p>
-                <p class="text-sm mt-1">Utilisez le menu latéral pour la mise en ligne.</p>
+                <p class=" mt-1">Utilisez le menu latéral pour la mise en ligne.</p>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -84,7 +84,7 @@
 
                         <div class="p-6 flex flex-col flex-grow border-gray-700/50 shadow">
                             <h5 class="text-xl font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
-                            <ul class="space-y-2 text-sm text-gray-700 mb-4 flex-grow">
+                            <ul class="space-y-2  text-gray-700 mb-4 flex-grow">
                                 <li class="flex justify-between items-center">
                                     <span class="text-gray-500"><i class="fas fa-tag mr-2 text-green-500"></i> Prix / Jour :</span>
                                     <span class="text-green-600 font-extrabold text-lg">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</span>
@@ -119,7 +119,7 @@
 
                                     <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST" class="mt-2">
                                         @csrf
-                                        <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+                                        <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 ">
                                             Libérer la résidence
                                         </button>
                                     </form>
@@ -133,33 +133,33 @@
 
                             {{-- Actions d'administration --}}
                             <div class="mt-4 border-t pt-4">
-                                <p class="text-sm font-semibold text-gray-700 mb-2">Actions d'Administration :</p>
+                                <p class=" font-semibold text-gray-700 mb-2">Actions d'Administration :</p>
                                 <div class="flex flex-wrap justify-start gap-2">
 
                                     @if ($residence->status != 'vérifiée')
                                         <form action="{{ route('admin.residences.activation', $residence->id) }}" method="POST" class="inline-block">
                                             @csrf
-                                            <button type="submit" class="text-sm px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
+                                            <button type="submit" class=" px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
                                                 <i class="fas fa-thumb-up mr-1"></i> Valider
                                             </button>
                                         </form>
                                     @else
                                         <form action="{{ route('admin.residences.desactivation', $residence->id) }}" method="POST" class="inline-block">
                                             @csrf
-                                            <button type="submit" class="text-sm px-3 py-1.5 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-600 transition font-medium" onclick="return confirm('Confirmer la remise en attente ?')">
+                                            <button type="submit" class=" px-3 py-1.5 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-600 transition font-medium" onclick="return confirm('Confirmer la remise en attente ?')">
                                                 <i class="fas fa-times-circle mr-1"></i> Désactiver
                                             </button>
                                         </form>
                                     @endif
 
-                                    <a href="{{ route('admin.residences.edit', $residence->id) }}" class="text-sm px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+                                    <a href="{{ route('admin.residences.edit', $residence->id) }}" class=" px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
                                         <i class="fas fa-edit mr-1"></i> Modifier
                                     </a>
 
                                     <form action="{{ route('admin.residences.sup', $residence->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-sm px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette résidence ?')">
+                                        <button type="submit" class=" px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette résidence ?')">
                                             <i class="fas fa-trash-alt mr-1"></i> Supprimer
                                         </button>
                                     </form>

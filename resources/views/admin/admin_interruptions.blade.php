@@ -48,7 +48,7 @@
                                 {{ ucfirst(str_replace('_', ' ', $demande->status)) }}
                             </span>
                         </p>
-                        <p class="text-sm text-gray-500">Demandée le : {{ $demande->created_at->format('d/m/Y H:i') }}</p>
+                        <p class=" text-gray-500">Demandée le : {{ $demande->created_at->format('d/m/Y H:i') }}</p>
                     </div>
 
                     {{-- Actions --}}

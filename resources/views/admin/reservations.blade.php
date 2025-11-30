@@ -41,25 +41,25 @@
                         <tr class="search-row" data-name="{{ strtolower($reservation->residence->nom ?? '') }} {{ strtolower($reservation->client ?? '') }}"
                             data-status="{{ strtolower($reservation->status) }}">
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{ $reservation->id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap  text-gray-500">#{{ $reservation->id }}</td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{ $reservation->reservation_code }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap  text-gray-500">#{{ $reservation->reservation_code }}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-semibold text-indigo-600 truncate max-w-xs">{{ $reservation->residence->nom ?? 'Résidence inconnue' }}</div>
+                                <div class=" font-semibold text-indigo-600 truncate max-w-xs">{{ $reservation->residence->nom ?? 'Résidence inconnue' }}</div>
                                 <div class="text-xs text-gray-500">{{ $reservation->residence->ville ?? 'N/A' }}</div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">{{ $reservation->client ?? 'Client Inconnu' }}</div>
+                                <div class=" font-medium text-gray-900">{{ $reservation->client ?? 'Client Inconnu' }}</div>
                                 <div class="text-xs text-gray-500">{{ $reservation->user->email ?? 'N/A' }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            <td class="px-6 py-4 whitespace-nowrap  text-gray-700">
                                 Du {{ \Carbon\Carbon::parse($reservation->date_arrivee)->format('d/m') }}  au  {{ \Carbon\Carbon::parse($reservation->date_depart)->format('d/m/Y') }}
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">
+                            <td class="px-6 py-4 whitespace-nowrap  font-bold text-green-600">
                                 {{ number_format($reservation->total, 0, ',', ' ') }} FCFA
                             </td>
 
