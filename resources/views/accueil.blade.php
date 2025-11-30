@@ -382,7 +382,7 @@
 
             /* effet visuel quand c'est ouvert */
             .service-item.open .type {
-                background-color: #343a40 !important;
+                color: #09008d !important;
             }
 
 
@@ -450,33 +450,33 @@
                         </label>
                         <div class="content">
 
-                            <div class="service-item border p-2 mb-2 rounded">
+                            <div class="service-item p-2 mb-2">
                                 <button class="type">
                                     Studio
                                 </button>
-                                <ul class="services-list border rounded mt-2 p-2 col-12">
+                                <ul class="services-list mt-2 p-2 col-12">
                                     <li>wifi gratuit</li>
                                     <li>ventilateur</li>
                                     <li>caméra de surveillance</li>
                                 </ul>
                             </div>
 
-                            <div class="service-item border p-2 mb-2 rounded">
+                            <div class="service-item p-2 mb-2">
                                 <button class="type">
                                     Chambre unique
                                 </button>
-                                <ul class="services-list border rounded mt-2 p-2 col-12">
+                                <ul class="services-list mt-2 p-2 col-12">
                                     <li>wifi gratuit</li>
                                     <li>climatisation</li>
                                     <li>petit déjeuner inclus</li>
                                 </ul>
                             </div>
 
-                            <div class="service-item border p-2 mb-2 rounded">
+                            <div class="service-item p-2 mb-2">
                                 <button class="type">
                                     Villa avec piscine
                                 </button>
-                                <ul class="services-list border rounded mt-2 p-2 col-12">
+                                <ul class="services-list mt-2 p-2 col-12">
                                     <li>wifi gratuit</li>
                                     <li>piscine privée</li>
                                     <li>climatisation</li>
