@@ -70,8 +70,7 @@
 
         button[type="submit"],
         input[type="submit"],a {
-            font-size: 1.05rem;
-            padding: 11px 20px;
+            font-size: 0.8rem;
         }
     }
 
@@ -88,8 +87,7 @@
 
         button[type="submit"],
         input[type="submit"],a {
-            font-size: 1.1rem;
-            padding: 12px 22px;
+            font-size: 1rem;
         }
     }
 
