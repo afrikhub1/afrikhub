@@ -105,7 +105,7 @@
 
         button[type="submit"],
         input[type="submit"] {
-            font-size: 1rem;
+            font-size: 0.5rem;
             padding: 13px 24px;
         }
     }
