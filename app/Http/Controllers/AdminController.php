@@ -212,7 +212,7 @@ class AdminController extends Controller
     public function showUserResidences(\App\Models\User $user)
     {
         // On pagine (9 cartes par page)
-        $residences = $user->residences()
+        $residences = $user->residence()
             ->orderBy('created_at', 'desc')
             ->paginate(9);
         // Ajoute la prochaine date disponible à chaque résidence
