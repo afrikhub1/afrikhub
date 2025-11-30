@@ -451,7 +451,7 @@
                         <div class="content">
 
                             <div class="service-item border p-2 mb-2 rounded">
-                                <button class="type btn btn-dark col-12 text-start">
+                                <button class="type">
                                     Studio
                                 </button>
                                 <ul class="services-list border rounded mt-2 p-2 col-12">
@@ -462,7 +462,7 @@
                             </div>
 
                             <div class="service-item border p-2 mb-2 rounded">
-                                <button class="type btn btn-dark col-12 text-start">
+                                <button class="type">
                                     Chambre unique
                                 </button>
                                 <ul class="services-list border rounded mt-2 p-2 col-12">
@@ -473,7 +473,7 @@
                             </div>
 
                             <div class="service-item border p-2 mb-2 rounded">
-                                <button class="type btn btn-dark col-12 text-start">
+                                <button class="type">
                                     Villa avec piscine
                                 </button>
                                 <ul class="services-list border rounded mt-2 p-2 col-12">
