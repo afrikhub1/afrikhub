@@ -575,6 +575,14 @@
             }
         </script>
 
+        <script>
+            document.querySelectorAll('.type').forEach(el => {
+            el.addEventListener('click', () => {
+                el.classList.toggle('active');
+            });
+            });
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
     </body>
