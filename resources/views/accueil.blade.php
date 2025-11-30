@@ -360,6 +360,16 @@
             .btn-reserver { font-size: 1rem; padding: 12px 28px; }
             }
 
+            .services-list{
+                display: none;
+                transition: all 3s ease;
+            }
+
+            .type.active .services-list {
+                display: block;
+            }
+
+
         </style>
         <!-- HEADER -->
         <header class="p-1">
@@ -423,7 +433,7 @@
                         </label>
                         <div class="content">
                             <div>
-                                <strong>Studio</strong>
+                                <strong class="type">Studio</strong>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
                                     <li>ventilateur</li>
@@ -431,7 +441,7 @@
                                 </ul>
                             </div>
                             <div>
-                                <strong>Chambre unique</strong>
+                                <strong class="type">Chambre unique</strong>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
                                     <li>climatisation</li>
@@ -439,7 +449,7 @@
                                 </ul>
                             </div>
                             <div>
-                                <strong>Villa avec piscine</strong>
+                                <strong class="type">Villa avec piscine</strong>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
                                     <li>piscine privée</li>
