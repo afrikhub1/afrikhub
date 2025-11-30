@@ -40,6 +40,7 @@
             <!-- OPTION -->
             <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
                 <option value="name">Nom</option>
+                <option value="client">client</option>
                 <option value="status">status</option>
                 <option value="ville">ville</option>
                 <option value="proprietaire">proprietaire</option>
