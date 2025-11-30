@@ -54,8 +54,7 @@
 
                     <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
                             hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
-                            border border-gray-100" data-name="{{ $residence->nom }}"
-                            data-status="{{ $reservationEnCours?->status ?? 'aucune' }}">
+                            border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residences->status}}">
 
                         {{-- Image principale --}}
                         <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
@@ -103,19 +102,12 @@
                                         {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'Suspendue' : 'Active' }}
                                     </span>
                                 </li>
-                                @php
-                                    $statusText =  $reservations->filter(fn($r) => $r->residence_id == $residence->id)
-                                        ->pluck('status')
-                                        ->toArray();
-                                    $reservationEnCours = implode(', ', $statusText);
-                                @endphp
-
                                 <div>
 
 
                                 <li class="fw-bold mt-2 text-secondary fw-light">
                                     <i class="fas fa-calendar-check me-2"></i>
-                                    Statut : {{ $reservationEnCours?->status ?? 'Aucune réservation en cours' }}
+                                    Statut : {{ $residence?->statut }}
                                 </li>
 
                                @if($residence->disponible == 0)  <!-- Indisponible -->
