@@ -99,7 +99,7 @@
                             </li>
                             <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-indigo-400"></i> Statut réservation :</span>
-                                <span class="text-gray-900">{{ $reservationEnCours?->status}}</span>
+                                <span class="text-gray-900">{{ $reservationEnCours->status}}</span>
                             </li>
                             <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-ban mr-2 text-red-500"></i> Suspension :</span>
