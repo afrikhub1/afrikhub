@@ -67,7 +67,8 @@ class AdminController extends Controller
         $residences = Residence::orderBy('id', 'desc')->paginate(9);
 
         // Récupère les résidences, triées par ID descendant, avec 9 éléments par page.
-        $reservations = Reservation::orderBy('id', 'desc');
+        $reservations = Reservation::orderBy('id', 'desc')->get(); // <- récupère la collection
+
 
         // Ajoute la prochaine date disponible à chaque résidence
         foreach ($residences as $residence) {
