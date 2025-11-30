@@ -61,7 +61,7 @@
 
         button[type="submit"],
         input[type="submit"],a,th,td,span,li, p {
-            font-size: 0.4rem;
+            font-size: 0.8rem;
         }
     }
 
