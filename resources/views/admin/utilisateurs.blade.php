@@ -5,7 +5,7 @@
 @section('main')
     <div class="container-fluid mx-0 p-2">
 
-        <h1 class="text-center display-3 text-primary fw-bold mb-4">
+        <h1 class="text-center text-primary fw-bold mb-4">
             Gestion des Utilisateurs
         </h1>
 
