@@ -16,10 +16,10 @@
 
         <div class="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 animate-fadeIn">
 
-            <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-6 flex items-center justify-center gap-3">
+            <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-6 flex items-center justify-center gap-3">
                 <i class="fas fa-user-shield text-indigo-600 text-4xl"></i>
                 Connexion Admin
-            </h2>
+            </h1>
 
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 shadow-sm">

@@ -6,7 +6,7 @@
 
 <div class="container mx-auto p-4">
 
-    <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-8 drop-shadow-lg">
+    <h1 class="md:text-5xl font-extrabold text-center text-gray-900 mb-8 drop-shadow-lg">
         <i class="fas fa-stop-circle text-red-500 mr-3"></i>Demandes d'interruption
     </h1>
 

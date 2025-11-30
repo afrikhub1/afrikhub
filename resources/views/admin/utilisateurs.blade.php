@@ -5,9 +5,9 @@
 @section('main')
     <div class="container mx-auto p-2">
 
-        <h3 class="text-center display-3 text-primary fw-bold mb-4">
+        <h1 class="text-center display-3 text-primary fw-bold mb-4">
             Gestion des Utilisateurs
-        </h3>
+        </h1>
 
        @if ($utilisateurs->isEmpty())
             <div class="alert alert-warning border-start border-warning border-5 shadow-sm p-4" role="alert">
