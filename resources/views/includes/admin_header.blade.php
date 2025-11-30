@@ -100,27 +100,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const searchOption = document.getElementById("searchOption");
 
-    // Sélectionne toutes les cartes (ex : résidences, utilisateurs…)
     const rows = document.querySelectorAll(".search-row");
 
-    searchInput.addEventListener("keyup", () => {
+    const applyFilter = () => {
         const query = searchInput.value.toLowerCase().trim();
         const option = searchOption.value;
 
         rows.forEach(row => {
             let value = "";
 
-            // Selon l'option : on cherche dans le bon attribut
-            if (option === "name") value = row.dataset.name.toLowerCase();
-            if (option === "status") value = row.dataset.status.toLowerCase();
-
-            if (value.includes(query)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
+            // Chercher dans les attributs selon l'option
+            switch(option) {
+                case "name":
+                    value = row.dataset.name || "";
+                    break;
+                case "status":
+                    value = row.dataset.status || "";
+                    break;
+                case "city":
+                    value = row.dataset.city || "";
+                    break;
+                case "owner":
+                    value = row.dataset.owner || "";
+                    break;
+                default:
+                    value = (
+                        (row.dataset.name || "") + " " +
+                        (row.dataset.status || "") + " " +
+                        (row.dataset.city || "") + " " +
+                        (row.dataset.owner || "")
+                    );
+                    break;
             }
+
+            value = value.toLowerCase();
+
+            row.style.display = value.includes(query) ? "" : "none";
         });
-    });
+    };
+
+    searchInput.addEventListener("keyup", applyFilter);
+    searchOption.addEventListener("change", applyFilter);
 });
 </script>
+
 
