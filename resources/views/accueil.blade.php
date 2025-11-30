@@ -518,10 +518,29 @@
                                                 <i class="fas fa-money-bill-wave me-2 text-success"></i>
                                                 Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
                                             </li>
-                                            <li class="fw-bold mt-2 text-danger fw-600">
-                                                <i class="fas fa-calendar-check me-2"></i>
-                                                Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
-                                            </li>
+                                             @php
+                                                $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
+                                            @endphp
+
+                                            @if ($dateDispo->isPast())
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                                        Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </li>
+                                            @elseif ($dateDispo->isToday())
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                                        Disponible
+                                                    </span>
+                                                </li>
+                                            @else
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                                                        Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </li>
+                                            @endif
                                         </ul>
 
                                         <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded mt-auto">
