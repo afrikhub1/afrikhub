@@ -49,7 +49,7 @@ class Residence extends Model
      */
     public function user()
     {
-        return $this->hasMany(User::class, 'proprietaire_id');
+        return $this->belongsTo(User::class, 'proprietaire_id');
     }
 
     /**

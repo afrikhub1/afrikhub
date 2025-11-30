@@ -32,6 +32,7 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id Reservation</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Résidence</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Locataire</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dates</th>
@@ -45,6 +46,8 @@
                             data-status="{{ strtolower($reservation->status) }}">
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{ $reservation->id }}</td>
+
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{ $reservation->reservation_code }}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-semibold text-indigo-600 truncate max-w-xs">{{ $reservation->residence->nom ?? 'Résidence inconnue' }}</div>
