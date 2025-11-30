@@ -364,8 +364,8 @@
                 display: none;
             }
 
-            .type.active + .services-list {
-                display: block;
+            .type:hover + .services-list {
+                display: inline-block;
             }
 
 
