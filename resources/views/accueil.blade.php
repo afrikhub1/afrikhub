@@ -451,7 +451,7 @@
                         </label>
                         <div class="content">
 
-                            <div class="service-item p-2 mb-2">
+                            <div class="service-item p-0 mb-1">
                                 <button class="type">
                                     Studio
                                 </button>
@@ -462,7 +462,7 @@
                                 </ul>
                             </div>
 
-                            <div class="service-item p-2 mb-2">
+                            <div class="service-item p-0 mb-1">
                                 <button class="type">
                                     Chambre unique
                                 </button>
@@ -473,7 +473,7 @@
                                 </ul>
                             </div>
 
-                            <div class="service-item p-2 mb-2">
+                            <div class="service-item p-0 mb-1">
                                 <button class="type">
                                     Villa avec piscine
                                 </button>
