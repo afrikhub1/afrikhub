@@ -115,7 +115,7 @@
     @include('includes.admin_header')
 
     {{-- Contenu principal de la page --}}
-    <main class="flex-grow">
+    <main class="flex-grow p-0">
         @yield('main')
     </main>
 
