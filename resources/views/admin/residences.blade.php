@@ -50,7 +50,6 @@
                         }
                         $firstImage = $images[0] ?? null;
                         $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-                        $reservationEnCours=$reservations;
                     @endphp
 
                     <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
@@ -105,7 +104,7 @@
                                     </span>
                                 </li>
                                 @php
-                                    $reservationEnCours = $residence->reservations
+                                    $reservationEnCours = $reservations
                                         ->whereIn('status', ['confirmée', 'payé', 'suspendu'])
                                         ->first();
                                 @endphp
