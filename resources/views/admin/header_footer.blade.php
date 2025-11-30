@@ -28,32 +28,32 @@
 
     <style>
         /* Taille de texte globale */
-body {
-    font-size: 16px;   /* Base */
-}
+        body {
+            font-size: 16px;   /* Base */
+        }
 
-/* Titres */
-h1 { font-size: 2rem; }      /* 32px */
-h2 { font-size: 1.75rem; }   /* 28px */
-h3 { font-size: 1.5rem; }    /* 24px */
-h4 { font-size: 1.25rem; }   /* 20px */
-h5 { font-size: 1.1rem; }    /* 17.6px */
-h6 { font-size: 1rem; }      /* 16px */
+        /* Titres */
+        h1 { font-size: 1.5rem; }      /* 32px */
+        h2 { font-size: 1.4rem; }   /* 28px */
+        h3 { font-size: 1rem; }    /* 24px */
+        h4 { font-size: 0.8rem; }   /* 20px */
+        h5 { font-size: 0.7rem; }    /* 17.6px */
+        h6 { font-size: 0.5rem; }      /* 16px */
 
-/* Paragraphes */
-p {
-    font-size: 1rem;   /* 16px */
-}
+        /* Paragraphes */
+        p {
+            font-size: 0.3rem;   /* 16px */
+        }
 
-/* Liens */
-a {
-    font-size: 1rem;
-}
+        /* Liens */
+        a {
+            font-size: 0.3rem;
+        }
 
-/* Listes */
-li {
-    font-size: 1rem;
-}
+        /* Listes */
+        li {
+            font-size: 0.3rem;
+        }
 
     </style>
 
