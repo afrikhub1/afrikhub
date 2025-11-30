@@ -36,12 +36,12 @@
         font-family: Arial, sans-serif;
     }
 
-    h1 { font-size: 1.8rem; }
-    h2 { font-size: 1.6rem; }
-    h3 { font-size: 1.4rem; }
-    h4 { font-size: 1.2rem; }
-    h5 { font-size: 1.05rem; }
-    h6 { font-size: 1rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1rem; }
+    h5 { font-size: 8.05rem; }
+    h6 { font-size: 8rem; }
 
     p, a, li, span,th,td {
         font-size: 0.8rem;
