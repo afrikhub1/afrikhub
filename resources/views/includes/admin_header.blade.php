@@ -136,6 +136,9 @@
                     case "proprietaire":
                         value = normalizeText(row.dataset.proprietaire || "");
                         break;
+                    case "client":
+                        value = normalizeText(row.dataset.client || "");
+                        break;
                     default:
                         value = "";
                 }
