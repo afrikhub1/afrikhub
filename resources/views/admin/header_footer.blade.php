@@ -52,7 +52,7 @@
     /*            TABLETTE ≥ 640px            */
     /* -------------------------------------- */
     @media (min-width: 640px) {
-        body { font-size: 16px; }
+        body { font-size: 10px; }
 
         h1 { font-size: 2rem; }
         h2 { font-size: 1.75rem; }
@@ -69,7 +69,7 @@
     /*           LAPTOP ≥ 1024px              */
     /* -------------------------------------- */
     @media (min-width: 1024px) {
-        body { font-size: 15px; }
+        body { font-size: 10px; }
 
         h1 { font-size: 2.3rem; }
         h2 { font-size: 2rem; }
@@ -86,7 +86,7 @@
     /*       GRAND ÉCRAN ≥ 1440px             */
     /* -------------------------------------- */
     @media (min-width: 1440px) {
-        body { font-size: 15px; }
+        body { font-size: 10px; }
 
         h1 { font-size: 2.6rem; }
         h2 { font-size: 2.2rem; }
