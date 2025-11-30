@@ -86,7 +86,7 @@
     /*       GRAND ÉCRAN ≥ 1440px             */
     /* -------------------------------------- */
     @media (min-width: 1440px) {
-        body { font-size: 18px; }
+        body { font-size: 15px; }
 
         h1 { font-size: 2.6rem; }
         h2 { font-size: 2.2rem; }
