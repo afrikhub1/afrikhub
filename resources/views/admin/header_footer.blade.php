@@ -27,34 +27,50 @@
 </head>
 
     <style>
-        /* Taille de texte globale */
+        /* BASE : Mobile (0px → 640px) */
         body {
-            font-size: 16px;   /* Base */
+            font-size: 15px;
         }
 
-        /* Titres */
-        h1 { font-size: 1.5rem; }      /* 32px */
-        h2 { font-size: 1.4rem; }   /* 28px */
-        h3 { font-size: 1rem; }    /* 24px */
-        h4 { font-size: 0.8rem; }   /* 20px */
-        h5 { font-size: 0.7rem; }    /* 17.6px */
-        h6 { font-size: 0.5rem; }      /* 16px */
+        h1 { font-size: 1.8rem; }   /* ~27px */
+        h2 { font-size: 1.6rem; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.2rem; }
+        h5 { font-size: 1.05rem; }
+        h6 { font-size: 1rem; }
 
-        /* Paragraphes */
-        p {
-            font-size: 0.3rem;   /* 16px */
+        p, a, li {
+            font-size: 1rem;
         }
 
-        /* Liens */
-        a {
-            font-size: 0.3rem;
+        /* TABLETTE (min-width: 640px) */
+        @media (min-width: 640px) {
+            body { font-size: 16px; }
+
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.5rem; }
+            h4 { font-size: 1.3rem; }
         }
 
-        /* Listes */
-        li {
-            font-size: 0.3rem;
+        /* LAPTOP (min-width: 1024px) */
+        @media (min-width: 1024px) {
+            body { font-size: 17px; }
+
+            h1 { font-size: 2.3rem; }  /* ~39px */
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.7rem; }
+            h4 { font-size: 1.4rem; }
         }
 
+        /* GRAND ÉCRAN (min-width: 1440px) */
+        @media (min-width: 1440px) {
+            body { font-size: 18px; }
+
+            h1 { font-size: 2.6rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.9rem; }
+        }
     </style>
 
 <body class="bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
