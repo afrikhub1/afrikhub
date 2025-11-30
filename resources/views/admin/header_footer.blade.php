@@ -32,12 +32,13 @@
             font-size: 15px;
         }
 
-        h1 { font-size: 1.8rem; }   /* ~27px */
+        h1 { font-size: 1.8rem; }
         h2 { font-size: 1.6rem; }
         h3 { font-size: 1.4rem; }
         h4 { font-size: 1.2rem; }
         h5 { font-size: 1.05rem; }
         h6 { font-size: 1rem; }
+        button { font-size: 0.5rem}
 
         p, a, li {
             font-size: 1rem;
