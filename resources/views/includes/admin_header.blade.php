@@ -131,10 +131,10 @@
                         value = normalizeText(row.dataset.status || "");
                         break;
                     case "ville":
-                        value = normalizeText(row.dataset.city || "");
+                        value = normalizeText(row.dataset.ville || "");
                         break;
                     case "proprietaire":
-                        value = normalizeText(row.dataset.owner || "");
+                        value = normalizeText(row.dataset.proprietaire || "");
                         break;
                     default:
                         value = "";
