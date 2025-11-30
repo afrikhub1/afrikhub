@@ -71,7 +71,7 @@
                 </div>
             @empty
                 <div class="col-span-full text-center p-10 bg-white rounded-2xl shadow-md">
-                    <p class="text-gray-500 text-lg">Aucune demande pour le moment.</p>
+                    <p class="text-gray-500 ">Aucune demande pour le moment.</p>
                 </div>
             @endforelse
         </div>

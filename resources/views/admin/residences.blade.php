@@ -36,7 +36,7 @@
         @if($residences->isEmpty())
             <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 rounded-lg text-center shadow-lg mx-auto max-w-lg">
                 <i class="fas fa-info-circle text-2xl mb-2 block"></i>
-                <p class="font-semibold text-lg">Vous n'avez aucune résidence enregistrée.</p>
+                <p class="font-semibold ">Vous n'avez aucune résidence enregistrée.</p>
                 <p class=" mt-1">Utilisez le menu latéral pour la mise en ligne.</p>
             </div>
         @else
@@ -83,11 +83,11 @@
                         @endif
 
                         <div class="p-6 flex flex-col flex-grow border-gray-700/50 shadow">
-                            <h5 class="text-xl font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
+                            <h5 class=" font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
                             <ul class="space-y-2  text-gray-700 mb-4 flex-grow">
                                 <li class="flex justify-between items-center">
                                     <span class="text-gray-500"><i class="fas fa-tag mr-2 text-green-500"></i> Prix / Jour :</span>
-                                    <span class="text-green-600 font-extrabold text-lg">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</span>
+                                    <span class="text-green-600 font-extrabold ">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</span>
                                 </li>
                                 <li class="flex justify-between items-center">
                                     <span class="text-gray-500"><i class="fas fa-map-marker-alt mr-2 text-indigo-400"></i> Ville :</span>

@@ -23,7 +23,7 @@
         {{-- SECTION 1 : INFORMATIONS DE BASE --}}
         {{-- ******************************************* --}}
         <fieldset class="border border-gray-300 p-4 rounded-lg mb-6">
-            <legend class="text-lg font-semibold text-gray-700 px-2">Informations Générales</legend>
+            <legend class=" font-semibold text-gray-700 px-2">Informations Générales</legend>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {{-- Nom de la Résidence --}}
@@ -63,7 +63,7 @@
         {{-- SECTION 2 : LOCALISATION --}}
         {{-- ******************************************* --}}
         <fieldset class="border border-gray-300 p-4 rounded-lg mb-6">
-            <legend class="text-lg font-semibold text-gray-700 px-2">Localisation</legend>
+            <legend class=" font-semibold text-gray-700 px-2">Localisation</legend>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {{-- Pays --}}
@@ -102,7 +102,7 @@
         {{-- SECTION 3 : ADMINISTRATION ET status --}}
         {{-- ******************************************* --}}
         <fieldset class="border border-gray-300 p-4 rounded-lg mb-6 bg-indigo-50/50">
-            <legend class="text-lg font-semibold text-indigo-700 px-2">Paramètres Administratifs</legend>
+            <legend class=" font-semibold text-indigo-700 px-2">Paramètres Administratifs</legend>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                 {{-- status de Vérification (Select) --}}
@@ -132,7 +132,7 @@
         {{-- SECTION 4 : GESTION DES IMAGES --}}
         {{-- ******************************************* --}}
         <fieldset class="border border-gray-300 p-4 rounded-lg mb-8">
-            <legend class="text-lg font-semibold text-gray-700 px-2">Gestion des Images</legend>
+            <legend class=" font-semibold text-gray-700 px-2">Gestion des Images</legend>
 
             <p class=" text-gray-500 mb-4">
                 Pour l'édition, vous pouvez choisir de **remplacer** les images existantes.

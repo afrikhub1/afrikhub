@@ -11,7 +11,7 @@
 
     {{-- Section: Nombre total de reservations --}}
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <p class="text-lg font-semibold text-gray-700">
+        <p class=" font-semibold text-gray-700">
             <i class="fas fa-list-ul mr-2 text-indigo-500"></i> Total des reservations :
             <span class="text-indigo-600 font-bold">{{ $reservations->count() }}</span>
         </p>

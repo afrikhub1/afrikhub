@@ -93,7 +93,7 @@
             <button id="sidebar-toggle" class="md:hidden p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <h1 class="text-xl font-semibold text-gray-900 dark:text-white hidden sm:block">Tableau de Bord des Hébergements</h1>
+            <h1 class=" font-semibold text-gray-900 dark:text-white hidden sm:block">Tableau de Bord des Hébergements</h1>
             <div class="flex items-center space-x-4">
                 <span class=" font-medium text-gray-700 dark:text-gray-300 hidden sm:inline">Bienvenue, Administrateur</span>
                 <img class="w-8 h-8 rounded-full object-cover border-2 border-primary dark:border-primary-dark"
@@ -157,7 +157,7 @@
             </div>
 
             <div class="mt-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700/50 overflow-x-auto">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Résidences à Vérifier En attente/Désactivées</h2>
+                <h2 class=" font-semibold text-gray-900 dark:text-white mb-4">Résidences à Vérifier En attente/Désactivées</h2>
 
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-700">
