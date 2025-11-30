@@ -361,13 +361,17 @@
             }
 
             .services-list {
-                display: none;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.4s ease, opacity 0.3s ease;
+                padding-left: 20px;
             }
 
             .type.active + .services-list {
-                display: inline-block;
+                max-height: 500px;
+                opacity: 1;
             }
-
 
 
         </style>
