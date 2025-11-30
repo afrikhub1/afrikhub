@@ -50,7 +50,9 @@
                             : 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                     @endphp
 
-                    <div class="residence-item bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01] border border-gray-100">
+                    <div class="residence-item bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col hover:shadow-indigo-300/50
+                        transition duration-300 transform hover:scale-[1.01] border border-gray-100"data-name="{{ $residence->nom }}"
+                        data-status="{{ $residence->status}}"data-ville="{{ $residence->ville}}">
 
                         {{-- Image principale --}}
                         <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
@@ -76,7 +78,7 @@
                             @endforeach
                         @endif
 
-                        <div class="p-6 flex flex-col flex-grow">
+                        <div class="p-6 flex flex-col flex-grow" >
                             <h5 class="text-xl font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
                             <ul class="space-y-2 text-sm text-gray-700 mb-4 flex-grow">
                                 <li class="flex justify-between items-center">
