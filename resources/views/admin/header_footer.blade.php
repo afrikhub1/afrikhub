@@ -69,7 +69,7 @@
     /*           LAPTOP ≥ 1024px              */
     /* -------------------------------------- */
     @media (min-width: 1024px) {
-        body { font-size: 17px; }
+        body { font-size: 15px; }
 
         h1 { font-size: 2.3rem; }
         h2 { font-size: 2rem; }
