@@ -44,7 +44,7 @@
     h6 { font-size: 1rem; }
 
     p, a, li, span,th,td {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 
     /* Boutons submit */
