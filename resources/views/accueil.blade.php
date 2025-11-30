@@ -433,7 +433,7 @@
                         </label>
                         <div class="content">
                             <div class="service-item">
-                                <strong class="type">Studio</strong>
+                                <button class="type">Studio</button>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
                                     <li>ventilateur</li>
@@ -441,7 +441,7 @@
                                 </ul>
                             </div>
                             <div class="service-item">
-                                <strong class="type">Chambre unique</strong>
+                                <button class="type">Chambre unique</button>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
                                     <li>climatisation</li>
@@ -449,7 +449,7 @@
                                 </ul>
                             </div>
                             <div class="service-item">
-                                <strong class="type">Villa avec piscine</strong>
+                                <button class="type">Villa avec piscine</button>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
                                     <li>piscine privée</li>
