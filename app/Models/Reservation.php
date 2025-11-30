@@ -30,12 +30,11 @@ class Reservation extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function residence()
     {
-        return $this->belongsTo(Residence::class);
+        return $this->hasMany(Reservation::class, 'residence_id');
     }
-
 }
