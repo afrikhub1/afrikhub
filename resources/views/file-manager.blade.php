@@ -112,3 +112,90 @@ searchInput.addEventListener('input', () => {
 </script>
 </body>
 </html>
+        <div class="row">
+            <div class="col-12 main-content">
+                @if ($residences->isEmpty())
+                    <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
+                    </div>
+                @else
+                    <div class="row g-4 justify-content-center mb-4">
+                        @foreach($residences as $residence)
+                            @php
+                                $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
+                                // Fallback pour la première image
+                                $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+                            @endphp
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
+                                <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
+                                    <a href="javascript:void(0)"
+                                    class="glightbox-trigger-{{ $residence->id }}">
+                                        <img src="{{ $firstImage }}"
+                                            alt="Image de la résidence {{ $residence->nom }}"
+                                            class="card-img-top"
+                                            loading="lazy">
+                                    </a>
+
+                                    {{-- Liens GLightbox CACHÉS pour la galerie --}}
+                                    @foreach($images as $key => $image)
+                                        <a href="{{ $image }}"
+                                        class="glightbox"
+                                        data-gallery="gallery-{{ $residence->id }}"
+                                        data-title="{{ $residence->nom }} - Image {{ $key + 1 }}"
+                                        style="display: none;"
+                                        aria-label="Voir l'image {{ $key + 1 }}"
+                                        data-index="{{ $key }}"
+                                        data-trigger=".glightbox-trigger-{{ $residence->id }}"
+                                        ></a>
+                                    @endforeach
+
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title fw-bold text-dark">{{ $residence->nom }}</h5>
+                                        <p class="card-text text-muted card-text-truncate" title="{{ $residence->description }}">
+                                            {{ Str::limit($residence->description, 100) }}
+                                        </p>
+                                        <ul class="list-unstyled small mb-3 mt-2">
+                                            <li><i class="fas fa-bed me-2 text-primary"></i> <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
+                                            <i class="fas fa-bed me-2 text-primary"></i> <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}</li>
+                                            <li><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}</li>
+                                            <li class="fw-bold mt-2">
+                                                <i class="fas fa-money-bill-wave me-2 text-success"></i>
+                                                Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
+                                            </li>
+                                             @php
+                                                $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
+                                            @endphp
+
+                                            @if ($dateDispo->isPast())
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                                        Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </li>
+                                            @elseif ($dateDispo->isToday())
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                                        Disponible
+                                                    </span>
+                                                </li>
+                                            @else
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                                                        Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </li>
+                                            @endif
+                                        </ul>
+
+                                        <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded mt-auto">
+                                            Voir les Détails <i class="fas fa-arrow-right ms-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
