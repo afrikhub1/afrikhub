@@ -365,13 +365,26 @@
                 overflow: hidden;
                 opacity: 0;
                 transition: max-height 0.4s ease, opacity 0.3s ease;
-                padding-left: 20px;
             }
 
-            .type.active + .services-list {
-                max-height: 500px;
+            /* ouverte */
+            .service-item.open .services-list {
+                max-height: 500px; /* assez large */
                 opacity: 1;
             }
+
+            /* bouton stylé */
+            .type {
+                font-weight: 600;
+                transition: background 0.3s ease;
+                cursor: pointer;
+            }
+
+            /* effet visuel quand c'est ouvert */
+            .service-item.open .type {
+                background-color: #343a40 !important;
+            }
+
 
 
         </style>
@@ -436,33 +449,42 @@
                             <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
                         </label>
                         <div class="content">
-                            <div class="service-item border">
-                                <button class="type btn btn-dark col-12">Studio</button>
-                                <ul class="services-list border col-12">
+
+                            <div class="service-item border p-2 mb-2 rounded">
+                                <button class="type btn btn-dark col-12 text-start">
+                                    Studio
+                                </button>
+                                <ul class="services-list border rounded mt-2 p-2 col-12">
                                     <li>wifi gratuit</li>
                                     <li>ventilateur</li>
                                     <li>caméra de surveillance</li>
                                 </ul>
                             </div>
-                            <div class="service-item border">
-                                <button class="type btn btn-dark col-12">Chambre unique</button>
-                                <ul class="services-list border col-12">
+
+                            <div class="service-item border p-2 mb-2 rounded">
+                                <button class="type btn btn-dark col-12 text-start">
+                                    Chambre unique
+                                </button>
+                                <ul class="services-list border rounded mt-2 p-2 col-12">
                                     <li>wifi gratuit</li>
                                     <li>climatisation</li>
                                     <li>petit déjeuner inclus</li>
                                 </ul>
                             </div>
-                            <div class="service-item border">
-                                <button class="type btn btn-dark col-12">Villa avec piscine</button>
-                                <ul class="services-list border col-12">
+
+                            <div class="service-item border p-2 mb-2 rounded">
+                                <button class="type btn btn-dark col-12 text-start">
+                                    Villa avec piscine
+                                </button>
+                                <ul class="services-list border rounded mt-2 p-2 col-12">
                                     <li>wifi gratuit</li>
                                     <li>piscine privée</li>
                                     <li>climatisation</li>
                                     <li>parking gratuit</li>
                                 </ul>
                             </div>
-                        </div>
 
+                        </div>
                         <!-- Deuxième item -->
                         <input type="checkbox" id="acc2">
                         <label for="acc2">
@@ -580,11 +602,13 @@
         </script>
 
         <script>
-            document.querySelectorAll('.type').forEach(el => {
-            el.addEventListener('click', () => {
-                el.classList.toggle('active');
+            document.querySelectorAll('.service-item .type').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.closest('.service-item');
+                    item.classList.toggle('open');
+                });
             });
-            });
+
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
