@@ -102,7 +102,7 @@
         h3 { font-size: 1.9rem; }
 
         button[type="submit"],
-        input[type="submit"],a {
+        input[type="submit"],a, th, td {
             font-size: 0.8rem;
         }
     }
