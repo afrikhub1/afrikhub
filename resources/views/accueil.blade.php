@@ -360,14 +360,14 @@
             .btn-reserver { font-size: 1rem; padding: 12px 28px; }
             }
 
-            .services-list{
+            .services-list {
                 display: none;
-                transition: all 3s ease;
             }
 
-            .type.active .services-list {
+            .type.active + .services-list {
                 display: block;
             }
+
 
 
         </style>
@@ -432,7 +432,7 @@
                             <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
                         </label>
                         <div class="content">
-                            <div>
+                            <div class="service-item">
                                 <strong class="type">Studio</strong>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
@@ -440,7 +440,7 @@
                                     <li>caméra de surveillance</li>
                                 </ul>
                             </div>
-                            <div>
+                            <div class="service-item">
                                 <strong class="type">Chambre unique</strong>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
@@ -448,7 +448,7 @@
                                     <li>petit déjeuner inclus</li>
                                 </ul>
                             </div>
-                            <div>
+                            <div class="service-item">
                                 <strong class="type">Villa avec piscine</strong>
                                 <ul class="services-list">
                                     <li>wifi gratuit</li>
