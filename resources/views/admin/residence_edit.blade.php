@@ -2,10 +2,6 @@
 
 @section('title', 'Modifier la Résidence : ' . $residence->nom)
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/admin_residences.css') }}">
-@endsection
-
 @section('main')
 
 {{-- Conteneur Principal : Assure le décalage sous le header et la largeur maximale --}}
