@@ -26,6 +26,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
+    <style>
+        /* Taille de texte globale */
+body {
+    font-size: 16px;   /* Base */
+}
+
+/* Titres */
+h1 { font-size: 2rem; }      /* 32px */
+h2 { font-size: 1.75rem; }   /* 28px */
+h3 { font-size: 1.5rem; }    /* 24px */
+h4 { font-size: 1.25rem; }   /* 20px */
+h5 { font-size: 1.1rem; }    /* 17.6px */
+h6 { font-size: 1rem; }      /* 16px */
+
+/* Paragraphes */
+p {
+    font-size: 1rem;   /* 16px */
+}
+
+/* Liens */
+a {
+    font-size: 1rem;
+}
+
+/* Listes */
+li {
+    font-size: 1rem;
+}
+
+    </style>
+
 <body class="bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
 
     {{-- Header global --}}
