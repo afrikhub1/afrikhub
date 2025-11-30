@@ -110,8 +110,7 @@
                                         ->first();
                                 @endphp
 
-                                <div class="search-row bg-white ..." data-name="{{ $residence->nom }}"
-                                    data-status="{{ $residence?->status ?? 'inconnu' }}">
+                                <div>
 
 
                                 <li class="fw-bold mt-2 text-secondary fw-light">
