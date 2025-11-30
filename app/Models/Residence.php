@@ -49,13 +49,13 @@ class Residence extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'proprietaire_id');
+        return $this->hasMany(User::class, 'proprietaire_id');
     }
 
     /**
      * Relation : une résidence peut avoir plusieurs réservations
      */
-    public function reservations()
+    public function reservation()
     {
         return $this->hasMany(Reservation::class, 'residence_id');
     }

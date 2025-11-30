@@ -35,6 +35,7 @@ class Reservation extends Model
 
     public function residence()
     {
-        return $this->hasMany(Reservation::class, 'residence_id');
+        return $this->hasMany(Residence::class);
     }
+
 }

@@ -51,9 +51,15 @@ class User extends Authenticatable
         ];
     }
 
-    public function residences()
+    public function residence()
     {
         // On indique à Laravel que la clé étrangère dans la table 'residences' est 'proprietaire_id'.
         return $this->hasMany(Residence::class, 'proprietaire_id');
+    }
+
+    public function reservation()
+    {
+        // On indique à Laravel que la clé étrangère dans la table 'residences' est 'proprietaire_id'.
+        return $this->hasMany(Reservation::class, 'proprietaire_id');
     }
 }
