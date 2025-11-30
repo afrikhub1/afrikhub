@@ -365,6 +365,7 @@
                 overflow: hidden;
                 opacity: 0;
                 transition: max-height 0.4s ease, opacity 0.3s ease;
+                background-color: rgb(250, 250, 250)
             }
 
             /* ouverte */
