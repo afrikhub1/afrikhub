@@ -7,7 +7,7 @@
 @endsection
 
 @section('main')
-    <div class="container mx-auto p-2 ">
+    <div class="container mx-2 p-2 ">
         {{-- Alerts success / danger --}}
         @if (session('success'))
             <div id="alert-success" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-green-50 border-l-4 border-green-600 shadow text-center">
