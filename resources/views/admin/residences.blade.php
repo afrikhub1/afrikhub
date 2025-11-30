@@ -47,7 +47,8 @@
                     $images = is_string($residence->img) ? json_decode($residence->img, true) ?? [] : $residence->img;
                     $firstImage = $images[0] ?? null;
                     $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-                    $reservationEnCours = $reservations->where('residence_id', $residence->id)->status;  // correspond à cette résidence
+                    $reservationEnCours = $reservations->where('residence_id', $residence->id)   // correspond à cette résidence
+                        ->whereIn('status', ['confirmée', 'payé', 'suspendu']);
                 @endphp
 
                 {{-- Carte résidence --}}
@@ -99,7 +100,7 @@
                             </li>
                             <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-indigo-400"></i> Statut réservation :</span>
-                                <span class="text-gray-900">{{ $reservationEnCours?->status ?? 'Aucune réservation en cours' }}</span>
+                                <span class="text-gray-900">{{ $reservationEnCours?->status}}</span>
                             </li>
                             <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-ban mr-2 text-red-500"></i> Suspension :</span>
