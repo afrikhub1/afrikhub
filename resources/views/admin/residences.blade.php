@@ -105,8 +105,7 @@
                                 </li>
                                 @php
                                     $reservationEnCours = $reservations
-                                        ->whereIn('status', ['confirmée', 'payé', 'suspendu'])
-                                        ->first();
+                                        ->whereIn('status', ['confirmée', 'payé', 'suspendu']);
                                 @endphp
 
                                 <div>
