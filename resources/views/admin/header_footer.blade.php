@@ -43,17 +43,9 @@
     h5 { font-size: 8.05rem; }
     h6 { font-size: 8rem; }
 
-    p, a, li, span,th,td {
+    p, a, li, span,th,td, button[type="submit"],
+    input[type="submit"] {
         font-size: 0.8rem;
-    }
-
-    /* Boutons submit */
-    button[type="submit"],
-    input[type="submit"],a {
-        font-size: 1rem;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
     }
 
     /* -------------------------------------- */
@@ -68,8 +60,8 @@
         h4 { font-size: 1.3rem; }
 
         button[type="submit"],
-        input[type="submit"],a,th,td {
-            font-size: 0.6rem;
+        input[type="submit"],a,th,td,span,li, p {
+            font-size: 0.4rem;
         }
     }
 
@@ -102,7 +94,7 @@
 
         button[type="submit"],
         input[type="submit"],a, th, td {
-            font-size: 0.5rem;
+            font-size: 0.8rem;
         }
     }
 </style>
