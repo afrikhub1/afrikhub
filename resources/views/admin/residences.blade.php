@@ -52,12 +52,9 @@
 
                 {{-- Carte résidence --}}
                 <div class="search-row bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
-                            hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
-                            border border-gray-100"
-                     data-name="{{ $residence->nom }}"
-                     data-status="{{ $reservationEnCours?->status ?? 'aucune' }}"
-                     data-city="{{ $residence->ville ?? '' }}"
-                     data-owner="{{ $residence->proprietaire_id ?? '' }}">
+                            hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]border border-gray-100"
+                            data-name="{{ $residence->nom }}" data-status="{{ $reservationEnCours?->status ?? 'aucune' }}"
+                            data-city="{{ $residence->ville ?? '' }}" data-owner="{{ $residence->proprietaire_id ?? '' }}">
 
                     {{-- Image principale --}}
                     <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
