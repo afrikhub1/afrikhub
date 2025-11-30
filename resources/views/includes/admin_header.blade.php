@@ -95,53 +95,57 @@
     </div>
 </aside>
 
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("searchInput");
-    const searchOption = document.getElementById("searchOption");
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.getElementById("searchInput");
+        const searchOption = document.getElementById("searchOption");
 
-    const rows = document.querySelectorAll(".search-row");
+        // Sélectionne toutes les cartes de résidence
+        const rows = document.querySelectorAll(".search-row");
 
-    const applyFilter = () => {
-        const query = searchInput.value.toLowerCase().trim();
-        const option = searchOption.value;
+        // Fonction pour normaliser texte (minuscules + accents)
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .normalize("NFD")   // Décompose les caractères accentués
+                .replace(/[\u0300-\u036f]/g, ""); // Supprime les accents
+        }
 
-        rows.forEach(row => {
-            let value = "";
+        searchInput.addEventListener("keyup", () => {
+            const query = normalizeText(searchInput.value.trim());
+            const option = searchOption.value;
 
-            // Chercher dans les attributs selon l'option
-            switch(option) {
-                case "name":
-                    value = row.dataset.name || "";
-                    break;
-                case "status":
-                    value = row.dataset.status || "";
-                    break;
-                case "city":
-                    value = row.dataset.city || "";
-                    break;
-                case "owner":
-                    value = row.dataset.owner || "";
-                    break;
-                default:
-                    value = (
-                        (row.dataset.name || "") + " " +
-                        (row.dataset.status || "") + " " +
-                        (row.dataset.city || "") + " " +
-                        (row.dataset.owner || "")
-                    );
-                    break;
-            }
+            rows.forEach(row => {
+                let value = "";
 
-            value = value.toLowerCase();
+                // Selon l'option choisie
+                switch(option) {
+                    case "name":
+                        value = normalizeText(row.dataset.name || "");
+                        break;
+                    case "status":
+                        value = normalizeText(row.dataset.status || "");
+                        break;
+                    case "city":
+                        value = normalizeText(row.dataset.city || "");
+                        break;
+                    case "owner":
+                        value = normalizeText(row.dataset.owner || "");
+                        break;
+                    default:
+                        value = "";
+                }
 
-            row.style.display = value.includes(query) ? "" : "none";
+                // Affiche ou cache la ligne
+                if(value.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         });
-    };
-
-    searchInput.addEventListener("keyup", applyFilter);
-    searchOption.addEventListener("change", applyFilter);
-});
+    });
 </script>
 
 
