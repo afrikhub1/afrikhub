@@ -181,9 +181,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer>
          @include('includes.footer')
-    </footer>
 
     <!-- JS Sidebar -->
     <script>
