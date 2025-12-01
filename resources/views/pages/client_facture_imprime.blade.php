@@ -118,5 +118,8 @@
             <p>Facture générée le {{ now()->format('d/m/Y à H:i:s') }}.</p>
         </div>
     </div>
+
+    @include('includes.footer')
+
 </body>
 </html>

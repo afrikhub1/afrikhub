@@ -332,12 +332,7 @@
 </div>
 
 {{-- PIED DE PAGE (FIXE EN BAS) --}}
-<footer class="bg-dark text-white-50 py-3 fixed-bottom shadow-lg">
-    <div class="container text-center">
-        <p class="mb-0">© {{ date('Y') }} Afrik'hub. Tous droits réservés.</p>
-        <p class="small">Plateforme de Résidences Meublées.</p>
-    </div>
-</footer>
+ @include('includes.footer')
 
 <!-- GLightbox + Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>

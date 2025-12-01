@@ -181,376 +181,376 @@
   </style>
   {{-- ======= end CSS ======= --}}
 </head>
-<body>
+    <body>
 
-  {{-- ============================
-     HEADER (clean & accessible)
-     ============================ --}}
-  <header class="site-header">
-    <nav class="container d-flex align-items-center justify-content-between py-2">
-      <a class="brand d-flex align-items-center" href="{{ route('accueil') }}" aria-label="Retour à l'accueil">
-        <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub" />
-      </a>
+        {{-- ============================
+        HEADER (clean & accessible)
+        ============================ --}}
+        <header class="site-header">
+            <nav class="container d-flex align-items-center justify-content-between py-2">
+            <a class="brand d-flex align-items-center" href="{{ route('accueil') }}" aria-label="Retour à l'accueil">
+                <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub" />
+            </a>
 
-      <div class="d-flex align-items-center">
-        {{-- Desktop links --}}
-        <div class="nav-links d-none d-lg-flex align-items-center me-3">
-            <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
+            <div class="d-flex align-items-center">
+                {{-- Desktop links --}}
+                <div class="nav-links d-none d-lg-flex align-items-center me-3">
+                    <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
 
-            @if(Auth::user()->type_compte == 'professionnel')
-                <a class="nav-link" href="{{ route('pro.dashboard') }}">Profil</a>
-            @else
-                <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
+                    @if(Auth::user()->type_compte == 'professionnel')
+                        <a class="nav-link" href="{{ route('pro.dashboard') }}">Profil</a>
+                    @else
+                        <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
+                    @endif
+                </div>
+
+                {{-- Quick actions --}}
+                <a class="btn btn-ghost me-2 d-none d-lg-inline" href="javascript:history.back()" aria-label="Retour">Retour</a>
+                <a class="btn btn-header me-2 d-none d-lg-inline" href="{{ route('logout') }}">Déconnexion</a>
+
+                {{-- Mobile: sidebar toggle --}}
+                <button id="btnToggle" class="btn btn-ghost d-lg-none" aria-expanded="false" aria-controls="sidebar" title="Menu">
+                <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            </nav>
+        </header>
+
+        {{-- Sidebar overlay + panel (mobile) --}}
+        <div id="sidebar-overlay" aria-hidden="true" onclick="toggleSidebar()"></div>
+
+        <aside id="sidebar" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="sidebar-header">
+            <strong>Menu</strong>
+            <button class="btn btn-close btn-close-white" aria-label="Fermer" onclick="toggleSidebar()"></button>
+            </div>
+
+            {{-- Menu adapté selon le type de compte (sécurité côté backend) --}}
+            @if(Auth::check() && Auth::user()->type_compte === 'professionnel')
+            <a class="sidebar-link" href="{{ route('pro.dashboard') }}">Profil</a>
+            <a class="sidebar-link" href="{{ route('recherche') }}">Recherche</a>
+            <a class="sidebar-link" href="{{ route('mes_demandes') }}">Demandes</a>
+            <a class="sidebar-link" href="{{ route('reservationRecu') }}">Réservations</a>
+            @elseif(Auth::check() && Auth::user()->type_compte === 'client')
+            <a class="sidebar-link" href="{{ route('clients_historique') }}">Mon Profil</a>
             @endif
-        </div>
 
-        {{-- Quick actions --}}
-        <a class="btn btn-ghost me-2 d-none d-lg-inline" href="javascript:history.back()" aria-label="Retour">Retour</a>
-        <a class="btn btn-header me-2 d-none d-lg-inline" href="{{ route('logout') }}">Déconnexion</a>
+            <a class="sidebar-link" href="javascript:history.back()">Retour</a>
+            <a class="sidebar-link" href="{{ route('accueil') }}">Accueil</a>
+            <div class="mt-3">
+            <a class="btn btn-header w-100" href="{{ route('logout') }}">Déconnexion</a>
+            </div>
+        </aside>
 
-        {{-- Mobile: sidebar toggle --}}
-        <button id="btnToggle" class="btn btn-ghost d-lg-none" aria-expanded="false" aria-controls="sidebar" title="Menu">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-    </nav>
-  </header>
+        {{-- ============================
+        MAIN — contenu principal
+            ============================ --}}
+        <main class="container">
 
-  {{-- Sidebar overlay + panel (mobile) --}}
-  <div id="sidebar-overlay" aria-hidden="true" onclick="toggleSidebar()"></div>
+            {{-- Page title --}}
+            <section class="page-title">
+            <h1 class="fw-bold">Residence - {{ $residences_details->nom ?? 'Nom de la résidence' }}</h1>
+            <p class="small-note">Découvrez la propriété — photos, description et réservation</p>
+            </section>
 
-  <aside id="sidebar" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="sidebar-header">
-      <strong>Menu</strong>
-      <button class="btn btn-close btn-close-white" aria-label="Fermer" onclick="toggleSidebar()"></button>
-    </div>
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                @foreach($errors->all() as $err)
+                    <li>{{ $err }}</li>
+                @endforeach
+                </ul>
+            </div>
+            @endif
 
-    {{-- Menu adapté selon le type de compte (sécurité côté backend) --}}
-    @if(Auth::check() && Auth::user()->type_compte === 'professionnel')
-      <a class="sidebar-link" href="{{ route('pro.dashboard') }}">Profil</a>
-      <a class="sidebar-link" href="{{ route('recherche') }}">Recherche</a>
-      <a class="sidebar-link" href="{{ route('mes_demandes') }}">Demandes</a>
-      <a class="sidebar-link" href="{{ route('reservationRecu') }}">Réservations</a>
-    @elseif(Auth::check() && Auth::user()->type_compte === 'client')
-      <a class="sidebar-link" href="{{ route('clients_historique') }}">Mon Profil</a>
-    @endif
+            {{-- Decode images safely --}}
+            @php
+            $images = is_string($residences_details->img) ? json_decode($residences_details->img, true) : ($residences_details->img ?? []);
+            if(!is_array($images)) $images = [];
+            $first = $images[0] ?? asset('assets/images/placeholder-900x500.png');
+            @endphp
 
-    <a class="sidebar-link" href="javascript:history.back()">Retour</a>
-    <a class="sidebar-link" href="{{ route('accueil') }}">Accueil</a>
-    <div class="mt-3">
-      <a class="btn btn-header w-100" href="{{ route('logout') }}">Déconnexion</a>
-    </div>
-  </aside>
+            {{-- residences_details card: visual + details --}}
+            <article class="res-card" aria-labelledby="res-title-{{ $residences_details->id }}">
+            {{-- Left: media --}}
+            <div class="res-card__visual" aria-hidden="false">
+                {{-- main preview (opens GLightbox) --}}
+                <img
+                id="mainPreview"
+                class="res-card__media"
+                src="{{ $first }}"
+                alt="{{ $residences_details->nom ?? 'Résidence' }}"
+                loading="lazy"
+                role="button"
+                tabindex="0"
+                aria-label="Ouvrir la galerie de la résidence"
+                />
 
-  {{-- ============================
-     MAIN — contenu principal
-     ============================ --}}
-  <main class="container">
+                {{-- thumbnails (if multiple images) --}}
+                @if(count($images) > 1)
+                <div class="res-card__thumbs" id="thumbs" aria-hidden="false">
+                    @foreach($images as $i => $img)
+                    <img src="{{ $img }}"
+                        data-index="{{ $i }}"
+                        class="{{ $i === 0 ? 'active' : '' }}"
+                        alt="Image {{ $i+1 }} de {{ $residences_details->nom }}" />
+                    @endforeach
+                </div>
+                @endif
+            </div>
 
-    {{-- Page title --}}
-    <section class="page-title">
-      <h1 class="fw-bold">Residence - {{ $residences_details->nom ?? 'Nom de la résidence' }}</h1>
-      <p class="small-note">Découvrez la propriété — photos, description et réservation</p>
-    </section>
+            {{-- Right: details & actions --}}
+            <div class="res-details" id="details-{{ $residences_details->id }}">
+                <h2 id="res-title-{{ $residences_details->id }}">{{ $residences_details->nom }}</h2>
+                <div class="res-meta">
+                <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residences_details->ville ?? 'Ville' }}, {{ $residences_details->pays ?? 'Pays' }}</span> <br>
+                <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residences_details->chambres ?? 1 }} chambres</span>
+                <span><i class="fas fa-user-friends me-1"></i> {{ $residences_details->salons ?? 1 }} salons</span>
+                </div>
 
-    @if($errors->any())
-      <div class="alert alert-danger">
-        <ul class="mb-0">
-          @foreach($errors->all() as $err)
-            <li>{{ $err }}</li>
-          @endforeach
-        </ul>
-      </div>
-    @endif
+                <p class="small-note">{!! nl2br(e(Str::limit($residences_details->description ?? '-', 600))) !!}</p>
 
-    {{-- Decode images safely --}}
-    @php
-      $images = is_string($residences_details->img) ? json_decode($residences_details->img, true) : ($residences_details->img ?? []);
-      if(!is_array($images)) $images = [];
-      $first = $images[0] ?? asset('assets/images/placeholder-900x500.png');
-    @endphp
+                <div class="res-price">
+                {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
+                </div>
 
-    {{-- residences_details card: visual + details --}}
-    <article class="res-card" aria-labelledby="res-title-{{ $residences_details->id }}">
-      {{-- Left: media --}}
-      <div class="res-card__visual" aria-hidden="false">
-        {{-- main preview (opens GLightbox) --}}
-        <img
-          id="mainPreview"
-          class="res-card__media"
-          src="{{ $first }}"
-          alt="{{ $residences_details->nom ?? 'Résidence' }}"
-          loading="lazy"
-          role="button"
-          tabindex="0"
-          aria-label="Ouvrir la galerie de la résidence"
-        />
+                {{-- Prefacture quick info (hidden until dates selected) --}}
+                <div id="prefacture" class="prefacture d-none" aria-hidden="true">
+                <h6 class="fw-bold text-center mb-2">Pré-facture</h6>
+                <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
+                <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residences_details->prix_journalier ?? 0,0,',',' ') }} FCFA</p>
+                <p class="mt-2 pt-2 border-top fw-bold"><strong>Total estimé :</strong> <span id="total">0</span> FCFA</p>
+                </div>
 
-        {{-- thumbnails (if multiple images) --}}
-        @if(count($images) > 1)
-          <div class="res-card__thumbs" id="thumbs" aria-hidden="false">
+                {{-- Actions: Reserve / Back --}}
+                <div class="res-actions mt-3">
+                <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
+
+                {{-- Reserve button opens modal (only for authenticated users) --}}
+                @auth
+                    <button class="btn btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
+                    Réserver
+                    </button>
+                @else
+                    <a class="btn btn-reserver" href="{{ route('login') }}">Se connecter pour réserver</a>
+                @endauth
+                </div>
+            </div>
+            </article>
+
+            {{-- Hidden GLightbox anchors (one per image) — used by GLightbox, kept hidden from layout --}}
+            <div style="display:none" aria-hidden="true">
             @foreach($images as $i => $img)
-              <img src="{{ $img }}"
-                   data-index="{{ $i }}"
-                   class="{{ $i === 0 ? 'active' : '' }}"
-                   alt="Image {{ $i+1 }} de {{ $residences_details->nom }}" />
+                <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residences_details->id }}" data-title="{{ $residences_details->nom }}" data-index="{{ $i }}"></a>
             @endforeach
-          </div>
-        @endif
-      </div>
-
-      {{-- Right: details & actions --}}
-      <div class="res-details" id="details-{{ $residences_details->id }}">
-        <h2 id="res-title-{{ $residences_details->id }}">{{ $residences_details->nom }}</h2>
-        <div class="res-meta">
-          <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residences_details->ville ?? 'Ville' }}, {{ $residences_details->pays ?? 'Pays' }}</span> <br>
-          <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residences_details->chambres ?? 1 }} chambres</span>
-          <span><i class="fas fa-user-friends me-1"></i> {{ $residences_details->salons ?? 1 }} salons</span>
-        </div>
-
-        <p class="small-note">{!! nl2br(e(Str::limit($residences_details->description ?? '-', 600))) !!}</p>
-
-        <div class="res-price">
-          {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
-        </div>
-
-        {{-- Prefacture quick info (hidden until dates selected) --}}
-        <div id="prefacture" class="prefacture d-none" aria-hidden="true">
-          <h6 class="fw-bold text-center mb-2">Pré-facture</h6>
-          <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
-          <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residences_details->prix_journalier ?? 0,0,',',' ') }} FCFA</p>
-          <p class="mt-2 pt-2 border-top fw-bold"><strong>Total estimé :</strong> <span id="total">0</span> FCFA</p>
-        </div>
-
-        {{-- Actions: Reserve / Back --}}
-        <div class="res-actions mt-3">
-          <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
-
-          {{-- Reserve button opens modal (only for authenticated users) --}}
-          @auth
-            <button class="btn btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
-              Réserver
-            </button>
-          @else
-            <a class="btn btn-reserver" href="{{ route('login') }}">Se connecter pour réserver</a>
-          @endauth
-        </div>
-      </div>
-    </article>
-
-    {{-- Hidden GLightbox anchors (one per image) — used by GLightbox, kept hidden from layout --}}
-    <div style="display:none" aria-hidden="true">
-      @foreach($images as $i => $img)
-        <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residences_details->id }}" data-title="{{ $residences_details->nom }}" data-index="{{ $i }}"></a>
-      @endforeach
-    </div>
-
-  </main>
-
-  {{-- ============================
-     RESERVATION MODAL
-     (accessible + validated in JS)
-     ============================ --}}
-  <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="resModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-
-        <div class="modal-header border-0 pb-0">
-          <h5 id="resModalLabel" class="modal-title">Réserver : {{ $residences_details->nom }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-        </div>
-
-        <div class="modal-body">
-          <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
-
-          <form id="reservationForm" method="POST" action="{{ route('reservation.store', $residences_details->id) }}">
-            @csrf
-
-            <div class="mb-3">
-              <label for="date_arrivee" class="form-label">Date d'arrivée</label>
-              <input type="date" id="date_arrivee" name="date_arrivee" class="form-control" required />
             </div>
 
-            <div class="mb-3">
-              <label for="date_depart" class="form-label">Date de départ</label>
-              <input type="date" id="date_depart" name="date_depart" class="form-control" required />
-            </div>
+        </main>
 
-            <div class="mb-3">
-              <label for="personnes" class="form-label">Nombre de personnes</label>
-              <input type="number" id="personnes" name="personnes" class="form-control" min="1" value="1" required />
-            </div>
+        {{-- ============================
+        RESERVATION MODAL
+        (accessible + validated in JS)
+        ============================ --}}
+        <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="resModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-            <div class="d-flex justify-content-end gap-2 mt-3">
-              <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
-              <button type="submit" class="btn btn-reserver" id="btnConfirmer" disabled>Confirmer</button>
+                <div class="modal-header border-0 pb-0">
+                <h5 id="resModalLabel" class="modal-title">Réserver : {{ $residences_details->nom }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+
+                <div class="modal-body">
+                <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
+
+                <form id="reservationForm" method="POST" action="{{ route('reservation.store', $residences_details->id) }}">
+                    @csrf
+
+                    <div class="mb-3">
+                    <label for="date_arrivee" class="form-label">Date d'arrivée</label>
+                    <input type="date" id="date_arrivee" name="date_arrivee" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="date_depart" class="form-label">Date de départ</label>
+                    <input type="date" id="date_depart" name="date_depart" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="personnes" class="form-label">Nombre de personnes</label>
+                    <input type="number" id="personnes" name="personnes" class="form-control" min="1" value="1" required />
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-3">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-reserver" id="btnConfirmer" disabled>Confirmer</button>
+                    </div>
+                </form>
+                </div>
+
             </div>
-          </form>
+            </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-
-  {{-- Confirmation Modal (final before actual submit) --}}
-  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content text-center p-3">
-        <h5 class="fw-bold">Confirmer la réservation</h5>
-        <p id="confirmationMessage" class="my-3"></p>
-        <div class="d-flex justify-content-center gap-3">
-          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Modifier</button>
-          <button type="button" class="btn btn-reserver" id="btnFinalSubmit">Confirmer et payer</button>
+        {{-- Confirmation Modal (final before actual submit) --}}
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-3">
+                <h5 class="fw-bold">Confirmer la réservation</h5>
+                <p id="confirmationMessage" class="my-3"></p>
+                <div class="d-flex justify-content-center gap-3">
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Modifier</button>
+                <button type="button" class="btn btn-reserver" id="btnFinalSubmit">Confirmer et payer</button>
+                </div>
+            </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  {{-- ============================
-     SCRIPTS (Bootstrap + GLightbox)
-     ============================ --}}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"></script>
+        {{-- ============================
+            SCRIPTS (Bootstrap + GLightbox)
+            ============================ --}}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"></script>
 
-  {{-- ======= Page JS (optimisé, commenté) ======= --}}
-  <script>
-    // -------------------------
-    // Sidebar toggle (mobile)
-    // -------------------------
-    function toggleSidebar(){
-      const sb = document.getElementById('sidebar');
-      const ov = document.getElementById('sidebar-overlay');
-      const expanded = sb.classList.toggle('active');
-      ov.classList.toggle('active', expanded);
-      // Update aria
-      sb.setAttribute('aria-hidden', String(!expanded));
-      document.getElementById('btnToggle')?.setAttribute('aria-expanded', String(expanded));
-    }
-    document.getElementById('btnToggle')?.addEventListener('click', toggleSidebar);
+        {{-- ======= Page JS (optimisé, commenté) ======= --}}
+        <script>
+            // -------------------------
+            // Sidebar toggle (mobile)
+            // -------------------------
+            function toggleSidebar(){
+            const sb = document.getElementById('sidebar');
+            const ov = document.getElementById('sidebar-overlay');
+            const expanded = sb.classList.toggle('active');
+            ov.classList.toggle('active', expanded);
+            // Update aria
+            sb.setAttribute('aria-hidden', String(!expanded));
+            document.getElementById('btnToggle')?.setAttribute('aria-expanded', String(expanded));
+            }
+            document.getElementById('btnToggle')?.addEventListener('click', toggleSidebar);
 
-    // -------------------------
-    // GLightbox init (gallery)
-    // -------------------------
-    document.addEventListener('DOMContentLoaded', function(){
-      const lightbox = GLightbox({
-        selector: '.glightbox',
-        loop: true,
-        touchNavigation: true,
-        slideEffect: 'slide'
-      });
+            // -------------------------
+            // GLightbox init (gallery)
+            // -------------------------
+            document.addEventListener('DOMContentLoaded', function(){
+            const lightbox = GLightbox({
+                selector: '.glightbox',
+                loop: true,
+                touchNavigation: true,
+                slideEffect: 'slide'
+            });
 
-      // Main image opens the lightbox at the clicked index (0 by default)
-      const anchors = Array.from(document.querySelectorAll('a.glightbox'));
-      const mainPreview = document.getElementById('mainPreview');
+            // Main image opens the lightbox at the clicked index (0 by default)
+            const anchors = Array.from(document.querySelectorAll('a.glightbox'));
+            const mainPreview = document.getElementById('mainPreview');
 
-      if(mainPreview && anchors.length){
-        mainPreview.addEventListener('click', function(e){
-          e.preventDefault();
-          lightbox.openAt(0);
-        });
-        // allow keyboard 'Enter' to open gallery when focused
-        mainPreview.addEventListener('keydown', function(e){
-          if(e.key === 'Enter' || e.key === ' '){
-            e.preventDefault();
-            lightbox.openAt(0);
-          }
-        });
-      }
+            if(mainPreview && anchors.length){
+                mainPreview.addEventListener('click', function(e){
+                e.preventDefault();
+                lightbox.openAt(0);
+                });
+                // allow keyboard 'Enter' to open gallery when focused
+                mainPreview.addEventListener('keydown', function(e){
+                if(e.key === 'Enter' || e.key === ' '){
+                    e.preventDefault();
+                    lightbox.openAt(0);
+                }
+                });
+            }
 
-      // Thumbnails: open at specific index and toggle active class
-      document.querySelectorAll('#thumbs img').forEach(img => {
-        img.addEventListener('click', function(){
-          const idx = Number(this.dataset.index || 0);
-          lightbox.openAt(idx);
-          document.querySelector('#thumbs img.active')?.classList.remove('active');
-          this.classList.add('active');
-        });
-      });
-    });
+            // Thumbnails: open at specific index and toggle active class
+            document.querySelectorAll('#thumbs img').forEach(img => {
+                img.addEventListener('click', function(){
+                const idx = Number(this.dataset.index || 0);
+                lightbox.openAt(idx);
+                document.querySelector('#thumbs img.active')?.classList.remove('active');
+                this.classList.add('active');
+                });
+            });
+            });
 
-    // -------------------------
-    // Reservation logic (client-side)
-    // - calc nights / total
-    // - validation messages
-    // - confirmation modal flow
-    // -------------------------
-    (function(){
-      const prix = Number(@json($residences_details->prix_journalier ?? 0));
-      document.addEventListener('DOMContentLoaded', () => {
-        const d1 = document.getElementById('date_arrivee');
-        const d2 = document.getElementById('date_depart');
-        const pref = document.getElementById('prefacture');
-        const joursEl = document.getElementById('jours');
-        const totalEl = document.getElementById('total');
-        const btnConf = document.getElementById('btnConfirmer');
-        const validation = document.getElementById('validationMessage');
-        const form = document.getElementById('reservationForm');
-        const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-        const reservationModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
-        const confirmationMessage = document.getElementById('confirmationMessage');
-        const btnFinal = document.getElementById('btnFinalSubmit');
+            // -------------------------
+            // Reservation logic (client-side)
+            // - calc nights / total
+            // - validation messages
+            // - confirmation modal flow
+            // -------------------------
+            (function(){
+            const prix = Number(@json($residences_details->prix_journalier ?? 0));
+            document.addEventListener('DOMContentLoaded', () => {
+                const d1 = document.getElementById('date_arrivee');
+                const d2 = document.getElementById('date_depart');
+                const pref = document.getElementById('prefacture');
+                const joursEl = document.getElementById('jours');
+                const totalEl = document.getElementById('total');
+                const btnConf = document.getElementById('btnConfirmer');
+                const validation = document.getElementById('validationMessage');
+                const form = document.getElementById('reservationForm');
+                const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                const reservationModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('reservationModal'));
+                const confirmationMessage = document.getElementById('confirmationMessage');
+                const btnFinal = document.getElementById('btnFinalSubmit');
 
-        // helper: format FCFA
-        function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
+                // helper: format FCFA
+                function formatFCFA(v){ return v.toLocaleString('fr-FR'); }
 
-        // Calc nights & total, return true if valid
-        function calc(){
-          validation.classList.add('d-none');
-          if(!d1.value || !d2.value){ pref?.classList.add('d-none'); btnConf.disabled = true; return false; }
+                // Calc nights & total, return true if valid
+                function calc(){
+                validation.classList.add('d-none');
+                if(!d1.value || !d2.value){ pref?.classList.add('d-none'); btnConf.disabled = true; return false; }
 
-          const start = new Date(d1.value);
-          const end = new Date(d2.value);
-          const today = new Date(); today.setHours(0,0,0,0);
+                const start = new Date(d1.value);
+                const end = new Date(d2.value);
+                const today = new Date(); today.setHours(0,0,0,0);
 
-          if(start < today){
-            validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
-            validation.classList.remove('d-none');
-            pref?.classList.add('d-none');
-            btnConf.disabled = true;
-            return false;
-          }
-          if(end <= start){
-            validation.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée.";
-            validation.classList.remove('d-none');
-            pref?.classList.add('d-none');
-            btnConf.disabled = true;
-            return false;
-          }
+                if(start < today){
+                    validation.textContent = "La date d'arrivée ne peut pas être antérieure à aujourd'hui.";
+                    validation.classList.remove('d-none');
+                    pref?.classList.add('d-none');
+                    btnConf.disabled = true;
+                    return false;
+                }
+                if(end <= start){
+                    validation.textContent = "La date de départ doit être strictement postérieure à la date d'arrivée.";
+                    validation.classList.remove('d-none');
+                    pref?.classList.add('d-none');
+                    btnConf.disabled = true;
+                    return false;
+                }
 
-          const ms = end - start;
-          const nights = Math.round(ms / (1000*60*60*24));
-          const total = nights * prix;
+                const ms = end - start;
+                const nights = Math.round(ms / (1000*60*60*24));
+                const total = nights * prix;
 
-          joursEl.textContent = nights;
-          totalEl.textContent = formatFCFA(total);
-          pref?.classList.remove('d-none');
-          btnConf.disabled = false;
-          return true;
-        }
+                joursEl.textContent = nights;
+                totalEl.textContent = formatFCFA(total);
+                pref?.classList.remove('d-none');
+                btnConf.disabled = false;
+                return true;
+                }
 
-        d1?.addEventListener('change', calc);
-        d2?.addEventListener('change', calc);
+                d1?.addEventListener('change', calc);
+                d2?.addEventListener('change', calc);
 
-        // On form submit -> show confirmation modal first
-        form?.addEventListener('submit', (ev) => {
-          ev.preventDefault();
-          if(!calc()) return;
-          const nights = Number(joursEl.textContent || 0);
-          const total = nights * prix;
-          confirmationMessage.innerHTML = `Vous réservez <strong>${nights}</strong> nuit(s) pour <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
-          reservationModal.hide();
-          confirmationModal.show();
-        });
+                // On form submit -> show confirmation modal first
+                form?.addEventListener('submit', (ev) => {
+                ev.preventDefault();
+                if(!calc()) return;
+                const nights = Number(joursEl.textContent || 0);
+                const total = nights * prix;
+                confirmationMessage.innerHTML = `Vous réservez <strong>${nights}</strong> nuit(s) pour <strong>${formatFCFA(total)} FCFA</strong>. Confirmez-vous ?`;
+                reservationModal.hide();
+                confirmationModal.show();
+                });
 
-        // Final submit after confirmation
-        btnFinal?.addEventListener('click', function(){
-          confirmationModal.hide();
-          // submit the original form (progressive enhancement)
-          form.submit();
-        });
-      });
-    })();
-  </script>
+                // Final submit after confirmation
+                btnFinal?.addEventListener('click', function(){
+                confirmationModal.hide();
+                // submit the original form (progressive enhancement)
+                form.submit();
+                });
+            });
+            })();
+        </script>
 
-</body>
+    </body>
 </html>

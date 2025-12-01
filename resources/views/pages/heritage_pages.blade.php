@@ -182,7 +182,7 @@
 
     <!-- FOOTER -->
     <footer>
-        © {{ date('Y') }} {{ config('app.name') }} — Tous droits réservés
+         @include('includes.footer')
     </footer>
 
     <!-- JS Sidebar -->

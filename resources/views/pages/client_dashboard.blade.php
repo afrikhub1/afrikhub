@@ -167,6 +167,8 @@
     </section>
   </main>
 
+   @include('includes.footer')
+
   <!-- Scripts sidebar -->
   <script>
     const sidebar = document.getElementById('sidebar');

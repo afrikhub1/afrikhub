@@ -111,7 +111,7 @@
     </main>
 
     {{-- Footer global --}}
-    @include('includes.admin_footer')
+    @include('includes.footer')
 
     <!-- GLightbox JS -->
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
