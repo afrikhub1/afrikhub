@@ -25,7 +25,7 @@ class VerifyAccountController extends Controller
         }
 
         // Activer le compte
-        $user->statut = 'actif';
+        $user->status = 'actif';
         $user->token = null; // supprimer le token
         $user->save();
 
