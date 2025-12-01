@@ -41,7 +41,7 @@
                 <h4 class="text-lg font-semibold mb-3 text-indigo-300">Légal</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="{{ route('mentions_legales')}}" class="text-gray-400 hover:text-white transition">Mentions Légales</a></li>
-                    <li><a href="{{ route('politique_confidentialite') }} class="text-gray-400 hover:text-white transition">Politique de Confidentialité</a></li>
+                    <li><a href="{{ route('politique_confidentialite') }}" class="text-gray-400 hover:text-white transition">Politique de Confidentialité</a></li>
                     <li><a href="{{ route('conditions_generales') }}" class="text-gray-400 hover:text-white transition">Conditions Générales</a></li>
                 </ul>
             </div>
