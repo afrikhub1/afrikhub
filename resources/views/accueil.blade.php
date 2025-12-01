@@ -258,6 +258,7 @@
             }
 
             .accordion-css .content {
+                max-height: 0;
                 overflow: hidden;
                 background: #e0f2f1;
                 transition: max-height 0.35s ease, padding 0.35s ease;
@@ -537,7 +538,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            
+
                         </div>
 
                         <input type="checkbox" id="acc2">
