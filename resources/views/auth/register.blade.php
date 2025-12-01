@@ -197,13 +197,20 @@
                     </div>
                 </div>
 
-                <!-- Boutons -->
-                <div class="d-flex justify-content-center gap-3 mt-3">
-                    <button type="submit" class="btn btn-light shadow" name="valider">S’inscrire</button>
-                    <a href="{{ route('login') }}" class="btn btn-dark">Se connecter</a>
-                    <a href="{{ route('accueil') }}" class="btn btn-primary">Accueil</a>
+                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3 mt-3 w-100">
+                    {{-- Bouton S'inscrire --}}
+                    <button type="submit" class="btn btn-light shadow w-100 w-md-auto" name="valider">
+                        S’inscrire
+                    </button>
+                    {{-- Bouton Se connecter --}}
+                    <a href="{{ route('login') }}" class="btn btn-dark w-100 w-md-auto">
+                        Se connecter
+                    </a>
+                    {{-- Bouton Accueil --}}
+                    <a href="{{ route('accueil') }}" class="btn btn-primary w-100 w-md-auto">
+                        Accueil
+                    </a>
                 </div>
-
             </form>
         </div>
 
