@@ -8,7 +8,7 @@ use App\Models\User;
 
 class VerifyAccountController extends Controller
 {
-    
+
     public function verify(string $token, Request $request)
     {
         // Récupérer l'email depuis la query string
