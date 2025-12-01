@@ -61,7 +61,7 @@ class SejourController extends Controller
             'status' => 'en_attente'
         ]);
 
-        $user_type= Auth::type_compte();
+        $user_type= Auth::user()->type_compte;
         // on verifie si le l'utilisateur est un client
         if ($user_type== 'client') {
 
