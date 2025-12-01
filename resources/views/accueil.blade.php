@@ -455,7 +455,9 @@
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">Chambre unique</button>
+                                <button class="type">
+                                    <i class="fa-solid fa-bed me-2"></i> Chambre unique
+                                </button>
                                 <ul class="services-list mt-2 p-2 list-unstyled">
                                     <li class="d-flex align-items-center">
                                         <i class="fa-solid fa-wifi text-primary me-2"></i>
@@ -473,7 +475,9 @@
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">Chambre salon</button>
+                                <button class="type">
+                                    <i class="fa-solid fa-couch me-2"></i> Chambre salon
+                                </button>
                                 <ul class="services-list mt-2 p-2 list-unstyled">
                                     <li class="d-flex align-items-center">
                                         <i class="fa-solid fa-wifi text-primary me-2"></i>
@@ -491,7 +495,9 @@
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">Trois pièces et plus</button>
+                                <button class="type">
+                                    <i class="fa-solid fa-house-chimney me-2"></i> Trois pièces et plus
+                                </button>
                                 <ul class="services-list mt-2 p-2 list-unstyled">
                                     <li class="d-flex align-items-center">
                                         <i class="fa-solid fa-wifi text-primary me-2"></i>
@@ -509,7 +515,9 @@
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">Villa avec piscine</button>
+                                <button class="type">
+                                    <i class="fa-solid fa-house-water me-2"></i> Villa avec piscine
+                                </button>
                                 <ul class="services-list mt-2 p-2 list-unstyled">
                                     <li class="d-flex align-items-center">
                                         <i class="fa-solid fa-wifi text-primary me-2"></i>
@@ -529,7 +537,7 @@
                                     </li>
                                 </ul>
                             </div>
-
+                            
                         </div>
 
                         <input type="checkbox" id="acc2">
