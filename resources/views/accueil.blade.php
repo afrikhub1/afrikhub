@@ -460,73 +460,121 @@
                         <div class="content">
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    Studio
-                                </button>
-                                <ul class="services-list mt-2 p-2 col-12">
-                                    <li>wifi gratuit</li>
-                                    <li>ventilateur</li>
-                                    <li>caméra de surveillance</li>
+                                <button class="type">Studio</button>
+                                <ul class="services-list mt-2 p-2 list-unstyled">
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-wifi text-primary me-2"></i>
+                                        <span>WiFi gratuit</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-fan text-info me-2"></i>
+                                        <span>Ventilateur</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-video text-danger me-2"></i>
+                                        <span>Caméra de surveillance</span>
+                                    </li>
                                 </ul>
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    Chambre unique
-                                </button>
-                                <ul class="services-list mt-2 p-2 col-12">
-                                    <li>wifi gratuit</li>
-                                    <li>climatisation</li>
-                                    <li>petit déjeuner inclus</li>
+                                <button class="type">Chambre unique</button>
+                                <ul class="services-list mt-2 p-2 list-unstyled">
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-wifi text-primary me-2"></i>
+                                        <span>WiFi gratuit</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-snowflake text-info me-2"></i>
+                                        <span>Climatisation</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-coffee text-warning me-2"></i>
+                                        <span>Petit déjeuner inclus</span>
+                                    </li>
                                 </ul>
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    Chambre salon
-                                </button>
-                                <ul class="services-list mt-2 p-2 col-12">
-                                    <li>wifi gratuit</li>
-                                    <li>climatisation</li>
-                                    <li>petit déjeuner inclus</li>
+                                <button class="type">Chambre salon</button>
+                                <ul class="services-list mt-2 p-2 list-unstyled">
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-wifi text-primary me-2"></i>
+                                        <span>WiFi gratuit</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-snowflake text-info me-2"></i>
+                                        <span>Climatisation</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-coffee text-warning me-2"></i>
+                                        <span>Petit déjeuner inclus</span>
+                                    </li>
                                 </ul>
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    Trois pieces et plus
-                                </button>
-                                <ul class="services-list mt-2 p-2 col-12">
-                                    <li>wifi gratuit</li>
-                                    <li>climatisation</li>
-                                    <li>petit déjeuner inclus</li>
+                                <button class="type">Trois pièces et plus</button>
+                                <ul class="services-list mt-2 p-2 list-unstyled">
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-wifi text-primary me-2"></i>
+                                        <span>WiFi gratuit</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-snowflake text-info me-2"></i>
+                                        <span>Climatisation</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-coffee text-warning me-2"></i>
+                                        <span>Petit déjeuner inclus</span>
+                                    </li>
                                 </ul>
                             </div>
 
                             <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    Villa avec piscine
-                                </button>
-                                <ul class="services-list mt-2 p-2 col-12">
-                                    <li>wifi gratuit</li>
-                                    <li>piscine privée</li>
-                                    <li>climatisation</li>
-                                    <li>parking gratuit</li>
+                                <button class="type">Villa avec piscine</button>
+                                <ul class="services-list mt-2 p-2 list-unstyled">
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-wifi text-primary me-2"></i>
+                                        <span>WiFi gratuit</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-swimming-pool text-info me-2"></i>
+                                        <span>Piscine privée</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-snowflake text-info me-2"></i>
+                                        <span>Climatisation</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-parking text-warning me-2"></i>
+                                        <span>Parking gratuit</span>
+                                    </li>
                                 </ul>
                             </div>
 
                         </div>
-                        <!-- Deuxième item -->
+
+                        <!-- Deuxième item : Conditions de réservation -->
                         <input type="checkbox" id="acc2">
                         <label for="acc2">
                             Conditions de réservation
                             <span class="toggle-services"><i class="fa fa-chevron-down"></i></span>
                         </label>
                         <div class="content">
-                            <ul>
-                                <li>réservation préalable requise</li>
-                                <li>acompte de 20% pour confirmation</li>
-                                <li>annulation gratuite jusqu'à 48h avant l'arrivée</li>
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-calendar-check text-primary me-2"></i>
+                                    <span>Réservation préalable requise</span>
+                                </li>
+                                <li class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-hand-holding-dollar text-success me-2"></i>
+                                    <span>Acompte de 20% pour confirmation</span>
+                                </li>
+                                <li class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-ban text-danger me-2"></i>
+                                    <span>Annulation gratuite jusqu'à 48h avant l'arrivée</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
