@@ -435,7 +435,7 @@
                             Types d'hébergements
                             <span class="toggle-services"><i class="fa-solid fa-chevron-down"></i></span>
                         </label>
-                        <div class="content">
+                        <div class="content my-2">
 
                             <div class="service-item p-0 mb-1">
                                 <button class="type">Studio</button>
