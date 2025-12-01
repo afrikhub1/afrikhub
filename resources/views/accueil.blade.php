@@ -130,7 +130,7 @@
             }
 
             /* Mobile */
-            @media screen and (max-width: 978px) {
+            @media screen and (max-width: 670px) {
                 #entete {
                     display: none;
                 }
