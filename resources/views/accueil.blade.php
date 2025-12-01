@@ -377,35 +377,35 @@
             }
         </style>
         <header class="p-1">
-        <div class="col-12 row m-0 align-items-center">
-            <div class="col-lg-2 col-md-2 col-3">
-            <img class="img-fluid" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo" />
+            <div class="col-12 row m-0 align-items-center justify-content-between">
+                <div class="col-lg-2 col-md-2 col-3">
+                    <img class="img-fluid" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo" />
+                </div>
+                <nav class="col-lg-10 col-md-10 col-9">
+
+                    {{-- CODE INUTILE RETIRÉ : L'UL redondant autour de #entete a été supprimé. --}}
+                    <ul id="entete" class="d-flex justify-content-end py-2">
+                        <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa-solid fa-right-to-bracket"></span><span class="badge">Connexion</span></a></li>
+                        <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa-solid fa-user-plus"></span><span class="badge">Inscription</span></a></li>
+                        <li><a href="#hebergement"><span class="fa-solid fa-hotel"></span><span class="badge">Hébergement</span></a></li>
+                        <li><a href="#location"><span class="fa-solid fa-car-side"></span><span class="badge">Véhicule</span></a></li>
+                        <li><a href="#contact"><span class="fa-solid fa-phone"></span><span class="badge">Contact</span></a></li>
+                    </ul>
+
+                    <span class="menu-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></span>
+
+                    <div id="sidebar" class="sidebar">
+
+                        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+
+                        <a href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i><span class="badge">Connexion</span></a>
+                        <a href="{{ route('register') }}"><i class="fa-solid fa-user-plus"></i><span class="badge">Inscription</span></a>
+                        <a href="#hebergement"><i class="fa-solid fa-hotel"></i><span class="badge">Hébergements</span></a>
+                        <a href="#location"><i class="fa-solid fa-car-side"></i><span class="badge">Véhicules</span></a>
+                        <a href="#contact"><i class="fa-solid fa-phone"></i><span class="badge">Contact</span></a>
+                    </div>
+                </nav>
             </div>
-            <nav class="col-lg-10 col-md-10 col-9">
-
-            {{-- CODE INUTILE RETIRÉ : L'UL redondant autour de #entete a été supprimé. --}}
-            <ul id="entete" class="d-flex justify-content-end py-2">
-                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa-solid fa-right-to-bracket"></span><span class="badge">Connexion</span></a></li>
-                <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa-solid fa-user-plus"></span><span class="badge">Inscription</span></a></li>
-                <li><a href="#hebergement"><span class="fa-solid fa-hotel"></span><span class="badge">Hébergement</span></a></li>
-                <li><a href="#location"><span class="fa-solid fa-car-side"></span><span class="badge">Véhicule</span></a></li>
-                <li><a href="#contact"><span class="fa-solid fa-phone"></span><span class="badge">Contact</span></a></li>
-            </ul>
-
-            <span class="menu-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></span>
-
-            <div id="sidebar" class="sidebar">
-
-                <span class="close-btn" onclick="toggleSidebar()">&times;</span>
-
-                <a href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i><span class="badge">Connexion</span></a>
-                <a href="{{ route('register') }}"><i class="fa-solid fa-user-plus"></i><span class="badge">Inscription</span></a>
-                <a href="#hebergement"><i class="fa-solid fa-hotel"></i><span class="badge">Hébergements</span></a>
-                <a href="#location"><i class="fa-solid fa-car-side"></i><span class="badge">Véhicules</span></a>
-                <a href="#contact"><i class="fa-solid fa-phone"></i><span class="badge">Contact</span></a>
-            </div>
-            </nav>
-        </div>
         </header>
 
         <nav class="row col-12 justify-content-center m-0">

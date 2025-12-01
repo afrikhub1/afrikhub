@@ -182,7 +182,6 @@
 
     <!-- FOOTER -->
          @include('includes.footer')
-
     <!-- JS Sidebar -->
     <script>
         const sidebar = document.getElementById('sidebar');
