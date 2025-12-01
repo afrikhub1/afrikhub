@@ -310,23 +310,32 @@
                 object-fit: contain;
             }
 
-                #entete li {
-                    list-style: none;
-                    display: inline-block;
-                    margin: 0 10px;
-                }
+            #entete {
+                display: flex;            /* transforme l'ul en flex container */
+                justify-content: flex-end;/* aligne les li à droite */
+                gap: 10px;                /* espace entre les items */
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+
+            #entete li {
+                display: flex;            /* permet à a et icône de s'aligner verticalement */
+                flex-direction: column;
+                align-items: center;
+            }
 
             #entete li a {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                font-size: 14px;
-                font-weight: 600;
-                text-decoration: none;
+                justify-content: center;
                 padding: 8px 12px;
+                text-decoration: none;
+                color: white;
                 border-radius: 8px;
-                transition: all 0.3s ease;
             }
+
 
             #entete li a .fa {
                 font-size: 20px;
@@ -387,8 +396,6 @@
                 color: #09008d !important;
             }
 
-
-
         </style>
         <!-- HEADER -->
         <header class="p-1">
@@ -399,11 +406,11 @@
             <nav class="col-lg-10 col-md-10 col-9">
             <ul class="d-flex justify-content-end py-2">
                 <ul id="entete">
-                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-right-to-bracket"></span><span class="badge">connexion</span></a></li>
-                <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-user-plus"></span><span class="badge">inscription</span></a></li>
-                <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">herbergement</span></a></li>
-                <li><a href="#location"><span class="fa fa-car"></span><span class="badge">vehicule</span></a></li>
-                <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">contact</span></a></li>
+                <li><a href="{{ route('login') }}" class="bg-dark" aria-label="connexion"><span class="fa fa-right-to-bracket"></span><span class="badge">Connexion</span></a></li>
+                <li><a href="{{ route('register') }}" class="bg-dark" aria-label="inscription"><span class="fa fa-user-plus"></span><span class="badge">Inscription</span></a></li>
+                <li><a href="#hebergement"><span class="fa fa-home"></span><span class="badge">Herbergement</span></a></li>
+                <li><a href="#location"><span class="fa fa-car"></span><span class="badge">Vehicule</span></a></li>
+                <li><a href="#contact"><span class="fa fa-phone"></span><span class="badge">Contact</span></a></li>
                 </ul>
 
                 <span class="menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></span>
@@ -412,10 +419,10 @@
 
                     <span class="close-btn" onclick="toggleSidebar()">&times;</span>
 
-                    <a href="{{ route('login') }}"><span class="fa fa-right-to-bracket"></span><span class="badge">connexion</span></a>
-                    <a href="{{ route('register') }}"><span class="fa fa-user-plus"></span><span class="badge">inscription</span></a>
+                    <a href="{{ route('login') }}"><span class="fa fa-right-to-bracket"></span><span class="badge">Connexion</span></a>
+                    <a href="{{ route('register') }}"><span class="fa fa-user-plus"></span><span class="badge">Inscription</span></a>
                     <a href="#hebergement"><span class="fa fa-home"></span><span class="badge">Hébergements</span></a>
-                    <a href="#location"><span class="fa fa-car"></span><span class="badge">éhicules</span></a>
+                    <a href="#location"><span class="fa fa-car"></span><span class="badge">Véhicules</span></a>
                     <a href="#contact"><span class="fa fa-phone"></span><span class="badge">Contact</span></a>
                 </div>
             </ul>

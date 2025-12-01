@@ -25,6 +25,11 @@ Route::get('/', [ResidenceController::class, 'accueil'])->name('accueil');
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
 Route::get('/message', fn() => view('pages.messages'))->name('message');
+Route::get('/conditions-generales', function () {return view('documentation.conditions_generales');})->name('conditions_generales');
+
+Route::get('/mentions-legales', function () {return view('documentation.mentions_legales');})->name('mentions_legales');
+Route::get('/politique-confidentialite', function () { return view('documentation.politique_de_confidentialite');})->name('politique_confidentialite');
+
 
 // Actions publiques
 Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
