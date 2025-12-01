@@ -1,7 +1,7 @@
 <footer class="bg-gray-800 border-t border-indigo-700 mt-12 text-white">
     <div class="max-w-7xl mx-auto px-4 py-8">
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-6 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-6 mb-0">
             {{-- Colonne 1 : Logo / Slogan (Ajouté) --}}
             <div class="col-span-2 md:col-span-1">
                 <h3 class="text-xl font-bold text-indigo-400">Afrikhub</h3>
