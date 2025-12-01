@@ -38,6 +38,7 @@ class SejourController extends Controller
      */
     public function demanderInterruption(Request $request, $reservation)
     {
+
         $reservation = Reservation::where('id', $reservation)->first();
         if (!$reservation) {
             return redirect()->back()->with('error', 'Réservation introuvable.');
@@ -60,7 +61,19 @@ class SejourController extends Controller
             'status' => 'en_attente'
         ]);
 
-        return redirect()->route('clients_historique')->with('success', 'Votre demande a été envoyée à l’admin.');
+        $user_type= Auth::type_compte();
+        // on verifie si le l'utilisateur est un client
+        if ($user_type== 'client') {
+
+            $route = 'clients_historique';
+        }
+        // sinon il est forcement un user pro
+        else {
+            $route = 'pro.dashboard';
+        }
+
+
+        return redirect()->route($route)->with('success', 'Votre demande a été envoyée à l’admin.');
     }
 
     /**
