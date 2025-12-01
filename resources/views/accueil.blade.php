@@ -130,13 +130,13 @@
             }
 
             /* Mobile */
-            @media screen and (max-width: 670px) {
+            @media screen and (max-width: 768px) {
                 #entete {
-                    display: none;
+                    display: none !important;
                 }
 
                 .menu-btn {
-                    display: inline-block;
+                    display: inline-block !important;
                 }
 
                 .nav-item.dropdown {
