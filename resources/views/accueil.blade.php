@@ -413,20 +413,25 @@
         <nav class="row col-12 justify-content-center m-0">
 
             <section id="accueil" class="text-center py-5">
-            <div>
-                @include('includes.messages')
-                <h2>Bienvenue</h2>
-                <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-                <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
-                <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
-            </div>
-            </section>
-            <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
-            <h2>Hébergements</h2>
-            <div class="row m-0 col-12 justify-content-center">
-                    <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
-                        <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Image de résidences"/>
-                    </div>
+                <div>
+                    @include('includes.messages')
+                    <h2>Bienvenue</h2>
+                    <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
+                    <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
+                    <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
+                </div>
+                </section>
+                <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
+                <h2>Hébergements</h2>
+                <div class="row m-0 col-12 justify-content-center">
+                    <button onclick="filtrerChambrePlus4()" class="btn btn-primary mb-3">
+                        4 chambres et +
+                    </button>
+
+                    <button onclick="resetFiltre()" class="btn btn-secondary mb-3">
+                        Réinitialiser
+                    </button>
+
                 </div>
                 <div class="row m-0 col-12 justify-content-center">
                     <div class="accordion-css">
@@ -582,7 +587,12 @@
                                 $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
                             @endphp
 
-                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
+                           <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
+                                data-chambres="{{ $residence->nombre_chambres }}"
+                                data-salons="{{ $residence->nombre_salons }}"
+                                data-type="{{ $residence->type }}"
+                            >
+
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
                                     <a href="javascript:void(0)"
                                     class="glightbox-trigger-{{ $residence->id }}">
@@ -700,6 +710,29 @@
                 });
             });
         </script>
+
+        <script>
+            const cards = document.querySelectorAll('.residence-card');
+
+            function filtrerChambrePlus4() {
+                cards.forEach(card => {
+                    const chambres = parseInt(card.dataset.chambres);
+
+                    if (chambres >= 4) {
+                        card.style.display = "flex";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+
+            function resetFiltre() {
+                cards.forEach(card => {
+                    card.style.display = "flex";
+                });
+            }
+        </script>
+
 
     </body>
 </html>
