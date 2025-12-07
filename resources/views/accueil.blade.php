@@ -16,41 +16,41 @@
     <body>
 
         <style>
-            /* --- CONSOLIDATION CSS --- */
+            /* --- RESET / CONSOLIDATION --- */
+            body, html {
+                margin: 0;
+                padding: 0;
+                font-family: 'Inter', sans-serif;
+                scroll-behavior: smooth;
+            }
+
+            /* ---------------- HEADER ---------------- */
             header {
-            position: relative;
-            background: linear-gradient(135deg, #006d77, #00afb9);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 10;
-            padding: 0.5rem 1rem;
-            align-items: center;
-            justify-content: space-between;
+                position: relative;
+                background: linear-gradient(135deg, #006d77, #00afb9);
+                color: white;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 10;
+                padding: 0.5rem 1rem;
+                align-items: center;
+                justify-content: space-between;
+                display: flex;
             }
-
             header img {
-            max-height: 60px;
-            object-fit: contain; /* Nettoyé/Conservé */
+                max-height: 60px;
+                object-fit: contain;
             }
 
-            /* NETTOYAGE CSS : Conserve uniquement le style des ancres pour la surbrillance */
-            nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            }
-
-            /* Amélioration de la liste de l'entête (Desktop) */
+            /* NAV MENU */
             #entete {
-                /* Classes Bootstrap gèrent déjà display:flex, justify-content, etc. */
                 list-style: none;
                 padding: 0;
                 margin: 0;
-                gap: 10px; /* Conserver le gap pour l'espacement */
+                display: flex;
+                gap: 10px;
             }
-
             #entete li a {
-                display: flex; /* Assure que icône et texte sont un bloc */
+                display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
@@ -59,33 +59,28 @@
                 color: white;
                 border-radius: 8px;
                 transition: background 0.3s ease;
-                font-size: 0.85rem; /* Rendre le texte plus petit */
+                font-size: clamp(0.75rem, 1vw, 0.85rem);
             }
-
             #entete li a:hover {
-                background-color: rgba(255,255,255,0.2); /* Ajouté un hover propre */
-                color: white;
+                background-color: rgba(255,255,255,0.2);
             }
-
             #entete li a .fa-solid {
-                font-size: 20px;
+                font-size: clamp(18px, 2vw, 20px);
                 margin-bottom: 2px;
             }
-
             #entete .badge {
-                font-size: 12px;
+                font-size: clamp(0.7rem, 1vw, 0.85rem);
                 text-transform: capitalize;
-                background: none; /* Rendre le badge transparent */
+                background: none;
                 color: inherit;
                 padding: 0;
             }
-
 
             /* ---------------- SIDEBAR MOBILE ---------------- */
             .sidebar {
                 position: fixed;
                 top: 0;
-                right: -260px; /* cachée */
+                right: -260px;
                 width: 260px;
                 height: 100vh;
                 background: linear-gradient(135deg, #006d77, #00afb9);
@@ -97,28 +92,17 @@
                 flex-direction: column;
                 z-index: 2000;
             }
-
-            .sidebar.open {
-                right: 0;
-            }
-
+            .sidebar.open { right: 0; }
             .sidebar a {
                 color: white;
                 padding: 15px 20px;
                 text-decoration: none;
                 font-weight: 600;
                 border-bottom: 1px solid rgba(255,255,255,0.25);
+                font-size: clamp(0.8rem, 1vw, 0.95rem);
             }
-            /* Ajout d'icônes à la sidebar */
-            .sidebar a .fa-solid {
-                margin-right: 10px;
-            }
-
-            .sidebar a:hover {
-                background: rgba(255,255,255,0.15);
-            }
-
-            /* Bouton menu */
+            .sidebar a .fa-solid { margin-right: 10px; }
+            .sidebar a:hover { background: rgba(255,255,255,0.15); }
             .menu-btn {
                 font-size: 22px;
                 padding: 8px 12px;
@@ -128,23 +112,6 @@
                 background: rgba(255,255,255,0.15);
                 display: none;
             }
-
-            /* Mobile */
-            @media screen and (max-width: 768px) {
-                #entete {
-                    display: none !important;
-                }
-
-                .menu-btn {
-                    display: inline-block !important;
-                }
-
-                .nav-item.dropdown {
-                    display: none !important; /* supprimé */
-                }
-            }
-
-            /* Bouton fermer */
             .sidebar .close-btn {
                 position: absolute;
                 top: 15px;
@@ -162,220 +129,138 @@
                 align-items: center;
                 transition: 0.3s;
             }
+            .sidebar .close-btn:hover { background: rgba(255,255,255,0.35); }
 
-            .sidebar .close-btn:hover {
-                background: rgba(255,255,255,0.35);
+            /* MOBILE ADAPTATION */
+            @media screen and (max-width: 768px) {
+                #entete { display: none !important; }
+                .menu-btn { display: inline-block !important; }
             }
-
 
             /* ---------------- SECTION ACCUEIL ---------------- */
             #accueil {
-            background: linear-gradient(rgba(0,91,107,0.7), rgba(0,91,107,0.5)), url('{{ asset('assets/images/bg.jpg') }}') no-repeat center center / cover;
-            height: 700px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 1rem;
-            color: white;
-            position: relative;
+                background: linear-gradient(rgba(0,91,107,0.7), rgba(0,91,107,0.5)), url('{{ asset('assets/images/bg.jpg') }}') no-repeat center center / cover;
+                height: 700px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 0 1rem;
+                color: white;
+                position: relative;
             }
-
             #accueil h2 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 0.3rem;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.6);
+                font-size: clamp(2.5rem, 6vw, 5rem);
+                font-weight: 900;
+                line-height: 1.1;
+                margin-bottom: 0.3rem;
+                text-shadow: 3px 3px 10px rgba(0,0,0,0.6);
             }
-
             #accueil span.fs-6 {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            font-weight: 400;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+                font-size: clamp(1rem, 2vw, 1.25rem);
+                font-weight: 400;
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             }
 
             /* ---------------- SECTION HÉBERGEMENT ---------------- */
             #hebergement {
-            padding: 3rem 1rem;
-            background: #e0f2f1;
-            color: #004d40;
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            margin: 3rem auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            #hebergement:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
-            }
-
-            #hebergement h2 {
-            font-weight: 800;
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 2.8rem;
-            color: #006d77;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            }
-
-            #hebergement img {
-            border-radius: 15px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            }
-
-            #hebergement img:hover { transform: scale(1.05); }
-
-            .accordion-css {
-                border-radius: 12px;
-                overflow: hidden;
-                margin-top: 2rem;
-                max-width: 600px;
-            }
-
-            .accordion-css input { display: none; }
-
-            .accordion-css label {
-                display: block;
-                padding: 15px 20px;
-                background: linear-gradient(135deg, #006d77, #00afb9);
-                color: #fff;
-                font-weight: 700;
-                cursor: pointer;
-                border-radius: 12px;
-                margin-bottom: 5px;
-                transition: background 0.3s ease;
-            }
-
-            .accordion-css label:hover {
-                background: linear-gradient(135deg, #004d55, #007f7a);
-            }
-
-            .accordion-css .content {
-                max-height: 0;
-                overflow: hidden;
+                padding: 3rem 1rem;
                 background: #e0f2f1;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                padding: 0 20px;
+                color: #004d40;
+                border-radius: 20px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                margin: 3rem auto;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            #hebergement:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+            }
+            #hebergement h2 {
+                font-weight: 800;
+                margin-bottom: 2rem;
+                text-align: center;
+                font-size: clamp(1.8rem, 3vw, 2.8rem);
+                color: #006d77;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
 
-            .accordion-css input:checked + label + .content {
-                max-height: 500px; /* ajustable selon le contenu */
-                padding: 15px 20px;
+            /* ---------------- CARDS ---------------- */
+            .search-row h5 {
+                font-size: clamp(1rem, 1.5vw, 1.25rem);
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+            }
+            .search-row ul li span {
+                font-size: clamp(0.85rem, 1vw, 1rem);
+            }
+            .search-row .font-extrabold {
+                font-size: clamp(0.9rem, 1.2vw, 1rem);
             }
 
-            /* AMÉLIORATION LISTES DE SERVICES */
+            /* CARD IMAGE */
+            .search-row img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+            .search-row img:hover { transform: scale(1.05); }
+
+            /* ---------------- ACCORDION ---------------- */
+            .accordion-css label {
+                font-size: clamp(0.9rem, 1.2vw, 1rem);
+                font-weight: 700;
+            }
             .accordion-css .services-list li {
-                padding: 8px 0; /* Espacement amélioré */
+                font-size: clamp(0.8rem, 1vw, 1rem);
+                padding: 8px 0;
                 font-weight: 500;
                 border-bottom: 1px dashed rgba(0,0,0,0.1);
             }
-            .accordion-css .services-list li:last-child {
-                border-bottom: none;
-            }
+            .accordion-css .services-list li:last-child { border-bottom: none; }
 
-            .toggle-services i {
-                float: right;
-                transition: transform 0.3s ease;
-            }
-
-            .accordion-css input:checked + label .toggle-services i {
-                transform: rotate(180deg);
-            }
-
+            /* ---------------- BOUTONS ---------------- */
             .btn-reserver {
                 display: inline-block;
-                padding: 12px 28px;
-                font-size: 18px;
+                padding: clamp(10px, 1vw, 14px) clamp(20px, 2vw, 28px);
+                font-size: clamp(0.9rem, 1.2vw, 1.1rem);
                 font-weight: bold;
                 color: #fff;
                 background: #007bff;
                 border-radius: 30px;
                 text-decoration: none;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
                 transition: background 0.3s ease;
                 animation: bounce 2s infinite;
             }
-
-            .btn-reserver:hover {
-                background: #0056b3;
-            }
-
+            .btn-reserver:hover { background: #0056b3; }
             @keyframes bounce {
-
-                0%,
-                100% {
-                    transform: translateY(0);
-                }
-
-                50% {
-                    transform: translateY(-10px);
-                }
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
             }
-
-            /* Les styles #entete ont été consolidés plus haut */
-
 
             /* ---------------- FOOTER ---------------- */
             footer {
-            background: linear-gradient(135deg, #006d77, #00afb9);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
+                background: linear-gradient(135deg, #006d77, #00afb9);
+                color: white;
+                padding: 1.5rem;
+                text-align: center;
+                font-size: clamp(0.85rem, 1vw, 0.95rem);
+                letter-spacing: 1px;
             }
 
             /* ---------------- RESPONSIVE ---------------- */
             @media (max-width: 768px) {
-            #hebergement { padding: 2rem 1rem; }
-            #hebergement h2 { font-size: 2rem; }
-            .accordion-button { font-size: 1rem !important; padding: 0.75rem 1rem !important; }
-            .btn-reserver { font-size: 1rem; padding: 12px 28px; }
+                #hebergement { padding: 2rem 1rem; }
+                #hebergement h2 { font-size: clamp(1.6rem, 5vw, 2rem); }
+                .accordion-button { font-size: clamp(0.85rem, 1.2vw, 1rem) !important; padding: 0.75rem 1rem !important; }
+                .btn-reserver { font-size: clamp(0.85rem, 1vw, 1rem); padding: 12px 28px; }
             }
 
-            .services-list {
-                max-height: 0;
-                overflow: hidden;
-                opacity: 0;
-                transition: max-height 0.4s ease, opacity 0.3s ease;
-                background-color: rgb(250, 250, 250);
-                border-radius: 5px;
-            }
-
-            /* ouverte */
-            .service-item.open .services-list {
-                max-height: 500px; /* assez large */
-                opacity: 1;
-            }
-
-            /* bouton stylé */
-            .type {
-                font-weight: 600;
-                transition: background 0.3s ease;
-                cursor: pointer;
-                background: none; /* Rendre le bouton plus discret */
-                border: none;
-                padding: 10px 0;
-                width: 100%;
-                text-align: left;
-                color: #006d77;
-            }
-            .type:hover {
-                background: rgba(0,0,0,0.05);
-            }
-
-            /* effet visuel quand c'est ouvert */
-            .service-item.open .type {
-                color: #09008d !important;
-            }
         </style>
+
         <header class="p-1">
             <div class="col-12 row m-0 align-items-center">
                 <div class="col-lg-2 col-md-2 col-3">
@@ -599,11 +484,6 @@
             </section>
         </nav>
 
-        <div class="row m-0">
-
-        </div>
-
-
         <footer>
             <p id="contact">&copy; 2025 afrik’hub. tous droits réservés.<br />afrikhub@gmail.com</p>
         </footer>
@@ -624,7 +504,7 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-        {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
+
            {{-- GLightbox pour que l'ouverture des images fonctionne --}}
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
         <script>
@@ -632,82 +512,76 @@
             const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
         </script>
 
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const searchInput = document.getElementById("searchInput");
+                const searchOption = document.getElementById("searchOption");
+                const rows = document.querySelectorAll(".search-row");
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.getElementById("searchInput");
-        const searchOption = document.getElementById("searchOption");
-        const rows = document.querySelectorAll(".search-row");
-
-        // Fonction pour normaliser texte (minuscules + accents)
-        function normalizeText(text) {
-            return text
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
-        }
-
-        searchInput.addEventListener("keyup", () => {
-            const query = normalizeText(searchInput.value.trim());
-            const option = searchOption.value;
-
-            rows.forEach(row => {
-                let value = "";
-
-                switch(option) {
-                    case "name":
-                        value = normalizeText(row.dataset.name || "");
-                        break;
-
-                    case "status":
-                        value = normalizeText(row.dataset.status || "");
-                        break;
-
-                    case "ville":
-                        value = normalizeText(row.dataset.ville || "");
-                        break;
-
-                    case "prix_journalier": // 🔥 correction pour trier par prix
-                        value = Number(row.dataset.prix_journalier || 0);
-                        break;
-
-                    case "salon": // 🔥 correction pour trier par salons
-                        value = Number(row.dataset.nombre_salons || 0);
-                        break;
-
-                    case "chambre": // 🔥 correction pour trier par chambres
-                        value = Number(row.dataset.nombre_chambres || 0);
-                        break;
-
-                    default:
-                        value = "";
+                // Fonction pour normaliser texte (minuscules + accents)
+                function normalizeText(text) {
+                    return text
+                        .toLowerCase()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "");
                 }
 
-                // 🔥 Recherche numérique → convertir query aussi
-                if(option === "prix" || option === "salon" || option === "chambre") {
-                    const numQuery = Number(query);
-                    if(!isNaN(numQuery) && value === numQuery) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                } else {
-                    // Recherche textuelle
-                    if(normalizeText(value.toString()).includes(query)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                }
+                searchInput.addEventListener("keyup", () => {
+                    const query = normalizeText(searchInput.value.trim());
+                    const option = searchOption.value;
+
+                    rows.forEach(row => {
+                        let value = "";
+
+                        switch(option) {
+                            case "name":
+                                value = normalizeText(row.dataset.name || "");
+                                break;
+
+                            case "status":
+                                value = normalizeText(row.dataset.status || "");
+                                break;
+
+                            case "ville":
+                                value = normalizeText(row.dataset.ville || "");
+                                break;
+
+                            case "prix_journalier": // 🔥 correction pour trier par prix
+                                value = Number(row.dataset.prix_journalier || 0);
+                                break;
+
+                            case "salon": // 🔥 correction pour trier par salons
+                                value = Number(row.dataset.nombre_salons || 0);
+                                break;
+
+                            case "chambre": // 🔥 correction pour trier par chambres
+                                value = Number(row.dataset.nombre_chambres || 0);
+                                break;
+
+                            default:
+                                value = "";
+                        }
+
+                        // 🔥 Recherche numérique → convertir query aussi
+                        if(option === "prix" || option === "salon" || option === "chambre") {
+                            const numQuery = Number(query);
+                            if(!isNaN(numQuery) && value === numQuery) {
+                                row.style.display = "";
+                            } else {
+                                row.style.display = "none";
+                            }
+                        } else {
+                            // Recherche textuelle
+                            if(normalizeText(value.toString()).includes(query)) {
+                                row.style.display = "";
+                            } else {
+                                row.style.display = "none";
+                            }
+                        }
+                    });
+                });
             });
-        });
-    });
-</script>
-
-
-
-
-
+        </script>
 
     </body>
 </html>
