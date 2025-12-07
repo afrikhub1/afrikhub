@@ -122,6 +122,7 @@ class ReservationController extends Controller
 
 
         $reservation->status = 'confirmée';
+        $reservation->date_validation = now();
         $reservation->save();
 
         $residence->disponible = 0;
