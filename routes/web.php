@@ -70,13 +70,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/devenir-pro', [DevenirProController::class, 'devenirPro'])->name('devenir_pro');
     Route::post('/devenir-pro', [DevenirProController::class, 'validerDevenirPro'])->name('valider_devenir_pro');
 
+    //accepter ou refuser une reservation
+    Route::post('/reservation/{id}/accepter', [ReservationController::class, 'accepter'])->name('reservation.accepter');
+    Route::post('/reservation/{id}/refuser', [ReservationController::class, 'refuser'])->name('reservation.refuser');
+
     // Professionnel (Pro)
     Route::middleware([ProMiddleware::class])->group(function () {
         Route::get('/pro/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('pro.dashboard');
         Route::get('/dashboard_resi_reserv', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard_resi_reserv');
         Route::get('/reservationRecu', [ResidenceController::class, 'reservationRecu'])->name('reservationRecu');
-        Route::post('/reservation/{id}/accepter', [ReservationController::class, 'accepter'])->name('reservation.accepter');
-        Route::post('/reservation/{id}/refuser', [ReservationController::class, 'refuser'])->name('reservation.refuser');
         Route::get('/occupees', [ResidenceController::class, 'occupees'])->name('occupees');
 
         // Gestion des résidences pro
