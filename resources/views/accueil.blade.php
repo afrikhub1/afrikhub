@@ -544,15 +544,8 @@
                                     data-ville="{{ $residence->ville }}" data-nombre_chambres="{{ $residence->nombre_chambres }}"
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
-                                    <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                    <a href="{{ $imagePath }}" class="glightbox block relative h-25" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
                                         <img src="{{ $imagePath }}" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl transition duration-300 hover:opacity-90" alt="Image de la résidence">
-                                        <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
-                                            @switch($residence->status)
-                                                @case('vérifiée') bg-green-500 text-white @break
-                                                @case('en attente') bg-yellow-500 text-gray-900 @break
-                                                @default bg-gray-500 text-white @endswitch">
-                                            <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->status) }}
-                                        </span>
                                     </a>
 
 
