@@ -716,7 +716,7 @@
             const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
         </script>
 
-        <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const criteriaSelect = document.getElementById('filter-criteria');
     const valueInput = document.getElementById('filter-value');
@@ -726,21 +726,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function filterResidences() {
         const criteria = criteriaSelect.value;
-        let value = valueInput.value.trim().toLowerCase();
+        const value = valueInput.value.trim().toLowerCase();
 
         residences.forEach(card => {
             let match = false;
 
             switch(criteria) {
                 case 'ville':
-                    // Récupère la ville depuis le li contenant "Situation :"
-                    const situationLi = card.querySelector('li:contains("Situation")') || card.querySelector('li:nth-child(3)');
-                    const villeText = situationLi ? situationLi.textContent.split('/')[1]?.trim().toLowerCase() : '';
+                    const situationLiVille = Array.from(card.querySelectorAll('li')).find(li => li.textContent.includes('Situation'));
+                    const villeText = situationLiVille ? situationLiVille.textContent.split('/')[1]?.trim().toLowerCase() : '';
                     match = villeText.includes(value);
                     break;
 
                 case 'pays':
-                    const situationLiPays = card.querySelector('li:contains("Situation")') || card.querySelector('li:nth-child(3)');
+                    const situationLiPays = Array.from(card.querySelectorAll('li')).find(li => li.textContent.includes('Situation'));
                     const paysText = situationLiPays ? situationLiPays.textContent.split('/')[0]?.trim().toLowerCase() : '';
                     match = paysText.includes(value);
                     break;
@@ -756,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
 
                 case 'prix':
-                    const prixLi = card.querySelector('li:contains("Prix")') || card.querySelector('li.fw-bold');
+                    const prixLi = Array.from(card.querySelectorAll('li')).find(li => li.textContent.includes('Prix'));
                     const prixText = prixLi ? prixLi.textContent.replace(/\D/g, '') : '0';
                     match = prixText === value.replace(/\D/g,'');
                     break;
@@ -774,6 +773,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 
 
 
