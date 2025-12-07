@@ -43,8 +43,7 @@
     h5 { font-size: 8.05rem; }
     h6 { font-size: 8rem; }
 
-    p, a, li, span,th,td, button[type="submit"],
-    input[type="submit"] {
+    p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
         font-size: 0.8rem;
     }
 
@@ -59,9 +58,8 @@
         h3 { font-size: 1.5rem; }
         h4 { font-size: 1.3rem; }
 
-        button[type="submit"],
-        input[type="submit"],a,th,td,span,li, p {
-            font-size: 0.9rem;
+        p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
+                font-size: 0.9rem;
         }
     }
 
@@ -76,9 +74,8 @@
         h3 { font-size: 1.7rem; }
         h4 { font-size: 1.4rem; }
 
-        button[type="submit"],
-        input[type="submit"],a,th,td {
-            font-size: 0.8rem;
+        p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
+                font-size: 1rem;
         }
     }
 
@@ -91,10 +88,10 @@
         h1 { font-size: 2.6rem; }
         h2 { font-size: 2.2rem; }
         h3 { font-size: 1.9rem; }
+        h4 { font-size: 1.6rem; }
 
-        button[type="submit"],
-        input[type="submit"],a, th, td {
-            font-size: 0.8rem;
+        p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
+                font-size: 1.1rem;
         }
     }
 </style>
