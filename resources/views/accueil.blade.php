@@ -546,7 +546,7 @@
                                             <!-- Conteneur qui fixe la hauteur -->
                                             <div class="w-full h-[200px] overflow-hidden rounded-xl">
                                                 <img src="{{ $imagePath }}"
-                                                    class="w-full h-[200px] object-cover transition duration-300 hover:opacity-90"
+                                                    class="w-full transition duration-300 hover:opacity-90"
                                                     alt="Image de la résidence" style="min-heigth:200px;">
                                             </div>
                                         </a>
