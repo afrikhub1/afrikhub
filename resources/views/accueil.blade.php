@@ -667,7 +667,7 @@
                         value = normalizeText(row.dataset.ville || "");
                         break;
 
-                    case "prix": // 🔥 correction pour trier par prix
+                    case "prix_journalier": // 🔥 correction pour trier par prix
                         value = Number(row.dataset.prix_journalier || 0);
                         break;
 
