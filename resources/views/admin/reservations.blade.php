@@ -19,7 +19,7 @@
             <div id="alert-danger" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-red-50 border-l-4 border-red-600 shadow text-center">
                 <div class="w-full">
                     <p class="font-bold text-red-700">Alerte !</p>
-                    <p class="text-red-800">{{ session('danger') }}</p>
+                    <p class="text-red-800">{{ session('error') }}</p>
                 </div>
                 <button onclick="closeAlert('alert-danger')" class="text-red-700 hover:text-red-900 ml-3">✕</button>
             </div>
