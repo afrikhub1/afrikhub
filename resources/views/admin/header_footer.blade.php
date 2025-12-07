@@ -68,6 +68,8 @@
     /* -------------------------------------- */
     @media (min-width: 1440px) {
         body { font-size: 18px; }
+        header{ font-size: 0.8rem}
+        footer { font-size: 0.8rem}
         h1 { font-size: 2.6rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 1.2rem;
