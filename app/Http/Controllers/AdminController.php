@@ -275,4 +275,44 @@ class AdminController extends Controller
 
         return back()->with('success', 'Résidence libérée et toutes les réservations associées interrompues.');
     }
+
+    public function accepter($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $residence = $reservation->residence;
+
+        $reservationArrivee = \Carbon\Carbon::parse($reservation->date_arrivee);
+        $reservationDepart  = \Carbon\Carbon::parse($reservation->date_depart);
+
+        // Date à partir de laquelle la résidence sera libre
+        $dateDisponible = $residence->dateDisponibleAvecNettoyage();
+
+        // Vérifie si la nouvelle réservation chevauche la période occupée
+        if ($reservationArrivee->lt($dateDisponible)) {
+            return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
+        }
+
+
+        $reservation->status = 'confirmée';
+        $reservation->date_validation = now();
+        $reservation->save();
+
+        $residence->disponible = 0;
+        $residence->date_disponible_apres = $reservationDepart;
+        $residence->save();
+
+        return back()->with('success', 'Réservation confirmée avec succès !');
+    }
+
+
+    public function refuser($id)
+    {
+
+        Reservation::where('id', $id)->update([
+            'status' => 'refusée',
+            'date_validation' => now(), // date et heure actuelles
+        ]);
+
+        return back()->with('success', 'Réservation refusée ❌');
+    }
 }
