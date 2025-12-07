@@ -678,28 +678,12 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
         {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
-        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-        <script>
-            const lightbox = GLightbox({
-                touchNavigation: true,
-                loop: true,
-                autoplayVideos: true,
-            });
-
-            // Pour s'assurer que les galeries des cartes fonctionnent
-            document.querySelectorAll('[data-trigger]').forEach(trigger => {
-                trigger.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Trouve le groupe d'images pour cette galerie
-                    const galleryLinks = document.querySelectorAll(`[data-gallery="${this.getAttribute('data-gallery')}"]`);
-                    const index = parseInt(this.getAttribute('data-index'));
-
-                    // Lance la lightbox sur le groupe en commençant par l'image cliquée
-                    const gallery = GLightbox({ elements: galleryLinks, startIndex: index });
-                    gallery.open();
-                });
-            });
-        </script>
+           {{-- GLightbox pour que l'ouverture des images fonctionne --}}
+           <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
+            </script>
 
     </body>
 </html>
