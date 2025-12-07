@@ -412,13 +412,13 @@
 
         <nav class="row col-12 justify-content-center m-0">
             <section id="accueil" class="text-center py-5">
-            <div>
-                @include('includes.messages')
-                <h2>Bienvenue</h2>
-                <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-                <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
-                <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
-            </div>
+                <div>
+                    @include('includes.messages')
+                    <h2>Bienvenue</h2>
+                    <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
+                    <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
+                    <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
+                </div>
             </section>
             <section id="hebergement" class="my-8 px-4 py-6 bg-teal-50 rounded-2xl shadow-lg">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
@@ -506,6 +506,29 @@
                             <i class="fa-solid fa-triangle-exclamation mr-2"></i>Aucune résidence trouvée pour cette recherche.
                         </div>
                     @else
+
+                        <div class="row m-0 p-0 justify-content-center">
+                            <!-- RECHERCHE -->
+                            <div class="relative w-full sm:flex-grow sm:w-auto">
+                                <input id="searchInput" type="text"
+                                    placeholder="Rechercher par nom ou status..."
+                                    class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+
+                            <!-- OPTION -->
+                            <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
+                                <option value="name">Nom</option>
+                                <option value="prix">prix</option>
+                                <option value="salon">salon</option>
+                                <option value="chambre">chambre</option>
+
+                            </select>
+                        </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($residences as $residence)
                                 @php
@@ -583,125 +606,7 @@
         </nav>
 
         <div class="row m-0">
-            <div class="row m-0 p-0 justify-content-center">
-                <!-- RECHERCHE -->
-                <div class="relative w-full sm:flex-grow sm:w-auto">
-                    <input id="searchInput" type="text"
-                        placeholder="Rechercher par nom ou status..."
-                        class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
 
-                <!-- OPTION -->
-                <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
-                    <option value="name">Nom</option>
-                    <option value="prix">prix</option>
-                    <option value="salon">salon</option>
-                    <option value="chambre">chambre</option>
-
-                </select>
-            </div>
-            <div class="col-12 main-content">
-                @if ($residences->isEmpty())
-                    <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
-                        <i class="fa-solid fa-triangle-exclamation me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
-                    </div>
-                @else
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                        @foreach($residences as $residence)
-                            @php
-                                // Décodage JSON si nécessaire
-                                $images = $residence->img;
-                                if (is_string($images)) {
-                                    $images = json_decode($images, true) ?? [];
-                                }
-                                $firstImage = $images[0] ?? null;
-                                $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
-                            @endphp
-
-                            <div class="search-row bg-white rounded-xl shadow-2xl overflow-hidden hover:shadow-indigo-300/50
-                            transition duration-300 transform hover:scale-[1.01] border border-gray-100"
-                            data-name="{{ $residence->nom }}" data-prix_journalier="{{ $residence->prix_journalier }}"
-                            data-ville="{{ $residence->ville }}" data-nombre_chambres="{{ $residence->nombre_chambres }}"
-                            data-nombre_salons="{{ $residence->nombre_salons }}">
-
-                                {{-- Image principale --}}
-                                <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                                    <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
-                                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
-                                        alt="Image de la résidence">
-
-                                    {{-- status --}}
-                                    <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
-                                        @switch($residence->status)
-                                            @case('vérifiée') bg-green-500 text-white @break
-                                            @case('en attente') bg-yellow-500 text-gray-900 @break
-                                            @default bg-gray-500 text-white @endswitch">
-                                        <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->status) }}
-                                    </span>
-                                </a>
-
-                                {{-- Galerie invisible pour les autres images --}}
-                                @if(is_array($images))
-                                    @foreach($images as $key => $image)
-                                        @if($key > 0)
-                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
-                                        @endif
-                                    @endforeach
-                                @endif
-
-                                <div class="p-6 flex flex-col flex-grow border-gray-700/50 shadow">
-                                    <h5 class=" font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
-                                    <ul class="space-y-2  text-gray-700 mb-4 flex-grow">
-                                        <li class="flex justify-between items-center">
-                                            <span class="text-gray-500"><i class="fas fa-tag mr-2 text-green-500"></i> Prix / Jour :</span>
-                                            <span class="text-green-600 font-extrabold ">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</span>
-                                        </li>
-                                        <li class="flex justify-between items-center">
-                                            <span class="text-gray-500"><i class="fas fa-map-marker-alt mr-2 text-indigo-400"></i> Ville :</span>
-                                            <span class="text-gray-900">{{ $residence->ville }} ({{ $residence->pays }})</span>
-                                        </li>
-                                        <li class="flex justify-between items-center">
-                                            <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i> Nombre de chambres :</span>
-                                            <span class="text-gray-900 font-bold">{{ $residence->nombre_chambres ?? 'N/A' }}</span>
-                                        </li>
-                                         <li class="flex justify-between items-center">
-                                            <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i> Nombre de salons :</span>
-                                            <span class="text-gray-900 font-bold">{{ $residence->nombre_salons ?? 'N/A' }}</span>
-                                        </li>
-                                        <div>
-
-                                        @if($residence->disponible == 0)  <!-- Indisponible -->
-                                            <li class="flex justify-between items-center">
-                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                                <span class="text-gray-900">Indisponible</span>
-                                            </li>
-
-                                        @else  <!-- Disponible -->
-                                            <li class="flex justify-between items-center">
-                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                                <span class="text-green-600 font-semibold">Disponible le {{ $residence->date_disponible }}</span>
-                                            </li>
-                                        @endif
-                                    </ul>
-
-                                    {{-- Actions d'administration --}}
-                                    <div class="mt-4 border-t pt-4">
-                                            <a href="{{ route('details', $residence->id) }}" class=" px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
-                                                <i class="fas fa-edit mr-1"></i> Details
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
         </div>
 
 
