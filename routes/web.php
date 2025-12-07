@@ -135,8 +135,8 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 
     //validation de reservation
-    Route::post('/reservation/{id}/accepter', [AdminController::class, 'accepter'])->name('reservation.accepter');
-    Route::post('/reservation/{id}/refuser', [AdminController::class, 'refuser'])->name('reservation.refuser');
+    Route::post('/reservation/{id}/accepter', [AdminController::class, 'accepter'])->name('admin.reservation.accepter');
+    Route::post('/reservation/{id}/refuser', [AdminController::class, 'refuser'])->name('admin.reservation.refuser');
 
     // Gestion interruptions
     Route::get('/interruptions', [SejourController::class, 'adminDemandes'])->name('admin.demande.interruptions');
