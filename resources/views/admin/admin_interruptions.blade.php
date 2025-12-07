@@ -42,6 +42,7 @@
                     <div class="space-y-2">
                         <p><strong>Client :</strong> {{ $demande->user->name }}</p>
                         <p><strong>Résidence :</strong> {{ $demande->residence->nom }}</p>
+                        <p><strong>Demendeur :</strong> {{ $demande->type_compte }}</p>
                         <p>
                             <strong>status :</strong>
                             <span class="px-3 py-1 rounded text-white font-semibold {{ $badgeColor }}">
