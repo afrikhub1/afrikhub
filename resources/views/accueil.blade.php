@@ -695,73 +695,74 @@
             <p id="contact">&copy; 2025 afrik’hub. tous droits réservés.<br />afrikhub@gmail.com</p>
         </footer>
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // --- Sidebar mobile ---
-                function toggleSidebar() {
-                    document.getElementById("sidebar").classList.toggle("open");
-                }
-                window.toggleSidebar = toggleSidebar; // rendre accessible au HTML onclick
-
-                // --- GLightbox ---
-                const lightbox = GLightbox({
-                    selector: '.glightbox',
-                    touchNavigation: true,
-                    loop: true,
-                    autoplayVideos: true
-                });
-
-                // --- Accordion / services list ---
-                document.querySelectorAll('.service-item .type').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const item = btn.closest('.service-item');
-                        item.classList.toggle('open');
-                    });
-                });
-
-                // --- Filtrage des résidences ---
-                const residences = document.querySelectorAll('.residence-card');
-
-                function filtreSalonEtChambres(nbSalons, nbChambres) {
-                    residences.forEach(card => {
-                        const salons = parseInt(card.dataset.salons) || 0;
-                        const chambres = parseInt(card.dataset.chambres) || 0;
-                        card.style.display = (salons === nbSalons && chambres === nbChambres) ? 'block' : 'none';
-                    });
-                }
-
-                function filtreChambreSalon() {
-                    residences.forEach(card => {
-                        const salons = parseInt(card.dataset.salons) || 0;
-                        const chambres = parseInt(card.dataset.chambres) || 0;
-                        card.style.display = (salons >= 1 && chambres >= 1) ? 'block' : 'none';
-                    });
-                }
-
-                function filtreStudio() {
-                    residences.forEach(card => {
-                        const salons = parseInt(card.dataset.salons) || 0;
-                        const chambres = parseInt(card.dataset.chambres) || 0;
-                        card.style.display = (salons === 0 && chambres === 1) ? 'block' : 'none';
-                    });
-                }
-
-                function resetFiltre() {
-                    residences.forEach(card => card.style.display = 'block');
-                }
-
-                // Rendre les fonctions accessibles globalement pour les boutons HTML
-                window.filtreSalonEtChambres = filtreSalonEtChambres;
-                window.filtreChambreSalon = filtreChambreSalon;
-                window.filtreStudio = filtreStudio;
-                window.resetFiltre = resetFiltre;
-
-                // --- Debug : affichage dataset ---
-                residences.forEach(card => {
-                    console.log("Card:", card, "Salons:", card.dataset.salons, "Chambres:", card.dataset.chambres);
-                });
-            });
+            function toggleSidebar() {
+                document.getElementById("sidebar").classList.toggle("open");
+            }
         </script>
 
+        <script>
+            document.querySelectorAll('.service-item .type').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.closest('.service-item');
+                    item.classList.toggle('open');
+                });
+            });
+
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+        {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
+        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = GLightbox({
+                selector: '.glightbox',
+                touchNavigation: true,
+                loop: true,
+                autoplayVideos: true
+            });
+        });
+
+        </script>
+
+
+        <script>
+   document.querySelectorAll('.residence-card').forEach(card => {
+    console.log("Salons:", card.dataset.salons, "Chambres:", card.dataset.chambres);
+});
+
+function filtreSalonEtChambres(nbSalons, nbChambres) {
+    document.querySelectorAll('.residence-card').forEach(card => {
+        const salons = parseInt(card.dataset.salons) || 0;
+        const chambres = parseInt(card.dataset.chambres) || 0;
+
+        card.style.display = (salons === nbSalons && chambres === nbChambres) ? 'block' : 'none';
+    });
+}
+
+function filtreChambreSalon() {
+    document.querySelectorAll('.residence-card').forEach(card => {
+        const salons = parseInt(card.dataset.salons) || 0;
+        const chambres = parseInt(card.dataset.chambres) || 0;
+
+        card.style.display = (salons >= 1 && chambres >= 1) ? 'block' : 'none';
+    });
+}
+
+function filtreStudio() {
+    document.querySelectorAll('.residence-card').forEach(card => {
+        const salons = parseInt(card.dataset.salons) || 0;
+        const chambres = parseInt(card.dataset.chambres) || 0;
+
+        card.style.display = (salons === 0 && chambres === 1) ? 'block' : 'none';
+    });
+}
+
+function resetFiltre() {
+    document.querySelectorAll('.residence-card').forEach(card => card.style.display = 'block');
+}
+
+</script>
 
     </body>
 </html>
