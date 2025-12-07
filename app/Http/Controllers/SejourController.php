@@ -17,14 +17,17 @@ class SejourController extends Controller
     {
         $reservationId = (int) $reservationId;
         $reservation = Reservation::where('id', $reservationId)->first();
+
+        // debug : afficher les valeurs comparées
+        dd([
+            'reservationId_envoye' => $reservationId,
+            'reservation_id_bd' => $reservation ? $reservation->id : null,
+        ]);
+
         if (!$reservation) {
             return redirect()->back()->with('error', 'Réservation introuvable.');
         }
 
-        $residence = Residence::where('id', $reservation->residence_id)->first();
-        if (!$residence) {
-            return redirect()->back()->with('error', 'Résidence introuvable.');
-        }
 
         $userId = Auth::id();
         if ($reservation->user_id != $userId) {
