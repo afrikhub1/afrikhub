@@ -575,6 +575,28 @@
                     </div>
                 @else
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+
+                                    <!-- RECHERCHE -->
+            <div class="relative w-full sm:flex-grow sm:w-auto">
+                <input id="searchInput" type="text"
+                       placeholder="Rechercher par nom ou status..."
+                       class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+
+            <!-- OPTION -->
+            <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
+                <option value="name">Nom</option>
+                <option value="client">client</option>
+                <option value="status">status</option>
+                <option value="ville">ville</option>
+                <option value="proprietaire">proprietaire</option>
+            </select>
+            
                         @foreach($residences as $residence)
                             @php
                                 // Décodage JSON si nécessaire
@@ -736,62 +758,60 @@
             const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
         </script>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const criteriaSelect = document.getElementById('filter-criteria');
-    const valueInput = document.getElementById('filter-value');
-    const filterBtn = document.getElementById('filter-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const residences = document.querySelectorAll('.residence-card');
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.getElementById("searchInput");
+        const searchOption = document.getElementById("searchOption");
 
-    function filterResidences() {
-        const criteria = criteriaSelect.value;
-        const value = valueInput.value.trim().toLowerCase();
+        // Sélectionne toutes les cartes de résidence
+        const rows = document.querySelectorAll(".search-row");
 
-        residences.forEach(card => {
-            let match = false;
+        // Fonction pour normaliser texte (minuscules + accents)
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .normalize("NFD")   // Décompose les caractères accentués
+                .replace(/[\u0300-\u036f]/g, ""); // Supprime les accents
+        }
 
-            switch(criteria) {
-                case 'ville':
-                    const situationLiVille = Array.from(card.querySelectorAll('li')).find(li => li.textContent.includes('Situation'));
-                    const villeText = situationLiVille ? situationLiVille.textContent.split('/')[1]?.trim().toLowerCase() : '';
-                    match = villeText.includes(value);
-                    break;
+        searchInput.addEventListener("keyup", () => {
+            const query = normalizeText(searchInput.value.trim());
+            const option = searchOption.value;
 
-                case 'pays':
-                    const situationLiPays = Array.from(card.querySelectorAll('li')).find(li => li.textContent.includes('Situation'));
-                    const paysText = situationLiPays ? situationLiPays.textContent.split('/')[0]?.trim().toLowerCase() : '';
-                    match = paysText.includes(value);
-                    break;
+            rows.forEach(row => {
+                let value = "";
 
-                case 'chambres':
-                    const chambres = card.dataset.chambres || '0';
-                    match = chambres === value;
-                    break;
+                // Selon l'option choisie
+                switch(option) {
+                    case "name":
+                        value = normalizeText(row.dataset.name || "");
+                        break;
+                    case "status":
+                        value = normalizeText(row.dataset.status || "");
+                        break;
+                    case "ville":
+                        value = normalizeText(row.dataset.ville || "");
+                        break;
+                    case "proprietaire":
+                        value = normalizeText(row.dataset.proprietaire || "");
+                        break;
+                    case "client":
+                        value = normalizeText(row.dataset.client || "");
+                        break;
+                    default:
+                        value = "";
+                }
 
-                case 'salons':
-                    const salons = card.dataset.salons || '0';
-                    match = salons === value;
-                    break;
-
-                case 'prix':
-                    const prixLi = Array.from(card.querySelectorAll('li')).find(li => li.textContent.includes('Prix'));
-                    const prixText = prixLi ? prixLi.textContent.replace(/\D/g, '') : '0';
-                    match = prixText === value.replace(/\D/g,'');
-                    break;
-            }
-
-            card.style.display = (match || value === '') ? 'flex' : 'none';
+                // Affiche ou cache la ligne
+                if(value.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         });
-    }
-
-    filterBtn.addEventListener('click', filterResidences);
-
-    resetBtn.addEventListener('click', () => {
-        valueInput.value = '';
-        residences.forEach(card => card.style.display = 'flex');
     });
-});
 </script>
 
 
