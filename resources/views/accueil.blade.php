@@ -593,14 +593,15 @@
                                 <button type="button" id="reset-btn" class="btn btn-secondary">Réinitialiser</button>
                             </div>
                         </form>
-
-
-
                         @foreach($residences as $residence)
                             @php
-                                $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
-                                // Fallback pour la première image
-                                $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+                                // Décodage JSON pour les images
+                                $images = $residence->img;
+                                if (is_string($images)) {
+                                    $images = json_decode($images, true) ?? [];
+                                }
+                                $firstImage = $images[0] ?? null;
+                                $imagePath = $firstImage ?: asset('assets/images/placeholder.jpg');
                             @endphp
 
                             <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
@@ -610,22 +611,23 @@
                             >
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
 
-                                    <!-- Image principale -->
-                                    <a href="{{ $firstImage }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
-                                        <img src="{{ $firstImage }}"
+                                    {{-- Image principale --}}
+                                    <a href="{{ $imagePath }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
+                                        <img src="{{ $imagePath }}"
                                             alt="Image de la résidence {{ $residence->nom }}"
                                             class="card-img-top"
-                                            loading="lazy">
+                                            loading="lazy"
+                                            onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.jpg') }}';">
                                     </a>
 
-                                    <!-- Liens supplémentaires pour la galerie (cachés) -->
+                                    {{-- Liens supplémentaires pour la galerie (cachés) --}}
                                     @foreach($images as $key => $image)
                                         @if($key > 0)
                                             <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display:none;"></a>
                                         @endif
                                     @endforeach
 
-                                    <!-- Corps de la carte -->
+                                    {{-- Corps de la carte --}}
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title fw-bold text-dark">{{ $residence->nom }}</h5>
                                         <p class="card-text text-muted card-text-truncate" title="{{ $residence->description }}">
