@@ -728,50 +728,45 @@
 
         </script>
 
-        <script>
-            // --- Filtrage des résidences ---
-            document.addEventListener('DOMContentLoaded', () => {
-                const residences = document.querySelectorAll('.residence-card');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const residences = document.querySelectorAll('.residence-card');
 
-                function filtreSalonEtChambres(nbSalons, nbChambres) {
-                    residences.forEach(card => {
-                        const salons = parseInt(card.dataset.salons) || 0;
-                        const chambres = parseInt(card.dataset.chambres) || 0;
-                        card.style.display = (salons === nbSalons && chambres === nbChambres) ? 'block' : 'none';
-                    });
-                }
+    function filtreSalonEtChambres(nbSalons, nbChambres) {
+        residences.forEach(card => {
+            const salons = parseInt(card.dataset.salons) || 0;
+            const chambres = parseInt(card.dataset.chambres) || 0;
+            card.style.display = (salons === nbSalons && chambres === nbChambres) ? '' : 'none';
+        });
+    }
 
-                function filtreChambreSalon() {
-                    residences.forEach(card => {
-                        const salons = parseInt(card.dataset.salons) || 0;
-                        const chambres = parseInt(card.dataset.chambres) || 0;
-                        card.style.display = (salons >= 1 && chambres >= 1) ? 'block' : 'none';
-                    });
-                }
+    function filtreChambreSalon() {
+        residences.forEach(card => {
+            const salons = parseInt(card.dataset.salons) || 0;
+            const chambres = parseInt(card.dataset.chambres) || 0;
+            card.style.display = (salons >= 1 && chambres >= 1) ? '' : 'none';
+        });
+    }
 
-                function filtreStudio() {
-                    residences.forEach(card => {
-                        const salons = parseInt(card.dataset.salons) || 0;
-                        const chambres = parseInt(card.dataset.chambres) || 0;
-                        card.style.display = (salons === 0 && chambres === 1) ? 'block' : 'none';
-                    });
-                }
+    function filtreStudio() {
+        residences.forEach(card => {
+            const salons = parseInt(card.dataset.salons) || 0;
+            const chambres = parseInt(card.dataset.chambres) || 0;
+            card.style.display = (salons === 0 && chambres === 1) ? '' : 'none';
+        });
+    }
 
-                function resetFiltre() {
-                    residences.forEach(card => card.style.display = 'block');
-                }
+    function resetFiltre() {
+        residences.forEach(card => card.style.display = '');
+    }
 
-                // Rendre les fonctions accessibles globalement pour les boutons HTML
-                window.filtreSalonEtChambres = filtreSalonEtChambres;
-                window.filtreChambreSalon = filtreChambreSalon;
-                window.filtreStudio = filtreStudio;
-                window.resetFiltre = resetFiltre;
+    // Rendre accessible aux boutons HTML
+    window.filtreSalonEtChambres = filtreSalonEtChambres;
+    window.filtreChambreSalon = filtreChambreSalon;
+    window.filtreStudio = filtreStudio;
+    window.resetFiltre = resetFiltre;
+});
+</script>
 
-                // --- Debug : affichage dataset ---
-                residences.forEach(card => {
-                    console.log("Card:", card, "Salons:", card.dataset.salons, "Chambres:", card.dataset.chambres);
-                });
-            });
-        </script>
     </body>
 </html>
