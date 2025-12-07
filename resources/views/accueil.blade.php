@@ -413,58 +413,21 @@
         <nav class="row col-12 justify-content-center m-0">
 
             <section id="accueil" class="text-center py-5">
-                <div>
-                    @include('includes.messages')
-                    <h2>Bienvenue</h2>
-                    <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-                    <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
-                    <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
-                </div>
-                </section>
-                <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
-                <h2>Hébergements</h2>
-                <div class="mb-4 d-flex flex-wrap gap-2">
-
-                    <button class="btn btn-outline-primary" onclick="filtreStudio()">Appartement Studio</button>
-
-                    <button class="btn btn-outline-primary" onclick="filtreChambreSalon()">Chambre + Salon</button>
-
-                    <div class="dropdown">
-                        <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
-                            Avec 1 Salon
-                        </button>
-                        <ul class="dropdown-menu">
-                            @for ($i=1;$i<=10;$i++)
-                                <li>
-                                    <button type="button" class="dropdown-item"
-                                        onclick="filtreSalonEtChambres(1, {{ $i }})">
-                                        {{ $i }} chambre(s)
-                                    </button>
-                                </li>
-                            @endfor
-                        </ul>
+            <div>
+                @include('includes.messages')
+                <h2>Bienvenue</h2>
+                <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
+                <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
+                <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
+            </div>
+            </section>
+            <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
+            <h2>Hébergements</h2>
+            <div class="row m-0 col-12 justify-content-center">
+                    <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
+                        <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Image de résidences"/>
                     </div>
-
-                    <div class="dropdown">
-                        <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
-                            Avec 2 Salons
-                        </button>
-                        <ul class="dropdown-menu">
-                            @for ($i=1;$i<=10;$i++)
-                                <li>
-                                    <button type="button" class="dropdown-item"
-                                        onclick="filtreSalonEtChambres(2, {{ $i }})">
-                                        {{ $i }} chambre(s)
-                                    </button>
-                                </li>
-                            @endfor
-                        </ul>
-                    </div>
-
-                    <button class="btn btn-secondary" onclick="resetFiltre()">Réinitialiser</button>
-
                 </div>
-
                 <div class="row m-0 col-12 justify-content-center">
                     <div class="accordion-css">
                         <input type="checkbox" id="acc1" checked>
@@ -619,26 +582,27 @@
                                 $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
                             @endphp
 
-                           <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
-                                data-chambres="{{ $residence->nombre_chambres ?? 0 }}"
-                                data-salons="{{ $residence->nombre_salons ?? 0 }}"
-                                data-type="{{ $residence->nombre_salons == 0 && $residence->nombre_chambres == 1 ? 'studio' : ($residence->nombre_salons == 1 ? 'chambre-salon' : 'autre') }}"
-                            >
-
-
+                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
-                                    <a href="{{ $firstImage }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
+                                    <a href="javascript:void(0)"
+                                    class="glightbox-trigger-{{ $residence->id }}">
                                         <img src="{{ $firstImage }}"
                                             alt="Image de la résidence {{ $residence->nom }}"
                                             class="card-img-top"
                                             loading="lazy">
                                     </a>
 
-                                    {{-- Liens supplémentaires pour la galerie (cachés) --}}
+                                    {{-- Liens GLightbox CACHÉS pour la galerie --}}
                                     @foreach($images as $key => $image)
-                                        @if($key > 0)
-                                            <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display:none;"></a>
-                                        @endif
+                                        <a href="{{ $image }}"
+                                        class="glightbox"
+                                        data-gallery="gallery-{{ $residence->id }}"
+                                        data-title="{{ $residence->nom }} - Image {{ $key + 1 }}"
+                                        style="display: none;"
+                                        aria-label="Voir l'image {{ $key + 1 }}"
+                                        data-index="{{ $key }}"
+                                        data-trigger=".glightbox-trigger-{{ $residence->id }}"
+                                        ></a>
                                     @endforeach
 
                                     <div class="card-body d-flex flex-column">
@@ -696,7 +660,6 @@
         <footer>
             <p id="contact">&copy; 2025 afrik’hub. tous droits réservés.<br />afrikhub@gmail.com</p>
         </footer>
-
         <script>
             function toggleSidebar() {
                 document.getElementById("sidebar").classList.toggle("open");
@@ -714,48 +677,29 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-
-        {{-- GLightbox pour que l'ouverture des images fonctionne --}}
+        {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
             const lightbox = GLightbox({
-                selector: '.glightbox',
                 touchNavigation: true,
                 loop: true,
-                autoplayVideos: true
+                autoplayVideos: true,
             });
-        });
 
+            // Pour s'assurer que les galeries des cartes fonctionnent
+            document.querySelectorAll('[data-trigger]').forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Trouve le groupe d'images pour cette galerie
+                    const galleryLinks = document.querySelectorAll(`[data-gallery="${this.getAttribute('data-gallery')}"]`);
+                    const index = parseInt(this.getAttribute('data-index'));
+
+                    // Lance la lightbox sur le groupe en commençant par l'image cliquée
+                    const gallery = GLightbox({ elements: galleryLinks, startIndex: index });
+                    gallery.open();
+                });
+            });
         </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const residences = document.querySelectorAll('.residence-card');
-
-        function filtreType(type) {
-            residences.forEach(card => {
-                if(card.dataset.type === type){
-                    card.style.display = ''; // laisse le style par défaut (Bootstrap)
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function resetFiltre() {
-            residences.forEach(card => card.style.display = '');
-        }
-
-
-        // Rendre accessible aux boutons HTML
-        window.filtreStudio = () => filtreType('studio');
-        window.filtreChambreSalon = () => filtreType('chambre-salon');
-        window.resetFiltre = resetFiltre;
-    });
-</script>
-
 
     </body>
 </html>
