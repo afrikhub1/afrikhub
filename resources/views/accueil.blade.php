@@ -508,7 +508,7 @@
                     @else
                         <div class="row m-0 p-0 justify-content-center">
                             <!-- RECHERCHE -->
-                            <div class="relative w-full sm:flex-grow sm:w-auto">
+                            <div class="col-8 col-md-6 col-lg-4">
                                 <input id="searchInput" type="text"
                                     placeholder="Rechercher par nom ou status..."
                                     class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
@@ -543,7 +543,7 @@
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
                                     <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                                        <img src="{{ $imagePath }}" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl transition duration-300 hover:opacity-90" alt="Image de la résidence">
+                                        <img src="{{ $imagePath }}" class="w-full h-50 object-cover rounded-xl transition duration-300 hover:opacity-90" alt="Image de la résidence">
                                         <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
                                             @switch($residence->status)
                                                 @case('vérifiée') bg-green-500 text-white @break
