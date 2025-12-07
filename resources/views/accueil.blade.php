@@ -544,7 +544,7 @@
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
                                     <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                                        <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90" alt="Image de la résidence">
+                                        <img src="{{ $imagePath }}" class="w-full h-25 object-cover transition duration-300 hover:opacity-90" alt="Image de la résidence">
                                         <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
                                             @switch($residence->status)
                                                 @case('vérifiée') bg-green-500 text-white @break
