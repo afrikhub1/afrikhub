@@ -5,10 +5,6 @@
 @section('main')
     <div class="container-fluid mx-0 p-2">
 
-        <h1 class="text-center text-primary fw-bold mb-4">
-            Gestion des Utilisateurs
-        </h1>
-
        @if ($utilisateurs->isEmpty())
             <div class="alert alert-warning border-start border-warning border-5 shadow-sm p-4" role="alert">
                 <h4 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i> Base de données vide</h4>
