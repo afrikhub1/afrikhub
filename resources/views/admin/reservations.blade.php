@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        @if (session('danger'))
+        @if (session('error'))
             <div id="alert-danger" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-red-50 border-l-4 border-red-600 shadow text-center">
                 <div class="w-full">
                     <p class="font-bold text-red-700">Alerte !</p>
