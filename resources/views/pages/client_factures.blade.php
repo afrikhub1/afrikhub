@@ -86,6 +86,7 @@
                 @php
                     $facturestatus = $res->status;
                     $reference = $res->reference;
+                    $prixJour = $res->residence->prix_journalier;
                     $datePaiement = $res->date_paiement;
                     $dateArrivee = \Carbon\Carbon::parse($res->date_arrivee);
                     $dateDepart = \Carbon\Carbon::parse($res->date_depart);
@@ -117,6 +118,11 @@
                             <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> Nuits :</span>
                                 <span class="text-gray-900 font-semibold">{{ $jours }}</span>
+                            </li>
+
+                            <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> prix du jour :</span>
+                                <span class="text-gray-900 font-semibold">{{ $prixJour }}</span>
                             </li>
 
                              <li class="flex justify-between items-center">
