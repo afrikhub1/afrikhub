@@ -435,7 +435,12 @@
                         </button>
                         <ul class="dropdown-menu">
                             @for ($i=1;$i<=10;$i++)
-                                <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); filtreSalonEtChambres(1, {{ $i }})">{{ $i }} chambre(s)</a></li>
+                                <li>
+                                    <button type="button" class="dropdown-item"
+                                        onclick="filtreSalonEtChambres(1, {{ $i }})">
+                                        {{ $i }} chambre(s)
+                                    </button>
+                                </li>
                             @endfor
                         </ul>
                     </div>
@@ -446,8 +451,12 @@
                         </button>
                         <ul class="dropdown-menu">
                             @for ($i=1;$i<=10;$i++)
-                                <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); filtreSalonEtChambres(2, {{ $i }})" >{{ $i }} chambre(s)</a></li>
-                            @endfor
+                                <li>
+                                    <button type="button" class="dropdown-item"
+                                        onclick="filtreSalonEtChambres(2, {{ $i }})">
+                                        {{ $i }} chambre(s)
+                                    </button>
+                                </li>
                         </ul>
                     </div>
 
