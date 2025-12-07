@@ -742,54 +742,40 @@
             });
         </script>
 
-        <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const cards = document.querySelectorAll(".residence-card");
-    const filterType = document.getElementById("filter-type");
-
-    filterType.addEventListener("change", (e) => {
-        e.preventDefault(); // Sécurité si le select est dans un form
-
-        const value = filterType.value;
-
-        cards.forEach(card => {
-            const chambres = parseInt(card.dataset.chambres);
-            const salons = parseInt(card.dataset.salons);
-            const type = card.dataset.type;
-
-            let show = true;
+       <script>
+            function updateVisibility(condition) {
+                document.querySelectorAll('.residence-card').forEach(card => {
+                    card.style.display = condition(card) ? 'block' : 'none';
+                });
+            }
 
             // Studio
-            if (value === "studio" && type !== "studio") show = false;
-
-            // Appartement
-            if (value === "appartement" && type !== "appartement") show = false;
-
-            // 1 salon + X chambres
-            if (value.startsWith("1-salon-")) {
-                const x = parseInt(value.split("-")[2]);
-                if (!(salons === 1 && chambres === x)) show = false;
+            function filtreStudio() {
+                updateVisibility(card => card.dataset.type.toLowerCase() === "studio");
             }
 
-            // 2 salons + X chambres
-            if (value.startsWith("2-salons-")) {
-                const x = parseInt(value.split("-")[2]);
-                if (!(salons === 2 && chambres === x)) show = false;
+            // Chambre + Salon
+            function filtreChambreSalon() {
+                updateVisibility(card =>
+                    Number(card.dataset.salons) >= 1 &&
+                    Number(card.dataset.chambres) >= 1
+                );
             }
 
-            // 4+ chambres
-            if (value === "4plus" && chambres < 4) show = false;
+            // X salons + Y chambres
+            function filtreSalonEtChambres(nbSalons, nbChambres) {
+                updateVisibility(card =>
+                    Number(card.dataset.salons) === nbSalons &&
+                    Number(card.dataset.chambres) === nbChambres
+                );
+            }
 
-            card.style.display = show ? "flex" : "none";
-        });
-    });
-});
-</script>
-
-
-
-
-
-
+            // Reset
+            function resetFiltre() {
+                document.querySelectorAll('.residence-card').forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        </script>
     </body>
 </html>
