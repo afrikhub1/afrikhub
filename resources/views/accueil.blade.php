@@ -545,14 +545,13 @@
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
                                     <a href="{{ $imagePath }}" class="glightbox block relative"
-                                    data-gallery="residence-{{ $residence->id }}"
-                                    data-title="{{ $residence->nom }}">
+                                        data-gallery="residence-{{ $residence->id }}"
+                                        data-title="{{ $residence->nom }}">
 
-                                        <img src="{{ $imagePath }}"
-                                            class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl transition duration-300 hover:opacity-90"
-                                            alt="Image de la résidence">
-
+                                            <img src="{{ $imagePath }}" class="w-full h-[250px] object-cover rounded-xl
+                                            transition duration-300 hover:opacity-90" alt="Image de la résidence">
                                     </a>
+
 
 
 
