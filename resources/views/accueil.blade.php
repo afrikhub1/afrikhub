@@ -224,7 +224,7 @@
             border-radius: 15px;
             box-shadow: 0 8px 18px rgba(0,0,0,0.2);
             width: 100%;
-            height: auto;
+            height: 200px;
             object-fit: cover;
             transition: transform 0.3s ease;
             }
