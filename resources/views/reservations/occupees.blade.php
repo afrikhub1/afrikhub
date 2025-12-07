@@ -28,9 +28,7 @@
                                     <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
                                     <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
                                     <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>Type :</strong> {{ $residences_occupees->type_residences_occupees }}</p>
-                                    <p class="text-sm mb-2"><strong>Chambres :</strong> {{ $residences_occupees->nombre_chambres }}</p>
-                                    <p class="text-sm mb-2"><strong>Salons :</strong> {{ $residences_occupees->nombre_salons }}</p>
+                                    <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($residences_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($residences_occupees->date_depart)->format('d/m/y') }}</p>
                                 </div>
                                 <a href="{{ route('sejour.interrompre', $residences_occupees->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
