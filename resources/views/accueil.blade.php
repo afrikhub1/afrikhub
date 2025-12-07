@@ -520,7 +520,7 @@
                             </div>
 
                             <!-- OPTION -->
-                            <select id="searchOption" class="w-full py-2 px-3 bg-gray-800 text-white rounded-lg">
+                            <select id="searchOption" class="py-2 px-3 bg-gray-800 text-white rounded-lg">
                                 <option value="name">Nom</option>
                                 <option value="prix">prix</option>
                                 <option value="salon">salon</option>
