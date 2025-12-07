@@ -620,9 +620,8 @@
                             @endphp
 
                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
-                                data-chambres="{{ $residence->nombre_chambres }}"
-                                data-salons="{{ $residence->nombre_salons }}"
-                                data-type="{{ $residence->type }}"
+                                data-chambres="{{ $residence->nombre_chambres ?? 0 }}"
+                                data-salons="{{ $residence->nombre_salons ?? 0 }}"
                             >
 
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
