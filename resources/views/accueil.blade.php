@@ -622,7 +622,9 @@
                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
                                 data-chambres="{{ $residence->nombre_chambres ?? 0 }}"
                                 data-salons="{{ $residence->nombre_salons ?? 0 }}"
+                                data-type="{{ $residence->nombre_salons == 0 && $residence->nombre_chambres == 1 ? 'studio' : ($residence->nombre_salons == 1 ? 'chambre-salon' : 'autre') }}"
                             >
+
 
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
                                     <a href="{{ $firstImage }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
@@ -732,41 +734,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     const residences = document.querySelectorAll('.residence-card');
 
-    function filtreSalonEtChambres(nbSalons, nbChambres) {
+    function filtreType(type) {
         residences.forEach(card => {
-            const salons = parseInt(card.dataset.salons) || 0;
-            const chambres = parseInt(card.dataset.chambres) || 0;
-            card.style.display = (salons === nbSalons && chambres === nbChambres) ? '' : 'none';
-        });
-    }
-
-    function filtreChambreSalon() {
-        residences.forEach(card => {
-            const salons = parseInt(card.dataset.salons) || 0;
-            const chambres = parseInt(card.dataset.chambres) || 0;
-            card.style.display = (salons >= 1 && chambres >= 1) ? '' : 'none';
-        });
-    }
-
-    function filtreStudio() {
-        residences.forEach(card => {
-            const salons = parseInt(card.dataset.salons) || 0;
-            const chambres = parseInt(card.dataset.chambres) || 0;
-            card.style.display = (salons === 0 && chambres === 1) ? '' : 'none';
+            card.style.display = (card.dataset.type === type) ? 'flex' : 'none';
         });
     }
 
     function resetFiltre() {
-        residences.forEach(card => card.style.display = '');
+        residences.forEach(card => card.style.display = 'flex');
     }
 
     // Rendre accessible aux boutons HTML
-    window.filtreSalonEtChambres = filtreSalonEtChambres;
-    window.filtreChambreSalon = filtreChambreSalon;
-    window.filtreStudio = filtreStudio;
+    window.filtreStudio = () => filtreType('studio');
+    window.filtreChambreSalon = () => filtreType('chambre-salon');
     window.resetFiltre = resetFiltre;
 });
 </script>
+
 
     </body>
 </html>
