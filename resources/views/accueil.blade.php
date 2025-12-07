@@ -717,56 +717,64 @@
         </script>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const criteriaSelect = document.getElementById('filter-criteria');
-                const valueInput = document.getElementById('filter-value');
-                const filterBtn = document.getElementById('filter-btn');
-                const resetBtn = document.getElementById('reset-btn');
-                const residences = document.querySelectorAll('.residence-card');
+document.addEventListener('DOMContentLoaded', function() {
+    const criteriaSelect = document.getElementById('filter-criteria');
+    const valueInput = document.getElementById('filter-value');
+    const filterBtn = document.getElementById('filter-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const residences = document.querySelectorAll('.residence-card');
 
-                function filterResidences() {
-                    const criteria = criteriaSelect.value;
-                    const value = valueInput.value.trim().toLowerCase();
+    function filterResidences() {
+        const criteria = criteriaSelect.value;
+        let value = valueInput.value.trim().toLowerCase();
 
-                    residences.forEach(card => {
-                        let match = false;
+        residences.forEach(card => {
+            let match = false;
 
-                        switch(criteria) {
-                            case 'ville':
-                                const villeText = card.querySelector('li:nth-child(3)')?.textContent.split('/')[1]?.trim().toLowerCase() || '';
-                                match = villeText.includes(value);
-                                break;
-                            case 'pays':
-                                const paysText = card.querySelector('li:nth-child(3)')?.textContent.split('/')[0]?.trim().toLowerCase() || '';
-                                match = paysText.includes(value);
-                                break;
-                            case 'chambres':
-                                const chambres = card.dataset.chambres || '0';
-                                match = chambres === value;
-                                break;
-                            case 'salons':
-                                const salons = card.dataset.salons || '0';
-                                match = salons === value;
-                                break;
-                            case 'prix':
-                                const prixText = card.querySelector('.fa-money-bill-wave')?.parentElement?.textContent || '';
-                                const prix = prixText.replace(/\D/g, '');
-                                match = prix === value;
-                                break;
-                        }
+            switch(criteria) {
+                case 'ville':
+                    // Récupère la ville depuis le li contenant "Situation :"
+                    const situationLi = card.querySelector('li:contains("Situation")') || card.querySelector('li:nth-child(3)');
+                    const villeText = situationLi ? situationLi.textContent.split('/')[1]?.trim().toLowerCase() : '';
+                    match = villeText.includes(value);
+                    break;
 
-                        card.style.display = match || value === '' ? 'flex' : 'none';
-                    });
-                }
+                case 'pays':
+                    const situationLiPays = card.querySelector('li:contains("Situation")') || card.querySelector('li:nth-child(3)');
+                    const paysText = situationLiPays ? situationLiPays.textContent.split('/')[0]?.trim().toLowerCase() : '';
+                    match = paysText.includes(value);
+                    break;
 
-                filterBtn.addEventListener('click', filterResidences);
+                case 'chambres':
+                    const chambres = card.dataset.chambres || '0';
+                    match = chambres === value;
+                    break;
 
-                resetBtn.addEventListener('click', () => {
-                    valueInput.value = '';
-                    residences.forEach(card => card.style.display = 'flex');
-                });
-            });
-        </script>
+                case 'salons':
+                    const salons = card.dataset.salons || '0';
+                    match = salons === value;
+                    break;
+
+                case 'prix':
+                    const prixLi = card.querySelector('li:contains("Prix")') || card.querySelector('li.fw-bold');
+                    const prixText = prixLi ? prixLi.textContent.replace(/\D/g, '') : '0';
+                    match = prixText === value.replace(/\D/g,'');
+                    break;
+            }
+
+            card.style.display = (match || value === '') ? 'flex' : 'none';
+        });
+    }
+
+    filterBtn.addEventListener('click', filterResidences);
+
+    resetBtn.addEventListener('click', () => {
+        valueInput.value = '';
+        residences.forEach(card => card.style.display = 'flex');
+    });
+});
+</script>
+
 
 
 
