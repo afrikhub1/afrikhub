@@ -48,7 +48,7 @@
         body { font-size: 16px; }
         h1 { font-size: 2rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
-                font-size: 1rem;
+                font-size: 0.9rem;
         }
     }
 
@@ -59,7 +59,7 @@
         body { font-size: 17px; }
         h1 { font-size: 2.3rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
-                font-size: 1.1rem;
+                font-size: 1rem;
         }
     }
 
@@ -72,7 +72,7 @@
         footer { font-size: 0.8rem}
         h1 { font-size: 2.6rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
-                font-size: 1.2rem;
+                font-size: 1.rem;
         }
     }
 </style>
