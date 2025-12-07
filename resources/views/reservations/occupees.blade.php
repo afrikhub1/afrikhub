@@ -23,10 +23,10 @@
                             <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
                                 <div>
                                     <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $res_occupees->nom }}
+                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $res_occupees->residence->nom }}
                                     </h5>
-                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $res_occupees->ville }}</p>
-                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $res_occupees->pays }}</p>
+                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $res_occupees->residence->ville }}</p>
+                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $res_occupees->residence->pays }}</p>
                                     <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
                                     <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($res_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res_occupees->date_depart)->format('d/m/y') }}</p>
                                 </div>
