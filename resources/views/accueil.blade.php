@@ -544,7 +544,7 @@
                                         data-title="{{ $residence->nom }}">
 
                                             <!-- Conteneur qui fixe la hauteur -->
-                                            <div class="w-full h-[200px] overflow-hidden rounded-xl">
+                                            <div class="w-full h-[200px] overflow-hidden rounded-xl border p-2">
                                                 <img src="{{ $imagePath }}"
                                                     class="w-full transition duration-300 hover:opacity-90"
                                                     alt="Image de la résidence" style="min-heigth:200px;">
