@@ -671,7 +671,7 @@
                                         @else  <!-- Disponible -->
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                                <span class="text-green-600 font-semibold">Disponible le {{ $residence->date_disponible->translatedFormat('d F Y') }}</span>
+                                                <span class="text-green-600 font-semibold">Disponible le {{ $residence->date_disponible }}</span>
                                             </li>
                                         @endif
                                     </ul>
