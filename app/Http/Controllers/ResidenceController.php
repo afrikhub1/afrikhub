@@ -81,7 +81,7 @@ class ResidenceController extends Controller
     public function index()
     {
         // On récupère toutes les résidences du user connecté
-        $residences = Residence::where('proprietaire_id', Auth::id())->get();
+        $residences = Residence::where('proprietaire_id', Auth::id())->where('status', 'vérifiée')->get();
 
         if (! $residences instanceof \Illuminate\Support\Collection) {
             dd($residences); // debug si ce n'est pas une Collection
@@ -97,6 +97,7 @@ class ResidenceController extends Controller
 
         // Recherche des résidences selon la ville
         $recherches = Residence::where('ville', 'LIKE', "%{$ville}%")
+            ->where('status', 'vérifiée')
             ->get();
 
         // Ajout de la date de disponibilité à chaque résidence
@@ -111,8 +112,6 @@ class ResidenceController extends Controller
 
     public function accueil()
     {
-
-
 
         // Récupération des résidences disponibles pour l'affichage
 

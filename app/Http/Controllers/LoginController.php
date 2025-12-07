@@ -28,7 +28,7 @@ class LoginController extends Controller
         // 🔒 Vérification du status
         if ($user->status !== 'actif') {
             return back()->withErrors([
-            'email' => 'Veuillez vérifier votre compte avant de vous connecter'
+            'email' => 'Votre compte est désactié'
             ]);
         }
         // on verifie si le l'utilisateur est un client

@@ -96,6 +96,9 @@ class CreateNewUser implements CreatesNewUsers
         // Déconnexion immédiate
         Auth::logout();
 
+        //notification
+        session()->flash('success', 'Inscription réussie ! Veuillez consulter votre email pour activer votre compte.');
+
         // Redirection vers logout ou login
         redirect()->route('logout')->send(); // <- ici on force la redirection
 
