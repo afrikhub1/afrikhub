@@ -582,66 +582,76 @@
                                 $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
                             @endphp
 
-                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
+                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
+                                data-chambres="{{ $residence->nombre_chambres ?? 0 }}"
+                                data-salons="{{ $residence->nombre_salons ?? 0 }}"
+                                data-type="{{ $residence->nombre_salons == 0 && $residence->nombre_chambres == 1 ? 'studio' : ($residence->nombre_salons == 1 ? 'chambre-salon' : 'autre') }}"
+                            >
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
-                                    <a href="javascript:void(0)"
-                                    class="glightbox-trigger-{{ $residence->id }}">
+
+                                    <!-- Image principale -->
+                                    <a href="{{ $firstImage }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
                                         <img src="{{ $firstImage }}"
                                             alt="Image de la résidence {{ $residence->nom }}"
                                             class="card-img-top"
                                             loading="lazy">
                                     </a>
 
-                                    {{-- Liens GLightbox CACHÉS pour la galerie --}}
+                                    <!-- Liens supplémentaires pour la galerie (cachés) -->
                                     @foreach($images as $key => $image)
-                                        <a href="{{ $image }}"
-                                        class="glightbox"
-                                        data-gallery="gallery-{{ $residence->id }}"
-                                        data-title="{{ $residence->nom }} - Image {{ $key + 1 }}"
-                                        style="display: none;"
-                                        aria-label="Voir l'image {{ $key + 1 }}"
-                                        data-index="{{ $key }}"
-                                        data-trigger=".glightbox-trigger-{{ $residence->id }}"
-                                        ></a>
+                                        @if($key > 0)
+                                            <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display:none;"></a>
+                                        @endif
                                     @endforeach
 
+                                    <!-- Corps de la carte -->
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title fw-bold text-dark">{{ $residence->nom }}</h5>
                                         <p class="card-text text-muted card-text-truncate" title="{{ $residence->description }}">
                                             {{ Str::limit($residence->description, 100) }}
                                         </p>
+
                                         <ul class="list-unstyled small mb-3 mt-2">
-                                            <li><i class="fa-solid fa-bed me-2 text-primary"></i> <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}</li>
-                                            {{-- L'élément suivant était un <li> mal formé, corrigé en <li> --}}
-                                            <li><i class="fa-solid fa-couch me-2 text-primary"></i> <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}</li>
-                                            <li><i class="fa-solid fa-location-dot me-2 text-primary"></i> <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}</li>
+                                            <li>
+                                                <i class="fa-solid fa-bed me-2 text-primary"></i>
+                                                <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}
+                                            </li>
+                                            <li>
+                                                <i class="fa-solid fa-couch me-2 text-primary"></i>
+                                                <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}
+                                            </li>
+                                            <li>
+                                                <i class="fa-solid fa-location-dot me-2 text-primary"></i>
+                                                <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}
+                                            </li>
                                             <li class="fw-bold mt-2">
                                                 <i class="fa-solid fa-money-bill-wave me-2 text-success"></i>
                                                 Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
                                             </li>
-                                             @php
-                                                 $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
-                                             @endphp
 
-                                             @if ($dateDispo->isPast())
-                                                 <li>
-                                                     <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
-                                                         Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
-                                                     </span>
-                                                 </li>
-                                             @elseif ($dateDispo->isToday())
-                                                 <li>
-                                                     <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
-                                                         Disponible
-                                                     </span>
-                                                 </li>
-                                             @else
-                                                 <li>
-                                                     <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
-                                                         Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
-                                                     </span>
-                                                 </li>
-                                             @endif
+                                            @php
+                                                $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
+                                            @endphp
+
+                                            @if ($dateDispo->isPast())
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                                        Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </li>
+                                            @elseif ($dateDispo->isToday())
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                                        Disponible
+                                                    </span>
+                                                </li>
+                                            @else
+                                                <li>
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                                                        Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </li>
+                                            @endif
                                         </ul>
 
                                         <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded mt-auto">
