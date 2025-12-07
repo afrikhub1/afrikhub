@@ -742,40 +742,56 @@
             });
         </script>
 
-       <script>
-            function updateVisibility(condition) {
-                document.querySelectorAll('.residence-card').forEach(card => {
-                    card.style.display = condition(card) ? 'block' : 'none';
-                });
-            }
+        <script>
+    // Fonction pour filtrer selon salons et chambres
+    function filtreSalonEtChambres(nbSalons, nbChambres) {
+        document.querySelectorAll('.residence-card').forEach(card => {
+            const salons = parseInt(card.dataset.salons);
+            const chambres = parseInt(card.dataset.chambres);
 
-            // Studio
-            function filtreStudio() {
-                updateVisibility(card => card.dataset.type.toLowerCase() === "studio");
+            if (salons === nbSalons && chambres === nbChambres) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
+        });
+    }
 
-            // Chambre + Salon
-            function filtreChambreSalon() {
-                updateVisibility(card =>
-                    Number(card.dataset.salons) >= 1 &&
-                    Number(card.dataset.chambres) >= 1
-                );
-            }
+    // Fonction pour filtrer uniquement les chambres + salon
+    function filtreChambreSalon() {
+        document.querySelectorAll('.residence-card').forEach(card => {
+            const salons = parseInt(card.dataset.salons);
+            const chambres = parseInt(card.dataset.chambres);
 
-            // X salons + Y chambres
-            function filtreSalonEtChambres(nbSalons, nbChambres) {
-                updateVisibility(card =>
-                    Number(card.dataset.salons) === nbSalons &&
-                    Number(card.dataset.chambres) === nbChambres
-                );
+            if (salons >= 1 && chambres >= 1) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
+        });
+    }
 
-            // Reset
-            function resetFiltre() {
-                document.querySelectorAll('.residence-card').forEach(card => {
-                    card.style.display = 'block';
-                });
+    // Fonction pour filtrer uniquement les studios
+    function filtreStudio() {
+        document.querySelectorAll('.residence-card').forEach(card => {
+            const salons = parseInt(card.dataset.salons);
+            const chambres = parseInt(card.dataset.chambres);
+
+            if (salons === 0 && chambres === 1) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
-        </script>
+        });
+    }
+
+    // Réinitialiser tous les filtres
+    function resetFiltre() {
+        document.querySelectorAll('.residence-card').forEach(card => {
+            card.style.display = 'block';
+        });
+    }
+</script>
+
     </body>
 </html>
