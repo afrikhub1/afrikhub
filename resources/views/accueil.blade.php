@@ -498,7 +498,7 @@
                 </div>
 
                 <!-- Résidences -->
-                <div class="mt-8">
+                <div class="mt-8 bg-light rounded p-2">
                     @if ($residences->isEmpty())
                         <div class="text-center bg-yellow-100 text-yellow-800 font-bold rounded-xl p-6 shadow">
                             <i class="fa-solid fa-triangle-exclamation mr-2"></i>Aucune résidence trouvée pour cette recherche.
