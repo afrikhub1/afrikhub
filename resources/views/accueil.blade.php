@@ -506,7 +506,6 @@
                             <i class="fa-solid fa-triangle-exclamation mr-2"></i>Aucune résidence trouvée pour cette recherche.
                         </div>
                     @else
-
                         <div class="row m-0 p-0 justify-content-center">
                             <!-- RECHERCHE -->
                             <div class="relative w-full sm:flex-grow sm:w-auto">
@@ -526,10 +525,10 @@
                                 <option value="prix">prix</option>
                                 <option value="salon">salon</option>
                                 <option value="chambre">chambre</option>
-
                             </select>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                             @foreach($residences as $residence)
                                 @php
                                     $images = $residence->img;
@@ -544,7 +543,7 @@
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
                                     <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                                        <img src="{{ $imagePath }}" class="w-full h-25 object-cover transition duration-300 hover:opacity-90" alt="Image de la résidence">
+                                        <img src="{{ $imagePath }}" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl transition duration-300 hover:opacity-90" alt="Image de la résidence">
                                         <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
                                             @switch($residence->status)
                                                 @case('vérifiée') bg-green-500 text-white @break
@@ -602,6 +601,7 @@
                         </div>
                     @endif
                 </div>
+
             </section>
         </nav>
 
