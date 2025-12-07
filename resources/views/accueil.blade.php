@@ -548,7 +548,7 @@
                                         data-gallery="residence-{{ $residence->id }}"
                                         data-title="{{ $residence->nom }}">
 
-                                            <img src="{{ $imagePath }}" class="w-full h-[250px] object-cover rounded-xl
+                                            <img src="{{ $imagePath }}" class="w-full h-[25px] object-cover rounded-xl
                                             transition duration-300 hover:opacity-90" alt="Image de la résidence">
                                     </a>
 
