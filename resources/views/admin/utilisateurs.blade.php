@@ -12,7 +12,7 @@
             </div>
         @else
     <h2 class="mb-4 fs-4 fw-bold text-primary">
-        Total : <span class="badge bg-primary rounded-pill">{{ $utilisateurs->count() }}</span> utilisateurs enregistrés
+        Total  utilisateurs enregistrés : {{ $utilisateurs->count() }}</span>
     </h2>
 
     <div class="table-responsive shadow-sm rounded-3">
