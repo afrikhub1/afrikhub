@@ -29,6 +29,7 @@ class Reservation extends Model
         'date_validation' => 'datetime',
         'date_arrivee' => 'datetime',
         'date_depart' => 'datetime',
+        'created_at' => 'datetime',
     ];
 
     public function user()
