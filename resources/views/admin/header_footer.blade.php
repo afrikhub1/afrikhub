@@ -32,16 +32,10 @@
     /* -------------------------------------- */
     body {
         font-size: 15px;
-        line-height: 1.6;
         font-family: Arial, sans-serif;
     }
 
     h1 { font-size: 1.6rem; }
-    h2 { font-size: 1.4rem; }
-    h3 { font-size: 1.2rem; }
-    h4 { font-size: 1rem; }
-    h5 { font-size: 8.05rem; }
-    h6 { font-size: 8rem; }
 
     p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
         font-size: 0.8rem;
@@ -52,12 +46,7 @@
     /* -------------------------------------- */
     @media (min-width: 640px) {
         body { font-size: 16px; }
-
         h1 { font-size: 2rem; }
-        h2 { font-size: 1.75rem; }
-        h3 { font-size: 1.5rem; }
-        h4 { font-size: 1.3rem; }
-
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 0.9rem;
         }
@@ -68,12 +57,7 @@
     /* -------------------------------------- */
     @media (min-width: 1024px) {
         body { font-size: 17px; }
-
         h1 { font-size: 2.3rem; }
-        h2 { font-size: 2rem; }
-        h3 { font-size: 1.7rem; }
-        h4 { font-size: 1.4rem; }
-
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 1rem;
         }
@@ -84,12 +68,7 @@
     /* -------------------------------------- */
     @media (min-width: 1440px) {
         body { font-size: 18px; }
-
         h1 { font-size: 2.6rem; }
-        h2 { font-size: 2.2rem; }
-        h3 { font-size: 1.9rem; }
-        h4 { font-size: 1.6rem; }
-
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 1.1rem;
         }

@@ -151,7 +151,7 @@
 
             {{-- Affichage des images actuelles --}}
             <div class="mt-6">
-                <h4 class="text-md font-medium text-gray-700 mb-2">Images Actuelles :</h4>
+                <p class="text-md font-medium text-gray-700 mb-2">Images Actuelles :</p>
                 <div class="flex flex-wrap gap-3">
                     @php $images = json_decode($residence->img, true) ?? []; @endphp
                     @forelse($images as $image)

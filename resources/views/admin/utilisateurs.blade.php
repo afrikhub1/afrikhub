@@ -7,7 +7,7 @@
 
        @if ($utilisateurs->isEmpty())
             <div class="alert alert-warning border-start border-warning border-5 shadow-sm p-4" role="alert">
-                <h4 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i> Base de données vide</h4>
+                <p class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i> Base de données vide</p>
                 <p class="mb-0">Aucun utilisateur n'a été trouvé. Veuillez vérifier les enregistrements.</p>
             </div>
         @else
