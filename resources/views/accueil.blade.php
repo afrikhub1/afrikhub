@@ -648,16 +648,14 @@
     document.addEventListener("DOMContentLoaded", () => {
         const searchInput = document.getElementById("searchInput");
         const searchOption = document.getElementById("searchOption");
-
-        // Sélectionne toutes les cartes de résidence
         const rows = document.querySelectorAll(".search-row");
 
         // Fonction pour normaliser texte (minuscules + accents)
         function normalizeText(text) {
             return text
                 .toLowerCase()
-                .normalize("NFD")   // Décompose les caractères accentués
-                .replace(/[\u0300-\u036f]/g, ""); // Supprime les accents
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
         }
 
         searchInput.addEventListener("keyup", () => {
@@ -667,37 +665,56 @@
             rows.forEach(row => {
                 let value = "";
 
-                // Selon l'option choisie
                 switch(option) {
                     case "name":
                         value = normalizeText(row.dataset.name || "");
                         break;
+
                     case "status":
                         value = normalizeText(row.dataset.status || "");
                         break;
+
                     case "ville":
                         value = normalizeText(row.dataset.ville || "");
                         break;
-                    case "proprietaire":
-                        value = normalizeText(row.dataset.proprietaire || "");
+
+                    case "prix": // 🔥 correction pour trier par prix
+                        value = Number(row.dataset.prix_journalier || 0);
                         break;
-                    case "client":
-                        value = normalizeText(row.dataset.client || "");
+
+                    case "salon": // 🔥 correction pour trier par salons
+                        value = Number(row.dataset.nombre_salons || 0);
                         break;
+
+                    case "chambre": // 🔥 correction pour trier par chambres
+                        value = Number(row.dataset.nombre_chambres || 0);
+                        break;
+
                     default:
                         value = "";
                 }
 
-                // Affiche ou cache la ligne
-                if(value.includes(query)) {
-                    row.style.display = "";
+                // 🔥 Recherche numérique → convertir query aussi
+                if(option === "prix" || option === "salon" || option === "chambre") {
+                    const numQuery = Number(query);
+                    if(!isNaN(numQuery) && value >= numQuery) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
                 } else {
-                    row.style.display = "none";
+                    // Recherche textuelle
+                    if(normalizeText(value.toString()).includes(query)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
                 }
             });
         });
     });
 </script>
+
 
 
 
