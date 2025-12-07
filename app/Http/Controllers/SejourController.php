@@ -16,11 +16,14 @@ class SejourController extends Controller
     public function interrompreForm($reservationId)
     {
         $reservation = Reservation::where('id', $reservationId)->first();
-        dd([
+        $reservations = \App\Models\Reservation::all();
+        dd($reservations);
+
+        return redirect()->back()->with([
             'reservationId_recu' => $reservationId,
             'type_de_reservationId' => gettype($reservationId),
-            'toutes_les_reservations_ids' => \App\Models\Reservation::pluck('id')->toArray(),
         ]);
+
 
         $reservation = Reservation::where('id', $reservationId)->first();
 
