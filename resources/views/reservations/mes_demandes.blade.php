@@ -53,6 +53,10 @@
                                         <span class="text-gray-500"><i class="fas fa-plane-departure mr-2 text-indigo-400"></i> Départ :</span>
                                         <span class="text-gray-900 font-bold">{{ $res->date_depart->format('d/m/Y') }}</span>
                                     </li>
+                                    <li class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fas fa-plane-departure mr-2 text-indigo-400"></i> Reçue le :</span>
+                                        <span class="text-gray-900 font-bold">{{ $res->creat_at->format('d/m/Y') }}</span>
+                                    </li>
                                 </ul>
 
                                 <!-- status -->

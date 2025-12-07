@@ -18,12 +18,14 @@ class Reservation extends Model
         'date_arrivee',
         'date_depart',
         'date_validation',
+        'date_paiement',
         'personnes',
         'total',
         'status',
     ];
 
     protected $casts = [
+        'date_paiement' => 'datetime',
         'date_validation' => 'datetime',
         'date_arrivee' => 'datetime',
         'date_depart' => 'datetime',

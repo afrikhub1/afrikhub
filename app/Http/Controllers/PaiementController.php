@@ -131,6 +131,7 @@ class PaiementController extends Controller
                     if ($status_paystack === 'success' && $reservation->status !== 'payé') {
                         // Mettre à jour la DB
                         $reservation->status = 'payé';
+                        $reservation->date_paiement = now();
                         $reservation->reference = $data['data']['id'];
                         $reservation->save();
 
