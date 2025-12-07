@@ -575,31 +575,25 @@
                     </div>
                 @else
                     <div class="row g-4 justify-content-center mb-4">
-
                         <form id="residence-filter" class="row g-3 mb-4">
-                            <div class="col-md-2">
-                                <input type="number" id="filter-chambres" class="form-control" placeholder="Chambres">
+                            <div class="col-md-3">
+                                <select id="filter-criteria" class="form-select">
+                                    <option value="ville">Ville</option>
+                                    <option value="pays">Pays</option>
+                                    <option value="chambres">Chambres</option>
+                                    <option value="salons">Salons</option>
+                                    <option value="prix">Prix</option>
+                                </select>
                             </div>
-                            <div class="col-md-2">
-                                <input type="number" id="filter-salons" class="form-control" placeholder="Salons">
+                            <div class="col-md-6">
+                                <input type="text" id="filter-value" class="form-control" placeholder="Tapez la valeur à rechercher">
                             </div>
-                            <div class="col-md-2">
-                                <input type="number" id="filter-prix-min" class="form-control" placeholder="Prix min">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number" id="filter-prix-max" class="form-control" placeholder="Prix max">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" id="filter-ville" class="form-control" placeholder="Ville">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" id="filter-pays" class="form-control" placeholder="Pays">
-                            </div>
-                            <div class="col-12 text-end">
+                            <div class="col-md-3 text-end">
                                 <button type="button" id="filter-btn" class="btn btn-dark">Rechercher</button>
                                 <button type="button" id="reset-btn" class="btn btn-secondary">Réinitialiser</button>
                             </div>
                         </form>
+
 
 
                         @foreach($residences as $residence)
@@ -716,65 +710,64 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
         {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
            {{-- GLightbox pour que l'ouverture des images fonctionne --}}
-           <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
-            </script>
+        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
+        </script>
 
         <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const chambresInput = document.getElementById('filter-chambres');
-    const salonsInput = document.getElementById('filter-salons');
-    const prixMinInput = document.getElementById('filter-prix-min');
-    const prixMaxInput = document.getElementById('filter-prix-max');
-    const villeInput = document.getElementById('filter-ville');
-    const paysInput = document.getElementById('filter-pays');
-    const filterBtn = document.getElementById('filter-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const residences = document.querySelectorAll('.residence-card');
+            document.addEventListener('DOMContentLoaded', function() {
+                const criteriaSelect = document.getElementById('filter-criteria');
+                const valueInput = document.getElementById('filter-value');
+                const filterBtn = document.getElementById('filter-btn');
+                const resetBtn = document.getElementById('reset-btn');
+                const residences = document.querySelectorAll('.residence-card');
 
-    function filterResidences() {
-        const chambresVal = parseInt(chambresInput.value) || 0;
-        const salonsVal = parseInt(salonsInput.value) || 0;
-        const prixMinVal = parseInt(prixMinInput.value) || 0;
-        const prixMaxVal = parseInt(prixMaxInput.value) || Infinity;
-        const villeVal = villeInput.value.toLowerCase();
-        const paysVal = paysInput.value.toLowerCase();
+                function filterResidences() {
+                    const criteria = criteriaSelect.value;
+                    const value = valueInput.value.trim().toLowerCase();
 
-        residences.forEach(card => {
-            const chambres = parseInt(card.dataset.chambres) || 0;
-            const salons = parseInt(card.dataset.salons) || 0;
-            const prixText = card.querySelector('.fa-money-bill-wave')?.parentElement?.textContent || '';
-            const prix = parseInt(prixText.replace(/\D/g, '')) || 0;
+                    residences.forEach(card => {
+                        let match = false;
 
-            const situationText = card.querySelector('li:nth-child(3)')?.textContent || '';
-            const [pays, ville] = situationText.split('/').map(s => s?.trim().toLowerCase() || '');
+                        switch(criteria) {
+                            case 'ville':
+                                const villeText = card.querySelector('li:nth-child(3)')?.textContent.split('/')[1]?.trim().toLowerCase() || '';
+                                match = villeText.includes(value);
+                                break;
+                            case 'pays':
+                                const paysText = card.querySelector('li:nth-child(3)')?.textContent.split('/')[0]?.trim().toLowerCase() || '';
+                                match = paysText.includes(value);
+                                break;
+                            case 'chambres':
+                                const chambres = card.dataset.chambres || '0';
+                                match = chambres === value;
+                                break;
+                            case 'salons':
+                                const salons = card.dataset.salons || '0';
+                                match = salons === value;
+                                break;
+                            case 'prix':
+                                const prixText = card.querySelector('.fa-money-bill-wave')?.parentElement?.textContent || '';
+                                const prix = prixText.replace(/\D/g, '');
+                                match = prix === value;
+                                break;
+                        }
 
-            const match =
-                (chambresVal === 0 || chambres === chambresVal) &&
-                (salonsVal === 0 || salons === salonsVal) &&
-                (prix >= prixMinVal && prix <= prixMaxVal) &&
-                (villeVal === '' || (ville && ville.includes(villeVal))) &&
-                (paysVal === '' || (pays && pays.includes(paysVal)));
+                        card.style.display = match || value === '' ? 'flex' : 'none';
+                    });
+                }
 
-            card.style.display = match ? 'flex' : 'none';
-        });
-    }
+                filterBtn.addEventListener('click', filterResidences);
 
-    filterBtn.addEventListener('click', filterResidences);
+                resetBtn.addEventListener('click', () => {
+                    valueInput.value = '';
+                    residences.forEach(card => card.style.display = 'flex');
+                });
+            });
+        </script>
 
-    resetBtn.addEventListener('click', () => {
-        chambresInput.value = '';
-        salonsInput.value = '';
-        prixMinInput.value = '';
-        prixMaxInput.value = '';
-        villeInput.value = '';
-        paysInput.value = '';
-        residences.forEach(card => card.style.display = 'flex');
-    });
-});
-</script>
 
 
     </body>
