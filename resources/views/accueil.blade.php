@@ -581,7 +581,7 @@
                                                 @if($residence->disponible == 0)
                                                     <span class="text-gray-900">Indisponible</span>
                                                 @else
-                                                    <span class="text-green-600 font-semibold">Disponible le {{ $residence->date_disponible }}</span>
+                                                    <span class="text-green-600 font-semibold"> {{ $residence->date_disponible }}</span>
                                                 @endif
                                             </li>
                                         </ul>
