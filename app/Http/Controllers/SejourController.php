@@ -16,10 +16,21 @@ class SejourController extends Controller
     public function interrompreForm($reservationId)
     {
         $reservation = Reservation::where('id', $reservationId)->first();
-        if (!$reservation) {
+        dd([
+            'reservationId_recu' => $reservationId,
+            'type_de_reservationId' => gettype($reservationId),
+            'toutes_les_reservations_ids' => \App\Models\Reservation::pluck('id')->toArray(),
+        ]);
 
-            return redirect()->back()->with('error', 'Réservation introuvable.' . $reservationId);
+        $reservation = Reservation::where('id', $reservationId)->first();
+
+        if (!$reservation) {
+            return redirect()->back()->with(
+                'error',
+                'Réservation introuvable. ID reçu = ' . $reservationId
+            );
         }
+
 
         $residence = Residence::where('id', $reservation->residence_id)->first();
         if (!$residence) {
