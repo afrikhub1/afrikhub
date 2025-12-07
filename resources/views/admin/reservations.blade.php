@@ -59,13 +59,13 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($reservation->status === 'en attente')
                                     <div class="flex space-x-2">
-                                        <form action="{{ route('reservations.confirmer', $reservation->id) }}" method="POST">
+                                        <form action="{{ route('reservation.accepter', $reservation->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 transition">
                                                 Confirmer
                                             </button>
                                         </form>
-                                        <form action="{{ route('reservations.annuler', $reservation->id) }}" method="POST">
+                                        <form action="{{ route('reservation.refuser', $reservation->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="px-3 py-1 text-xs font-semibold text-white bg-red-600 rounded hover:bg-red-700 transition">
                                                 Annuler
