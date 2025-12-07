@@ -38,15 +38,11 @@ class SejourController extends Controller
      */
     public function demanderInterruption(Request $request, $reservation)
     {
-        $reservationId = (int) $reservation;
+
         $reservation = Reservation::where('id', $reservation)->first();
         if (!$reservation) {
-            dd([
-                'reservationId_envoye' => $reservationId,
-                'reservation_id_bd' => null,
-            ]);
+            return redirect()->back()->with('error', 'Réservation introuvable.');
         }
-
 
         $residence = Residence::where('id', $reservation->residence_id)->first();
         if (!$residence) {
@@ -58,8 +54,15 @@ class SejourController extends Controller
             return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
+        if ($reservation->user_id === $residence->id_proprietaire) {
+            $demandeur= 'proprietaire';
+        }
+        else{
+            $demandeur='client';
+        }
+
         InterruptionRequest::create([
-            'type_compte'=>$user->type_compte,
+            'type_compte'=> $demandeur,
             'user_id' => $user->id,
             'residence_id' => $residence->id,
             'reservation_id' => $reservation->id,
