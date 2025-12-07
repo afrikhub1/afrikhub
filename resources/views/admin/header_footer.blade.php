@@ -46,7 +46,7 @@
     /* -------------------------------------- */
     @media (min-width: 640px) {
         body { font-size: 16px; }
-        h1 { font-size: 2rem; }
+        h1 { font-size: 3rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 0.9rem;
         }
@@ -57,7 +57,7 @@
     /* -------------------------------------- */
     @media (min-width: 1024px) {
         body { font-size: 17px; }
-        h1 { font-size: 2.3rem; }
+        h1 { font-size: 4rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 1rem;
         }
@@ -70,7 +70,7 @@
         body { font-size: 18px; }
         header{ font-size: 0.8rem}
         footer { font-size: 0.8rem}
-        h1 { font-size: 2.6rem; }
+        h1 { font-size: 5rem; }
         p, a, li, span,th,td, button[type="submit"],input[type="submit"] {
                 font-size: 1.rem;
         }
