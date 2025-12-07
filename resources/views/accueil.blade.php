@@ -422,7 +422,7 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
             </section>
-            <section id="hebergement" class="my-2 px-4 py-6">
+            <section id="hebergement" class="my-2 px-0 py-6">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
 
                 <div class="accordion-css mx-auto max-w-2xl">
