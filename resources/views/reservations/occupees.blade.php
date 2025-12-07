@@ -20,20 +20,22 @@
                 @else
                     <div class="grid grid-cols-1 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
                         @foreach($residences_occupees as $residences_occupees)
-                            <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
-                                <div>
-                                    <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
-                                    </h5>
-                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
-                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
-                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($residences_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($residences_occupees->date_depart)->format('d/m/y') }}</p>
+                             @foreach($reservation as $reservations)
+                                <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
+                                            <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
+                                        </h5>
+                                        <p class="text-sm mb-2"><strong>Ville :</strong> {{ $residences_occupees->ville }}</p>
+                                        <p class="text-sm mb-2"><strong>Pays :</strong> {{ $residences_occupees->pays }}</p>
+                                        <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
+                                        <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($residences_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($residences_occupees->date_depart)->format('d/m/y') }}</p>
+                                    </div>
+                                    <a href="{{ route('sejour.interrompre', $reservations->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
+                                    </a>
                                 </div>
-                                <a href="{{ route('sejour.interrompre', $residences_occupees->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
-                                </a>
-                            </div>
+                             @endforeach
                         @endforeach
                     </div>
                 @endif
