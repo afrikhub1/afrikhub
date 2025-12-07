@@ -686,7 +686,7 @@
                 // 🔥 Recherche numérique → convertir query aussi
                 if(option === "prix" || option === "salon" || option === "chambre") {
                     const numQuery = Number(query);
-                    if(!isNaN(numQuery) && value >= numQuery) {
+                    if(!isNaN(numQuery) && value === numQuery) {
                         row.style.display = "";
                     } else {
                         row.style.display = "none";
