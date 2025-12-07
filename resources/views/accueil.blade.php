@@ -575,7 +575,8 @@
                     </div>
                 @else
                     <div class="row g-4 justify-content-center mb-4">
-                        <div class="row g-3 mb-4">
+
+                        <form id="residence-filter" class="row g-3 mb-4">
                             <div class="col-md-2">
                                 <input type="number" id="filter-chambres" class="form-control" placeholder="Chambres">
                             </div>
@@ -594,7 +595,12 @@
                             <div class="col-md-2">
                                 <input type="text" id="filter-pays" class="form-control" placeholder="Pays">
                             </div>
-                        </div>
+                            <div class="col-12 text-end">
+                                <button type="button" id="filter-btn" class="btn btn-dark">Rechercher</button>
+                                <button type="button" id="reset-btn" class="btn btn-secondary">Réinitialiser</button>
+                            </div>
+                        </form>
+
 
                         @foreach($residences as $residence)
                             @php
@@ -708,12 +714,13 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+        {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
            {{-- GLightbox pour que l'ouverture des images fonctionne --}}
-        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-            const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
-        </script>
+           <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
+            </script>
 
         <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -723,7 +730,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const prixMaxInput = document.getElementById('filter-prix-max');
     const villeInput = document.getElementById('filter-ville');
     const paysInput = document.getElementById('filter-pays');
-
+    const filterBtn = document.getElementById('filter-btn');
+    const resetBtn = document.getElementById('reset-btn');
     const residences = document.querySelectorAll('.residence-card');
 
     function filterResidences() {
@@ -737,27 +745,34 @@ document.addEventListener('DOMContentLoaded', function() {
         residences.forEach(card => {
             const chambres = parseInt(card.dataset.chambres) || 0;
             const salons = parseInt(card.dataset.salons) || 0;
-            const prix = parseInt(card.querySelector('.fa-money-bill-wave')?.parentElement?.textContent.replace(/\D/g, '')) || 0;
-            const ville = card.querySelector('li:nth-child(3)').textContent.split('/')[1]?.trim().toLowerCase() || '';
-            const pays = card.querySelector('li:nth-child(3)').textContent.split('/')[0]?.trim().toLowerCase() || '';
+            const prixText = card.querySelector('.fa-money-bill-wave')?.parentElement?.textContent || '';
+            const prix = parseInt(prixText.replace(/\D/g, '')) || 0;
+
+            const situationText = card.querySelector('li:nth-child(3)')?.textContent || '';
+            const [pays, ville] = situationText.split('/').map(s => s?.trim().toLowerCase() || '');
 
             const match =
                 (chambresVal === 0 || chambres === chambresVal) &&
                 (salonsVal === 0 || salons === salonsVal) &&
                 (prix >= prixMinVal && prix <= prixMaxVal) &&
-                (villeVal === '' || ville.includes(villeVal)) &&
-                (paysVal === '' || pays.includes(paysVal));
+                (villeVal === '' || (ville && ville.includes(villeVal))) &&
+                (paysVal === '' || (pays && pays.includes(paysVal)));
 
             card.style.display = match ? 'flex' : 'none';
         });
     }
 
-    chambresInput.addEventListener('input', filterResidences);
-    salonsInput.addEventListener('input', filterResidences);
-    prixMinInput.addEventListener('input', filterResidences);
-    prixMaxInput.addEventListener('input', filterResidences);
-    villeInput.addEventListener('input', filterResidences);
-    paysInput.addEventListener('input', filterResidences);
+    filterBtn.addEventListener('click', filterResidences);
+
+    resetBtn.addEventListener('click', () => {
+        chambresInput.value = '';
+        salonsInput.value = '';
+        prixMinInput.value = '';
+        prixMaxInput.value = '';
+        villeInput.value = '';
+        paysInput.value = '';
+        residences.forEach(card => card.style.display = 'flex');
+    });
 });
 </script>
 
