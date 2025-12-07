@@ -250,11 +250,11 @@
 
     .accordion-css input:checked + label + .content {
         max-height: 500px;
-        padding: 15px 20px;
+        padding: 5px;
     }
 
     .accordion-css .services-list li {
-        padding: 8px 0;
+        padding: 2px 0;
         font-weight: 500;
         border-bottom: 1px dashed rgba(0,0,0,0.1);
         font-size: clamp(0.8rem, 1vw, 1rem);
