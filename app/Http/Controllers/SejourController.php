@@ -15,7 +15,7 @@ class SejourController extends Controller
      */
     public function interrompreForm($reservationId)
     {
-        $reservation = Reservation::where('2', $reservationId)->first();
+        $reservation = Reservation::where(2, $reservationId)->first();
         if (!$reservation) {
             return redirect()->back()->with('error', 'Réservation introuvable.');
         }
@@ -38,11 +38,15 @@ class SejourController extends Controller
      */
     public function demanderInterruption(Request $request, $reservation)
     {
-
+        $reservationId = (int) $reservation;
         $reservation = Reservation::where('id', $reservation)->first();
         if (!$reservation) {
-            return redirect()->back()->with('error', 'Réservation introuvable.');
+            dd([
+                'reservationId_envoye' => $reservationId,
+                'reservation_id_bd' => null,
+            ]);
         }
+
 
         $residence = Residence::where('id', $reservation->residence_id)->first();
         if (!$residence) {
