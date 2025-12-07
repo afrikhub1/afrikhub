@@ -731,24 +731,29 @@
         </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const residences = document.querySelectorAll('.residence-card');
+    document.addEventListener('DOMContentLoaded', () => {
+        const residences = document.querySelectorAll('.residence-card');
 
-    function filtreType(type) {
-        residences.forEach(card => {
-            card.style.display = (card.dataset.type === type) ? 'flex' : 'none';
-        });
-    }
+        function filtreType(type) {
+            residences.forEach(card => {
+                if(card.dataset.type === type){
+                    card.style.display = ''; // laisse le style par défaut (Bootstrap)
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
-    function resetFiltre() {
-        residences.forEach(card => card.style.display = 'flex');
-    }
+        function resetFiltre() {
+            residences.forEach(card => card.style.display = '');
+        }
 
-    // Rendre accessible aux boutons HTML
-    window.filtreStudio = () => filtreType('studio');
-    window.filtreChambreSalon = () => filtreType('chambre-salon');
-    window.resetFiltre = resetFiltre;
-});
+
+        // Rendre accessible aux boutons HTML
+        window.filtreStudio = () => filtreType('studio');
+        window.filtreChambreSalon = () => filtreType('chambre-salon');
+        window.resetFiltre = resetFiltre;
+    });
 </script>
 
 
