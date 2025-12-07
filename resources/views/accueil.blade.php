@@ -198,7 +198,7 @@
             /* ---------------- SECTION HÉBERGEMENT ---------------- */
             #hebergement {
             padding: 3rem 1rem;
-            background-color: #004d40;
+            background-color: #ffffff;
             border-radius: 20px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
             margin: 3rem auto;
