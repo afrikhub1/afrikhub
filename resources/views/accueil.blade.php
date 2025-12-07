@@ -16,183 +16,178 @@
     <body>
 
 <style>
-    /* --- CONSOLIDATION CSS --- */
-    header {
-        position: relative;
-        background: linear-gradient(135deg, #006d77, #00afb9);
-        color: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 10;
-        padding: 0.5rem 1rem;
-        align-items: center;
-        justify-content: space-between;
-    }
+header {
+    position: relative;
+    background: linear-gradient(135deg, #006d77, #00afb9);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    header img {
-        max-height: 60px;
-        object-fit: contain; /* Nettoyé/Conservé */
-    }
+header img {
+    max-height: 60px;
+    object-fit: contain;
+}
 
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-    #entete {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        gap: 10px;
-    }
+#entete {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+}
 
-    #entete li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 12px;
-        text-decoration: none;
-        color: white;
-        border-radius: 8px;
-        transition: background 0.3s ease;
-        font-size: clamp(0.75rem, 1vw, 0.85rem);
-    }
+#entete li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    font-size: clamp(0.75rem, 1vw, 0.85rem);
+}
 
-    #entete li a:hover {
-        background-color: rgba(255,255,255,0.2);
-        color: white;
-    }
+#entete li a:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+}
 
-    #entete li a .fa-solid {
-        font-size: clamp(16px, 2vw, 20px);
-        margin-bottom: 2px;
-    }
+#entete li a .fa-solid {
+    font-size: clamp(16px, 2vw, 20px);
+    margin-bottom: 2px;
+}
 
-    #entete .badge {
-        font-size: clamp(10px, 1vw, 12px);
-        text-transform: capitalize;
-        background: none;
-        color: inherit;
-        padding: 0;
-    }
+#entete .badge {
+    font-size: clamp(10px, 1vw, 12px);
+    text-transform: capitalize;
+    background: none;
+    color: inherit;
+    padding: 0;
+}
 
-    /* ---------------- SIDEBAR MOBILE ---------------- */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100vh;
-        background: linear-gradient(135deg, #006d77, #00afb9);
-        backdrop-filter: blur(6px);
-        padding-top: 80px;
-        box-shadow: 4px 0 15px rgba(0,0,0,0.25);
-        transition: 0.35s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        z-index: 2000;
-    }
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(135deg, #006d77, #00afb9);
+    backdrop-filter: blur(6px);
+    padding-top: 80px;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.25);
+    transition: 0.35s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    z-index: 2000;
+}
 
-    .sidebar.open { right: 0; }
+.sidebar.open { right: 0; }
 
-    .sidebar a {
-        color: white;
-        padding: 15px 20px;
-        text-decoration: none;
-        font-weight: 600;
-        border-bottom: 1px solid rgba(255,255,255,0.25);
-        font-size: clamp(0.85rem, 1vw, 1rem);
-    }
+.sidebar a {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    font-size: clamp(0.85rem, 1vw, 1rem);
+}
 
-    .sidebar a .fa-solid { margin-right: 10px; }
+.sidebar a .fa-solid { margin-right: 10px; }
 
-    .sidebar a:hover { background: rgba(255,255,255,0.15); }
+.sidebar a:hover { background: rgba(255,255,255,0.15); }
 
-    .menu-btn {
-        font-size: clamp(18px, 2vw, 22px);
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        color: white;
-        background: rgba(255,255,255,0.15);
-        display: none;
-    }
+.menu-btn {
+    font-size: clamp(18px, 2vw, 22px);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    background: rgba(255,255,255,0.15);
+    display: none;
+}
 
-    @media screen and (max-width: 768px) {
-        #entete { display: none !important; }
-        .menu-btn { display: inline-block !important; }
-        .nav-item.dropdown { display: none !important; }
-    }
+@media screen and (max-width: 768px) {
+    #entete { display: none !important; }
+    .menu-btn { display: inline-block !important; }
+    .nav-item.dropdown { display: none !important; }
+}
 
-    .sidebar .close-btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: clamp(20px, 2.5vw, 24px);
-        color: white;
-        cursor: pointer;
-        padding: 5px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 50%;
-        width: 34px;
-        height: 34px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.3s;
-    }
+.sidebar .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: clamp(20px, 2.5vw, 24px);
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
 
-    .sidebar .close-btn:hover { background: rgba(255,255,255,0.35); }
+.sidebar .close-btn:hover { background: rgba(255,255,255,0.35); }
 
-    /* ---------------- SECTION ACCUEIL ---------------- */
-    #accueil {
-        background: linear-gradient(rgba(0,91,107,0.7), rgba(0,91,107,0.5)), url('{{ asset('assets/images/bg.jpg') }}') no-repeat center center / cover;
-        height: 700px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 0 1rem;
-        color: white;
-        position: relative;
-    }
+#accueil {
+    background: linear-gradient(rgba(0,91,107,0.7), rgba(0,91,107,0.5)), url('{{ asset('assets/images/bg.jpg') }}') no-repeat center center / cover;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+    color: white;
+    position: relative;
+}
 
-    #accueil h2 { font-size: clamp(2.5rem, 6vw, 5rem); }
-    #accueil span.fs-6 { font-size: clamp(1rem, 2vw, 1.25rem); }
+#accueil h2 { font-size: clamp(2.5rem, 6vw, 5rem); }
+#accueil span.fs-6 { font-size: clamp(1rem, 2vw, 1.25rem); }
 
-    /* ---------------- SECTION HÉBERGEMENT ---------------- */
-    #hebergement {
-        padding: 3rem 1rem;
-        background: #e0f2f1;
-        color: #004d40;
-        border-radius: 20px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        margin: 3rem auto;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+#hebergement {
+    padding: 3rem 1rem;
+    background: #e0f2f1;
+    color: #004d40;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    margin: 3rem auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    #hebergement:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
-    #hebergement h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+#hebergement:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+#hebergement h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
 
-    #hebergement img { border-radius: 15px; box-shadow: 0 8px 18px rgba(0,0,0,0.2); width: 100%; height: auto; object-fit: cover; transition: transform 0.3s ease; }
-    #hebergement img:hover { transform: scale(1.05); }
+#hebergement img { border-radius: 15px; box-shadow: 0 8px 18px rgba(0,0,0,0.2); width: 100%; height: auto; object-fit: cover; transition: transform 0.3s ease; }
+#hebergement img:hover { transform: scale(1.05); }
 
-    .accordion-css label { font-size: clamp(0.85rem, 1.2vw, 1rem); }
-    .accordion-css .services-list li { font-size: clamp(0.8rem, 1vw, 1rem); }
+.accordion-css label { font-size: clamp(0.85rem, 1.2vw, 1rem); }
+.accordion-css .services-list li { font-size: clamp(0.8rem, 1vw, 1rem); }
 
-    .btn-reserver { font-size: clamp(0.9rem, 1.5vw, 1.1rem); }
+.btn-reserver { font-size: clamp(0.9rem, 1.5vw, 1.1rem); }
 
-    footer { font-size: clamp(0.85rem, 1vw, 0.95rem); }
+footer { font-size: clamp(0.85rem, 1vw, 0.95rem); }
 
-    @media (max-width: 768px) {
-        #hebergement { padding: 2rem 1rem; }
-        #hebergement h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
-        .accordion-button { font-size: clamp(0.9rem, 1vw, 1rem) !important; }
-        .btn-reserver { font-size: clamp(0.9rem, 1.2vw, 1rem); }
-    }
+@media (max-width: 768px) {
+    #hebergement h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+    .accordion-button { font-size: clamp(0.9rem, 1vw, 1rem) !important; }
+    .btn-reserver { font-size: clamp(0.9rem, 1.2vw, 1rem); }
+}
 
-    .type { font-size: clamp(0.85rem, 1vw, 1rem); }
+.type { font-size: clamp(0.85rem, 1vw, 1rem); }
 </style>
 
         <header class="p-1">
