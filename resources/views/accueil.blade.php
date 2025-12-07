@@ -625,25 +625,18 @@
                             >
 
                                 <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
-                                    <a href="javascript:void(0)"
-                                    class="glightbox-trigger-{{ $residence->id }}">
+                                    <a href="{{ $firstImage }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
                                         <img src="{{ $firstImage }}"
                                             alt="Image de la résidence {{ $residence->nom }}"
                                             class="card-img-top"
                                             loading="lazy">
                                     </a>
 
-                                    {{-- Liens GLightbox CACHÉS pour la galerie --}}
+                                    {{-- Liens supplémentaires pour la galerie (cachés) --}}
                                     @foreach($images as $key => $image)
-                                        <a href="{{ $image }}"
-                                        class="glightbox"
-                                        data-gallery="gallery-{{ $residence->id }}"
-                                        data-title="{{ $residence->nom }} - Image {{ $key + 1 }}"
-                                        style="display: none;"
-                                        aria-label="Voir l'image {{ $key + 1 }}"
-                                        data-index="{{ $key }}"
-                                        data-trigger=".glightbox-trigger-{{ $residence->id }}"
-                                        ></a>
+                                        @if($key > 0)
+                                            <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display:none;"></a>
+                                        @endif
                                     @endforeach
 
                                     <div class="card-body d-flex flex-column">
@@ -722,75 +715,50 @@
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
         <script>
             const lightbox = GLightbox({
+                selector: '.glightbox',  // Sélecteur commun pour toutes les images
                 touchNavigation: true,
                 loop: true,
-                autoplayVideos: true,
-            });
-
-            // Pour s'assurer que les galeries des cartes fonctionnent
-            document.querySelectorAll('[data-trigger]').forEach(trigger => {
-                trigger.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Trouve le groupe d'images pour cette galerie
-                    const galleryLinks = document.querySelectorAll(`[data-gallery="${this.getAttribute('data-gallery')}"]`);
-                    const index = parseInt(this.getAttribute('data-index'));
-
-                    // Lance la lightbox sur le groupe en commençant par l'image cliquée
-                    const gallery = GLightbox({ elements: galleryLinks, startIndex: index });
-                    gallery.open();
-                });
+                autoplayVideos: true
             });
         </script>
 
+
         <script>
-    // Fonction pour filtrer selon salons et chambres
-    function filtreSalonEtChambres(nbSalons, nbChambres) {
-        document.querySelectorAll('.residence-card').forEach(card => {
-            const salons = parseInt(card.dataset.salons);
-            const chambres = parseInt(card.dataset.chambres);
+   document.querySelectorAll('.residence-card').forEach(card => {
+    console.log("Salons:", card.dataset.salons, "Chambres:", card.dataset.chambres);
+});
 
-            if (salons === nbSalons && chambres === nbChambres) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
+function filtreSalonEtChambres(nbSalons, nbChambres) {
+    document.querySelectorAll('.residence-card').forEach(card => {
+        const salons = parseInt(card.dataset.salons) || 0;
+        const chambres = parseInt(card.dataset.chambres) || 0;
 
-    // Fonction pour filtrer uniquement les chambres + salon
-    function filtreChambreSalon() {
-        document.querySelectorAll('.residence-card').forEach(card => {
-            const salons = parseInt(card.dataset.salons);
-            const chambres = parseInt(card.dataset.chambres);
+        card.style.display = (salons === nbSalons && chambres === nbChambres) ? 'block' : 'none';
+    });
+}
 
-            if (salons >= 1 && chambres >= 1) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
+function filtreChambreSalon() {
+    document.querySelectorAll('.residence-card').forEach(card => {
+        const salons = parseInt(card.dataset.salons) || 0;
+        const chambres = parseInt(card.dataset.chambres) || 0;
 
-    // Fonction pour filtrer uniquement les studios
-    function filtreStudio() {
-        document.querySelectorAll('.residence-card').forEach(card => {
-            const salons = parseInt(card.dataset.salons);
-            const chambres = parseInt(card.dataset.chambres);
+        card.style.display = (salons >= 1 && chambres >= 1) ? 'block' : 'none';
+    });
+}
 
-            if (salons === 0 && chambres === 1) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
+function filtreStudio() {
+    document.querySelectorAll('.residence-card').forEach(card => {
+        const salons = parseInt(card.dataset.salons) || 0;
+        const chambres = parseInt(card.dataset.chambres) || 0;
 
-    // Réinitialiser tous les filtres
-    function resetFiltre() {
-        document.querySelectorAll('.residence-card').forEach(card => {
-            card.style.display = 'block';
-        });
-    }
+        card.style.display = (salons === 0 && chambres === 1) ? 'block' : 'none';
+    });
+}
+
+function resetFiltre() {
+    document.querySelectorAll('.residence-card').forEach(card => card.style.display = 'block');
+}
+
 </script>
 
     </body>
