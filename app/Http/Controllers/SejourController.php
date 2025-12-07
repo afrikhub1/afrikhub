@@ -54,11 +54,11 @@ class SejourController extends Controller
             return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
-        if ($reservation->user_id == $residence->id_proprietaire) {
+        if ($user->id == $reservation->id_proprietaire) {
             $demandeur= 'proprietaire';
         }
         else{
-            $demandeur='client';
+            $demandeur='client:'.$user->id.'proprietaire'. $reservation->proprietaire_id;
         }
 
         InterruptionRequest::create([
