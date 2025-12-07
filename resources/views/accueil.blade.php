@@ -424,7 +424,7 @@
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
 
                 <div class="accordion-css mx-auto max-w-2xl">
-                    <input type="checkbox" id="acc1" checked>
+                    <input type="checkbox" id="acc1">
                     <label for="acc1">
                         Types d'hébergements
                         <span class="toggle-services"><i class="fa-solid fa-chevron-down"></i></span>
