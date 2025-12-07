@@ -26,7 +26,7 @@ class ReservationController extends Controller
 
         if ($dateDisponibleApres && $dateArrivee < $dateDisponibleApres) {
             return back()
-                ->withErrors(['date_arrivee' => 'Cette résidence n’est pas disponible à la date choisie.'])
+                ->withErros(['date_arrivee' => 'Cette résidence n’est pas disponible à la date choisie.'])
                 ->withInput();
         }
 
@@ -117,7 +117,7 @@ class ReservationController extends Controller
 
         // Vérifie si la nouvelle réservation chevauche la période occupée
         if ($reservationArrivee->lt($dateDisponible)) {
-            return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
+            return back()->with('danger', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
         }
 
 
