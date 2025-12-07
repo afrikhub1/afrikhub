@@ -547,7 +547,7 @@
                                                 <span class="text-gray-900 font-bold">{{ $residence->nombre_salons ?? 'N/A' }}</span>
                                             </li>
                                             <li class="flex justify-between items-center">
-                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i>Disponibilité :</span>
+                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i></span>
                                                 @if($residence->disponible == 0)
                                                     <span class="text-gray-900">Indisponible</span>
                                                 @else
