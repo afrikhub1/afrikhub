@@ -617,7 +617,7 @@
                                             alt="Image de la résidence {{ $residence->nom }}"
                                             class="card-img-top"
                                             loading="lazy"
-                                            onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.jpg') }}';">
+                                        >
                                     </a>
 
                                     {{-- Liens supplémentaires pour la galerie (cachés) --}}
