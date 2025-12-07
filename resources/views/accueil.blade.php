@@ -544,13 +544,20 @@
                                     data-ville="{{ $residence->ville }}" data-nombre_chambres="{{ $residence->nombre_chambres }}"
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
-                                    <a href="{{ $imagePath }}" class="glightbox block relative"
-                                        data-gallery="residence-{{ $residence->id }}"
-                                        data-title="{{ $residence->nom }}">
+                                    <a href="{{ $imagePath }}"
+   class="glightbox block relative"
+   data-gallery="residence-{{ $residence->id }}"
+   data-title="{{ $residence->nom }}">
 
-                                            <img src="{{ $imagePath }}" class="w-full h-[25px] object-cover rounded-xl
-                                            transition duration-300 hover:opacity-90" alt="Image de la résidence">
-                                    </a>
+    <!-- Conteneur qui fixe la hauteur -->
+    <div class="w-full h-[250px] overflow-hidden rounded-xl">
+        <img src="{{ $imagePath }}"
+             class="w-full h-full object-cover transition duration-300 hover:opacity-90"
+             alt="Image de la résidence">
+    </div>
+
+</a>
+
 
 
 
