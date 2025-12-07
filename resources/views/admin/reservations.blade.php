@@ -6,13 +6,10 @@
 <div class="container-fluid mx-0 p-2 border">
 
     {{-- Section: Nombre total de reservations --}}
-    <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <p class=" font-semibold text-gray-700">
+        <h1 class=" font-semibold text-gray-700">
             <i class="fas fa-list-ul mr-2 text-indigo-500"></i> Total des reservations :
             <span class="text-indigo-600 font-bold">{{ $reservations->count() }}</span>
-        </p>
-    </div>
-
+        </h1>
     @if ($reservations->isEmpty())
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg shadow-md max-w-lg mx-auto">
             <p class="font-semibold text-center"><i class="fas fa-exclamation-triangle mr-2"></i> Aucune reservations de réservation n'a été trouvée.</p>
