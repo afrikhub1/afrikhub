@@ -5,10 +5,6 @@
 @section('main')
 <div class="container-fluid mx-0 p-2 border">
 
-    <h2 class="font-extrabold text-gray-900 mb-6 border-b-2 border-indigo-500 pb-2">
-        <i class="fas fa-spinner mr-3 text-indigo-600"></i> Gestion des reservations
-    </h2>
-
     {{-- Section: Nombre total de reservations --}}
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
         <p class=" font-semibold text-gray-700">
