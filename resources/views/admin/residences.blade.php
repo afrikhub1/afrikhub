@@ -30,7 +30,7 @@
         @endif
 
         <h1 class="font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-            <i class="fas fa-home mr-3 text-3xl"></i> Résidences en ligne
+            <i class="fas fa-home mr-3"></i> Résidences en ligne
         </h1>
 
         @if($residences->isEmpty())
