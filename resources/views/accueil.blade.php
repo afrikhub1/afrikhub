@@ -733,12 +733,14 @@
             });
         </script>
 
-<script>
+        <script>
 document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".residence-card");
     const filterType = document.getElementById("filter-type");
 
-    filterType.addEventListener("change", () => {
+    filterType.addEventListener("change", (e) => {
+        e.preventDefault(); // Sécurité si le select est dans un form
+
         const value = filterType.value;
 
         cards.forEach(card => {
@@ -748,31 +750,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let show = true;
 
-            // ---- Filtres par type basique ----
+            // Studio
             if (value === "studio" && type !== "studio") show = false;
+
+            // Appartement
             if (value === "appartement" && type !== "appartement") show = false;
 
-            // ---- 1 salon + X chambres ----
+            // 1 salon + X chambres
             if (value.startsWith("1-salon-")) {
                 const x = parseInt(value.split("-")[2]);
                 if (!(salons === 1 && chambres === x)) show = false;
             }
 
-            // ---- 2 salons + X chambres ----
+            // 2 salons + X chambres
             if (value.startsWith("2-salons-")) {
                 const x = parseInt(value.split("-")[2]);
                 if (!(salons === 2 && chambres === x)) show = false;
             }
 
-            // ---- 4+ chambres ----
+            // 4+ chambres
             if (value === "4plus" && chambres < 4) show = false;
 
-            // Affichage
             card.style.display = show ? "flex" : "none";
         });
     });
 });
 </script>
+
 
 
 
