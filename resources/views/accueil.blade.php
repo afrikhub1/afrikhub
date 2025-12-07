@@ -568,7 +568,28 @@
         </nav>
 
         <div class="row m-0">
+            <div class="row m-0 p-0 justify-content-center">
+                <!-- RECHERCHE -->
+                <div class="relative w-full sm:flex-grow sm:w-auto">
+                    <input id="searchInput" type="text"
+                        placeholder="Rechercher par nom ou status..."
+                        class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
 
+                <!-- OPTION -->
+                <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
+                    <option value="name">Nom</option>
+                    <option value="prix">prix</option>
+                    <option value="salon">salon</option>
+                    <option value="chambre">chambre</option>
+
+                </select>
+            </div>
             <div class="col-12 main-content">
                 @if ($residences->isEmpty())
                     <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
@@ -576,9 +597,6 @@
                     </div>
                 @else
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
-
-
                         @foreach($residences as $residence)
                             @php
                                 // Décodage JSON si nécessaire
@@ -590,10 +608,11 @@
                                 $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
 
-                            <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
-                                    hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
-                                    border border-gray-100" data-name="{{ $residence->nom }}" data-prix_journalier="{{ $residence->prix_journalier}}"
-                                    data-ville="{{ $residence->ville}}" data-nombre_chambres="{{ $residence->nombre_chambres}}" data-nombre_salons="{{ $residence->nombre_salons}}">
+                            <div class="search-row bg-white rounded-xl shadow-2xl overflow-hidden hover:shadow-indigo-300/50
+                            transition duration-300 transform hover:scale-[1.01] border border-gray-100"
+                            data-name="{{ $residence->nom }}" data-prix_journalier="{{ $residence->prix_journalier }}"
+                            data-ville="{{ $residence->ville }}" data-nombre_chambres="{{ $residence->nombre_chambres }}"
+                            data-nombre_salons="{{ $residence->nombre_salons }}">
 
                                 {{-- Image principale --}}
                                 <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
