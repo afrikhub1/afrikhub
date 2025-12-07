@@ -41,7 +41,7 @@ class SejourController extends Controller
 
         $reservation = Reservation::where('id', $reservation)->first();
         if (!$reservation) {
-            return redirect()->back()->with('error', 'Réservation introuvable.');
+            return redirect()->back()->with('error', 'Réservationss introuvable.');
         }
 
         $residence = Residence::where('id', $reservation->residence_id)->first();
