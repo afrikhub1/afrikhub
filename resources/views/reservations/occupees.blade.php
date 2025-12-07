@@ -20,31 +20,21 @@
                 @else
                     <div class="grid grid-cols-1 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
                         @foreach($residences_occupees as $res_occupees)
-    @php
-        // Cherche la réservation correspondante à cette résidence
-        $resv = $reservation->firstWhere('residence_id', $res_occupees->id);
-    @endphp
-
-    <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
-        <div>
-            <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
-                <i class="fas fa-building mr-3 text-red-600"></i> nom residence
-            </h5>
-            <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-            <p class="text-sm mb-2"><strong>Période :</strong> {{ \Carbon\Carbon::parse($res_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res_occupees->date_depart)->format('d/m/y') }}</p>
-        </div>
-
-        @if($resv)
-            <a href="{{ route('sejour.interrompre', ['residence' => $res_occupees->id, 'reservation' => $resv->id]) }}"
-               class="text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-4 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
-               <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
-            </a>
-        @else
-            <p class="text-sm text-gray-500 mt-4">Aucune réservation payée pour cette résidence</p>
-        @endif
-    </div>
-@endforeach
-
+                            <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
+                                <div>
+                                    <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
+                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $res_occupees->nom }}
+                                    </h5>
+                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $res_occupees->ville }}</p>
+                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $res_occupees->pays }}</p>
+                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
+                                    <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($res_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res_occupees->date_depart)->format('d/m/y') }}</p>
+                                </div>
+                                <a href="{{ route('sejour.interrompre', $res_occupees->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 @endif
             </section>
