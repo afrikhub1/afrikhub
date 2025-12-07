@@ -590,10 +590,10 @@
                         <!-- OPTION -->
                         <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
                             <option value="name">Nom</option>
-                            <option value="client">client</option>
-                            <option value="status">status</option>
-                            <option value="ville">ville</option>
-                            <option value="proprietaire">proprietaire</option>
+                            <option value="prix">prix</option>
+                            <option value="salon">salon</option>
+                            <option value="chambre">chambre</option>
+
                         </select>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -613,8 +613,8 @@
 
                             <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
                                     hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
-                                    border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residence->status}}"
-                                    data-ville="{{ $residence->ville}}" data-proprietaire="{{ $residence->proprietaire_id}}">
+                                    border border-gray-100" data-name="{{ $residence->nom }}" data-prix_journalier="{{ $residence->prix_journalier}}"
+                                    data-ville="{{ $residence->ville}}" data-nombre_chambres="{{ $residence->nombre_chambres}}" data-nombre_salons="{{ $residence->nombre_salons}}">
 
                                 {{-- Image principale --}}
                                 <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
@@ -653,75 +653,34 @@
                                             <span class="text-gray-900">{{ $residence->ville }} ({{ $residence->pays }})</span>
                                         </li>
                                         <li class="flex justify-between items-center">
-                                            <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i> ID Propriétaire :</span>
-                                            <span class="text-gray-900 font-bold">{{ $residence->proprietaire_id ?? 'N/A' }}</span>
+                                            <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i> Nombre de chambres :</span>
+                                            <span class="text-gray-900 font-bold">{{ $residence->nombre_chambres ?? 'N/A' }}</span>
                                         </li>
-                                        <li class="flex justify-between items-center">
-                                            <span class="text-gray-500"><i class="fas fa-ban mr-2 text-red-500"></i> Suspension :</span>
-                                            <span class="px-2 py-0.5 text-xs font-semibold rounded-full {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'bg-red-500 text-white' : 'bg-green-100 text-green-800' }}">
-                                                {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'Suspendue' : 'Active' }}
-                                            </span>
+                                         <li class="flex justify-between items-center">
+                                            <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i> Nombre de salons :</span>
+                                            <span class="text-gray-900 font-bold">{{ $residence->nombre_salons ?? 'N/A' }}</span>
                                         </li>
                                         <div>
 
-
-                                        <li class="fw-bold mt-2 text-secondary fw-light">
-                                            <i class="fas fa-calendar-check me-2"></i>
-                                            status : {{ $residence?->status }}
-                                        </li>
-
-                                    @if($residence->disponible == 0)  <!-- Indisponible -->
+                                        @if($residence->disponible == 0)  <!-- Indisponible -->
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
                                                 <span class="text-gray-900">Indisponible</span>
                                             </li>
 
-                                            <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST" class="mt-2">
-                                                @csrf
-                                                <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 ">
-                                                    Libérer la résidence
-                                                </button>
-                                            </form>
                                         @else  <!-- Disponible -->
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                                <span class="text-green-600 font-semibold">Disponible</span>
+                                                <span class="text-green-600 font-semibold">Disponible le {{ $dateDispo->translatedFormat('d F Y') }}</span>
                                             </li>
                                         @endif
                                     </ul>
 
                                     {{-- Actions d'administration --}}
                                     <div class="mt-4 border-t pt-4">
-                                        <p class=" font-semibold text-gray-700 mb-2">Actions d'Administration :</p>
-                                        <div class="flex flex-wrap justify-start gap-2">
-
-                                            @if ($residence->status != 'vérifiée')
-                                                <form action="{{ route('admin.residences.activation', $residence->id) }}" method="POST" class="inline-block">
-                                                    @csrf
-                                                    <button type="submit" class=" px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
-                                                        <i class="fas fa-thumb-up mr-1"></i> Valider
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('admin.residences.desactivation', $residence->id) }}" method="POST" class="inline-block">
-                                                    @csrf
-                                                    <button type="submit" class=" px-3 py-1.5 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-600 transition font-medium" onclick="return confirm('Confirmer la remise en attente ?')">
-                                                        <i class="fas fa-times-circle mr-1"></i> Désactiver
-                                                    </button>
-                                                </form>
-                                            @endif
-
-                                            <a href="{{ route('admin.residences.edit', $residence->id) }}" class=" px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
-                                                <i class="fas fa-edit mr-1"></i> Modifier
+                                            <a href="{{ routeroute('details', $residence->id) }}" class=" px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+                                                <i class="fas fa-edit mr-1"></i> Details
                                             </a>
-
-                                            <form action="{{ route('admin.residences.sup', $residence->id) }}" method="POST" class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class=" px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette résidence ?')">
-                                                    <i class="fas fa-trash-alt mr-1"></i> Supprimer
-                                                </button>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
