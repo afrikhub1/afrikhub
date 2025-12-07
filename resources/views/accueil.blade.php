@@ -712,8 +712,10 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-        {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
+
+        {{-- GLightbox pour que l'ouverture des images fonctionne --}}
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
         <script>
             document.addEventListener('DOMContentLoaded', () => {
             const lightbox = GLightbox({
@@ -726,9 +728,7 @@
 
         </script>
 
-
         <script>
-
             // --- Filtrage des résidences ---
             document.addEventListener('DOMContentLoaded', () => {
                 const residences = document.querySelectorAll('.residence-card');
@@ -773,6 +773,5 @@
                 });
             });
         </script>
-
     </body>
 </html>
