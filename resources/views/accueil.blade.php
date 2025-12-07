@@ -575,6 +575,27 @@
                     </div>
                 @else
                     <div class="row g-4 justify-content-center mb-4">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-2">
+                                <input type="number" id="filter-chambres" class="form-control" placeholder="Chambres">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" id="filter-salons" class="form-control" placeholder="Salons">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" id="filter-prix-min" class="form-control" placeholder="Prix min">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" id="filter-prix-max" class="form-control" placeholder="Prix max">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" id="filter-ville" class="form-control" placeholder="Ville">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" id="filter-pays" class="form-control" placeholder="Pays">
+                            </div>
+                        </div>
+
                         @foreach($residences as $residence)
                             @php
                                 $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
@@ -687,13 +708,59 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-        {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
            {{-- GLightbox pour que l'ouverture des images fonctionne --}}
-           <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
-            </script>
+        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
+        </script>
+
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chambresInput = document.getElementById('filter-chambres');
+    const salonsInput = document.getElementById('filter-salons');
+    const prixMinInput = document.getElementById('filter-prix-min');
+    const prixMaxInput = document.getElementById('filter-prix-max');
+    const villeInput = document.getElementById('filter-ville');
+    const paysInput = document.getElementById('filter-pays');
+
+    const residences = document.querySelectorAll('.residence-card');
+
+    function filterResidences() {
+        const chambresVal = parseInt(chambresInput.value) || 0;
+        const salonsVal = parseInt(salonsInput.value) || 0;
+        const prixMinVal = parseInt(prixMinInput.value) || 0;
+        const prixMaxVal = parseInt(prixMaxInput.value) || Infinity;
+        const villeVal = villeInput.value.toLowerCase();
+        const paysVal = paysInput.value.toLowerCase();
+
+        residences.forEach(card => {
+            const chambres = parseInt(card.dataset.chambres) || 0;
+            const salons = parseInt(card.dataset.salons) || 0;
+            const prix = parseInt(card.querySelector('.fa-money-bill-wave')?.parentElement?.textContent.replace(/\D/g, '')) || 0;
+            const ville = card.querySelector('li:nth-child(3)').textContent.split('/')[1]?.trim().toLowerCase() || '';
+            const pays = card.querySelector('li:nth-child(3)').textContent.split('/')[0]?.trim().toLowerCase() || '';
+
+            const match =
+                (chambresVal === 0 || chambres === chambresVal) &&
+                (salonsVal === 0 || salons === salonsVal) &&
+                (prix >= prixMinVal && prix <= prixMaxVal) &&
+                (villeVal === '' || ville.includes(villeVal)) &&
+                (paysVal === '' || pays.includes(paysVal));
+
+            card.style.display = match ? 'flex' : 'none';
+        });
+    }
+
+    chambresInput.addEventListener('input', filterResidences);
+    salonsInput.addEventListener('input', filterResidences);
+    prixMinInput.addEventListener('input', filterResidences);
+    prixMaxInput.addEventListener('input', filterResidences);
+    villeInput.addEventListener('input', filterResidences);
+    paysInput.addEventListener('input', filterResidences);
+});
+</script>
+
 
     </body>
 </html>
