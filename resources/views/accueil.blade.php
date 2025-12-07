@@ -423,16 +423,38 @@
                 </section>
                 <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
                 <h2>Hébergements</h2>
-                <div class="row m-0 col-12 justify-content-center">
-                    <button onclick="filtrerChambrePlus4()" class="btn btn-primary mb-3">
-                        4 chambres et +
-                    </button>
+                <div class="mb-4 d-flex flex-wrap gap-2">
 
-                    <button onclick="resetFiltre()" class="btn btn-secondary mb-3">
-                        Réinitialiser
-                    </button>
+                    <button class="btn btn-outline-primary" onclick="filtreStudio()">Appartement Studio</button>
+
+                    <button class="btn btn-outline-primary" onclick="filtreChambreSalon()">Chambre + Salon</button>
+
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
+                            Avec 1 Salon
+                        </button>
+                        <ul class="dropdown-menu">
+                            @for ($i=1;$i<=10;$i++)
+                                <li><a class="dropdown-item" href="#" onclick="filtreSalonEtChambres(1, {{ $i }})">{{ $i }} chambre(s)</a></li>
+                            @endfor
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
+                            Avec 2 Salons
+                        </button>
+                        <ul class="dropdown-menu">
+                            @for ($i=1;$i<=10;$i++)
+                                <li><a class="dropdown-item" href="#" onclick="filtreSalonEtChambres(2, {{ $i }})">{{ $i }} chambre(s)</a></li>
+                            @endfor
+                        </ul>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="resetFiltre()">Réinitialiser</button>
 
                 </div>
+
                 <div class="row m-0 col-12 justify-content-center">
                     <div class="accordion-css">
                         <input type="checkbox" id="acc1" checked>
@@ -711,27 +733,56 @@
             });
         </script>
 
-        <script>
-            const cards = document.querySelectorAll('.residence-card');
+<script>
+    const cards = document.querySelectorAll('.residence-card');
 
-            function filtrerChambrePlus4() {
-                cards.forEach(card => {
-                    const chambres = parseInt(card.dataset.chambres);
+    function hideAll() {
+        cards.forEach(c => c.style.display = "none");
+    }
 
-                    if (chambres >= 4) {
-                        card.style.display = "flex";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
+    function showMatching(callback) {
+        cards.forEach(card => {
+            if (callback(card)) {
+                card.style.display = "flex";
             }
+        });
+    }
 
-            function resetFiltre() {
-                cards.forEach(card => {
-                    card.style.display = "flex";
-                });
-            }
-        </script>
+    // 1 - Appartement Studio
+    function filtreStudio() {
+        hideAll();
+        showMatching(card =>
+            card.dataset.type === "appartement" &&
+            parseInt(card.dataset.chambres) === 1 &&
+            parseInt(card.dataset.salons) === 0
+        );
+    }
+
+    // 2 - Chambre + Salon
+    function filtreChambreSalon() {
+        hideAll();
+        showMatching(card =>
+            parseInt(card.dataset.salons) === 1 &&
+            parseInt(card.dataset.chambres) === 1
+        );
+    }
+
+    // 3 & 4 - 1 ou 2 salons + X chambres
+    function filtreSalonEtChambres(salons, chambres) {
+        hideAll();
+        showMatching(card =>
+            parseInt(card.dataset.salons) === salons &&
+            parseInt(card.dataset.chambres) === chambres
+        );
+    }
+
+    function resetFiltre() {
+        cards.forEach(card => {
+            card.style.display = "flex";
+        });
+    }
+</script>
+
 
 
     </body>
