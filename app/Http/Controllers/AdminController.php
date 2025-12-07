@@ -193,7 +193,7 @@ class AdminController extends Controller
         ]);
 
         // Redirige l'utilisateur vers la page précédente avec un message d'avertissement.
-        return back()->with('danger', 'Résidence désactivée');
+        return back()->with('error', 'Résidence désactivée');
     }
 
     // Supprime une résidence spécifique.
@@ -204,7 +204,7 @@ class AdminController extends Controller
         $residence->delete();  // Exécute la suppression.
 
         // Redirige vers la page précédente avec un message de confirmation de suppression.
-        return back()->with('danger', 'La résidence "' . $nom . '" a été supprimée avec succès.');
+        return back()->with('error', 'La résidence "' . $nom . '" a été supprimée avec succès.');
     }
 
 
@@ -252,7 +252,7 @@ class AdminController extends Controller
         $name = $user->name;
         $user->delete();
 
-        return back()->with('danger', "L'utilisateur {$name} a été supprimé définitivement.");
+        return back()->with('error', "L'utilisateur {$name} a été supprimé définitivement.");
     }
 
     public function libererResidence($id)
@@ -289,7 +289,7 @@ class AdminController extends Controller
 
         // Vérifie si la nouvelle réservation chevauche la période occupée
         if ($reservationArrivee->lt($dateDisponible)) {
-            return back()->with('danger', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
+            return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
         }
 
 

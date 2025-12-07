@@ -79,7 +79,7 @@ class ReservationController extends Controller
         $reservation->status = 'annulée';
         $reservation->save();
 
-        return redirect()->back()->with('danger', 'Réservation annuléé.');
+        return redirect()->back()->with('error', 'Réservation annuléé.');
     }
 
     public function rebook($id)
@@ -117,7 +117,7 @@ class ReservationController extends Controller
 
         // Vérifie si la nouvelle réservation chevauche la période occupée
         if ($reservationArrivee->lt($dateDisponible)) {
-            return back()->with('danger', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
+            return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
         }
 
 

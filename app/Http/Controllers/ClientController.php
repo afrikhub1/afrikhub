@@ -16,7 +16,7 @@ class ClientController extends Controller
     public function historiqueReservations()
     {
         if (!Auth::check()) {
-            return redirect()->route('login')->with('danger', 'Veuillez vous connecter pour accéder à votre historique.');
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter pour accéder à votre historique.');
         }
 
         // Récupère toutes les réservations, y compris la résidence associée.
@@ -39,7 +39,7 @@ class ClientController extends Controller
     public function historiqueFactures()
     {
         if (!Auth::check()) {
-            return redirect()->route('login')->with('danger', 'Veuillez vous connecter.');
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter.');
         }
 
         $userId = Auth::id();
