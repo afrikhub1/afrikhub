@@ -544,9 +544,16 @@
                                     data-ville="{{ $residence->ville }}" data-nombre_chambres="{{ $residence->nombre_chambres }}"
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
-                                    <a href="{{ $imagePath }}" class="glightbox block relative h-25" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
-                                        <img src="{{ $imagePath }}" class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl transition duration-300 hover:opacity-90" alt="Image de la résidence">
+                                    <a href="{{ $imagePath }}" class="glightbox block relative"
+                                    data-gallery="residence-{{ $residence->id }}"
+                                    data-title="{{ $residence->nom }}">
+
+                                        <img src="{{ $imagePath }}"
+                                            class="w-full h-48 md:h-56 lg:h-64 object-cover rounded-xl transition duration-300 hover:opacity-90"
+                                            alt="Image de la résidence">
+
                                     </a>
+
 
 
                                     @if(is_array($images))
