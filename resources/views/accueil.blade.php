@@ -530,7 +530,7 @@
                              </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
                             @foreach($residences as $residence)
                                 @php
                                     $images = $residence->img;
@@ -545,22 +545,18 @@
                                     data-nombre_salons="{{ $residence->nombre_salons }}">
 
                                     <a href="{{ $imagePath }}"
-   class="glightbox block relative"
-   data-gallery="residence-{{ $residence->id }}"
-   data-title="{{ $residence->nom }}">
+                                        class="glightbox block relative"
+                                        data-gallery="residence-{{ $residence->id }}"
+                                        data-title="{{ $residence->nom }}">
 
-    <!-- Conteneur qui fixe la hauteur -->
-    <div class="w-full h-[200px] overflow-hidden rounded-xl">
-        <img src="{{ $imagePath }}"
-             class="w-full h-full object-cover transition duration-300 hover:opacity-90"
-             alt="Image de la résidence">
-    </div>
+                                            <!-- Conteneur qui fixe la hauteur -->
+                                            <div class="w-full h-[200px] overflow-hidden rounded-xl">
+                                                <img src="{{ $imagePath }}"
+                                                    class="w-full h-full object-cover transition duration-300 hover:opacity-90"
+                                                    alt="Image de la résidence">
+                                            </div>
 
-</a>
-
-
-
-
+                                        </a>
 
                                     @if(is_array($images))
                                         @foreach($images as $key => $image)
