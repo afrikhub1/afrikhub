@@ -457,6 +457,7 @@
                                         {{ $i }} chambre(s)
                                     </button>
                                 </li>
+                            @endfor
                         </ul>
                     </div>
 
