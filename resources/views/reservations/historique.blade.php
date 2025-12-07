@@ -46,17 +46,19 @@
 
                             <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100 mb-4">
                                 <li class="flex justify-between items-center">
-                                    <span class="text-gray-500"><i class="fas fa-calendar-check mr-2 text-amber-400"></i> {{ $res->status }} le :{{ $res->date_validation ? $res->date_validation->format('d/m/Y') : '-' }}</span>
-                                    <span class="text-gray-900 font-semibold"></span>
-                                </li>
-                                <li class="flex justify-between items-center">
-                                    <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Periode :</span>
-                                    <span class="text-gray-900 font-semibold">
-                                        {{ \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res->date_depart)->format('d/m/y') }}
+                                    <span class="text-gray-500">
+                                        <i class="fas fa-calendar-check mr-2 text-amber-400"></i>
+                                        {{ $res->status }} le : {{ optional($res->date_validation)->format('d/m/Y') ?? '-' }}
                                     </span>
                                 </li>
-
-
+                                <li class="flex justify-between items-center">
+                                    <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Période :</span>
+                                    <span class="text-gray-900 font-semibold">
+                                        {{ $res->date_arrivee ? \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/Y') : '-' }}
+                                        ➡
+                                        {{ $res->date_depart ? \Carbon\Carbon::parse($res->date_depart)->format('d/m/Y') : '-' }}
+                                    </span>
+                                </li>
                             </ul>
 
                             <!-- TOTAL -->
