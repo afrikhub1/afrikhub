@@ -500,7 +500,7 @@
                             <i class="fa-solid fa-triangle-exclamation mr-2"></i>Aucune résidence trouvée pour cette recherche.
                         </div>
                     @else
-                        <div class="row m-0 p-0 justify-content-center">
+                        <div class="row m-0 p-0 justify-content-start">
                             <!-- RECHERCHE -->
                             <div class="col-8 col-md-6 col-lg-4">
                                 <input id="searchInput" type="text"
