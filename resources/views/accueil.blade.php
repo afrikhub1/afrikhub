@@ -512,7 +512,8 @@
                              <div class="col-4 col-md-3 col-lg-2">
                                 <select id="searchOption" class="py-2 px-3 bg-gray-800 text-white rounded-lg">
                                     <option value="name">Nom</option>
-                                    <option value="prix">prix</option>
+                                    <option value="ville">Ville</option>
+                                    <option value="prix_journalier">prix</option>
                                     <option value="salon">salon</option>
                                     <option value="chambre">chambre</option>
                                 </select>
