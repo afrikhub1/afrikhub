@@ -76,13 +76,13 @@
                                 @if($residence->disponible)
                                     <li class="flex justify-between items-center">
                                         <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                        <span class="text-gray-900">Indisponible</span>
+                                        <span class="text-blue-900">Disponible</span>
                                     </li>
 
                                 @else
                                     <li class="flex justify-between items-center">
                                         <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
-                                        <span class="text-gray-900">Disponible</span>
+                                        <span class="text-red-900">Indisponible</span>
                                     </li>
                                 @endif
 
