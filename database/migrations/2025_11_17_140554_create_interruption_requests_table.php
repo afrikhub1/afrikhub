@@ -14,7 +14,9 @@ return new class extends Migration
             $table->foreignId('residence_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->string('status')->default('en_attente');
+            $table->string('type_compte');
             $table->timestamps();
+
         });
     }
 

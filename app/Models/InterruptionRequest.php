@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InterruptionRequest extends Model
 {
-    protected $fillable = ['user_id', 'residence_id', 'status'];
+    protected $fillable = ['user_id', 'residence_id', 'status','type_compte'];
 
     // relation entre les tables
     public function user()

@@ -55,6 +55,7 @@ class SejourController extends Controller
         }
 
         InterruptionRequest::create([
+            'type_compte' => $user->type_compte,
             'user_id' => $user->id,
             'residence_id' => $residence->id,
             'reservation_id' => $reservation->id,
