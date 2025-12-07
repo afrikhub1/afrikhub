@@ -17,29 +17,9 @@ class SejourController extends Controller
     {
         $reservationId = (int) $reservationId;
         $reservation = Reservation::where('id', $reservationId)->first();
-        $reservationId = $reservationId;
-        dd([
-            'reservationId_recu' => $reservationId,
-            'type_de_reservationId' => gettype($reservationId),
-            'reservation_bd' => \App\Models\Reservation::pluck('id')->toArray()
-        ]);
-
-
-        return redirect()->back()->with([
-            'reservationId_recu' => $reservationId,
-            'type_de_reservationId' => gettype($reservationId),
-        ]);
-
-
-        $reservation = Reservation::where('id', $reservationId)->first();
-
         if (!$reservation) {
-            return redirect()->back()->with(
-                'error',
-                'Réservation introuvable. ID reçu = ' . $reservationId
-            );
+            return redirect()->back()->with('error', 'Réservation introuvable.');
         }
-
 
         $residence = Residence::where('id', $reservation->residence_id)->first();
         if (!$residence) {
