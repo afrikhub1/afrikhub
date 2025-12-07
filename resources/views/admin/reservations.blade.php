@@ -57,18 +57,35 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
-                                @php
-                                    $color = match ($reservation->status) {
-                                        'en attente' => 'bg-yellow-100 text-yellow-800',
-                                        'confirmée' => 'bg-green-100 text-green-800',
-                                        'annulée' => 'bg-red-100 text-red-800',
-                                        default => 'bg-gray-100 text-gray-800',
-                                    };
-                                @endphp
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $color }}">
-                                    {{ ucfirst($reservation->status) }}
-                                </span>
+                                @if($reservation->status === 'en attente')
+                                    <div class="flex space-x-2">
+                                        <form action="{{ route('reservations.confirmer', $reservation->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 transition">
+                                                Confirmer
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('reservations.annuler', $reservation->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1 text-xs font-semibold text-white bg-red-600 rounded hover:bg-red-700 transition">
+                                                Annuler
+                                            </button>
+                                        </form>
+                                    </div>
+                                @else
+                                    @php
+                                        $color = match ($reservation->status) {
+                                            'confirmée' => 'bg-green-100 text-green-800',
+                                            'annulée' => 'bg-red-100 text-red-800',
+                                            default => 'bg-gray-100 text-gray-800',
+                                        };
+                                    @endphp
+                                    <button class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $color }}" disabled>
+                                        {{ ucfirst($reservation->status) }}
+                                    </button>
+                                @endif
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>
