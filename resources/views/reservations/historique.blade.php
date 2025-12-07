@@ -52,9 +52,10 @@
                                 <li class="flex justify-between items-center">
                                     <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Valider :</span>
                                     <span class="text-gray-900 font-semibold">
-                                        {{ $res->date_validation ? $res->date_validation}}
+                                        {{ $res->date_validation ? $res->date_validation->format('d/m/Y') : '-' }}
                                     </span>
                                 </li>
+
 
                             </ul>
 
