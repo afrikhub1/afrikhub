@@ -568,28 +568,7 @@
         </nav>
 
         <div class="row m-0">
-            <div class="row m-0 p-0 justify-content-center">
-                <!-- RECHERCHE -->
-                <div class="relative w-full sm:flex-grow sm:w-auto">
-                    <input id="searchInput" type="text"
-                        placeholder="Rechercher par nom ou status..."
-                        class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
 
-                <!-- OPTION -->
-                <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
-                    <option value="name">Nom</option>
-                    <option value="prix">prix</option>
-                    <option value="salon">salon</option>
-                    <option value="chambre">chambre</option>
-
-                </select>
-            </div>
             <div class="col-12 main-content">
                 @if ($residences->isEmpty())
                     <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
