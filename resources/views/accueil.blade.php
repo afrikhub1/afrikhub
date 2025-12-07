@@ -411,7 +411,6 @@
         </header>
 
         <nav class="row col-12 justify-content-center m-0">
-
             <section id="accueil" class="text-center py-5">
             <div>
                 @include('includes.messages')
@@ -421,148 +420,164 @@
                 <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
             </div>
             </section>
-            <section id="hebergement" class="my-2 col-12 row m-0 justify-content-center">
-            <h2>Hébergements</h2>
-            <div class="row m-0 col-12 justify-content-center">
-                    <div class="row g-4 align-items-center col-12 col-md-8 col-lg-6 mx-4">
-                        <img class="w-20 md:w-28 lg:w-32 h-auto" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Image de résidences"/>
+            <section id="hebergement" class="my-8 px-4 py-6 bg-teal-50 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
+
+                <div class="flex justify-center mb-6">
+                    <div class="w-full md:w-2/3 lg:w-1/2">
+                        <img class="w-full h-auto rounded-xl shadow-md object-cover" src="{{ asset('assets/images/hebergement.jpg') }}" alt="Image de résidences"/>
                     </div>
                 </div>
-                <div class="row m-0 col-12 justify-content-center">
-                    <div class="accordion-css">
-                        <input type="checkbox" id="acc1" checked>
-                        <label for="acc1">
-                            Types d'hébergements
-                            <span class="toggle-services"><i class="fa-solid fa-chevron-down"></i></span>
-                        </label>
-                        <div class="content my-2">
 
-                            <div class="service-item p-0 mb-1">
+                <div class="accordion-css mx-auto max-w-2xl">
+                    <input type="checkbox" id="acc1" checked>
+                    <label for="acc1">
+                        Types d'hébergements
+                        <span class="toggle-services"><i class="fa-solid fa-chevron-down"></i></span>
+                    </label>
+                    <div class="content my-2">
+                        <div class="space-y-4">
+                            <div class="service-item p-0">
                                 <button class="type">Studio</button>
-                                <ul class="services-list mt-2 p-2 list-unstyled">
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-wifi text-primary me-2"></i>
-                                        <span>WiFi gratuit</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-fan text-info me-2"></i>
-                                        <span>Ventilateur</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-video text-danger me-2"></i>
-                                        <span>Caméra de surveillance</span>
-                                    </li>
+                                <ul class="services-list mt-2 p-2 list-none space-y-2">
+                                    <li class="flex items-center"><i class="fa-solid fa-wifi text-primary me-2"></i>WiFi gratuit</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-fan text-info me-2"></i>Ventilateur</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-video text-danger me-2"></i>Caméra de surveillance</li>
                                 </ul>
                             </div>
 
-                            <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    <i class="fa-solid fa-bed me-2"></i> Chambre unique
-                                </button>
-                                <ul class="services-list mt-2 p-2 list-unstyled">
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-wifi text-primary me-2"></i>
-                                        <span>WiFi gratuit</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-snowflake text-info me-2"></i>
-                                        <span>Climatisation</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-mug-hot text-warning me-2"></i>
-                                        <span>Petit déjeuner inclus</span>
-                                    </li>
+                            <div class="service-item p-0">
+                                <button class="type"><i class="fa-solid fa-bed me-2"></i>Chambre unique</button>
+                                <ul class="services-list mt-2 p-2 list-none space-y-2">
+                                    <li class="flex items-center"><i class="fa-solid fa-wifi text-primary me-2"></i>WiFi gratuit</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-snowflake text-info me-2"></i>Climatisation</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-mug-hot text-warning me-2"></i>Petit déjeuner inclus</li>
                                 </ul>
                             </div>
 
-                            <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    <i class="fa-solid fa-couch me-2"></i> Chambre salon
-                                </button>
-                                <ul class="services-list mt-2 p-2 list-unstyled">
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-wifi text-primary me-2"></i>
-                                        <span>WiFi gratuit</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-snowflake text-info me-2"></i>
-                                        <span>Climatisation</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-mug-hot text-warning me-2"></i>
-                                        <span>Petit déjeuner inclus</span>
-                                    </li>
+                            <div class="service-item p-0">
+                                <button class="type"><i class="fa-solid fa-couch me-2"></i>Chambre salon</button>
+                                <ul class="services-list mt-2 p-2 list-none space-y-2">
+                                    <li class="flex items-center"><i class="fa-solid fa-wifi text-primary me-2"></i>WiFi gratuit</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-snowflake text-info me-2"></i>Climatisation</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-mug-hot text-warning me-2"></i>Petit déjeuner inclus</li>
                                 </ul>
                             </div>
 
-                            <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    <i class="fa-solid fa-house-chimney me-2"></i> Trois pièces et plus
-                                </button>
-                                <ul class="services-list mt-2 p-2 list-unstyled">
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-wifi text-primary me-2"></i>
-                                        <span>WiFi gratuit</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-snowflake text-info me-2"></i>
-                                        <span>Climatisation</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-mug-hot text-warning me-2"></i>
-                                        <span>Petit déjeuner inclus</span>
-                                    </li>
+                            <div class="service-item p-0">
+                                <button class="type"><i class="fa-solid fa-house-chimney me-2"></i>Trois pièces et plus</button>
+                                <ul class="services-list mt-2 p-2 list-none space-y-2">
+                                    <li class="flex items-center"><i class="fa-solid fa-wifi text-primary me-2"></i>WiFi gratuit</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-snowflake text-info me-2"></i>Climatisation</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-mug-hot text-warning me-2"></i>Petit déjeuner inclus</li>
                                 </ul>
                             </div>
 
-                            <div class="service-item p-0 mb-1">
-                                <button class="type">
-                                    <i class="fa-solid fa-house-water me-2"></i> Villa avec piscine
-                                </button>
-                                <ul class="services-list mt-2 p-2 list-unstyled">
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-wifi text-primary me-2"></i>
-                                        <span>WiFi gratuit</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-water-ladder text-info me-2"></i>
-                                        <span>Piscine privée</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-snowflake text-info me-2"></i>
-                                        <span>Climatisation</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-square-parking text-warning me-2"></i>
-                                        <span>Parking gratuit</span>
-                                    </li>
+                            <div class="service-item p-0">
+                                <button class="type"><i class="fa-solid fa-house-water me-2"></i>Villa avec piscine</button>
+                                <ul class="services-list mt-2 p-2 list-none space-y-2">
+                                    <li class="flex items-center"><i class="fa-solid fa-wifi text-primary me-2"></i>WiFi gratuit</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-water-ladder text-info me-2"></i>Piscine privée</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-snowflake text-info me-2"></i>Climatisation</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-square-parking text-warning me-2"></i>Parking gratuit</li>
                                 </ul>
                             </div>
-
-                        </div>
-
-                        <input type="checkbox" id="acc2">
-                        <label for="acc2">
-                            Conditions de réservation
-                            <span class="toggle-services"><i class="fa-solid fa-chevron-down"></i></span>
-                        </label>
-                        <div class="content">
-                            <ul class="list-unstyled">
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fa-solid fa-calendar-check text-primary me-2"></i>
-                                    <span>Réservation préalable requise</span>
-                                </li>
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fa-solid fa-hand-holding-dollar text-success me-2"></i>
-                                    <span>Acompte de 20% pour confirmation</span>
-                                </li>
-                                <li class="d-flex align-items-center mb-2">
-                                    <i class="fa-solid fa-ban text-danger me-2"></i>
-                                    <span>Annulation gratuite jusqu'à 48h avant l'arrivée</span>
-                                </li>
-                            </ul>
                         </div>
                     </div>
+
+                    <input type="checkbox" id="acc2">
+                    <label for="acc2">
+                        Conditions de réservation
+                        <span class="toggle-services"><i class="fa-solid fa-chevron-down"></i></span>
+                    </label>
+                    <div class="content">
+                        <ul class="list-none space-y-2 p-2">
+                            <li class="flex items-center"><i class="fa-solid fa-calendar-check text-primary me-2"></i>Réservation préalable requise</li>
+                            <li class="flex items-center"><i class="fa-solid fa-hand-holding-dollar text-success me-2"></i>Acompte de 20% pour confirmation</li>
+                            <li class="flex items-center"><i class="fa-solid fa-ban text-danger me-2"></i>Annulation gratuite jusqu'à 48h avant l'arrivée</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Résidences -->
+                <div class="mt-8">
+                    @if ($residences->isEmpty())
+                        <div class="text-center bg-yellow-100 text-yellow-800 font-bold rounded-xl p-6 shadow">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>Aucune résidence trouvée pour cette recherche.
+                        </div>
+                    @else
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            @foreach($residences as $residence)
+                                @php
+                                    $images = $residence->img;
+                                    if (is_string($images)) $images = json_decode($images, true) ?? [];
+                                    $firstImage = $images[0] ?? null;
+                                    $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
+                                @endphp
+
+                                <div class="search-row bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-indigo-300/50 transition transform hover:scale-[1.01]"
+                                    data-name="{{ $residence->nom }}" data-prix_journalier="{{ $residence->prix_journalier }}"
+                                    data-ville="{{ $residence->ville }}" data-nombre_chambres="{{ $residence->nombre_chambres }}"
+                                    data-nombre_salons="{{ $residence->nombre_salons }}">
+
+                                    <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                        <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90" alt="Image de la résidence">
+                                        <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
+                                            @switch($residence->status)
+                                                @case('vérifiée') bg-green-500 text-white @break
+                                                @case('en attente') bg-yellow-500 text-gray-900 @break
+                                                @default bg-gray-500 text-white @endswitch">
+                                            <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->status) }}
+                                        </span>
+                                    </a>
+
+                                    @if(is_array($images))
+                                        @foreach($images as $key => $image)
+                                            @if($key > 0)
+                                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
+                                            @endif
+                                        @endforeach
+                                    @endif
+
+                                    <div class="p-6 flex flex-col flex-grow border-t border-gray-200">
+                                        <h5 class="font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
+                                        <ul class="space-y-2 text-gray-700 flex-grow">
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-tag mr-2 text-green-500"></i>Prix / Jour :</span>
+                                                <span class="text-green-600 font-extrabold">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</span>
+                                            </li>
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-map-marker-alt mr-2 text-indigo-400"></i>Ville :</span>
+                                                <span class="text-gray-900">{{ $residence->ville }} ({{ $residence->pays }})</span>
+                                            </li>
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i>Nombre de chambres :</span>
+                                                <span class="text-gray-900 font-bold">{{ $residence->nombre_chambres ?? 'N/A' }}</span>
+                                            </li>
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i>Nombre de salons :</span>
+                                                <span class="text-gray-900 font-bold">{{ $residence->nombre_salons ?? 'N/A' }}</span>
+                                            </li>
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i>Disponibilité :</span>
+                                                @if($residence->disponible == 0)
+                                                    <span class="text-gray-900">Indisponible</span>
+                                                @else
+                                                    <span class="text-green-600 font-semibold">Disponible le {{ $residence->date_disponible }}</span>
+                                                @endif
+                                            </li>
+                                        </ul>
+
+                                        <div class="mt-4 border-t pt-4">
+                                            <a href="{{ route('details', $residence->id) }}" class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+                                                <i class="fas fa-edit mr-1"></i> Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </section>
         </nav>
