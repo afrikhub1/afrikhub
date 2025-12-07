@@ -19,13 +19,13 @@ class SejourController extends Controller
         $reservation = Reservation::where('id', $reservationId)->first();
 
         // debug : afficher les valeurs comparées
-        dd([
-            'reservationId_envoye' => $reservationId,
-            'reservation_id_bd' => $reservation ? $reservation->id : null,
-        ]);
+
 
         if (!$reservation) {
-            return redirect()->back()->with('error', 'Réservation introuvable.');
+            dd([
+                'reservationId_envoye' => $reservationId,
+                'reservation_id_bd' => $reservation ? $reservation->id : null,
+            ]);
         }
 
 
