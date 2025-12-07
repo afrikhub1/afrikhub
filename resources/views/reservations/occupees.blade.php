@@ -30,7 +30,7 @@
                                     <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
                                     <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($res_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res_occupees->date_depart)->format('d/m/y') }}</p>
                                 </div>
-                                <a href="{{ route('sejour.interrompre', $res_occupees->reservation->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
+                                <a href="{{ route('sejour.interrompre', $res_occupees->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
                                 </a>
                             </div>
