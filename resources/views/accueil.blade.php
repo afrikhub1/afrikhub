@@ -216,7 +216,7 @@
             margin-bottom: 2rem;
             text-align: center;
             font-size: 2.8rem;
-            color: #006d77;
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 2px;
             }
@@ -424,7 +424,7 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
             </section>
-            <section id="hebergement" class="my-8 px-4 py-6 bg-teal-50 rounded-2xl shadow-lg">
+            <section id="hebergement" class="my-2 px-4 py-6 bg-teal-50 rounded-2xl shadow-lg">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
 
                 <div class="accordion-css mx-auto max-w-2xl">
