@@ -574,29 +574,32 @@
                         <i class="fa-solid fa-triangle-exclamation me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
                     </div>
                 @else
+                    <div class="row m-0 p-0 justify-content-center">
+                        <!-- RECHERCHE -->
+                        <div class="relative w-full sm:flex-grow sm:w-auto">
+                            <input id="searchInput" type="text"
+                                placeholder="Rechercher par nom ou status..."
+                                class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+
+                        <!-- OPTION -->
+                        <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
+                            <option value="name">Nom</option>
+                            <option value="client">client</option>
+                            <option value="status">status</option>
+                            <option value="ville">ville</option>
+                            <option value="proprietaire">proprietaire</option>
+                        </select>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                                    <!-- RECHERCHE -->
-            <div class="relative w-full sm:flex-grow sm:w-auto">
-                <input id="searchInput" type="text"
-                       placeholder="Rechercher par nom ou status..."
-                       class="w-full py-2 pl-10 pr-4 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-500">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </div>
 
-            <!-- OPTION -->
-            <select id="searchOption" class="w-full sm:w-auto py-2 px-3 bg-gray-800 text-white rounded-lg">
-                <option value="name">Nom</option>
-                <option value="client">client</option>
-                <option value="status">status</option>
-                <option value="ville">ville</option>
-                <option value="proprietaire">proprietaire</option>
-            </select>
-            
+
                         @foreach($residences as $residence)
                             @php
                                 // Décodage JSON si nécessaire
