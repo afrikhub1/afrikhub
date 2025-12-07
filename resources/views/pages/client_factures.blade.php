@@ -85,6 +85,8 @@
             @foreach($reservations as $res)
                 @php
                     $facturestatus = $res->status;
+                    $reference = $res->reference;
+                    $datePaiement = $res->date_paiement;
                     $dateArrivee = \Carbon\Carbon::parse($res->date_arrivee);
                     $dateDepart = \Carbon\Carbon::parse($res->date_depart);
                     $jours = $dateDepart->diffInDays($dateArrivee);
@@ -102,7 +104,7 @@
                             </span>
                         </div>
 
-                        <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">Facture Réf. #{{ $res->reservation_code }}</h5>
+                        <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">Reservation #{{ $res->reservation_code }}</h5>
                         <p class="text-sm text-gray-500 mb-4 flex items-center justify-center gap-1">
                             <i class="fas fa-home text-indigo-500"></i> {{ $res->residence->nom ?? 'Résidence inconnue' }}
                         </p>
@@ -115,6 +117,16 @@
                             <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> Nuits :</span>
                                 <span class="text-gray-900 font-semibold">{{ $jours }}</span>
+                            </li>
+
+                             <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> reference :</span>
+                                <span class="text-gray-900 font-semibold">{{ $reference }}</span>
+                            </li>
+
+                             <li class="flex justify-between items-center">
+                                <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> payé le :</span>
+                                <span class="text-gray-900 font-semibold">{{ $datePaiement }}</span>
                             </li>
                         </ul>
 
