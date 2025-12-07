@@ -199,7 +199,7 @@
     <div class="w-100 d-flex flex-column gap-3">
         <div class="text-center mb-4 pb-3 border-bottom border-secondary">
              @auth
-                 <h4 class="small text-muted mb-0">Connecté comme : {{ Auth::user()->name }}</h4>
+                 <h4 class="text-xl text-muted mb-0"> {{ Auth::user()->name }}</h4>
              @endauth
         </div>
 
