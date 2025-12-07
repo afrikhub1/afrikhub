@@ -734,54 +734,47 @@
         </script>
 
 <script>
-    const cards = document.querySelectorAll('.residence-card');
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".residence-card");
+    const filterType = document.getElementById("filter-type");
 
-    function hideAll() {
-        cards.forEach(c => c.style.display = "none");
-    }
+    filterType.addEventListener("change", () => {
+        const value = filterType.value;
 
-    function showMatching(callback) {
         cards.forEach(card => {
-            if (callback(card)) {
-                card.style.display = "flex";
+            const chambres = parseInt(card.dataset.chambres);
+            const salons = parseInt(card.dataset.salons);
+            const type = card.dataset.type;
+
+            let show = true;
+
+            // ---- Filtres par type basique ----
+            if (value === "studio" && type !== "studio") show = false;
+            if (value === "appartement" && type !== "appartement") show = false;
+
+            // ---- 1 salon + X chambres ----
+            if (value.startsWith("1-salon-")) {
+                const x = parseInt(value.split("-")[2]);
+                if (!(salons === 1 && chambres === x)) show = false;
             }
+
+            // ---- 2 salons + X chambres ----
+            if (value.startsWith("2-salons-")) {
+                const x = parseInt(value.split("-")[2]);
+                if (!(salons === 2 && chambres === x)) show = false;
+            }
+
+            // ---- 4+ chambres ----
+            if (value === "4plus" && chambres < 4) show = false;
+
+            // Affichage
+            card.style.display = show ? "flex" : "none";
         });
-    }
-
-    // 1 - Appartement Studio
-    function filtreStudio() {
-        hideAll();
-        showMatching(card =>
-            card.dataset.type === "appartement" &&
-            parseInt(card.dataset.chambres) === 1 &&
-            parseInt(card.dataset.salons) === 0
-        );
-    }
-
-    // 2 - Chambre + Salon
-    function filtreChambreSalon() {
-        hideAll();
-        showMatching(card =>
-            parseInt(card.dataset.salons) === 1 &&
-            parseInt(card.dataset.chambres) === 1
-        );
-    }
-
-    // 3 & 4 - 1 ou 2 salons + X chambres
-    function filtreSalonEtChambres(salons, chambres) {
-        hideAll();
-        showMatching(card =>
-            parseInt(card.dataset.salons) === salons &&
-            parseInt(card.dataset.chambres) === chambres
-        );
-    }
-
-    function resetFiltre() {
-        cards.forEach(card => {
-            card.style.display = "flex";
-        });
-    }
+    });
+});
 </script>
+
+
 
 
 
