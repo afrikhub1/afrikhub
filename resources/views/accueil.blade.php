@@ -574,112 +574,130 @@
                         <i class="fa-solid fa-triangle-exclamation me-2"></i> Désolé, aucune résidence trouvée pour cette recherche.
                     </div>
                 @else
-                    <div class="row g-4 justify-content-center mb-4">
-                        <form id="residence-filter" class="row g-3 mb-4">
-                            <div class="col-md-3">
-                                <select id="filter-criteria" class="form-select">
-                                    <option value="ville">Ville</option>
-                                    <option value="pays">Pays</option>
-                                    <option value="chambres">Chambres</option>
-                                    <option value="salons">Salons</option>
-                                    <option value="prix">Prix</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" id="filter-value" class="form-control" placeholder="Tapez la valeur à rechercher">
-                            </div>
-                            <div class="col-md-3 text-end">
-                                <button type="button" id="filter-btn" class="btn btn-dark">Rechercher</button>
-                                <button type="button" id="reset-btn" class="btn btn-secondary">Réinitialiser</button>
-                            </div>
-                        </form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                         @foreach($residences as $residence)
                             @php
-                                // Décodage JSON pour les images
+                                // Décodage JSON si nécessaire
                                 $images = $residence->img;
                                 if (is_string($images)) {
                                     $images = json_decode($images, true) ?? [];
                                 }
                                 $firstImage = $images[0] ?? null;
-                                $imagePath = $firstImage ?: asset('assets/images/placeholder.jpg');
+                                $imagePath = $firstImage ?: 'https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';
                             @endphp
 
-                            <div class="col-sm-6 col-md-4 col-lg-3 d-flex residence-card"
-                                data-chambres="{{ $residence->nombre_chambres ?? 0 }}"
-                                data-salons="{{ $residence->nombre_salons ?? 0 }}"
-                                data-type="{{ $residence->nombre_salons == 0 && $residence->nombre_chambres == 1 ? 'studio' : ($residence->nombre_salons == 1 ? 'chambre-salon' : 'autre') }}"
-                            >
-                                <div class="card shadow h-100 border-0 rounded-4 overflow-hidden w-100">
+                            <div class="search-row  bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col
+                                    hover:shadow-indigo-300/50 transition duration-300 transform hover:scale-[1.01]
+                                    border border-gray-100" data-name="{{ $residence->nom }}" data-status="{{ $residence->status}}"
+                                    data-ville="{{ $residence->ville}}" data-proprietaire="{{ $residence->proprietaire_id}}">
 
-                                    {{-- Image principale --}}
-                                    <a href="{{ $imagePath }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}">
-                                        <img src="{{ $imagePath }}"
-                                            alt="Image de la résidence {{ $residence->nom }}"
-                                            class="card-img-top"
-                                            loading="lazy"
-                                        >
-                                    </a>
+                                {{-- Image principale --}}
+                                <a href="{{ $imagePath }}" class="glightbox block relative" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}">
+                                    <img src="{{ $imagePath }}" class="w-full h-48 object-cover transition duration-300 hover:opacity-90"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
+                                        alt="Image de la résidence">
 
-                                    {{-- Liens supplémentaires pour la galerie (cachés) --}}
+                                    {{-- status --}}
+                                    <span class="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full
+                                        @switch($residence->status)
+                                            @case('vérifiée') bg-green-500 text-white @break
+                                            @case('en attente') bg-yellow-500 text-gray-900 @break
+                                            @default bg-gray-500 text-white @endswitch">
+                                        <i class="fas fa-check-circle mr-1"></i> {{ ucfirst($residence->status) }}
+                                    </span>
+                                </a>
+
+                                {{-- Galerie invisible pour les autres images --}}
+                                @if(is_array($images))
                                     @foreach($images as $key => $image)
                                         @if($key > 0)
-                                            <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display:none;"></a>
+                                            <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display:none;"></a>
                                         @endif
                                     @endforeach
+                                @endif
 
-                                    {{-- Corps de la carte --}}
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title fw-bold text-dark">{{ $residence->nom }}</h5>
-                                        <p class="card-text text-muted card-text-truncate" title="{{ $residence->description }}">
-                                            {{ Str::limit($residence->description, 100) }}
-                                        </p>
+                                <div class="p-6 flex flex-col flex-grow border-gray-700/50 shadow">
+                                    <h5 class=" font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
+                                    <ul class="space-y-2  text-gray-700 mb-4 flex-grow">
+                                        <li class="flex justify-between items-center">
+                                            <span class="text-gray-500"><i class="fas fa-tag mr-2 text-green-500"></i> Prix / Jour :</span>
+                                            <span class="text-green-600 font-extrabold ">{{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA</span>
+                                        </li>
+                                        <li class="flex justify-between items-center">
+                                            <span class="text-gray-500"><i class="fas fa-map-marker-alt mr-2 text-indigo-400"></i> Ville :</span>
+                                            <span class="text-gray-900">{{ $residence->ville }} ({{ $residence->pays }})</span>
+                                        </li>
+                                        <li class="flex justify-between items-center">
+                                            <span class="text-gray-500"><i class="fas fa-user-tie mr-2 text-indigo-400"></i> ID Propriétaire :</span>
+                                            <span class="text-gray-900 font-bold">{{ $residence->proprietaire_id ?? 'N/A' }}</span>
+                                        </li>
+                                        <li class="flex justify-between items-center">
+                                            <span class="text-gray-500"><i class="fas fa-ban mr-2 text-red-500"></i> Suspension :</span>
+                                            <span class="px-2 py-0.5 text-xs font-semibold rounded-full {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'bg-red-500 text-white' : 'bg-green-100 text-green-800' }}">
+                                                {{ (!empty($residence->is_suspended) && $residence->is_suspended) ? 'Suspendue' : 'Active' }}
+                                            </span>
+                                        </li>
+                                        <div>
 
-                                        <ul class="list-unstyled small mb-3 mt-2">
-                                            <li>
-                                                <i class="fa-solid fa-bed me-2 text-primary"></i>
-                                                <strong>Chambres :</strong> {{ $residence->nombre_chambres ?? '-' }}
-                                            </li>
-                                            <li>
-                                                <i class="fa-solid fa-couch me-2 text-primary"></i>
-                                                <strong>Salon :</strong> {{ $residence->nombre_salons ?? '-' }}
-                                            </li>
-                                            <li>
-                                                <i class="fa-solid fa-location-dot me-2 text-primary"></i>
-                                                <strong>Situation :</strong> {{ $residence->pays ?? '-' }}/{{ $residence->ville ?? '-' }}
-                                            </li>
-                                            <li class="fw-bold mt-2">
-                                                <i class="fa-solid fa-money-bill-wave me-2 text-success"></i>
-                                                Prix/jour : {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA
+
+                                        <li class="fw-bold mt-2 text-secondary fw-light">
+                                            <i class="fas fa-calendar-check me-2"></i>
+                                            status : {{ $residence?->status }}
+                                        </li>
+
+                                    @if($residence->disponible == 0)  <!-- Indisponible -->
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
+                                                <span class="text-gray-900">Indisponible</span>
                                             </li>
 
-                                            @php
-                                                $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
-                                            @endphp
+                                            <form action="{{ route('admin.libererResidence', $residence->id) }}" method="POST" class="mt-2">
+                                                @csrf
+                                                <button type="submit" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 ">
+                                                    Libérer la résidence
+                                                </button>
+                                            </form>
+                                        @else  <!-- Disponible -->
+                                            <li class="flex justify-between items-center">
+                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i> Disponibilité :</span>
+                                                <span class="text-green-600 font-semibold">Disponible</span>
+                                            </li>
+                                        @endif
+                                    </ul>
 
-                                            @if ($dateDispo->isPast())
-                                                <li>
-                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
-                                                        Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
-                                                    </span>
-                                                </li>
-                                            @elseif ($dateDispo->isToday())
-                                                <li>
-                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
-                                                        Disponible
-                                                    </span>
-                                                </li>
+                                    {{-- Actions d'administration --}}
+                                    <div class="mt-4 border-t pt-4">
+                                        <p class=" font-semibold text-gray-700 mb-2">Actions d'Administration :</p>
+                                        <div class="flex flex-wrap justify-start gap-2">
+
+                                            @if ($residence->status != 'vérifiée')
+                                                <form action="{{ route('admin.residences.activation', $residence->id) }}" method="POST" class="inline-block">
+                                                    @csrf
+                                                    <button type="submit" class=" px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
+                                                        <i class="fas fa-thumb-up mr-1"></i> Valider
+                                                    </button>
+                                                </form>
                                             @else
-                                                <li>
-                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
-                                                        Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
-                                                    </span>
-                                                </li>
+                                                <form action="{{ route('admin.residences.desactivation', $residence->id) }}" method="POST" class="inline-block">
+                                                    @csrf
+                                                    <button type="submit" class=" px-3 py-1.5 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-600 transition font-medium" onclick="return confirm('Confirmer la remise en attente ?')">
+                                                        <i class="fas fa-times-circle mr-1"></i> Désactiver
+                                                    </button>
+                                                </form>
                                             @endif
-                                        </ul>
 
-                                        <a href="{{ route('details', $residence->id) }}" class="btn btn-dark rounded mt-auto">
-                                            Voir les Détails <i class="fa-solid fa-arrow-right ms-2"></i>
-                                        </a>
+                                            <a href="{{ route('admin.residences.edit', $residence->id) }}" class=" px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+                                                <i class="fas fa-edit mr-1"></i> Modifier
+                                            </a>
+
+                                            <form action="{{ route('admin.residences.sup', $residence->id) }}" method="POST" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class=" px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette résidence ?')">
+                                                    <i class="fas fa-trash-alt mr-1"></i> Supprimer
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
