@@ -9,7 +9,7 @@
 
 
     {{-- En-tête de la Page --}}
-    <h1 class="font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
+    <h1 class="lg:text-4xl md:text-2xl text-xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
         <i class="fas fa-edit mr-3 text-3xl"></i> Modifier la Résidence : {{ $residence->nom }}
     </h1>
 
