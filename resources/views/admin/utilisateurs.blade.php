@@ -11,7 +11,7 @@
                 <p class="mb-0">Aucun utilisateur n'a été trouvé. Veuillez vérifier les enregistrements.</p>
             </div>
         @else
-    <h1 class="mb-4 fs-4 fw-bold text-primary">
+    <h1 class="lg:text-4xl md:text-2xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
         Total  utilisateurs enregistrés : {{ $utilisateurs->count() }}</span>
     </h1>
 
