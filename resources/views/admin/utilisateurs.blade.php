@@ -12,7 +12,7 @@
             </div>
         @else
     <h1 class="lg:text-4xl md:text-2xl text_xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-        Total  utilisateurs enregistrés : {{ $utilisateurs->count() }}</span>
+        Total  utilisateurs enregistrés : {{ $utilisateurs->count() }}
     </h1>
 
     <div class="table-responsive shadow-sm rounded-3">

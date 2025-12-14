@@ -27,8 +27,7 @@
 
     {{-- Section: Nombre total de reservations --}}
         <h1 class=" lg:text-4xl md:text-2xl text-xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-            <i class="fas fa-list-ul mr-2 text-indigo-500"></i> Total des reservations :
-            <span class="text-indigo-600 font-bold">{{ $reservations->count() }}</span>
+            <i class="fas fa-list-ul mr-2 text-indigo-500"></i> Total des reservations :{{ $reservations->count() }}
         </h1>
     @if ($reservations->isEmpty())
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg shadow-md max-w-lg mx-auto">

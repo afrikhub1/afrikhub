@@ -101,7 +101,7 @@
                                 </li>
                                 <li class="fw-bold mt-2 text-danger fw-600">
                                     <i class="fas fa-calendar-check me-2"></i>
-                                    Prochaine disponibilité : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
+                                    Disponible le : {{ \Carbon\Carbon::parse($residence->date_disponible)->translatedFormat('d F Y') }}
                                 </li>
                             </ul>
 
