@@ -6,19 +6,6 @@
 <div class="container py-4">
     <h2 class="mb-4 text-primary">📢 Gestion des Publicités</h2>
 
-    {{-- Boutons de navigation --}}
-    <div class="mb-4 d-flex gap-2 flex-wrap">
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
-            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
-        </a>
-        <a href="{{ route('some.other.page') }}" class="btn btn-secondary">
-            <i class="fas fa-folder-open me-1"></i> Autre page
-        </a>
-        <a href="{{ route('home') }}" class="btn btn-info" target="_blank">
-            <i class="fas fa-home me-1"></i> Voir accueil
-        </a>
-    </div>
-
     {{-- Formulaire d’ajout de pub --}}
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-success text-white">
