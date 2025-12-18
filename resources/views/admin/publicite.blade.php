@@ -1,5 +1,7 @@
 @extends('admin.header_footer')
 
+@section('title', 'gestion de publicités: ')
+
 @section('main')
 <div class="container">
     <h2>Gestion des Publicités</h2>
