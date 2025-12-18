@@ -150,7 +150,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
 
     // publicités
-    Route::get('/publicites', [PubliciteController::class, 'index'])->name('publicite');
+    Route::get('/publicites', [PubliciteController::class, 'index'])->name('publicites.index');
     Route::post('/publicites', [PubliciteController::class, 'store'])->name('publicites.store');
     Route::put('/publicites/{publicite}', [PubliciteController::class, 'update'])->name('publicites.update');
     Route::delete('/publicites/{publicite}', [PubliciteController::class, 'destroy'])->name('publicites.destroy');
