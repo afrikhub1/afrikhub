@@ -449,12 +449,12 @@
 
         <div class="trailer-container">
             <div class="trailer-track">
-                <span>🚀 Bienvenue sur Extrait.ci — </span>
-                <span>🎥 Une seule vidéo. Un seul lien. Zéro complication — </span>
-                <span>🔁 Remplace ta vidéo sans changer le lien — </span>
-                <span>🌍 Partage une fois, mets à jour à l’infini — </span>
-                <span>⚡ Simple • Rapide • Professionnel — </span>
-                <span>👉 Extrait.ci — Le lien vidéo intelligent</span>
+                <span>Zone publicitaire 1 — </span>
+                <span>Zone publicitaire 2 — </span>
+                <span>Zone publicitaire 3 — </span>
+                <span>Zone publicitaire 4 — </span>
+                <span>Zone publicitaire 5 — </span>
+                <span>Zone publicitaire 6</span>
             </div>
         </div>
 
