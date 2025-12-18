@@ -450,7 +450,9 @@
         <div class="trailer-container">
             <div class="trailer-track">
                 @foreach($publicites as $pub)
+                    <span> {{ $pub->icon }} </span>
                     <span> {{ $pub->titre }} </span>
+                    <span> {{ $pub->lien }} </span>
                 @endforeach
             </div>
         </div>
