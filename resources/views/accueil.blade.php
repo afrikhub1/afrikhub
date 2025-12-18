@@ -381,7 +381,7 @@
             .trailer-container {
                 width: 100%;
                 overflow: hidden;
-                background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+                background: none;
                 padding: 15px 0;
                 }
 
