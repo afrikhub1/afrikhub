@@ -446,7 +446,7 @@
                 </div>
             </div>
         </header>
-        @if($publicites->count())
+        @if($showPub)
             <div class="trailer-container">
                 <div class="trailer-track">
                     <span>{{ $pub->icone }} {{ $pub->titre }} — </span>
