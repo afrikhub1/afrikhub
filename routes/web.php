@@ -7,6 +7,7 @@ use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\Mise_a_jour;
+use App\Http\Controllers\PubliciteController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResidenceController;
@@ -42,6 +43,16 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
+// publicités
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/publicites', [PubliciteController::class, 'index'])->name('publicites.index');
+    Route::post('/publicites', [PubliciteController::class, 'store'])->name('publicites.store');
+    Route::put('/publicites/{publicite}', [PubliciteController::class, 'update'])->name('publicites.update');
+    Route::delete('/publicites/{publicite}', [PubliciteController::class, 'destroy'])->name('publicites.destroy');
+    Route::patch('/publicites/{publicite}/toggle', [PubliciteController::class, 'toggle'])->name('publicites.toggle');
+});
+
 
 // --------------------------------------------------
 // ROUTES AUTHENTIFIÉES
