@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@extends('admin.header_footer')
 
-@section('content')
+@section('main')
 <div class="container">
     <h2>Gestion des Publicités</h2>
 
