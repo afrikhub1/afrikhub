@@ -6,11 +6,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Publicite;
 use Illuminate\Http\Request;
+use App\Models\Residence;
 
 class PubliciteController extends Controller
 {
     public function accueil()
     {
+        // Récupération des résidences disponibles pour l'affichage
+
+        $residences = Residence::where('status', 'vérifiée')
+            ->where('disponible', 1) // 1 -> résidences disponibles
+            ->get();
+
+        // Ajoute la prochaine date disponible à chaque résidence (si nécessaire)
+        foreach ($residences as $residence) {
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
+        }
+
+
+        // Passage des données à la vue accueil
+        return view('accueil', compact('residences'));
+
         // 1️⃣ pubs actives
         $publicites = Publicite::where('actif', true)
             ->orderBy('ordre')

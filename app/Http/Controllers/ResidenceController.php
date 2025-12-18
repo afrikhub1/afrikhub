@@ -109,27 +109,6 @@ class ResidenceController extends Controller
     }
 
 
-
-    public function accueil()
-    {
-
-        // Récupération des résidences disponibles pour l'affichage
-
-        $residences = Residence::where('status', 'vérifiée')
-            ->where('disponible', 1) // 1 -> résidences disponibles
-            ->get();
-
-        // Ajoute la prochaine date disponible à chaque résidence (si nécessaire)
-        foreach ($residences as $residence) {
-            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
-        }
-
-
-        // Passage des données à la vue accueil
-        return view('accueil', compact('residences'));
-    }
-
-
     // Réserver à nouveau
     public function details($id)
     {
