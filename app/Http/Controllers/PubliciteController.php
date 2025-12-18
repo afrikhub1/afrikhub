@@ -12,7 +12,7 @@ class PubliciteController extends Controller
     public function index()
     {
         $publicites = Publicite::orderBy('ordre')->get();
-        return view('admin.publicites.index', compact('publicites'));
+        return view('admin.publicite', compact('publicites'));
     }
 
     public function store(Request $request)
