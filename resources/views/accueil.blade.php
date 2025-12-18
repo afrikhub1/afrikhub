@@ -405,7 +405,12 @@
                 100% {
                     transform: translateX(-100%);
                 }
+                
             }
+            .trailer-container:hover .trailer-track {
+            animation-play-state: paused;
+            }
+
 
         </style>
         <header class="p-1">
