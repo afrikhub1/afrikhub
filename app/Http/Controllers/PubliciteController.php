@@ -18,15 +18,6 @@ class PubliciteController extends Controller
             ->where('disponible', 1) // 1 -> résidences disponibles
             ->get();
 
-        // Ajoute la prochaine date disponible à chaque résidence (si nécessaire)
-        foreach ($residences as $residence) {
-            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
-        }
-
-
-        // Passage des données à la vue accueil
-        return view('accueil', compact('residences'));
-
         // 1️⃣ pubs actives
         $publicites = Publicite::where('actif', true)
             ->orderBy('ordre')
@@ -35,11 +26,14 @@ class PubliciteController extends Controller
         // 3️⃣ afficher ou non la section pub
         $showPub = $publicites->count() > 0;
 
-        return view('accueil', compact(
-            'publicites',
-            'scrollSpeed',
-            'showPub'
-        ));
+        // Ajoute la prochaine date disponible à chaque résidence (si nécessaire)
+        foreach ($residences as $residence) {
+            $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
+        }
+
+
+        // Passage des données à la vue accueil
+        return view('accueil', compact('residences', 'publicites','scrollSpeed','showPub'));
     }
 
     public function index()
