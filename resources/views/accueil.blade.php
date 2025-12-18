@@ -388,7 +388,7 @@
                 .trailer-track {
                 display: inline-block;
                 white-space: nowrap;
-                animation: scroll-left 25s linear infinite;
+                animation: scroll-left 35s linear infinite;
                 font-size: 1.2rem;
                 color: #fff;
                 font-weight: 500;
@@ -405,7 +405,7 @@
                 100% {
                     transform: translateX(-100%);
                 }
-                
+
             }
             .trailer-container:hover .trailer-track {
             animation-play-state: paused;
