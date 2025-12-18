@@ -446,18 +446,14 @@
                 </div>
             </div>
         </header>
-        @isset($publicites)
-            @if($publicites->count() > 0)
-                <div class="trailer-container">
-                    <div class="trailer-track">
-                        @foreach($publicites as $pub)
-                            <span>{{ $pub->icone }} {{ $pub->titre }} — </span>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-        @endisset
 
+        <div class="trailer-container">
+            <div class="trailer-track">
+                @foreach($publicites as $pub)
+                    <span> {{ $pub->titre }} </span>
+                @endforeach
+            </div>
+        </div>
 
 
         <nav class="row col-12 justify-content-center m-0">
