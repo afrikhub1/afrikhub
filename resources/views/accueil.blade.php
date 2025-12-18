@@ -377,6 +377,36 @@
             .service-item.open .type {
                 color: #09008d !important;
             }
+
+            .trailer-container {
+                width: 100%;
+                overflow: hidden;
+                background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+                padding: 15px 0;
+                }
+
+                .trailer-track {
+                display: inline-block;
+                white-space: nowrap;
+                animation: scroll-left 25s linear infinite;
+                font-size: 1.2rem;
+                color: #fff;
+                font-weight: 500;
+                }
+
+                .trailer-track span {
+                margin-right: 40px;
+                }
+
+                @keyframes scroll-left {
+                0% {
+                    transform: translateX(100%);
+                }
+                100% {
+                    transform: translateX(-100%);
+                }
+            }
+
         </style>
         <header class="p-1">
             <div class="col-12 row m-0 align-items-center">
@@ -411,6 +441,18 @@
                 </div>
             </div>
         </header>
+
+        <div class="trailer-container">
+            <div class="trailer-track">
+                <span>🚀 Bienvenue sur Extrait.ci — </span>
+                <span>🎥 Une seule vidéo. Un seul lien. Zéro complication — </span>
+                <span>🔁 Remplace ta vidéo sans changer le lien — </span>
+                <span>🌍 Partage une fois, mets à jour à l’infini — </span>
+                <span>⚡ Simple • Rapide • Professionnel — </span>
+                <span>👉 Extrait.ci — Le lien vidéo intelligent</span>
+            </div>
+        </div>
+
 
         <nav class="row col-12 justify-content-center m-0">
             <section id="accueil" class="text-center py-5">
