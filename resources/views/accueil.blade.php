@@ -449,12 +449,9 @@
         @if($showPub)
             <div class="trailer-container">
                 <div class="trailer-track">
-                    <span>{{ $pub->icone }} {{ $pub->titre }} — </span>
-                    <span>Zone publicitaire 2 — </span>
-                    <span>Zone publicitaire 3 — </span>
-                    <span>Zone publicitaire 4 — </span>
-                    <span>Zone publicitaire 5 — </span>
-                    <span>Zone publicitaire 6</span>
+                    @foreach($publicites as $pub)
+                        <span>{{ $pub->icone }} {{ $pub->titre }} — </span>
+                    @endforeach
                 </div>
             </div>
 
