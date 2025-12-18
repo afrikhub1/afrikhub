@@ -9,6 +9,23 @@ use Illuminate\Http\Request;
 
 class PubliciteController extends Controller
 {
+    public function accueil()
+    {
+        // 1️⃣ pubs actives
+        $publicites = Publicite::where('actif', true)
+            ->orderBy('ordre')
+            ->get();
+
+        // 3️⃣ afficher ou non la section pub
+        $showPub = $publicites->count() > 0;
+
+        return view('accueil', compact(
+            'publicites',
+            'scrollSpeed',
+            'showPub'
+        ));
+    }
+
     public function index()
     {
         $publicites = Publicite::orderBy('ordre')->get();

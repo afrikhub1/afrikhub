@@ -446,17 +446,17 @@
                 </div>
             </div>
         </header>
-
-        <div class="trailer-container">
-            <div class="trailer-track">
-                <span>Zone publicitaire 1 — </span>
-                <span>Zone publicitaire 2 — </span>
-                <span>Zone publicitaire 3 — </span>
-                <span>Zone publicitaire 4 — </span>
-                <span>Zone publicitaire 5 — </span>
-                <span>Zone publicitaire 6</span>
+        @if($publicites->count())
+            <div class="trailer-container">
+                <div class="trailer-track">
+                    <span>{{ $pub->icone }} {{ $pub->titre }} — </span>
+                    <span>Zone publicitaire 2 — </span>
+                    <span>Zone publicitaire 3 — </span>
+                    <span>Zone publicitaire 4 — </span>
+                    <span>Zone publicitaire 5 — </span>
+                    <span>Zone publicitaire 6</span>
+                </div>
             </div>
-        </div>
 
 
         <nav class="row col-12 justify-content-center m-0">
