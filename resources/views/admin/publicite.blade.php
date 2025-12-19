@@ -66,7 +66,7 @@
                         </form>
 
                         {{-- Bouton modifier --}}
-                        <a href="{{ route('publicites.update', $pub) }}" class="btn btn-primary btn-sm">
+                        <a href="{{ route('publicites.edit', $pub) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
 
