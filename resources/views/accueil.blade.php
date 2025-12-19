@@ -449,10 +449,31 @@
 
         <div class="trailer-container">
             <div class="trailer-track">
+                @php
+                    $iconeColors = [
+                        'fa-bell' => 'orange',
+                        'fa-home' => 'blue',
+                        'fa-exclamation' => 'red',
+                        'fa-check' => 'green',
+                        'fa-star' => 'gold',
+                        'fa-info' => 'skyblue',
+                        'fa-heart' => 'red',
+                        'fa-smile' => 'yellowgreen',
+                        'fa-fire' => 'orangered',
+                        'fa-envelope' => 'purple',
+                        // ajoute ici toutes les icônes de ton select
+                    ];
+                @endphp
+
                 @foreach($publicites as $pub)
-                    <span><i class="{{ $pub->icone }}"></i>-</span>
-                    <span>{{ $pub->titre }}-</span>
-                    <span>{{ $pub->lien }}</span>
+                    @php
+                        $color = $iconeColors[$pub->icone] ?? 'black';
+                    @endphp
+                    <span class="m-0 p-0">
+                        <i class="{{ $pub->icone }}" style="color: {{ $color }};"></i> -
+                    </span>
+                    <span class="m-0 p-0">{{ $pub->titre }} -</span>
+                    <span class="m-0 p-0">{{ $pub->lien }}</span>
                 @endforeach
             </div>
         </div>
