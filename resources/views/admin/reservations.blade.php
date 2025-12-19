@@ -42,10 +42,12 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id Reservation</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Résidence</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Locataire</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">proprio</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dates</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ref.paiement</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -65,6 +67,13 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class=" font-medium text-gray-900">{{ $reservation->client ?? 'Client Inconnu' }}</div>
                                 <div class="text-xs text-gray-500">{{ $reservation->user->email ?? 'N/A' }}</div>
+                                <div class="text-xs text-gray-500">{{ $reservation->user->contact ?? 'N/A' }}</div>
+                            </td>
+
+                             <td class="px-6 py-4 whitespace-nowrap">
+                                <div class=" font-medium text-gray-900">{{ $reservation->proprietaire ?? 'Client Inconnu' }}</div>
+                                <div class="text-xs text-gray-500">{{ $reservation->user->email ?? 'N/A' }}</div>
+                                <div class="text-xs text-gray-500">{{ $reservation->user->contact ?? 'N/A' }}</div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap  text-gray-700">
@@ -104,6 +113,7 @@
                                     </button>
                                 @endif
                             </td>
+                            <td class="text-xs text-gray-500"> {{ $reservation->reference }} </td>
 
                         </tr>
                     @endforeach
