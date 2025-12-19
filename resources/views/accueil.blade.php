@@ -470,7 +470,7 @@
                     @php
                         $color=$iconeColors[$pub->icone] ?? 'red';
                     @endphp
-                    <span class="m-0 p-0">
+                    <span class="ms-5 my-0 p-0">
                         <i class="fas {{ $pub->icone }}" style="color: {{ $color }};"></i>
                     </span>
                     <span class="m-0 p-0">{{ $pub->titre }} -</span>
