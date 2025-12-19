@@ -12,7 +12,7 @@
             </div>
         @else
     <h1 class="lg:text-4xl md:text-2xl text_xl font-extrabold text-indigo-700 mb-8 text-center border-b-4 border-indigo-500 pb-3">
-        Total  utilisateurs enregistrés : {{ $utilisateurs->count() }}
+        Total  utilisateurs enregistrés : {{ $utilisateurs->count()}}
     </h1>
 
     <div class="table-responsive shadow-sm rounded-3">
@@ -22,6 +22,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Tel</th>
                     <th scope="col">status</th>
                     <th scope="col">Date d'Inscription</th>
                     <th scope="col">Dernière Mise à Jour</th>
@@ -30,11 +31,12 @@
             </thead>
             <tbody>
                 @foreach ($utilisateurs as $user)
-                    <tr class="search-row" data-name="{{ $user->name }}" data-status="{{ $user->status ?? 'inconnu' }}">
+                    <tr class="search-row" data-name="{{ $user->name}}" data-status="{{$user->status ?? 'inconnu'}}">
 
-                        <th scope="row">{{ $user->id }}</th>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <th scope="row">{{$user->id}}</th>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->contact}}</td>
 
                         <td>
                             @if ($user->email_verified_at && $user->status === 'suspendu')
@@ -46,21 +48,21 @@
                             @endif
                         </td>
 
-                        <td>{{ $user->created_at->format('d/m/Y') }}</td>
-                        <td>{{ $user->updated_at->format('d/m/Y') }}</td>
+                        <td>{{$user->created_at->format('d/m/Y')}}</td>
+                        <td>{{$user->updated_at->format('d/m/Y')}}</td>
 
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
-                                <a href="{{ route('admin.users.residences', $user->id) }}" class="btn btn-info btn-sm text-white" title="Voir les Résidences">
+                                <a href="{{ route('admin.users.residences', $user->id)}}" class="btn btn-info btn-sm text-white" title="Voir les Résidences">
                                     <i class="fas fa-home me-1"></i> Résidences
                                 </a>
 
-                                <form action="{{ route('admin.users.toggle_suspension', $user->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('admin.users.toggle_suspension', $user->id)}}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit"
                                             class="btn btn-warning btn-sm"
                                             title="Suspendre ou Réactiver l'accès"
-                                            onclick="return confirm('Confirmer l\'action pour {{ $user->name }} ?')">
+                                            onclick="return confirm('Confirmer l\'action pour {{ $user->name}} ?')">
                                         @if ($user->status === 'suspendu')
                                             <i class="fas fa-unlock-alt me-1"></i> Réactiver
                                         @else
@@ -69,7 +71,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ $user->name }} ? Cette action est irréversible.');">
+                                <form action="{{ route('admin.users.destroy', $user->id)}}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ $user->name}} ? Cette action est irréversible.');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" title="Supprimer définitivement l'utilisateur">
@@ -87,7 +89,7 @@
     {{-- Vous pouvez ajouter ici la pagination si elle est gérée par Laravel --}}
     @if ($utilisateurs instanceof \Illuminate\Pagination\LengthAwarePaginator)
         <div class="d-flex justify-content-center mt-4">
-            {{ $utilisateurs->links('pagination::bootstrap-5') }}
+            {{ $utilisateurs->links('pagination::bootstrap-5')}}
         </div>
     @endif
 @endif
