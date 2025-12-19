@@ -474,7 +474,7 @@
                         <i class="{{ $pub->icone }}" style="color: {{ $color }};"></i>
                     </span>
                     <span class="m-0 p-0">{{ $pub->titre }} -</span>
-                    <span class="m-0 p-0">{{ $pub->lien }}</span>
+                    <span class="m-0 p-0"><a href="{{ $pub->lien }}"></a>{{ $pub->lien }}</span>
                 @endforeach
             </div>
         </div>
