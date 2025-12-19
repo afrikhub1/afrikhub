@@ -71,9 +71,7 @@
                             </td>
 
                              <td class="px-6 py-4 whitespace-nowrap">
-                                <div class=" font-medium text-gray-900">{{ $reservation->proprietaire ?? 'Client Inconnu' }}</div>
-                                <div class="text-xs text-gray-500">{{ $reservation->user->email ?? 'N/A' }}</div>
-                                <div class="text-xs text-gray-500">{{ $reservation->user->contact ?? 'N/A' }}</div>
+                                <div class=" font-medium text-gray-900">{{ $reservation->proprietaire_id ?? 'Client Inconnu' }}</div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap  text-gray-700">
