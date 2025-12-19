@@ -68,7 +68,7 @@
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20v-2a3 3 0 00-5.356-1.857M17 20H7m0 0a3 3 0 01-5.356-1.857M7 20v-2a3 3 0 01-5.356-1.857m0 0H2"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 Demandes d'interruption
             </a>
-            <a href="{{ route('publicite') }}" class="flex items-center p-3  font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+            <a href="{{ route('admin.publicites.index') }}" class="flex items-center p-3  font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20v-2a3 3 0 00-5.356-1.857M17 20H7m0 0a3 3 0 01-5.356-1.857M7 20v-2a3 3 0 01-5.356-1.857m0 0H2"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 Publicites
             </a>
