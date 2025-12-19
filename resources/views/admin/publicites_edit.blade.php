@@ -1,8 +1,8 @@
-@extends('layouts.admin') {{-- Assure-toi d'avoir un layout admin --}}
+@extends('admin.header_footer')
 
 @section('title', 'Modifier Publicité')
 
-@section('content')
+@section('main')
 <div class="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
     <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Modifier Publicité</h1>
 
