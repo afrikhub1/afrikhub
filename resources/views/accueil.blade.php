@@ -461,6 +461,7 @@
                         'fa-smile' => 'yellowgreen',
                         'fa-fire' => 'orangered',
                         'fa-envelope' => 'purple',
+                        'fa-star' => 'yellow',
                         // ajoute ici toutes les icônes de ton select
                     ];
                 @endphp
