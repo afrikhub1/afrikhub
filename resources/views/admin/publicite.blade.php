@@ -41,28 +41,28 @@
                         <option value="" disabled selected>Choisir une icône</option>
 
                         {{-- Alertes / Notifications --}}
-                        <option value="fas fa-bell">🔔 Bell</option>
-                        <option value="fas fa-exclamation-triangle">⚠️ Warning</option>
-                        <option value="fas fa-bullhorn">📢 Bullhorn</option>
+                        <option value="fa-bell">🔔 Bell</option>
+                        <option value="fa-exclamation-triangle">⚠️ Warning</option>
+                        <option value="fa-bullhorn">📢 Bullhorn</option>
 
                         {{-- Actions / Général --}}
-                        <option value="fas fa-home">🏠 Home</option>
-                        <option value="fas fa-info-circle">ℹ️ Info</option>
-                        <option value="fas fa-lightbulb">💡 Light</option>
+                        <option value="fa-home">🏠 Home</option>
+                        <option value="fa-info-circle">ℹ️ Info</option>
+                        <option value="fa-lightbulb">💡 Light</option>
 
                         {{-- Social / Favoris --}}
-                        <option value="fas fa-heart">❤️ Heart</option>
-                        <option value="fas fa-star">⭐ Star</option>
-                        <option value="fas fa-thumbs-up">👍 Like</option>
+                        <option value="fa-heart">❤️ Heart</option>
+                        <option value="fa-star">⭐ Star</option>
+                        <option value="fa-thumbs-up">👍 Like</option>
 
                         {{-- Argent / Cadeaux --}}
-                        <option value="fas fa-money-bill-wave">💰 Money</option>
-                        <option value="fas fa-gift">🎁 Gift</option>
+                        <option value="fa-money-bill-wave">💰 Money</option>
+                        <option value="fa-gift">🎁 Gift</option>
 
                         {{-- Autres fun --}}
-                        <option value="fas fa-fire">🔥 Fire</option>
-                        <option value="fas fa-smile">😄 Smile</option>
-                        <option value="fas fa-paper-plane">✈️ Paper Plane</option>
+                        <option value="fa-fire">🔥 Fire</option>
+                        <option value="fa-smile">😄 Smile</option>
+                        <option value="fa-paper-plane">✈️ Paper Plane</option>
                     </select>
                 </div>
 
@@ -104,7 +104,7 @@
                 <tr>
                     <td>{{ $pub->ordre }}</td>
                    <td>
-                        <i class="{{ $pub->icone }}"></i> {{ $pub->titre }}
+                        <i class="fa {{ $pub->icone }}"></i> {{ $pub->titre }}
                     </td>
                     <td>{{ $pub->titre }}</td>
                     <td>{{ $pub->lien }}</td>
