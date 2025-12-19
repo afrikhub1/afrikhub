@@ -58,13 +58,12 @@ class PubliciteController extends Controller
         return view('admin.publicites_edit', compact('publicite'));
     }
 
-
     public function update(Request $request, Publicite $publicite)
     {
         $publicite->update($request->all());
-
-        return redirect()->back()->with('success', 'Publicité modifiée');
+        return redirect()->route('publicites.edit')->with('success', 'Publicité modifiée');
     }
+
 
     public function destroy(Publicite $publicite)
     {
