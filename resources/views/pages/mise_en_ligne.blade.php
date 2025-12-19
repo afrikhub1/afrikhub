@@ -332,19 +332,46 @@
                     <div class="row g-3">
                         @php
                             $commodites = [
-                                "Climatisation" => "fa-snowflake",
-                                "Wi-Fi" => "fa-wifi",
-                                "Télévision" => "fa-tv",
-                                "Eau chaude" => "fa-shower",
-                                "Parking" => "fa-car",
-                                "Cuisine équipée" => "fa-utensils",
-                                "Machine à laver" => "fa-washer",
-                                "Sécurité 24h/24" => "fa-shield-alt",
+                                "Niveau d’étage" => "fa-building",
+                                "Ascenseur" => "fa-elevator",
+                                "Parking externe" => "fa-car",
+                                "Parking interne" => "fa-parking",
+                                "Terrasse" => "fa-tree",
+                                "Balcon" => "fa-tree",
+                                "Jardin" => "fa-seedling",
                                 "Piscine" => "fa-swimming-pool",
-                                "Balcon/Terrasse" => "fa-tree",
-                                "Générateur" => "fa-bolt",
-                                "Caméras de surveillance" => "fa-video",
-                                "Animaux autorisés" => "fa-paw"
+                                "Nombre de chambres" => "fa-bed",
+                                "Nombre de salles d'eau" => "fa-shower",
+                                "Eau chaude" => "fa-shower",
+                                "Split toutes les chambres et salon" => "fa-snowflake",
+                                "Split toutes les chambres sauf salon" => "fa-snowflake",
+                                "Split autre (à préciser)" => "fa-snowflake",
+                                "Surveillance 24/24" => "fa-shield-alt",
+                                "Service ménager" => "fa-broom",
+                                "Salon fauteuil 1 place" => "fa-couch",
+                                "Salon canapé 2 places" => "fa-couch",
+                                "Salon canapé 3 places" => "fa-couch",
+                                "Salon canapé 4 places" => "fa-couch",
+                                "Salon canapé 5 places" => "fa-couch",
+                                "Salon canapé 6 places" => "fa-couch",
+                                "Salle à manger 2 places" => "fa-chair",
+                                "Salle à manger 3 places" => "fa-chair",
+                                "Salle à manger 4 places" => "fa-chair",
+                                "Salle à manger 6 places" => "fa-chair",
+                                "Salle à manger autre" => "fa-chair",
+                                "Réfrigérateur" => "fa-box",
+                                "Congélateur combiné" => "fa-box",
+                                "Four" => "fa-burn",
+                                "Grande gazinière" => "fa-burn",
+                                "Micro-ondes" => "fa-microchip",
+                                "Mixeur" => "fa-blender",
+                                "Bouilloire électrique" => "fa-blender",
+                                "Couverts et ustensiles de cuisine" => "fa-utensils",
+                                "Machine à laver linge 6kgs" => "fa-washer",
+                                "Télévision salon 50 pouces" => "fa-tv",
+                                "Abonnement chaînes internationales" => "fa-tv",
+                                "Canal plus" => "fa-tv",
+                                "Wi-Fi" => "fa-wifi",
                             ];
                         @endphp
 
@@ -365,6 +392,7 @@
                             </div>
                         @endforeach
                     </div>
+
                 </div>
 
                 <div class="mt-5 row">
