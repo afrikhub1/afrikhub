@@ -34,22 +34,55 @@
         <div class="card-body">
             <form method="POST" action="{{ route('publicites.store') }}" class="row g-2">
                 @csrf
-                <div class="col-md-1">
-                    <input name="icone" placeholder="🔥" class="form-control">
+
+                {{-- Sélection icône --}}
+                <div class="col-md-2">
+                    <select name="icone" class="form-select" required>
+                        <option value="" disabled selected>Choisir une icône</option>
+
+                        {{-- Alertes / Notifications --}}
+                        <option value="fas fa-bell">🔔 Bell</option>
+                        <option value="fas fa-exclamation-triangle">⚠️ Warning</option>
+                        <option value="fas fa-bullhorn">📢 Bullhorn</option>
+
+                        {{-- Actions / Général --}}
+                        <option value="fas fa-home">🏠 Home</option>
+                        <option value="fas fa-info-circle">ℹ️ Info</option>
+                        <option value="fas fa-lightbulb">💡 Light</option>
+
+                        {{-- Social / Favoris --}}
+                        <option value="fas fa-heart">❤️ Heart</option>
+                        <option value="fas fa-star">⭐ Star</option>
+                        <option value="fas fa-thumbs-up">👍 Like</option>
+
+                        {{-- Argent / Cadeaux --}}
+                        <option value="fas fa-money-bill-wave">💰 Money</option>
+                        <option value="fas fa-gift">🎁 Gift</option>
+
+                        {{-- Autres fun --}}
+                        <option value="fas fa-fire">🔥 Fire</option>
+                        <option value="fas fa-smile">😄 Smile</option>
+                        <option value="fas fa-paper-plane">✈️ Paper Plane</option>
+                    </select>
                 </div>
+
                 <div class="col-md-5">
                     <input name="titre" placeholder="Texte de la pub" class="form-control" required>
                 </div>
+
                 <div class="col-md-3">
                     <input name="lien" placeholder="Lien (optionnel)" class="form-control">
                 </div>
+
                 <div class="col-md-2">
                     <input name="ordre" type="number" placeholder="Ordre" class="form-control">
                 </div>
-                <div class="col-md-1 d-grid">
+
+                <div class="col-md-12 mt-2">
                     <button class="btn btn-success"><i class="fas fa-plus"></i> Ajouter</button>
                 </div>
             </form>
+
         </div>
     </div>
 
@@ -70,7 +103,9 @@
             @foreach($publicites as $pub)
                 <tr>
                     <td>{{ $pub->ordre }}</td>
-                    <td>{{ $pub->icone }}</td>
+                   <td>
+                        <i class="{{ $pub->icone }}"></i> {{ $pub->titre }}
+                    </td>
                     <td>{{ $pub->titre }}</td>
                     <td>{{ $pub->lien }}</td>
                     <td>
