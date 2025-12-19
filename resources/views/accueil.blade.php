@@ -467,7 +467,7 @@
 
                 @foreach($publicites as $pub)
                     @php
-                        $color = $iconeColors[$pub->icone] ?? 'black';
+                        $color=$iconeColors[$pub->icone] ?? 'red';
                     @endphp
                     <span class="m-0 p-0">
                         <i class="{{ $pub->icone }}" style="color: {{ $color }};"></i> -
