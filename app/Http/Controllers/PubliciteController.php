@@ -61,7 +61,7 @@ class PubliciteController extends Controller
     public function update(Request $request, Publicite $publicite)
     {
         $publicite->update($request->all());
-        return redirect()->route('publicites.edit')->with('success', 'Publicité modifiée');
+        return redirect()->route('publicites.index')->with('success', 'Publicité modifiée');
     }
 
 
