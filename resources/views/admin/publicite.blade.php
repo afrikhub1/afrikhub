@@ -59,7 +59,9 @@
             <thead class="table-light">
                 <tr>
                     <th>Ordre</th>
-                    <th>Pub</th>
+                    <th>icône</th>
+                    <th>titre</th>
+                    <th>lien</th>
                     <th>Statut</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -68,7 +70,9 @@
             @foreach($publicites as $pub)
                 <tr>
                     <td>{{ $pub->ordre }}</td>
-                    <td>{{ $pub->icone }} {{ $pub->titre }}</td>
+                    <td>{{ $pub->icone }}</td>
+                    <td>{{ $pub->titre }}</td>
+                    <td>{{ $pub->lien }}</td>
                     <td>
                         @if($pub->actif)
                             <span class="badge bg-success">Active</span>
