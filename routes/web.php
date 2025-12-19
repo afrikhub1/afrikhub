@@ -152,6 +152,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     // publicités
     Route::get('/publicites', [PubliciteController::class, 'index'])->name('publicites.index');
     Route::post('/publicites', [PubliciteController::class, 'store'])->name('publicites.store');
+    Route::get('/publicites/{publicite}/edit', [PubliciteController::class, 'edit'])->name('publicites.edit');
     Route::put('/publicites/{publicite}', [PubliciteController::class, 'update'])->name('publicites.update');
     Route::delete('/publicites/{publicite}', [PubliciteController::class, 'destroy'])->name('publicites.destroy');
     Route::patch('/publicites/{publicite}/toggle', [PubliciteController::class, 'toggle'])->name('publicites.toggle');
