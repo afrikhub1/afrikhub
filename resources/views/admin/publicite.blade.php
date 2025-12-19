@@ -104,7 +104,7 @@
                 <tr>
                     <td>{{ $pub->ordre }}</td>
                    <td>
-                        <i class="fa {{ $pub->icone }}"></i> {{ $pub->titre }}
+                        <i class="fas {{ $pub->icone }}"></i> {{ $pub->titre }}
                     </td>
                     <td>{{ $pub->titre }}</td>
                     <td>{{ $pub->lien }}</td>

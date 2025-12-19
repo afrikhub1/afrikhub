@@ -471,7 +471,7 @@
                         $color=$iconeColors[$pub->icone] ?? 'red';
                     @endphp
                     <span class="m-0 p-0">
-                        <i class="{{ $pub->icone }}" style="color: {{ $color }};"></i>
+                        <i class="fas {{ $pub->icone }}" style="color: {{ $color }};"></i>
                     </span>
                     <span class="m-0 p-0">{{ $pub->titre }} -</span>
                     <span class="m-0 p-0"><a href="{{ $pub->lien }}"></a>{{ $pub->lien }}</span>
