@@ -491,56 +491,56 @@
                 </div>
 
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-    {{-- Indicateurs --}}
-    <div class="carousel-indicators">
-        @foreach($carousels as $key => $carousel)
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{ $key }}"
-                    class="{{ $key == 0 ? 'active' : '' }}" aria-current="{{ $key == 0 ? 'true' : 'false' }}"
-                    aria-label="Slide {{ $key + 1 }}"></button>
-        @endforeach
-    </div>
-
-    {{-- Slides --}}
-    <div class="carousel-inner">
-        @forelse($carousels as $key => $carousel)
-            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                <img src="{{ $carousel->image_url }}"
-                     class="d-block w-100"
-                     alt="{{ $carousel->titre ?? 'Publicité' }}"
-                     style="height: 400px; object-fit: cover;">
-
-                @if($carousel->titre || $carousel->lien)
-                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                        <h5>{{ $carousel->titre }}</h5>
-                        @if($carousel->lien)
-                            <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
-                        @endif
+                    {{-- Indicateurs --}}
+                    <div class="carousel-indicators">
+                        @foreach($carousels as $key => $carousel)
+                            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{ $key }}"
+                                    class="{{ $key == 0 ? 'active' : '' }}" aria-current="{{ $key == 0 ? 'true' : 'false' }}"
+                                    aria-label="Slide {{ $key + 1 }}"></button>
+                        @endforeach
                     </div>
-                @endif
-            </div>
-        @empty
-            {{-- Slide par défaut si aucun carousel --}}
-            <div class="carousel-item active">
-                <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue"
-                     style="height: 400px; object-fit: cover;">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                    <h5>Bienvenue sur Afrikhub</h5>
-                    <p>Découvrez nos services d'hébergement.</p>
-                </div>
-            </div>
-        @endforelse
-    </div>
 
-    {{-- Boutons précédent / suivant --}}
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Précédent</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Suivant</span>
-    </button>
-</div>
+                    {{-- Slides --}}
+                    <div class="carousel-inner border">
+                        @forelse($carousels as $key => $carousel)
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                <img src="{{ $carousel->image_url }}"
+                                    class="d-block w-100"
+                                    alt="{{ $carousel->titre ?? 'Publicité' }}"
+                                    style="height: 400px; object-fit: cover;">
+
+                                @if($carousel->titre || $carousel->lien)
+                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                                        <h5>{{ $carousel->titre }}</h5>
+                                        @if($carousel->lien)
+                                            <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                        @empty
+                            {{-- Slide par défaut si aucun carousel --}}
+                            <div class="carousel-item active">
+                                <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue"
+                                    style="height: 400px; object-fit: cover;">
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                                    <h5>Bienvenue sur Afrikhub</h5>
+                                    <p>Découvrez nos services d'hébergement.</p>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    {{-- Boutons précédent / suivant --}}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Précédent</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Suivant</span>
+                    </button>
+                </div>
 
 
             </section>
