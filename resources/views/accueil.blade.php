@@ -510,7 +510,7 @@
                                 </div>
 
                                 @if($carousel->lien)
-                                    <div class="carousel-caption d-none d-md-block bg-opacity-50 rounded p-0 m-0 border">
+                                    <div class="carousel-caption bottom-0 d-none d-md-block bg-opacity-50 rounded p-0 m-0 border">
                                         @if($carousel->lien)
                                             <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
                                         @endif
