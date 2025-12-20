@@ -501,7 +501,7 @@
                     </div>
 
                     {{-- Slides --}}
-                    <div class="carousel-inner border">
+                    <div class="carousel-inner border h-50">
                         @forelse($carousels as $key => $carousel)
                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                 <img src="{{ $carousel->image_url }}"
