@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carousels;
 use App\Models\Publicite;
 use Illuminate\Http\Request;
 use App\Models\Residence;
@@ -31,9 +32,14 @@ class PubliciteController extends Controller
             $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
         }
 
+        $carousels = Carousels::orderBy('ordre')->get();
+        return view('accueil', compact('carousels'));
+
+
+
 
         // Passage des données à la vue accueil
-        return view('accueil', compact('residences', 'publicites','showPub'));
+        return view('accueil', compact('residences', 'publicites','showPub', 'carousels'));
     }
 
     public function index()

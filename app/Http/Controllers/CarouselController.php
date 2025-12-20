@@ -15,14 +15,6 @@ class CarouselController extends Controller
         return view('admin.carousel', compact('carousels'));
     }
 
-    // Liste des images du carrousel
-    public function accueil()
-    {
-        $carousels = Carousels::orderBy('ordre')->get();
-        return view('accueil', compact('carousels'));
-    }
-
-
     // Formulaire ajout
     public function create()
     {
