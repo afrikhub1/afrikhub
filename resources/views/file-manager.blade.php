@@ -33,22 +33,12 @@
         <input type="text" id="search-input" class="search-bar flex-1" placeholder="Rechercher un fichier ou dossier...">
     </div>
 
-@if(count($files) === 0)
-    <!-- État vide -->
-    <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-        <div class="text-6xl mb-4">📂</div>
-        <h2 class="text-lg font-semibold">Aucun fichier ou dossier</h2>
-        <p class="text-sm mt-1">
-            Ce dossier est vide pour le moment.
-        </p>
-    </div>
-@else
     <!-- Grille des fichiers -->
     <div id="file-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         @foreach($files as $file)
-            <div class="file-card relative" data-name="{{ strtolower($file['name']) }}">
-                <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
-
+        <div class="file-card relative" data-name="{{ strtolower($file['name']) }}">
+            <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
+            <div class="file-icon">
                 @if($file['type'] === 'dir')
                     <a href="{{ route('file.manager', ['folder' => $file['path']]) }}" class="block text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
@@ -57,16 +47,20 @@
                         <div class="file-name mt-1">{{ $file['name'] }}</div>
                     </a>
                 @else
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
-                        <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
-                    </svg>
-                    <div class="file-name mt-1">{{ $file['name'] }}</div>
+                    <div class="file-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
+                            <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
+                        </svg>
+                        <div class="file-name mt-1">{{ $file['name'] }}</div>
+                    </div>
                 @endif
+
             </div>
+            <div class="file-name">{{ $file['name'] }}</div>
+            <div class="absolute inset-0 overlay-selected hidden rounded-xl pointer-events-none"></div>
+        </div>
         @endforeach
     </div>
-@endif
-
 
     <!-- Bouton supprimer -->
     <form method="POST" action="{{ route('file.manager.delete') }}" class="mt-4">
