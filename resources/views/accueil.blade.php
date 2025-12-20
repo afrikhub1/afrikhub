@@ -492,8 +492,8 @@
 
                 <div id="carouselPublicites" class="carousel slide col-4 m-0" data-bs-ride="carousel">
                     <div class="carousel-inner">
-    @forelse($carousels as $key => $carousel)
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+    @forelse($carousels as $carousel)
+        <div class="carousel-item-active">
             {{-- On vérifie si l'image est une URL complète ou un chemin stocké --}}
             <img src="{{ Str::startsWith($carousel->image, 'http') ? $carousel->image : asset('storage/' . $carousel->image) }}"
                  class="d-block w-100"
