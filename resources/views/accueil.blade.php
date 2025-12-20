@@ -531,10 +531,14 @@
                         <span class="visually-hidden">Suivant</span>
                     </button>
 
-                    <!-- Indicateurs (petits cercles) -->
-                    <div class="carousel-indicators">
-                        @foreach($images as $key => $img)
-                            <button type="button" data-bs-target="#carouselPublicites" data-bs-slide-to="{{ $key }}" class="@if($key==0) active @endif" aria-current="@if($key==0) true @endif" aria-label="Slide {{ $key+1 }}"></button>
+                    <div class="carousel-inner">
+                        @foreach($carousels as $key => $item)
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="d-block w-100" alt="{{ $item->titre }}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ $item->titre }}</h5>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                 </div>
