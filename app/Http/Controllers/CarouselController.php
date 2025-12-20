@@ -12,7 +12,7 @@ class CarouselController extends Controller
     public function index()
     {
         $carousels = Carousel::orderBy('ordre')->get();
-        return view('admin.carousel.index', compact('carousels'));
+        return view('admin.carousel', compact('carousels'));
     }
 
     // Formulaire ajout
@@ -47,7 +47,7 @@ class CarouselController extends Controller
     // Formulaire modification
     public function edit(Carousel $carousel)
     {
-        return view('admin.carousel.edit', compact('carousel'));
+        return view('admin.carousel_edit', compact('carousel'));
     }
 
     // Modifier
