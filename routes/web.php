@@ -162,7 +162,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
 
 use App\Http\Controllers\CarouselController;
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/carousels', [CarouselController::class, 'index'])->name('carousels.index');
     Route::get('/carousels/create', [CarouselController::class, 'create'])->name('carousels.create');
     Route::post('/carousels', [CarouselController::class, 'store'])->name('carousels.store');
