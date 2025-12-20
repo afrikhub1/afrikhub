@@ -511,7 +511,6 @@
 
                                 @if($carousel->titre || $carousel->lien)
                                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                                        <h5>{{ $carousel->titre }}</h5>
                                         @if($carousel->lien)
                                             <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
                                         @endif
