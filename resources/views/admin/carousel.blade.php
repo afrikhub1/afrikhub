@@ -1,12 +1,12 @@
 @extends('admin.header_footer')
-@section('title', 'Ajouter une image carrousel')
+@section('title', 'Gestion Carousels')
 
 @section('main')
 <div class="container py-4">
     <h2>Ajouter une image au carrousel</h2>
 
     {{-- 🔹 Liste des carousels actifs --}}
-    <h4 class="mt-4">Carousels actifs</h4>
+    <h4 class="mt-4">Carousels existants</h4>
     @if($carousels->count() > 0)
         <div class="row">
             @foreach($carousels as $carousel)
@@ -20,15 +20,36 @@
                             <p class="mb-1"><strong>Titre:</strong> {{ $carousel->titre ?? '-' }}</p>
                             <p class="mb-1"><strong>Ordre:</strong> {{ $carousel->ordre }}</p>
                             @if($carousel->lien)
-                                <a href="{{ $carousel->lien }}" target="_blank" class="btn btn-sm btn-primary w-100">Voir lien</a>
+                                <a href="{{ $carousel->lien }}" target="_blank" class="btn btn-sm btn-primary w-100 mb-1">Voir lien</a>
                             @endif
+                            <div class="d-flex justify-content-between">
+                                {{-- Modifier --}}
+                                <a href="{{ route('carousels.edit', $carousel->id) }}" class="btn btn-sm btn-warning">Modifier</a>
+
+                                {{-- Supprimer --}}
+                                <form method="POST" action="{{ route('carousels.destroy', $carousel->id) }}"
+                                      onsubmit="return confirm('Voulez-vous vraiment supprimer ce carousel ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">Supprimer</button>
+                                </form>
+                            </div>
+
+                            {{-- Activer / Désactiver --}}
+                            <form method="POST" action="{{ route('carousels.toggle', $carousel->id) }}" class="mt-1">
+                                @csrf
+                                @method('PATCH')
+                                <button class="btn btn-sm {{ $carousel->actif ? 'btn-success' : 'btn-secondary' }} w-100">
+                                    {{ $carousel->actif ? 'Actif' : 'Inactif' }}
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     @else
-        <p>Aucun carousel actif pour le moment.</p>
+        <p>Aucun carousel trouvé.</p>
     @endif
 
     {{-- 🔹 Formulaire d'ajout --}}
