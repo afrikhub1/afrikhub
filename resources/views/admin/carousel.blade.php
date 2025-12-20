@@ -5,7 +5,7 @@
 <div class="container py-4">
     <h2>Ajouter une image au carrousel</h2>
 
-    <form method="POST" action="{{ route('carousels.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label>Image</label>
