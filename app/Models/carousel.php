@@ -9,5 +9,17 @@ class Carousel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titre', 'image', 'lien', 'ordre', 'actif'];
+    // Autorise l'insertion de ces colonnes en base de données
+    protected $fillable = [
+        'titre',
+        'image',
+        'lien',
+        'ordre',
+        'actif'
+    ];
+
+    // Force le cast de la colonne actif en booléen
+    protected $casts = [
+        'actif' => 'boolean',
+    ];
 }
