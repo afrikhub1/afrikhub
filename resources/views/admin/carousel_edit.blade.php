@@ -9,32 +9,39 @@
         @csrf
         @method('PUT')
 
+        {{-- Image actuelle depuis S3 --}}
         <div class="mb-3">
             <label>Image actuelle</label>
-            <img src="{{ asset('storage/'.$carousel->image) }}" class="img-fluid mb-2">
+            <img src="{{ Storage::disk('s3')->url($carousel->image) }}" class="img-fluid mb-2" style="max-height: 300px; object-fit: cover;">
         </div>
 
+        {{-- Changer l'image --}}
         <div class="mb-3">
             <label>Changer l'image</label>
             <input type="file" name="image" class="form-control">
+            <small class="text-muted">Laisser vide si vous ne souhaitez pas changer l'image.</small>
         </div>
 
+        {{-- Titre --}}
         <div class="mb-3">
             <label>Titre</label>
-            <input type="text" name="titre" class="form-control" value="{{ $carousel->titre }}">
+            <input type="text" name="titre" class="form-control" value="{{ old('titre', $carousel->titre) }}">
         </div>
 
+        {{-- Lien --}}
         <div class="mb-3">
             <label>Lien</label>
-            <input type="url" name="lien" class="form-control" value="{{ $carousel->lien }}">
+            <input type="url" name="lien" class="form-control" value="{{ old('lien', $carousel->lien) }}">
         </div>
 
+        {{-- Ordre --}}
         <div class="mb-3">
             <label>Ordre</label>
-            <input type="number" name="ordre" class="form-control" value="{{ $carousel->ordre }}">
+            <input type="number" name="ordre" class="form-control" value="{{ old('ordre', $carousel->ordre) }}">
         </div>
 
-        <button class="btn btn-success">💾 Enregistrer</button>
+        {{-- Boutons --}}
+        <button type="submit" class="btn btn-success">💾 Enregistrer</button>
         <a href="{{ route('carousels.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
