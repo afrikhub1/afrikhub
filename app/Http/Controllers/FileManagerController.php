@@ -12,10 +12,14 @@ class FileManagerController extends Controller
 {
     public function index(Request $request)
     {
-        $folder = urldecode($request->input('folder', '')); // Décodage URL pour compatibilité
+        $baseFolder = 'galerie'; // RACINE
+        $folder = urldecode($request->input('folder', ''));
+
+        // Sécurité : empêcher ../
+        $currentFolder = trim($baseFolder . '/' . ltrim($folder, '/'), '/');
 
         try {
-            $all = Storage::disk('s3')->listContents($folder, false); // false = non récursif
+            $all = Storage::disk('s3')->listContents($currentFolder, false);
         } catch (\Exception $e) {
             return back()->with('error', 'Impossible de charger le dossier : ' . $e->getMessage());
         }
@@ -41,8 +45,13 @@ class FileManagerController extends Controller
             }
         }
 
-        return view('file-manager', compact('files', 'folder'));
+        return view('file-manager', [
+            'files' => $files,
+            'folder' => str_replace($baseFolder . '/', '', $currentFolder),
+            'baseFolder' => $baseFolder
+        ]);
     }
+
 
     public function delete(Request $request)
     {
