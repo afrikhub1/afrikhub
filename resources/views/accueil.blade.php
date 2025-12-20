@@ -501,7 +501,7 @@
                     </div>
 
                     {{-- Slides --}}
-                    <div class="carousel-inner" style="max-height: 200px">
+                    <div class="carousel-inner rounded" style="max-height: 200px">
                         @forelse($carousels as $key => $carousel)
                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                 <img src="{{ $carousel->image_url }}"
