@@ -33,9 +33,10 @@ class PubliciteController extends Controller
         }
 
         $carousels = Carousels::orderBy('ordre')->get();
+        $image=$carousels->image;
 
         // Passage des données à la vue accueil
-        return view('accueil', compact('residences', 'publicites','showPub', 'carousels',));
+        return view('accueil', compact('residences', 'publicites','showPub', 'carousels','image'));
     }
 
     public function index()
