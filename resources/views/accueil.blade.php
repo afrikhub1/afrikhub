@@ -503,7 +503,7 @@
                     {{-- Slides --}}
                     <div class="carousel-inner rounded" style="max-height: 200px">
                         @forelse($carousels as $key => $carousel)
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0 border">
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0 border" style="max-height: 200px">
                                 <div>
                                     <img src="{{ $carousel->image_url }}" class="d-block w-100" alt="{{$carousel->titre ?? 'Publicité'}}"
                                     style="object-fit: cover;">
