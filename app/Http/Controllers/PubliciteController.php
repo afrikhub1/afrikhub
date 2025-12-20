@@ -39,7 +39,7 @@ class PubliciteController extends Controller
 
 
         // Passage des données à la vue accueil
-        return view('accueil', compact('residences', 'publicites','showPub', 'carousels'));
+        return view('accueil', compact('residences', 'publicites','showPub', 'carousels',));
     }
 
     public function index()
