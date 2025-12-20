@@ -490,17 +490,17 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
 
-                <div class="carousel-inner">
+<div class="carousel-inner">
     @forelse($carousels as $key => $carousel)
-        {{-- On ajoute 'active' uniquement si c'est le premier index ($key == 0) --}}
+        {{-- On ajoute 'active' uniquement pour le premier item --}}
         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-
-            {{-- Source de l'image : vérifie si c'est une URL ou un fichier local --}}
-            <img src="{{ Str::startsWith($carousel->image, 'http') ? $carousel->image : asset('storage/' . $carousel->image) }}"
+            {{-- Image depuis S3 --}}
+            <img src="{{ $carousel->image_url }}"
                  class="d-block w-100"
                  alt="{{ $carousel->titre ?? 'Publicité' }}"
                  style="height: 400px; object-fit: cover;">
 
+            {{-- Légende si titre ou lien --}}
             @if($carousel->titre || $carousel->lien)
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                     <h5>{{ $carousel->titre }}</h5>
@@ -511,7 +511,7 @@
             @endif
         </div>
     @empty
-        {{-- Image par défaut si aucune pub n'est en base --}}
+        {{-- Image par défaut si aucun carousel --}}
         <div class="carousel-item active">
             <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue">
             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
@@ -521,6 +521,7 @@
         </div>
     @endforelse
 </div>
+
             </section>
             <section id="hebergement" class="my-2 px-0 py-6">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>

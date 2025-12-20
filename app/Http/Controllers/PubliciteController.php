@@ -3,7 +3,7 @@
 // app/Http/Controllers/PubliciteController.php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Carousels;
 use App\Models\Publicite;
 use Illuminate\Http\Request;
@@ -13,30 +13,38 @@ class PubliciteController extends Controller
 {
     public function accueil()
     {
-        // Récupération des résidences disponibles pour l'affichage
-
+        // Récupération des résidences disponibles
         $residences = Residence::where('status', 'vérifiée')
-            ->where('disponible', 1) // 1 -> résidences disponibles
+            ->where('disponible', 1)
             ->get();
 
-        // 1️⃣ pubs actives
-        $publicites = Publicite::where('actif', true)
-            ->orderBy('ordre')
-            ->get();
-
-        // 3️⃣ afficher ou non la section pub
-        $showPub = $publicites->count() > 0;
-
-        // Ajoute la prochaine date disponible à chaque résidence (si nécessaire)
+        // Ajout de la prochaine date disponible
         foreach ($residences as $residence) {
             $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
         }
 
-        $carousels = Carousels::where('actif', true)->orderBy('ordre')->get();
+        // Publicités actives
+        $publicites = Publicite::where('actif', true)
+            ->orderBy('ordre')
+            ->get();
 
-        // Passage des données à la vue accueil
-        return view('accueil', compact('residences', 'publicites','showPub', 'carousels',));
+        $showPub = $publicites->count() > 0;
+
+        // Carousels actifs
+        $carousels = Carousels::where('actif', true)
+            ->orderBy('ordre')
+            ->get();
+
+        // 🔹 Ajouter l'URL S3 pour chaque image de carousel
+        $carousels->transform(function ($item) {
+            $item->image_url = Storage::disk('s3')->url($item->image);
+            return $item;
+        });
+
+        // Passage des données à la vue
+        return view('accueil', compact('residences', 'publicites', 'showPub', 'carousels'));
     }
+
 
     public function index()
     {
