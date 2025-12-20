@@ -31,7 +31,7 @@ class CarouselController extends Controller
             'ordre' => 'nullable|integer',
         ]);
 
-        $path = $request->file('image')->store('carousels', 'public');
+        $path = $request->file('image')->store('galerie/carousels', 's3');
 
         Carousels::create([
             'titre' => $request->titre,
