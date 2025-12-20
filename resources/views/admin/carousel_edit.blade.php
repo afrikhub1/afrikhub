@@ -21,13 +21,6 @@
             <input type="file" name="image" class="form-control">
             <small class="text-muted">Laisser vide si vous ne souhaitez pas changer l'image.</small>
         </div>
-
-        {{-- Titre --}}
-        <div class="mb-3">
-            <label>Titre</label>
-            <input type="text" name="titre" class="form-control" value="{{ old('titre', $carousel->titre) }}">
-        </div>
-
         {{-- Lien --}}
         <div class="mb-3">
             <label>Lien</label>

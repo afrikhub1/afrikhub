@@ -26,7 +26,6 @@ class CarouselController extends Controller
     {
         $request->validate([
             'image' => 'required|image',
-            'titre' => 'nullable|string',
             'lien' => 'nullable|url',
             'ordre' => 'nullable|integer',
         ]);
@@ -34,7 +33,6 @@ class CarouselController extends Controller
         $path = $request->file('image')->store('galerie/carousels', 's3');
 
         Carousels::create([
-            'titre' => $request->titre,
             'lien' => $request->lien,
             'ordre' => $request->ordre ?? 0,
             'image' => $path,
@@ -55,7 +53,6 @@ class CarouselController extends Controller
     {
         $request->validate([
             'image' => 'nullable|image',
-            'titre' => 'nullable|string',
             'lien' => 'nullable|url',
             'ordre' => 'nullable|integer',
         ]);
@@ -65,7 +62,6 @@ class CarouselController extends Controller
             $carousel->image = $path;
         }
 
-        $carousel->titre = $request->titre;
         $carousel->lien = $request->lien;
         $carousel->ordre = $request->ordre ?? 0;
         $carousel->save();

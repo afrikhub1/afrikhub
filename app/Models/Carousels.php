@@ -11,7 +11,6 @@ class Carousels extends Model
 
     // Autorise l'insertion de ces colonnes en base de données
     protected $fillable = [
-        'titre',
         'image',
         'lien',
         'ordre',

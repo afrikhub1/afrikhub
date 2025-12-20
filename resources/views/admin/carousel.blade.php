@@ -33,10 +33,8 @@
                     <div class="card">
                         <img src="{{ Storage::disk('s3')->url($carousel->image) }}"
                              class="card-img-top"
-                             alt="{{ $carousel->titre ?? 'Carousel' }}"
                              style="height:150px; object-fit:cover;">
                         <div class="card-body p-2">
-                            <p class="mb-1"><strong>Titre:</strong> {{ $carousel->titre ?? '-' }}</p>
                             <p class="mb-1"><strong>Ordre:</strong> {{ $carousel->ordre }}</p>
                             @if($carousel->lien)
                                 <a href="{{ $carousel->lien }}" target="_blank" class="btn btn-sm btn-primary w-100 mb-1">Voir lien</a>
@@ -77,10 +75,6 @@
         <div class="mb-3">
             <label>Image</label>
             <input type="file" name="image" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label>Titre</label>
-            <input type="text" name="titre" class="form-control">
         </div>
         <div class="mb-3">
             <label>Lien</label>

@@ -499,35 +499,34 @@
                                     aria-label="Slide {{ $key + 1 }}"></button>
                         @endforeach
                     </div>
+                    <div class="carousel-inner rounded" style="max-height: 200px">
+                        @forelse($carousels as $key => $carousel)
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0" style="max-height: 200px">
+                                <div>
+                                    @if($carousel->lien)
+                                        {{-- On vérifie si le lien commence par http, sinon on peut l'ajouter ou s'assurer que la donnée en BD est propre --}}
+                                        <a href="{{ str_starts_with($carousel->lien, 'http') ? $carousel->lien : 'https://' . $carousel->lien }}" target="_blank">
+                                    @endif
 
-<div class="carousel-inner rounded" style="max-height: 200px">
-    @forelse($carousels as $key => $carousel)
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0 border" style="max-height: 200px">
-            <div>
-                @if($carousel->lien)
-                    {{-- On vérifie si le lien commence par http, sinon on peut l'ajouter ou s'assurer que la donnée en BD est propre --}}
-                    <a href="{{ str_starts_with($carousel->lien, 'http') ? $carousel->lien : 'https://' . $carousel->lien }}" target="_blank">
-                @endif
+                                    <img src="{{ $carousel->image_url }}" class="d-block w-100" alt="Publicité"
+                                        style="object-fit: cover;">
 
-                <img src="{{ $carousel->image_url }}" class="d-block w-100" alt="{{$carousel->titre ?? 'Publicité'}}"
-                     style="object-fit: cover;">
-
-                @if($carousel->lien)
-                    </a>
-                @endif
-            </div>
-        </div>
-    @empty
-        <div class="carousel-item active">
-            <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue"
-                 style="height: 400px; object-fit: cover;">
-            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                <h5>Bienvenue sur Afrikhub</h5>
-                <p>Découvrez nos services d'hébergement.</p>
-            </div>
-        </div>
-    @endforelse
-</div>
+                                    @if($carousel->lien)
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        @empty
+                            <div class="carousel-item active">
+                                <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue"
+                                    style="height: 400px; object-fit: cover;">
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                                    <h5>Bienvenue sur Afrikhub</h5>
+                                    <p>Découvrez nos services d'hébergement.</p>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
 
                     {{-- Boutons précédent / suivant --}}
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

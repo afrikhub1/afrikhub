@@ -10,7 +10,6 @@ return new class extends Migration {
     {
         Schema::create('carousels', function (Blueprint $table) {
             $table->id();
-            $table->string('titre')->nullable();
             $table->string('image'); // chemin de l'image
             $table->string('lien')->nullable(); // si la pub a un lien
             $table->integer('ordre')->default(0); // ordre dans le carrousel
