@@ -164,4 +164,10 @@ use App\Http\Controllers\CarouselController;
 
 Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/carousels', [CarouselController::class, 'index'])->name('carousels.index');
+    Route::get('/carousels/create', [CarouselController::class, 'create'])->name('carousels.create');
+    Route::post('/carousels', [CarouselController::class, 'store'])->name('carousels.store');
+    Route::get('/carousels/{carousel}/edit', [CarouselController::class, 'edit'])->name('carousels.edit');
+    Route::put('/carousels/{carousel}', [CarouselController::class, 'update'])->name('carousels.update');
+    Route::delete('/carousels/{carousel}', [CarouselController::class, 'destroy'])->name('carousels.destroy');
+    Route::patch('/carousels/{carousel}/toggle', [CarouselController::class, 'toggle'])->name('carousels.toggle');
 });
