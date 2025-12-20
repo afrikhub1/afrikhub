@@ -490,37 +490,58 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
 
-<div class="carousel-inner">
-    @forelse($carousels as $key => $carousel)
-        {{-- On ajoute 'active' uniquement pour le premier item --}}
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            {{-- Image depuis S3 --}}
-            <img src="{{ $carousel->image_url }}"
-                 class="d-block w-100"
-                 alt="{{ $carousel->titre ?? 'Publicité' }}"
-                 style="height: 400px; object-fit: cover;">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    {{-- Indicateurs --}}
+    <div class="carousel-indicators">
+        @foreach($carousels as $key => $carousel)
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{ $key }}"
+                    class="{{ $key == 0 ? 'active' : '' }}" aria-current="{{ $key == 0 ? 'true' : 'false' }}"
+                    aria-label="Slide {{ $key + 1 }}"></button>
+        @endforeach
+    </div>
 
-            {{-- Légende si titre ou lien --}}
-            @if($carousel->titre || $carousel->lien)
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                    <h5>{{ $carousel->titre }}</h5>
-                    @if($carousel->lien)
-                        <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
-                    @endif
-                </div>
-            @endif
-        </div>
-    @empty
-        {{-- Image par défaut si aucun carousel --}}
-        <div class="carousel-item active">
-            <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue">
-            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                <h5>Bienvenue sur Afrikhub</h5>
-                <p>Découvrez nos services d'hébergement.</p>
+    {{-- Slides --}}
+    <div class="carousel-inner">
+        @forelse($carousels as $key => $carousel)
+            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                <img src="{{ $carousel->image_url }}"
+                     class="d-block w-100"
+                     alt="{{ $carousel->titre ?? 'Publicité' }}"
+                     style="height: 400px; object-fit: cover;">
+
+                @if($carousel->titre || $carousel->lien)
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                        <h5>{{ $carousel->titre }}</h5>
+                        @if($carousel->lien)
+                            <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
+                        @endif
+                    </div>
+                @endif
             </div>
-        </div>
-    @endforelse
+        @empty
+            {{-- Slide par défaut si aucun carousel --}}
+            <div class="carousel-item active">
+                <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue"
+                     style="height: 400px; object-fit: cover;">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                    <h5>Bienvenue sur Afrikhub</h5>
+                    <p>Découvrez nos services d'hébergement.</p>
+                </div>
+            </div>
+        @endforelse
+    </div>
+
+    {{-- Boutons précédent / suivant --}}
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+    </button>
 </div>
+
 
             </section>
             <section id="hebergement" class="my-2 px-0 py-6">
@@ -730,87 +751,83 @@
         {{-- Ajout de la librairie GLightbox pour que l'ouverture des images fonctionne --}}
            {{-- GLightbox pour que l'ouverture des images fonctionne --}}
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
         <script>
             document.addEventListener('DOMContentLoaded', () => {
             const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, autoplayVideos: true }); });
         </script>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.getElementById("searchInput");
-        const searchOption = document.getElementById("searchOption");
-        const rows = document.querySelectorAll(".search-row");
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const searchInput = document.getElementById("searchInput");
+                const searchOption = document.getElementById("searchOption");
+                const rows = document.querySelectorAll(".search-row");
 
-        // Fonction pour normaliser texte (minuscules + accents)
-        function normalizeText(text) {
-            return text
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
-        }
-
-        searchInput.addEventListener("keyup", () => {
-            const query = normalizeText(searchInput.value.trim());
-            const option = searchOption.value;
-
-            rows.forEach(row => {
-                let value = "";
-
-                switch(option) {
-                    case "name":
-                        value = normalizeText(row.dataset.name || "");
-                        break;
-
-                    case "status":
-                        value = normalizeText(row.dataset.status || "");
-                        break;
-
-                    case "ville":
-                        value = normalizeText(row.dataset.ville || "");
-                        break;
-
-                    case "prix_journalier": // 🔥 correction pour trier par prix
-                        value = Number(row.dataset.prix_journalier || 0);
-                        break;
-
-                    case "salon": // 🔥 correction pour trier par salons
-                        value = Number(row.dataset.nombre_salons || 0);
-                        break;
-
-                    case "chambre": // 🔥 correction pour trier par chambres
-                        value = Number(row.dataset.nombre_chambres || 0);
-                        break;
-
-                    default:
-                        value = "";
+                // Fonction pour normaliser texte (minuscules + accents)
+                function normalizeText(text) {
+                    return text
+                        .toLowerCase()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "");
                 }
 
-                // 🔥 Recherche numérique → convertir query aussi
-                if(option === "prix" || option === "salon" || option === "chambre") {
-                    const numQuery = Number(query);
-                    if(!isNaN(numQuery) && value === numQuery) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                } else {
-                    // Recherche textuelle
-                    if(normalizeText(value.toString()).includes(query)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                }
+                searchInput.addEventListener("keyup", () => {
+                    const query = normalizeText(searchInput.value.trim());
+                    const option = searchOption.value;
+
+                    rows.forEach(row => {
+                        let value = "";
+
+                        switch(option) {
+                            case "name":
+                                value = normalizeText(row.dataset.name || "");
+                                break;
+
+                            case "status":
+                                value = normalizeText(row.dataset.status || "");
+                                break;
+
+                            case "ville":
+                                value = normalizeText(row.dataset.ville || "");
+                                break;
+
+                            case "prix_journalier": // 🔥 correction pour trier par prix
+                                value = Number(row.dataset.prix_journalier || 0);
+                                break;
+
+                            case "salon": // 🔥 correction pour trier par salons
+                                value = Number(row.dataset.nombre_salons || 0);
+                                break;
+
+                            case "chambre": // 🔥 correction pour trier par chambres
+                                value = Number(row.dataset.nombre_chambres || 0);
+                                break;
+
+                            default:
+                                value = "";
+                        }
+
+                        // 🔥 Recherche numérique → convertir query aussi
+                        if(option === "prix" || option === "salon" || option === "chambre") {
+                            const numQuery = Number(query);
+                            if(!isNaN(numQuery) && value === numQuery) {
+                                row.style.display = "";
+                            } else {
+                                row.style.display = "none";
+                            }
+                        } else {
+                            // Recherche textuelle
+                            if(normalizeText(value.toString()).includes(query)) {
+                                row.style.display = "";
+                            } else {
+                                row.style.display = "none";
+                            }
+                        }
+                    });
+                });
             });
-        });
-    });
-</script>
-
-
-
-
-
+        </script>
 
     </body>
 </html>
