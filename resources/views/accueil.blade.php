@@ -512,7 +512,7 @@
     @empty
         {{-- Image par défaut si la base de données est vide --}}
         <div class="carousel-item active">
-            <img src="{{ asset('images/default-banner.jpg') }}" class="d-block w-100" alt="Bienvenue">
+            <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue">
             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                 <h5>Bienvenue sur Afrikhub</h5>
                 <p>Aucune publicité disponible pour le moment.</p>
