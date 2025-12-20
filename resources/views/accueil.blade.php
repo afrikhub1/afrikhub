@@ -503,14 +503,14 @@
                     {{-- Slides --}}
                     <div class="carousel-inner rounded" style="max-height: 200px">
                         @forelse($carousels as $key => $carousel)
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" style="max-height: 150px">
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0" style="max-height: 150px">
                                 <img src="{{ $carousel->image_url }}"
                                     class="d-block w-100"
                                     alt="{{ $carousel->titre ?? 'Publicité' }}"
                                     style="object-fit: cover;">
 
                                 @if($carousel->titre || $carousel->lien)
-                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                                    <div class="carousel-caption d-none d-md-block bg-opacity-50 rounded p-0 m-0">
                                         @if($carousel->lien)
                                             <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
                                         @endif
