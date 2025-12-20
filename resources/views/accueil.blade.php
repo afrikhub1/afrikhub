@@ -482,13 +482,63 @@
 
         <nav class="row col-12 justify-content-center m-0">
             <section id="accueil" class="text-center py-5">
-                <div>
+                <div class="col-8 m-0">
                     @include('includes.messages')
                     <h2>Bienvenue</h2>
                     <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
                     <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
+
+                <div id="carouselPublicites" class="carousel slide col-4 m-0" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @php
+                            // Exemple d'images, tu peux remplacer par tes pubs ou résidences
+                            $images = [
+                                '/images/pub1.jpg',
+                                '/images/pub2.jpg',
+                                '/images/pub3.jpg',
+                                '/images/pub4.jpg',
+                            ];
+                        @endphp
+
+                        @foreach($images as $key => $img)
+                            <div class="carousel-item @if($key == 0) active @endif">
+                                <img src="{{ $img }}" class="d-block w-100" alt="Image {{ $key+1 }}">
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                                    <h5>Publicité {{ $key + 1 }}</h5>
+                                    <p>Description optionnelle de la pub ou résidence.</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Contrôles gauche/droite -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPublicites" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Précédent</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPublicites" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Suivant</span>
+                    </button>
+
+                    <!-- Indicateurs (petits cercles) -->
+                    <div class="carousel-indicators">
+                        @foreach($images as $key => $img)
+                            <button type="button" data-bs-target="#carouselPublicites" data-bs-slide-to="{{ $key }}" class="@if($key==0) active @endif" aria-current="@if($key==0) true @endif" aria-label="Slide {{ $key+1 }}"></button>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Optionnel : vitesse du défilement automatique -->
+                <script>
+                    var carousel = document.querySelector('#carouselPublicites');
+                    var carouselInstance = new bootstrap.Carousel(carousel, {
+                        interval: 3000,  // 3 secondes
+                        wrap: true
+                    });
+                </script>
             </section>
             <section id="hebergement" class="my-2 px-0 py-6">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
