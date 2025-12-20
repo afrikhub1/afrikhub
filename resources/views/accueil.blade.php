@@ -505,7 +505,8 @@
         <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0 border" style="max-height: 200px">
             <div>
                 @if($carousel->lien)
-                    <a href="{{ $carousel->lien }}">
+                    {{-- On vérifie si le lien commence par http, sinon on peut l'ajouter ou s'assurer que la donnée en BD est propre --}}
+                    <a href="{{ str_starts_with($carousel->lien, 'http') ? $carousel->lien : 'https://' . $carousel->lien }}" target="_blank">
                 @endif
 
                 <img src="{{ $carousel->image_url }}" class="d-block w-100" alt="{{$carousel->titre ?? 'Publicité'}}"
@@ -517,7 +518,6 @@
             </div>
         </div>
     @empty
-        {{-- Slide par défaut si aucun carousel --}}
         <div class="carousel-item active">
             <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue"
                  style="height: 400px; object-fit: cover;">
