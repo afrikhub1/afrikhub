@@ -507,7 +507,7 @@
                                 <img src="{{ $carousel->image_url }}"
                                     class="d-block w-100"
                                     alt="{{ $carousel->titre ?? 'Publicité' }}"
-                                    style="height: 400px; object-fit: cover;">
+                                    style="object-fit: cover;">
 
                                 @if($carousel->titre || $carousel->lien)
                                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
