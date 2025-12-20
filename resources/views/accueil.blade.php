@@ -530,27 +530,7 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Suivant</span>
                     </button>
-
-                    <div class="carousel-inner">
-                        @foreach($carousels as $key => $item)
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $item->image) }}" class="d-block w-100" alt="{{ $item->titre }}">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>{{ $item->titre }}</h5>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
-
-                <!-- Optionnel : vitesse du défilement automatique -->
-                <script>
-                    var carousel = document.querySelector('#carouselPublicites');
-                    var carouselInstance = new bootstrap.Carousel(carousel, {
-                        interval: 3000,  // 3 secondes
-                        wrap: true
-                    });
-                </script>
             </section>
             <section id="hebergement" class="my-2 px-0 py-6">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
