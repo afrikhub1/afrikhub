@@ -3,6 +3,25 @@
 
 @section('main')
 <div class="container py-4">
+    @if (session('success'))
+        <div id="alert-success" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-green-50 border-l-4 border-green-600 shadow text-center">
+            <div class="w-full">
+                <p class="font-bold text-green-700">Succès !</p>
+                <p class="text-green-800">{{ session('success') }}</p>
+            </div>
+            <button onclick="closeAlert('alert-success')" class="text-green-700 hover:text-green-900 ml-3">✕</button>
+        </div>
+    @endif
+
+    @if (session('danger'))
+        <div id="alert-danger" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-red-50 border-l-4 border-red-600 shadow text-center">
+            <div class="w-full">
+                <p class="font-bold text-red-700">Alerte !</p>
+                <p class="text-red-800">{{ session('danger') }}</p>
+            </div>
+            <button onclick="closeAlert('alert-danger')" class="text-red-700 hover:text-red-900 ml-3">✕</button>
+        </div>
+    @endif
     <h2>Ajouter une image au carrousel</h2>
 
     {{-- 🔹 Liste des carousels actifs --}}
