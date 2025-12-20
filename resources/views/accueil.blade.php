@@ -492,26 +492,34 @@
 
                 <div id="carouselPublicites" class="carousel slide col-4 m-0" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        @php
-                            // Exemple d'images, tu peux remplacer par tes pubs ou résidences
-                            $images = [
-                                '/images/pub1.jpg',
-                                '/images/pub2.jpg',
-                                '/images/pub3.jpg',
-                                '/images/pub4.jpg',
-                            ];
-                        @endphp
+    @forelse($carousels as $key => $carousel)
+        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+            {{-- On vérifie si l'image est une URL complète ou un chemin stocké --}}
+            <img src="{{ Str::startsWith($carousel->image, 'http') ? $carousel->image : asset('storage/' . $carousel->image) }}"
+                 class="d-block w-100"
+                 alt="{{ $carousel->titre ?? 'Image Carousel' }}"
+                 style="height: 400px; object-fit: cover;"> {{-- Hauteur fixe optionnelle pour l'harmonie --}}
 
-                        @foreach($images as $key => $img)
-                            <div class="carousel-item @if($key == 0) active @endif">
-                                <img src="{{ $img }}" class="d-block w-100" alt="Image {{ $key+1 }}">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                                    <h5>Publicité {{ $key + 1 }}</h5>
-                                    <p>Description optionnelle de la pub ou résidence.</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+            @if($carousel->titre || $carousel->lien)
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                    <h5>{{ $carousel->titre }}</h5>
+                    @if($carousel->lien)
+                        <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
+                    @endif
+                </div>
+            @endif
+        </div>
+    @empty
+        {{-- Image par défaut si la base de données est vide --}}
+        <div class="carousel-item active">
+            <img src="{{ asset('images/default-banner.jpg') }}" class="d-block w-100" alt="Bienvenue">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                <h5>Bienvenue sur Afrikhub</h5>
+                <p>Aucune publicité disponible pour le moment.</p>
+            </div>
+        </div>
+    @endforelse
+</div>
 
                     <!-- Contrôles gauche/droite -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselPublicites" data-bs-slide="prev">
