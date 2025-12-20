@@ -10,14 +10,26 @@ use League\Flysystem\FileAttributes;
 
 class FileManagerController extends Controller
 {
+    private string $baseFolder = 'galerie';
+
+    // Dossiers virtuels que l'on veut toujours afficher
+    private array $virtualDirs = [
+        'galerie/carousels',
+        'galerie/blog',
+        'galerie/pub',
+    ];
+
     public function index(Request $request)
     {
-        $baseFolder = 'galerie'; // RACINE
         $folder = urldecode($request->input('folder', ''));
 
-        // Sécurité : empêcher ../
-        $currentFolder = trim($baseFolder . '/' . ltrim($folder, '/'), '/');
+        // Sécurité + construction du chemin correct
+        $currentFolder = $this->baseFolder;
+        if (!empty($folder)) {
+            $currentFolder .= '/' . trim(str_replace($this->baseFolder, '', $folder), '/');
+        }
 
+        // Récupération du contenu réel S3
         try {
             $all = Storage::disk('s3')->listContents($currentFolder, false);
         } catch (\Exception $e) {
@@ -25,7 +37,13 @@ class FileManagerController extends Controller
         }
 
         $files = [];
+
         foreach ($all as $item) {
+            // Ignorer les fichiers cachés
+            if ($item instanceof FileAttributes && basename($item->path()) === '.keep') {
+                continue;
+            }
+
             if ($item instanceof FileAttributes) {
                 $files[] = [
                     'type' => 'file',
@@ -34,7 +52,9 @@ class FileManagerController extends Controller
                     'size' => $item->fileSize(),
                     'lastModified' => Carbon::createFromTimestamp($item->lastModified())->format('Y-m-d H:i'),
                 ];
-            } elseif ($item instanceof DirectoryAttributes) {
+            }
+
+            if ($item instanceof DirectoryAttributes) {
                 $files[] = [
                     'type' => 'dir',
                     'name' => basename($item->path()),
@@ -45,42 +65,53 @@ class FileManagerController extends Controller
             }
         }
 
+        // Ajouter les dossiers virtuels si ils sont dans ce dossier parent
+        foreach ($this->virtualDirs as $vDir) {
+            if (dirname($vDir) === $currentFolder) {
+                // Vérifier qu'il n'est pas déjà dans $files
+                $exists = collect($files)->firstWhere('path', $vDir);
+                if (!$exists) {
+                    $files[] = [
+                        'type' => 'dir',
+                        'name' => basename($vDir),
+                        'path' => $vDir,
+                        'size' => null,
+                        'lastModified' => '-',
+                    ];
+                }
+            }
+        }
+
         return view('file-manager', [
             'files' => $files,
-            'folder' => str_replace($baseFolder . '/', '', $currentFolder),
-            'baseFolder' => $baseFolder
+            'folder' => str_replace($this->baseFolder . '/', '', $currentFolder),
         ]);
     }
-
 
     public function delete(Request $request)
     {
         $path = $request->input('path');
-        if (!$path) {
-            return back()->with('error', 'Aucun fichier ou dossier sélectionné.');
+
+        if (!$path || !str_starts_with($path, $this->baseFolder)) {
+            return back()->with('error', 'Chemin non autorisé.');
         }
 
         $disk = Storage::disk('s3');
 
         try {
-            if ($disk->exists($path)) {
+            if ($disk->fileExists($path)) {
                 $disk->delete($path);
-                return back()->with('success', "Fichier supprimé : {$path}");
+                return back()->with('success', 'Fichier supprimé.');
             }
 
-            // Supprimer récursivement tous les fichiers et sous-dossiers
-            $files = $disk->allFiles($path);
-            if (!empty($files)) $disk->delete($files);
-
-            $dirs = $disk->allDirectories($path);
-            foreach ($dirs as $dir) {
-                $subFiles = $disk->allFiles($dir);
-                if (!empty($subFiles)) $disk->delete($subFiles);
+            if ($disk->directoryExists($path)) {
+                $disk->deleteDirectory($path);
+                return back()->with('success', 'Dossier supprimé.');
             }
 
-            return back()->with('success', "Dossier supprimé : {$path}");
+            return back()->with('error', 'Élément introuvable.');
         } catch (\Exception $e) {
-            return back()->with('error', "Erreur lors de la suppression : " . $e->getMessage());
+            return back()->with('error', 'Erreur : ' . $e->getMessage());
         }
     }
 }
