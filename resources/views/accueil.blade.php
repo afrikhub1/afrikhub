@@ -381,7 +381,7 @@
             .trailer-container {
                 width: 100%;
                 overflow: hidden;
-                background: #52a7cc86;
+                background: #52a7cc1f;
                 padding: 15px 0;
                 }
 
