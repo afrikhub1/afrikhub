@@ -510,7 +510,6 @@
 
                                     <img src="{{ $carousel->image_url }}" class="d-block w-100" alt="Publicité"
                                         style="object-fit: cover;">
-
                                     @if($carousel->lien)
                                         </a>
                                     @endif
