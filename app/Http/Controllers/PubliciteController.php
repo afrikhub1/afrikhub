@@ -32,11 +32,10 @@ class PubliciteController extends Controller
             $residence->date_disponible = $residence->dateDisponibleAvecNettoyage();
         }
 
-        $carousels = Carousels::orderBy('ordre')->get();
-        $image=$carousels->image;
+        $carousels = Carousels::where('actif', true)->orderBy('ordre')->get();
 
         // Passage des données à la vue accueil
-        return view('accueil', compact('residences', 'publicites','showPub', 'carousels','image'));
+        return view('accueil', compact('residences', 'publicites','showPub', 'carousels',));
     }
 
     public function index()
