@@ -490,47 +490,37 @@
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
 
-                <div id="carouselPublicites" class="carousel slide col-4 m-0" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        @forelse($carousels as $carousel)
-                            <div class="carousel-item active">
-                                {{-- On vérifie si l'image est une URL complète ou un chemin stocké --}}
-                                <img src="{{ Str::startsWith($carousel->image, 'http') ? $carousel->image : asset('storage/' . $carousel->image) }}"
-                                    class="d-block w-100"
-                                    alt="{{ $carousel->titre ?? 'Image Carousel' }}"
-                                    style="height: 400px; object-fit: cover;"> {{-- Hauteur fixe optionnelle pour l'harmonie --}}
+                <div class="carousel-inner">
+    @forelse($carousels as $key => $carousel)
+        {{-- On ajoute 'active' uniquement si c'est le premier index ($key == 0) --}}
+        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
 
-                                @if($carousel->titre || $carousel->lien)
-                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                                        <h5>{{ $carousel->titre }}</h5>
-                                        @if($carousel->lien)
-                                            <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
-                        @empty
-                            {{-- Image par défaut si la base de données est vide --}}
-                            <div class="carousel-item active">
-                                <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                                    <h5>Bienvenue sur Afrikhub</h5>
-                                    <p>Aucune publicité disponible pour le moment.</p>
-                                </div>
-                            </div>
-                        @endforelse
-                    </div>
+            {{-- Source de l'image : vérifie si c'est une URL ou un fichier local --}}
+            <img src="{{ Str::startsWith($carousel->image, 'http') ? $carousel->image : asset('storage/' . $carousel->image) }}"
+                 class="d-block w-100"
+                 alt="{{ $carousel->titre ?? 'Publicité' }}"
+                 style="height: 400px; object-fit: cover;">
 
-                    <!-- Contrôles gauche/droite -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPublicites" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Précédent</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPublicites" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Suivant</span>
-                    </button>
+            @if($carousel->titre || $carousel->lien)
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                    <h5>{{ $carousel->titre }}</h5>
+                    @if($carousel->lien)
+                        <a href="{{ $carousel->lien }}" class="btn btn-sm btn-primary">En savoir plus</a>
+                    @endif
                 </div>
+            @endif
+        </div>
+    @empty
+        {{-- Image par défaut si aucune pub n'est en base --}}
+        <div class="carousel-item active">
+            <img src="{{ asset('assets/images/flyer.jpeg') }}" class="d-block w-100" alt="Bienvenue">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                <h5>Bienvenue sur Afrikhub</h5>
+                <p>Découvrez nos services d'hébergement.</p>
+            </div>
+        </div>
+    @endforelse
+</div>
             </section>
             <section id="hebergement" class="my-2 px-0 py-6">
                 <h2 class="text-3xl font-extrabold text-center text-teal-800 uppercase mb-8">Hébergements</h2>
