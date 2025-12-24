@@ -497,7 +497,7 @@
         <nav class="row col-12 justify-content-center m-0">
             <section id="accueil" class="text-center py-5 row m-0 justify-content-center align-items-center ">
 
-                <div id="carouselExample" class="carousel slide col-10 col-md-8 col-lg-6 border-danger" data-bs-ride="carousel">
+                <div id="carouselExample" class="carousel slide col-10 col-md-8 col-lg-6 border" data-bs-ride="carousel">
                     {{-- Indicateurs --}}
                     <div class="carousel-indicators">
                         @foreach($carousels as $key => $carousel)
@@ -545,7 +545,7 @@
                     </button>
                 </div>
 
-                <div class="col-12 m-0 border-danger">
+                <div class="col-12 m-0 border">
                     @include('includes.messages')
                     <h2>Bienvenue</h2>
                     <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
