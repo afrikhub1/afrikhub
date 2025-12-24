@@ -31,63 +31,76 @@
 </head>
 <body>
 
-<!-- Header -->
-<header class="bg-white border-b fixed w-full z-50 top-0">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center space-x-4">
-          <a href="{{ route('accueil') }}" class="block">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
-          </a>
-          <h1 class="text-lg font-semibold text-slate-900 hidden sm:block">{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
-        </div>
-        <nav class="hidden md:flex items-center space-x-3">
-          <a href="{{ route('recherche') }}" class="px-3 py-1 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Résidences</a>
-          <a href="{{ route('factures') }}" class="px-3 py-1 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Factures</a>
-          @if(Auth::user()->type_compte == 'client')
-            <a href="{{ route('devenir_pro') }}" class="px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition">Pro</a>
-          @else
-            <a href="{{ route('pro.dashboard') }}" class="px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition">Profil</a>
-          @endif
-          <form action="{{ route('logout') }}" method="POST" class="inline">
-            @csrf
-            <button type="submit" class="ml-3 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition flex items-center gap-2">
-              <i class="fas fa-sign-out-alt"></i> Déconnexion
-            </button>
-          </form>
-        </nav>
-        <button id="sidebarToggle" class="md:hidden p-2 rounded-md text-slate-700 hover:text-slate-900 focus:outline-none">
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
-</header>
+  <!-- Header -->
+    <header class="bg-white border-b fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo + titre -->
+            <div class="flex items-center space-x-4">
+            <a href="{{ route('accueil') }}" class="block">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
+            </a>
+            <h1 class="text-lg font-semibold text-slate-900 hidden sm:block">{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
+            </div>
 
-<!-- Sidebar mobile -->
-<aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-50 overflow-y-auto">
+            <!-- Nav principal (desktop) -->
+            <nav class="hidden md:flex items-center space-x-3">
+            <a href="{{ route('recherche') }}" class="px-3 py-1 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Résidences</a>
+            <a href="{{ route('factures') }}" class="px-3 py-1 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Factures</a>
+
+            @if(Auth::user()->type_compte == 'client')
+                <a href="{{ route('devenir_pro') }}" class="px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition">
+                Pro
+                </a>
+            @else
+                <a href="{{ route('pro.dashboard') }}" class="px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow hover:bg-orange-600 transition">
+                Profil
+                </a>
+            @endif
+
+            <form action="{{ route('logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="submit"
+                class="ml-3 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition flex items-center gap-2">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </button>
+            </form>
+            </nav>
+
+            <!-- Toggle sidebar (mobile) -->
+            <button id="sidebarToggle" class="md:hidden p-2 rounded-md text-slate-700 hover:text-slate-900 focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        </div>
+    </header>
+
+    <!-- Sidebar mobile -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-50 overflow-y-auto">
     <div class="flex items-center justify-between p-4 border-b">
-      <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-2">
         <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
         <span class="font-semibold text-lg">{{ Auth::user()->name ?? 'Utilisateur' }}</span>
-      </div>
-      <button id="sidebarClose" class="p-2 text-slate-700 hover:text-slate-900 focus:outline-none">
+        </div>
+        <button id="sidebarClose" class="p-2 text-slate-700 hover:text-slate-900 focus:outline-none">
         <i class="fas fa-times text-xl"></i>
-      </button>
+        </button>
     </div>
+
     <nav class="flex flex-col mt-4 space-y-2 px-4">
-      <a href="{{ route('recherche') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-search"></i> Résidences</a>
-      <a href="{{ route('factures') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-file-invoice-dollar"></i> Factures</a>
-      @if(Auth::user()->type_compte == 'client')
+        <a href="{{ route('recherche') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-search"></i> Résidences</a>
+        <a href="{{ route('factures') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-file-invoice-dollar"></i> Factures</a>
+        @if(Auth::user()->type_compte == 'client')
         <a href="{{ route('devenir_pro') }}" class="px-3 py-2 rounded-lg bg-orange-500 text-white flex items-center gap-2 hover:bg-orange-600">Pro</a>
-      @else
+        @else
         <a href="{{ route('pro.dashboard') }}" class="px-3 py-2 rounded-lg bg-orange-500 text-white flex items-center gap-2 hover:bg-orange-600">Profil</a>
-      @endif
-      <form action="{{ route('logout') }}" method="POST" class="mt-2">
+        @endif
+        <form action="{{ route('logout') }}" method="POST" class="mt-2">
         @csrf
         <button type="submit" class="w-full px-3 py-2 bg-red-600 text-white rounded-lg flex items-center gap-2 hover:bg-red-700">Déconnexion</button>
-      </form>
+        </form>
     </nav>
-</aside>
+    </aside>
 
 <!-- Contenu principal -->
 <div class="container mt-5">
@@ -110,6 +123,8 @@
     </div>
 </div>
 
+@include('includes.footer')
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const qrDisplay = document.getElementById('qrDisplay');
@@ -126,15 +141,20 @@
             `;
         });
     });
-
-    // Sidebar mobile toggle
-    const sidebar = document.getElementById('sidebar');
-    document.getElementById('sidebarToggle').addEventListener('click', () => {
-        sidebar.classList.toggle('-translate-x-full');
-    });
-    document.getElementById('sidebarClose').addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
-    });
 </script>
+
+  <!-- Scripts sidebar -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarClose = document.getElementById('sidebarClose');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.remove('-translate-x-full');
+    });
+    sidebarClose.addEventListener('click', () => {
+      sidebar.classList.add('-translate-x-full');
+    });
+  </script>
 </body>
 </html>
