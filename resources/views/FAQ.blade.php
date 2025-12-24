@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OFAQ - Afrik’Hub Location</title>
+    <title>FAQ - Afrik’Hub Location</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -60,7 +60,7 @@
 <body>
 
 <div class="faq-container">
-    <h2 class="faq-header">OFAQ - Questions fréquentes</h2>
+    <h2 class="faq-header">FAQ - Questions fréquentes</h2>
 
     <div class="faq-item">
         <div class="faq-question">Comment mettre ma résidence en location ?</div>
