@@ -29,7 +29,7 @@
         }
     </style>
 </head>
-<body>
+<body class="h-100">
 
   <!-- Header -->
     <header class="bg-white border-b fixed w-full z-50 top-0">
