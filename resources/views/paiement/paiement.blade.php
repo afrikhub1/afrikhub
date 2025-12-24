@@ -139,7 +139,7 @@
             qrDisplay.innerHTML = `
             <div class='col-12 row m-o justify-content-center'>
                 <h4>${service.toUpperCase()}</h4>
-                    <img src="${imgPath}" alt="QR Code ${service}" class="img-fluid rounded shadow" style="max-width: 100px;">
+                    <img src="${imgPath}" alt="QR Code ${service}" class="img-fluid rounded shadow" style="max-width: (500px;">
                 <p class="mt-2">Scannez ce QR code avec votre application ${service} pour effectuer le paiement.</p>
             </div>
 
