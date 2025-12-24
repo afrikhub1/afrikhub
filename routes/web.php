@@ -18,7 +18,7 @@ use App\Http\Middleware\ProMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SejourController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\News_letterController;
 use App\Http\Controllers\CarouselController;
 
 // --------------------------------------------------
@@ -93,8 +93,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
 
         // Contact - Newsletters
-        Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
-        Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+        Route::get('/contact', [News_letterController::class, 'create'])->name('contact.create');
+        Route::post('/contact', [News_letterController::class, 'store'])->name('contact.store');
 
         // Route pour la page des QR codes / paiement
         Route::get('/paiement/qr', function () {return view('paiement.paiement'); })->name('paiement.qr');
@@ -173,7 +173,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::patch('/publicites/{publicite}/toggle', [PubliciteController::class, 'toggle'])->name('publicites.toggle');
 
     // les news-letters - contacts
-    Route::get('/admin/contacts', [ContactController::class, 'index'])->name('news.letter');
+    Route::get('/admin/contacts', [News_letterController::class, 'index'])->name('news.letter');
 });
 
 // routes/web.php

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\News_letter;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class News_letterController extends Controller
 {
     public function create()
     {
-        return view('contact.create');
+        return view('news_letter.create');
     }
 
     public function store(Request $request)
@@ -22,14 +22,14 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
-        Contact::create($request->all());
+        News_letter::create($request->all());
 
         return redirect()->back()->with('success', 'Votre message a été envoyé avec succès !');
     }
     public function index()
     {
         // Récupération des contacts, triés par date décroissante
-        $contacts = Contact::orderBy('created_at', 'desc')->get();
+        $contacts = News_letter::orderBy('created_at', 'desc')->get();
 
         return view('admin.news_letter', compact('contacts'));
     }
