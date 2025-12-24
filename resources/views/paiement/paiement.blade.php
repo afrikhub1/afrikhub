@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            padding-top: 80px; /* Pour ne pas que le header fixe cache le contenu */
-        }
         .payment-btn {
             min-width: 120px;
             font-weight: bold;
@@ -32,7 +29,7 @@
         }
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body>
 
   <!-- Header -->
     <header class="bg-white border-b fixed w-full z-50 top-0">
