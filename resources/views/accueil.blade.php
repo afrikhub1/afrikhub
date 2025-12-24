@@ -709,24 +709,10 @@
                                             </li>
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i>Disponibilité :</span>
-                                                @if ($date_disponible->isPast())
-                                                    <li>
-                                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
-                                                            Disponible depuis le {{ $date_disponible->translatedFormat('d F Y') }}
-                                                        </span>
-                                                    </li>
-                                                @elseif ($date_disponible->isToday())
-                                                    <li>
-                                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
-                                                            Disponible
-                                                        </span>
-                                                    </li>
+                                                @if($residence->disponible == 0)
+                                                    <span class="text-gray-900">Indisponible</span>
                                                 @else
-                                                    <li>
-                                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
-                                                            Disponible le {{ $date_disponible->translatedFormat('d F Y') }}
-                                                        </span>
-                                                    </li>
+                                                    <span class="text-green-600 font-semibold"> {{ $residence->date_disponible }}</span>
                                                 @endif
                                             </li>
                                         </ul>
