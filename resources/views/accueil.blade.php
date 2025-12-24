@@ -709,10 +709,28 @@
                                             </li>
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i>Disponibilité :</span>
-                                                @if($residence->disponible == 0)
-                                                    <span class="text-gray-900">Indisponible</span>
+                                                 @php
+                                                    $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
+                                                @endphp
+
+                                                @if ($dateDispo->isPast())
+                                                    <li>
+                                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                                            Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                        </span>
+                                                    </li>
+                                                @elseif ($dateDispo->isToday())
+                                                    <li>
+                                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                                            Disponible
+                                                        </span>
+                                                    </li>
                                                 @else
-                                                    <span class="text-green-600 font-semibold"> {{ $residence->date_disponible }}</span>
+                                                    <li>
+                                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                                                            Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                        </span>
+                                                    </li>
                                                 @endif
                                             </li>
                                         </ul>
