@@ -163,7 +163,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::patch('/publicites/{publicite}/toggle', [PubliciteController::class, 'toggle'])->name('publicites.toggle');
 
     // les news-letters - contacts
-    Route::get('/admin/contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::get('/admin/contacts', [ContactController::class, 'index'])->name('news.letter');
 });
 
 // routes/web.php

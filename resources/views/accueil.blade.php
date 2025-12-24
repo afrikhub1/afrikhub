@@ -428,7 +428,7 @@
                     </ul>
 
                     <!-- Bouton menu mobile -->
-                    <span class="menu-btn position-absolute end-0 me-2" onclick="toggleSidebar()">
+                    <span class="menu-btn position-absolute end-0 me-2 p-0" onclick="toggleSidebar()">
                         <i class="fa-solid fa-bars"></i>
                     </span>
 
