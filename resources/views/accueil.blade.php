@@ -496,6 +496,14 @@
         <nav class="row col-12 justify-content-center m-0">
             <section id="accueil" class="text-center py-1 row m-0 justify-content-center align-items-center ">
 
+                <div class="col-10 col-md-6 col-lg-4 m-0">
+                    @include('includes.messages')
+                    <h2>Bienvenue</h2>
+                    <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
+                    <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
+                    <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
+                </div>
+
                 <div id="carouselExample" class="carousel slide col-10 col-md-6 col-lg-4 m-0" data-bs-ride="carousel">
                     {{-- Indicateurs --}}
                     <div class="carousel-indicators">
@@ -542,14 +550,6 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Suivant</span>
                     </button>
-                </div>
-
-                <div class="col-10 col-md-6 col-lg-4 m-0">
-                    @include('includes.messages')
-                    <h2>Bienvenue</h2>
-                    <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-                    <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
-                    <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
 
             </section>
