@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\News_letter;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,32 @@ class News_letterController extends Controller
 
         News_letter::create($request->all());
 
-        return redirect()->back()->with('success', 'Votre message a été envoyé avec succès !');
+
+        if (Auth::check()) {
+
+            // Utilisateur connecté
+            if (Auth::user()->type_compte === 'client') {
+                return redirect()
+                    ->route('clients_historique')
+                    ->with('success', 'Votre message a été envoyé avec succès !');
+            }
+
+            if (Auth::user()->type_compte === 'pro') {
+                return redirect()
+                    ->route('pro.dashboard')
+                    ->with('success', 'Votre message a été envoyé avec succès !');
+            }
+
+            // Sécurité : si type inconnu
+            return redirect()
+                ->route('accueil')
+                ->with('success', 'Votre message a été envoyé avec succès !');
+        }
+
+        // Utilisateur NON connecté
+        return redirect()
+            ->route('accueil')
+            ->with('success', 'Votre message a été envoyé avec succès !');
     }
     public function index()
     {
