@@ -170,7 +170,7 @@
             /* ---------------- SECTION ACCUEIL ---------------- */
             #accueil {
             background: linear-gradient(rgba(0,91,107,0.7), rgba(0,91,107,0.5)), url('{{ asset('assets/images/bg.jpg') }}') no-repeat center center / cover;
-            height: 600px;
+            height: 620px;
             display: flex;
             align-items: center;
             justify-content: center;

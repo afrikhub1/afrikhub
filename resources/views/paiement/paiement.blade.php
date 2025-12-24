@@ -12,16 +12,20 @@
 
     <div class="row justify-content-center g-4">
         <div class="col-md-4 text-center">
-            <img src="{{ asset('') }}" alt="QR Code 1" class="img-fluid rounded shadow">
-            <p class="mt-2">QR Code 1</p>
+            <img src="{{ asset('storage/code_qr/moov.jpg') }}" alt="QR Code 1" class="img-fluid rounded shadow">
+            <p class="mt-2">Moov</p>
         </div>
         <div class="col-md-4 text-center">
-            <img src="{{ asset('qrcodes/qr2.png') }}" alt="QR Code 2" class="img-fluid rounded shadow">
-            <p class="mt-2">QR Code 2</p>
+            <img src="{{ asset('storage/code_qr/orange.jpg') }}" alt="QR Code 2" class="img-fluid rounded shadow">
+            <p class="mt-2">Orange</p>
         </div>
         <div class="col-md-4 text-center">
-            <img src="{{ asset('qrcodes/qr3.png') }}" alt="QR Code 3" class="img-fluid rounded shadow">
-            <p class="mt-2">QR Code 3</p>
+            <img src="{{ asset('storage/code_qr/mtn.jpg') }}" alt="QR Code 3" class="img-fluid rounded shadow">
+            <p class="mt-2">MTN</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="{{ asset('storage/code_qr/wave.jpg') }}" alt="QR Code 3" class="img-fluid rounded shadow">
+            <p class="mt-2">Wave</p>
         </div>
     </div>
 </div>
