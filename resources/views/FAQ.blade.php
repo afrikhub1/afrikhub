@@ -90,14 +90,14 @@
     <div class="faq-item">
         <div class="faq-question">Quels moyens de paiement sont acceptés ?</div>
         <div class="faq-answer">
-            Nous acceptons les paiements via Moov, MTN, Orange, Wave ou virement bancaire direct.
+            Nous acceptons les paiements via Moov, MTN, Orange, Wave, Visa ou virement bancaire direct.
         </div>
     </div>
 
     <div class="faq-item">
         <div class="faq-question">Comment contacter l’assistance ?</div>
         <div class="faq-answer">
-            Vous pouvez nous écrire à <a href="mailto:afrikhub1@gmail.com">afrikhub1@gmail.com</a> ou nous appeler au +225 00 00 00 00.
+            Vous pouvez nous écrire à <a href="mailto:afrikhub1@gmail.com">afrikhub1@gmail.com</a> ou nous appeler au +225 01 03 09 06 16.
         </div>
     </div>
 
