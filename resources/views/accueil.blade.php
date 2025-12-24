@@ -506,9 +506,9 @@
                                     aria-label="Slide {{ $key + 1 }}"></button>
                         @endforeach
                     </div>
-                    <div class="carousel-inner rounded" style="max-height: 300px">
+                    <div class="carousel-inner rounded" style="max-height: 400px">
                         @forelse($carousels as $key => $carousel)
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0" style="max-height: 200px">
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0" style="max-height: 400px">
                                 <div>
                                     @if($carousel->lien)
                                         {{-- On vérifie si le lien commence par http, sinon on peut l'ajouter ou s'assurer que la donnée en BD est propre --}}
