@@ -21,7 +21,6 @@
             position: relative;
             background: linear-gradient(135deg, #006d77, #00afb9);
             color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             z-index: 10;
             padding: 0.5rem 1rem;
             align-items: center;
@@ -384,7 +383,6 @@
                 background: linear-gradient(135deg, #006d77, #00afb9);
                 padding: 15px 0;
                 }
-
                 .trailer-track {
                 display: inline-block;
                 white-space: nowrap;
