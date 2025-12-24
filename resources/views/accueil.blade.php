@@ -481,7 +481,7 @@
 
 
         <nav class="row col-12 justify-content-center m-0">
-            <section id="accueil" class="text-center py-5">
+            <section id="accueil" class="text-center py-5 row m-0">
 
                 <div id="carouselExample" class="carousel slide col-12" data-bs-ride="carousel">
                     {{-- Indicateurs --}}
@@ -538,9 +538,6 @@
                     <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
                     <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
                 </div>
-
-
-
 
             </section>
             <section id="hebergement" class="my-2 px-0 py-6">
