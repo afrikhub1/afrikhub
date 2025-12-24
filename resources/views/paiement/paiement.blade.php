@@ -112,7 +112,7 @@
     <!-- Boutons des paiements -->
     <div class="d-flex justify-content-center gap-3 flex-wrap">
         @php
-            $paiements = ['moov', 'mtn', 'orange', 'Wave'];
+            $paiements = ['Moov', 'MTN', 'Orange', 'Wave'];
         @endphp
 
         @foreach($paiements as $pay)
