@@ -451,5 +451,24 @@
             updateAddress(lat, lng);
         });
     </script>
+
+    {{-- js comodite --}}
+    <script>
+        document.querySelectorAll('.commodite-checkbox').forEach(cb => {
+            cb.addEventListener('change', function () {
+                const field = document.getElementById(this.dataset.target);
+                if (!field) return;
+
+                if (this.checked) {
+                    field.classList.remove('d-none');
+                    field.focus();
+                } else {
+                    field.classList.add('d-none');
+                    field.value = '';
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
