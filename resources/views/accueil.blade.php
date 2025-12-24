@@ -465,7 +465,7 @@
                 @endphp
 
                 @if($publicites->isEmpty())
-                    <div class="alert alert-info d-flex align-items-center gap-2">
+                    <div class="alert alert-info d-flex align-items-center gap-2 m-0 p-0">
                         <i class="fas fa-info-circle"></i>
                         <span class="m-0 p-0">
                              Pour toutes vos affiches et annonces publicitaires,
