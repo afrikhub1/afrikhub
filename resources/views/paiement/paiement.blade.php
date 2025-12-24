@@ -139,27 +139,27 @@
             qrDisplay.innerHTML = `
             <div class='col-12 row m-o justify-content-center'>
                 <h4>${service.toUpperCase()}</h4>
-                    <img src="${imgPath}" alt="QR Code ${service}" class="img-fluid rounded shadow" style="max-width: (200px;">
+                    <img src="${imgPath}" alt="QR Code ${service}" class="img-fluid rounded shadow" style="max-width:200px;">
                 <p class="mt-2">Scannez ce QR code avec votre application ${service} pour effectuer le paiement.</p>
             </div>
 
             `;
         });
     });
-</script>
+    </script>
 
-  <!-- Scripts sidebar -->
-  <script>
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebarClose = document.getElementById('sidebarClose');
+    <!-- Scripts sidebar -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
 
-    sidebarToggle.addEventListener('click', () => {
-      sidebar.classList.remove('-translate-x-full');
-    });
-    sidebarClose.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-    });
-  </script>
+        sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.remove('-translate-x-full');
+        });
+        sidebarClose.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        });
+    </script>
 </body>
 </html>
