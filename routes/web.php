@@ -18,6 +18,7 @@ use App\Http\Middleware\ProMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SejourController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ContactController;
 
 // --------------------------------------------------
 // ROUTES PUBLIQUES
@@ -83,6 +84,10 @@ Route::middleware(['auth'])->group(function () {
         // Gestion des résidences pro
         Route::get('/mes-residences', [ResidenceController::class, 'index'])->name('pro.residences');
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
+
+        Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+        Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
     });
 
 
