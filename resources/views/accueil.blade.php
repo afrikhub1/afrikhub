@@ -708,7 +708,6 @@
                                                 <span class="text-gray-900 font-bold">{{ $residence->nombre_salons ?? 'N/A' }}</span>
                                             </li>
                                             <li class="flex justify-between items-center">
-                                                <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i>Disponibilité :</span>
                                                  @php
                                                     $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
                                                 @endphp
