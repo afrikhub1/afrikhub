@@ -310,6 +310,8 @@
 
                 <p class="small-note">{!! nl2br(e(Str::limit($residences_details->details ?? '-', 600))) !!}</p>
 
+                <h2>Comodités</h2>
+                <p class="small-note">{!! nl2br(e(Str::limit($residences_details->commodites ?? '-', 600))) !!}</p>
                 <div class="res-price">
                 {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
                 </div>
