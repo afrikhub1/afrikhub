@@ -328,20 +328,87 @@
 
                 <!-- Commodités -->
                 <div class="mt-5">
-                    <label class="form-label fw-semibold">Commodités <i class="fas fa-star"></i></label>
+                    <label class="form-label fw-semibold">
+                        Commodités <i class="fas fa-star"></i>
+                    </label>
+
                     <div class="row g-3">
                         @php
-
                             $commodites = [
+
+                                /* ===== BÂTIMENT / ACCÈS ===== */
                                 "Niveau d’étage" => ["icon" => "fa-building", "type" => "number"],
                                 "Ascenseur" => ["icon" => "fa-elevator"],
-                                "Nombre de chambres" => ["icon" => "fa-bed", "type" => "number"],
-                                "Nombre de salles d'eau" => ["icon" => "fa-shower", "type" => "number"],
-                                "Split autre (à préciser)" => ["icon" => "fa-snowflake", "type" => "text"],
-                                "Salle à manger autre" => ["icon" => "fa-chair", "type" => "text"],
-                                "Wi-Fi" => ["icon" => "fa-wifi"],
-                            ];
+                                "Accès PMR" => ["icon" => "fa-wheelchair"],
+                                "Gardien / Concierge" => ["icon" => "fa-user-shield"],
+                                "Surveillance 24/24" => ["icon" => "fa-shield-alt"],
 
+                                /* ===== STATIONNEMENT ===== */
+                                "Parking interne" => ["icon" => "fa-parking"],
+                                "Parking externe" => ["icon" => "fa-car"],
+                                "Nombre de places de parking" => ["icon" => "fa-car-side", "type" => "number"],
+
+                                /* ===== EXTÉRIEUR ===== */
+                                "Balcon" => ["icon" => "fa-tree"],
+                                "Terrasse" => ["icon" => "fa-tree"],
+                                "Jardin" => ["icon" => "fa-seedling"],
+                                "Piscine" => ["icon" => "fa-swimming-pool"],
+
+                                /* ===== COUCHAGE / SANITAIRES ===== */
+                                "Nombre de chambres" => ["icon" => "fa-bed", "type" => "number"],
+                                "Nombre de salles d’eau" => ["icon" => "fa-shower", "type" => "number"],
+                                "Eau chaude" => ["icon" => "fa-water"],
+
+                                /* ===== CLIMATISATION ===== */
+                                "Split toutes les chambres et salon" => ["icon" => "fa-snowflake"],
+                                "Split toutes les chambres sauf salon" => ["icon" => "fa-snowflake"],
+                                "Split salon uniquement" => ["icon" => "fa-snowflake"],
+                                "Split autre (à préciser)" => ["icon" => "fa-snowflake", "type" => "text"],
+
+                                /* ===== SALON ===== */
+                                "Salon fauteuil 1 place" => ["icon" => "fa-couch", "type" => "number"],
+                                "Salon canapé 2 places" => ["icon" => "fa-couch", "type" => "number"],
+                                "Salon canapé 3 places" => ["icon" => "fa-couch", "type" => "number"],
+                                "Salon canapé 4 places" => ["icon" => "fa-couch", "type" => "number"],
+                                "Salon canapé 5 places" => ["icon" => "fa-couch", "type" => "number"],
+                                "Salon canapé 6 places" => ["icon" => "fa-couch", "type" => "number"],
+                                "Table basse salon" => ["icon" => "fa-table"],
+
+                                /* ===== SALLE À MANGER ===== */
+                                "Salle à manger 2 places" => ["icon" => "fa-chair"],
+                                "Salle à manger 4 places" => ["icon" => "fa-chair"],
+                                "Salle à manger 6 places" => ["icon" => "fa-chair"],
+                                "Salle à manger 8 places" => ["icon" => "fa-chair"],
+                                "Salle à manger autre" => ["icon" => "fa-chair", "type" => "text"],
+
+                                /* ===== CUISINE ===== */
+                                "Réfrigérateur" => ["icon" => "fa-box"],
+                                "Congélateur combiné" => ["icon" => "fa-box"],
+                                "Four" => ["icon" => "fa-fire"],
+                                "Gazinière" => ["icon" => "fa-fire"],
+                                "Micro-ondes" => ["icon" => "fa-microchip"],
+                                "Mixeur" => ["icon" => "fa-blender"],
+                                "Bouilloire électrique" => ["icon" => "fa-blender"],
+                                "Machine à laver linge" => ["icon" => "fa-washer"],
+                                "Fer à repasser" => ["icon" => "fa-shirt"],
+
+                                /* ===== MULTIMÉDIA ===== */
+                                "Télévision salon (pouces)" => ["icon" => "fa-tv", "type" => "number"],
+                                "Télévision chambre (pouces)" => ["icon" => "fa-tv", "type" => "number"],
+                                "Abonnement chaînes internationales" => ["icon" => "fa-tv"],
+                                "Canal +" => ["icon" => "fa-tv"],
+                                "Wi-Fi" => ["icon" => "fa-wifi"],
+
+                                /* ===== SERVICES ===== */
+                                "Service ménager" => ["icon" => "fa-broom"],
+                                "Changement de draps" => ["icon" => "fa-bed"],
+                                "Nettoyage hebdomadaire" => ["icon" => "fa-calendar-check"],
+
+                                /* ===== SÉCURITÉ ===== */
+                                "Porte blindée" => ["icon" => "fa-door-closed"],
+                                "Coffre-fort" => ["icon" => "fa-lock"],
+                                "Caméras de surveillance" => ["icon" => "fa-video"],
+                            ];
                         @endphp
 
                         @foreach ($commodites as $label => $data)
@@ -361,7 +428,7 @@
                                             id="{{ $id }}"
                                             data-target="field_{{ $id }}"
                                         >
-                                        <i class="fas {{ $data['icon'] }}"></i>
+                                        <i class="fas {{ $data['icon'] }}" style="color: var(--primary-color);"></i>
                                         <span>{{ $label }}</span>
                                     </label>
 
@@ -377,29 +444,46 @@
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
-
                 </div>
 
                 <div class="mt-5 row">
+
                     <!-- Carte -->
                     <div class="col-md-6">
                         <label class="form-label">Coordonnées géographiques</label>
+
+                        <!-- 🔎 Recherche + Ma position (ICI EXACTEMENT) -->
+                        <div class="d-flex gap-2 mb-2">
+                            <input
+                                type="text"
+                                id="searchLocation"
+                                class="form-control"
+                                placeholder="Rechercher un lieu (ex: Cocody, Plateau...)"
+                            >
+                            <button type="button" id="btnMyLocation" class="btn btn-outline-primary">
+                                <i class="fas fa-location-crosshairs"></i>
+                            </button>
+                        </div>
+
+                        <!-- 🗺️ Carte -->
                         <div id="map" style="height: 300px; border-radius: 10px;"></div>
                     </div>
 
-                    <!-- Champs Latitude, Longitude, Geolocalisation -->
+                    <!-- Champs Latitude / Longitude -->
                     <div class="col-md-6 d-flex flex-column justify-content-start">
-                        <label class="form-label invisible">Lat/Lng</label> <!-- Pour alignement avec la carte -->
+                        <label class="form-label invisible">Lat/Lng</label>
                         <input class="form-control mb-3" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
                         <input class="form-control mb-3" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-compass"></i></span>
-                            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Ex: 5.3170, -4.0101 ou lien Google Maps" required>
+                            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation"
+                                placeholder="Ex: Cocody Angré, Abidjan" required>
                         </div>
                     </div>
+
                 </div>
+
             </fieldset>
 
             <!-- Images -->
@@ -422,35 +506,84 @@
     {{-- Script Leaflet et remplissage automatique de l'adresse --}}
     <script>
         var map = L.map('map').setView([5.345317, -4.024429], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
 
         var marker;
 
-        function updateAddress(lat, lng) {
-            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.address) {
-                        let repere = data.address.neighbourhood || data.address.suburb || data.address.quarter || data.address.village || data.address.town || data.address.city || "Repère non disponible";
-                        document.getElementById("details_position").value = repere;
-                        document.getElementById("geolocalisation").value = data.display_name;
-                    }
-                });
-        }
+        function setMarker(lat, lng) {
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng]).addTo(map);
+            }
 
-        map.on('click', function (e) {
-            var lat = e.latlng.lat;
-            var lng = e.latlng.lng;
-
-            if (marker) { marker.setLatLng(e.latlng); }
-            else { marker = L.marker(e.latlng).addTo(map); }
+            map.setView([lat, lng], 15);
 
             document.getElementById("latitude").value = lat;
             document.getElementById("longitude").value = lng;
 
             updateAddress(lat, lng);
+        }
+
+        function updateAddress(lat, lng) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.display_name) {
+                        document.getElementById("geolocalisation").value = data.display_name;
+                    }
+                });
+        }
+
+        /* ===== CLIC SUR LA CARTE ===== */
+        map.on('click', function (e) {
+            setMarker(e.latlng.lat, e.latlng.lng);
+        });
+
+        /* ===== RECHERCHE DE LIEU ===== */
+        document.getElementById("searchLocation").addEventListener("keyup", function (e) {
+            if (e.key === "Enter") {
+                let query = this.value;
+                if (!query) return;
+
+                fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1&accept-language=fr`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            setMarker(data[0].lat, data[0].lon);
+                        } else {
+                            alert("Lieu non trouvé");
+                        }
+                    });
+            }
+        });
+
+        /* ===== MA POSITION ACTUELLE ===== */
+        document.getElementById("btnMyLocation").addEventListener("click", function () {
+            if (!navigator.geolocation) {
+                alert("La géolocalisation n'est pas supportée");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    setMarker(lat, lng);
+                },
+                function () {
+                    alert("Impossible d'obtenir votre position");
+                },
+                {
+                    enableHighAccuracy: true
+                }
+            );
         });
     </script>
+
 
     {{-- js comodite --}}
     <script>
