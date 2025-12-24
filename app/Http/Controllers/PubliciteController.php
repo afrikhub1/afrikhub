@@ -15,7 +15,6 @@ class PubliciteController extends Controller
     {
         // 1️⃣ Résidences disponibles
         $residences = Residence::where('status', 'vérifiée')
-            ->where('disponible', 1)
             ->get();
 
         foreach ($residences as $residence) {

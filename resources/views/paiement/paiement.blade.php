@@ -125,8 +125,10 @@
         <p class="text-muted mt-3">Cliquez sur un bouton pour afficher le QR code</p>
     </div>
 </div>
+<footer class="bottom-0">
+    @include('includes.footer')
+</footer>
 
-@include('includes.footer')
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
