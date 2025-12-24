@@ -481,9 +481,9 @@
 
 
         <nav class="row col-12 justify-content-center m-0">
-            <section id="accueil" class="text-center py-5 row m-0">
+            <section id="accueil" class="text-center py-5 row m-0 justify-content-center align-items-center ">
 
-                <div id="carouselExample" class="carousel slide col-12" data-bs-ride="carousel">
+                <div id="carouselExample" class="carousel slide col-6" data-bs-ride="carousel">
                     {{-- Indicateurs --}}
                     <div class="carousel-indicators">
                         @foreach($carousels as $key => $carousel)
@@ -492,7 +492,7 @@
                                     aria-label="Slide {{ $key + 1 }}"></button>
                         @endforeach
                     </div>
-                    <div class="carousel-inner rounded" style="max-height: 200px">
+                    <div class="carousel-inner rounded" style="max-height: 300px">
                         @forelse($carousels as $key => $carousel)
                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }} p-0" style="max-height: 200px">
                                 <div>
