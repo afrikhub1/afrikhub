@@ -31,6 +31,9 @@
             padding: 15px;
             border-bottom: 1px solid #ddd;
             position: relative;
+            font-weight: bold;
+            background-color: #f1f1f1;
+            font-size: 1.2rem;
         }
 
         .faq-question:hover {
