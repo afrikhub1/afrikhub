@@ -761,7 +761,7 @@
                         <ul class="space-y-2 text-sm">
                             <li><a href="{{ route('accueil') }}" class="text-white-400 hover:text-white transition">Accueil</a></li>
                             <li><a href="{{ route('recherche') }}" class="text-white-400 hover:text-white transition">Rechercher</a></li>
-                            <li><a href="{{ route('admin.reservations') }}" class="text-white-400 hover:text-white transition">Mes Réservations</a></li>
+                            <li><a href="{{ route('clients_historique') }}" class="text-white-400 hover:text-white transition">Mes Réservations</a></li>
                         </ul>
                     </div>
 
