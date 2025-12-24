@@ -709,13 +709,13 @@
                                             </li>
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-city mr-2 text-indigo-400"></i>Disponibilité :</span>
-                                                @if ($dateDispo->isPast())
+                                                @if ($date_disponible->isPast())
                                                     <li>
                                                         <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
-                                                            Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                            Disponible depuis le {{ $date_disponible->translatedFormat('d F Y') }}
                                                         </span>
                                                     </li>
-                                                @elseif ($dateDispo->isToday())
+                                                @elseif ($date_disponible->isToday())
                                                     <li>
                                                         <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
                                                             Disponible
@@ -724,7 +724,7 @@
                                                 @else
                                                     <li>
                                                         <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
-                                                            Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
+                                                            Disponible le {{ $date_disponible->translatedFormat('d F Y') }}
                                                         </span>
                                                     </li>
                                                 @endif
