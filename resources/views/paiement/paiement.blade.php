@@ -122,6 +122,11 @@
         <p class="text-muted mt-3">Cliquez sur un bouton pour afficher le QR code</p>
     </div>
 </div>
+
+<div class="row p-0 m-0 justify-content-center bottom-0">
+>
+
+</div>
 <footer class="bottom-0">
     @include('includes.footer')
 </footer>
