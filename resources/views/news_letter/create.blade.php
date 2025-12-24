@@ -21,30 +21,8 @@
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Contactez-nous / Newsletter</h2>
-
-    <!-- Success Message -->
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle"></i>
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    <!-- Error Messages -->
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
-                    <li><i class="fas fa-exclamation-triangle"></i> {{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-  <!-- Header -->
-<header class="bg-white border-b fixed w-full z-50 top-0">
+      <!-- Header -->
+<header class="bg-white border-b w-full z-50 top-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo + titre -->
@@ -87,32 +65,55 @@
     </div>
 </header>
 
-  <!-- Sidebar mobile -->
-  <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-50 overflow-y-auto">
-    <div class="flex items-center justify-between p-4 border-b">
-      <div class="flex items-center space-x-2">
-        <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
-        <span class="font-semibold text-lg">{{ Auth::user()->name ?? 'Utilisateur' }}</span>
-      </div>
-      <button id="sidebarClose" class="p-2 text-slate-700 hover:text-slate-900 focus:outline-none">
-        <i class="fas fa-times text-xl"></i>
-      </button>
+<!-- Sidebar mobile -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform z-50 overflow-y-auto">
+<div class="flex items-center justify-between p-4 border-b">
+    <div class="flex items-center space-x-2">
+    <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
+    <span class="font-semibold text-lg">{{ Auth::user()->name ?? 'Utilisateur' }}</span>
     </div>
+    <button id="sidebarClose" class="p-2 text-slate-700 hover:text-slate-900 focus:outline-none">
+    <i class="fas fa-times text-xl"></i>
+    </button>
+</div>
 
-    <nav class="flex flex-col mt-4 space-y-2 px-4">
-      <a href="{{ route('recherche') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-search"></i> Résidences</a>
-      <a href="{{ route('factures') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-file-invoice-dollar"></i> Factures</a>
-      @if(Auth::user()->type_compte == 'client')
-        <a href="{{ route('devenir_pro') }}" class="px-3 py-2 rounded-lg bg-orange-500 text-white flex items-center gap-2 hover:bg-orange-600">Pro</a>
-      @else
-        <a href="{{ route('pro.dashboard') }}" class="px-3 py-2 rounded-lg bg-orange-500 text-white flex items-center gap-2 hover:bg-orange-600">Profil</a>
-      @endif
-      <form action="{{ route('logout') }}" method="POST" class="mt-2">
-        @csrf
-        <button type="submit" class="w-full px-3 py-2 bg-red-600 text-white rounded-lg flex items-center gap-2 hover:bg-red-700">Déconnexion</button>
-      </form>
-    </nav>
-  </aside>
+<nav class="flex flex-col mt-4 space-y-2 px-4">
+    <a href="{{ route('recherche') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-search"></i> Résidences</a>
+    <a href="{{ route('factures') }}" class="px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2"><i class="fas fa-file-invoice-dollar"></i> Factures</a>
+    @if(Auth::user()->type_compte == 'client')
+    <a href="{{ route('devenir_pro') }}" class="px-3 py-2 rounded-lg bg-orange-500 text-white flex items-center gap-2 hover:bg-orange-600">Pro</a>
+    @else
+    <a href="{{ route('pro.dashboard') }}" class="px-3 py-2 rounded-lg bg-orange-500 text-white flex items-center gap-2 hover:bg-orange-600">Profil</a>
+    @endif
+    <form action="{{ route('logout') }}" method="POST" class="mt-2">
+    @csrf
+    <button type="submit" class="w-full px-3 py-2 bg-red-600 text-white rounded-lg flex items-center gap-2 hover:bg-red-700">Déconnexion</button>
+    </form>
+</nav>
+</aside>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Contactez-nous / Newsletter</h2>
+
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <!-- Error Messages -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li><i class="fas fa-exclamation-triangle"></i> {{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- Formulaire -->
     <form action="{{ route('newsletters.store') }}" method="POST" class="shadow p-4 rounded bg-light">
         @csrf
