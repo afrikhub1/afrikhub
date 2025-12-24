@@ -308,7 +308,7 @@
                 <span><i class="fas fa-user-friends me-1"></i> {{ $residences_details->salons ?? 1 }} salons</span>
                 </div>
 
-                <p class="small-note">{!! nl2br(e(Str::limit($residences_details->description ?? '-', 600))) !!}</p>
+                <p class="small-note">{!! nl2br(e(Str::limit($residences_details->details ?? '-', 600))) !!}</p>
 
                 <div class="res-price">
                 {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
