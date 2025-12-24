@@ -34,7 +34,7 @@
     @endif
 
     <!-- Formulaire -->
-    <form action="{{ route('contact.store') }}" method="POST" class="shadow p-4 rounded bg-light">
+    <form action="{{ route('newsletters.store') }}" method="POST" class="shadow p-4 rounded bg-light">
         @csrf
         <div class="row g-3">
 

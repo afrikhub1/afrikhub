@@ -93,8 +93,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/residences', [ResidenceController::class, 'store'])->name('residences.store');
 
         // Contact - Newsletters
-        Route::get('/contact', [News_letterController::class, 'create'])->name('contact.create');
-        Route::post('/contact', [News_letterController::class, 'store'])->name('contact.store');
+        Route::get('/contact', [News_letterController::class, 'create'])->name('newsletters.create');
+        Route::post('/contact', [News_letterController::class, 'store'])->name('newsletters.store');
 
         // Route pour la page des QR codes / paiement
         Route::get('/paiement/qr', function () {return view('paiement.paiement'); })->name('paiement.qr');
