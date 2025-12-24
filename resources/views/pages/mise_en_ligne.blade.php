@@ -447,42 +447,152 @@
                     </div>
                 </div>
 
-                <div class="mt-5 row">
+<div class="mt-5 row">
 
-                    <!-- Carte -->
-                    <div class="col-md-6">
-                        <label class="form-label">Coordonnées géographiques</label>
+    <!-- Carte + Recherche -->
+    <div class="col-md-6">
+        <label class="form-label">Coordonnées géographiques</label>
 
-                        <!-- 🔎 Recherche + Ma position (ICI EXACTEMENT) -->
-                        <div class="d-flex gap-2 mb-2">
-                            <input
-                                type="text"
-                                id="searchLocation"
-                                class="form-control"
-                                placeholder="Rechercher un lieu (ex: Cocody, Plateau...)"
-                            >
-                            <button type="button" id="btnMyLocation" class="btn btn-outline-primary">
-                                <i class="fas fa-location-crosshairs"></i>
-                            </button>
-                        </div>
+        <!-- Recherche + boutons -->
+        <div class="input-group mb-2 position-relative">
+            <input
+                type="text"
+                id="searchLocation"
+                class="form-control"
+                placeholder="Rechercher un lieu (ex: Cocody, Plateau...)"
+                autocomplete="off"
+            >
 
-                        <!-- 🗺️ Carte -->
-                        <div id="map" style="height: 300px; border-radius: 10px;"></div>
-                    </div>
+            <button class="btn btn-primary" type="button" id="btnSearchLocation">
+                <i class="fas fa-search"></i>
+            </button>
 
-                    <!-- Champs Latitude / Longitude -->
-                    <div class="col-md-6 d-flex flex-column justify-content-start">
-                        <label class="form-label invisible">Lat/Lng</label>
-                        <input class="form-control mb-3" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
-                        <input class="form-control mb-3" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-compass"></i></span>
-                            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation"
-                                placeholder="Ex: Cocody Angré, Abidjan" required>
-                        </div>
-                    </div>
+            <button class="btn btn-outline-secondary" type="button" id="btnMyLocation">
+                <i class="fas fa-location-crosshairs"></i>
+            </button>
 
-                </div>
+            <!-- Résultats temps réel -->
+            <ul id="searchResults"
+                class="list-group position-absolute w-100 shadow"
+                style="top: 100%; z-index: 1000; display: none;">
+            </ul>
+        </div>
+
+        <!-- Carte Leaflet -->
+        <div id="map" style="height: 300px; border-radius: 10px;"></div>
+    </div>
+
+    <!-- Champs Latitude / Longitude / Geolocalisation -->
+    <div class="col-md-6 d-flex flex-column justify-content-start">
+        <label class="form-label invisible">Lat/Lng</label>
+        <input class="form-control mb-3" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+        <input class="form-control mb-3" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+        <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-compass"></i></span>
+            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation"
+                   placeholder="Ex: Cocody Angré, Abidjan" required>
+        </div>
+    </div>
+
+</div>
+
+{{-- Script Leaflet + recherche + GPS + clic --}}
+<script>
+    var map = L.map('map').setView([5.345317, -4.024429], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+    var marker;
+
+    function setMarker(lat, lng) {
+        if (marker) { marker.setLatLng([lat, lng]); }
+        else { marker = L.marker([lat, lng]).addTo(map); }
+
+        map.setView([lat, lng], 15);
+
+        document.getElementById("latitude").value = lat;
+        document.getElementById("longitude").value = lng;
+
+        updateAddress(lat, lng);
+    }
+
+    function updateAddress(lat, lng) {
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.display_name) {
+                    document.getElementById("geolocalisation").value = data.display_name;
+                }
+            });
+    }
+
+    /* Clic sur la carte */
+    map.on('click', function (e) {
+        setMarker(e.latlng.lat, e.latlng.lng);
+    });
+
+    /* Bouton Ma position */
+    document.getElementById("btnMyLocation").addEventListener("click", function () {
+        if (!navigator.geolocation) { alert("La géolocalisation n'est pas supportée"); return; }
+
+        navigator.geolocation.getCurrentPosition(
+            function (pos) {
+                setMarker(pos.coords.latitude, pos.coords.longitude);
+            },
+            function () { alert("Impossible d'obtenir votre position"); },
+            { enableHighAccuracy: true }
+        );
+    });
+
+    /* Recherche temps réel + bouton Rechercher */
+    const searchInput = document.getElementById("searchLocation");
+    const searchBtn = document.getElementById("btnSearchLocation");
+    const resultsBox = document.getElementById("searchResults");
+    let searchTimeout = null;
+
+    function searchPlace(query) {
+        fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&accept-language=fr`)
+            .then(res => res.json())
+            .then(data => {
+                resultsBox.innerHTML = '';
+                if (!data.length) { resultsBox.style.display = 'none'; return; }
+
+                data.forEach(place => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item list-group-item-action";
+                    li.textContent = place.display_name;
+                    li.onclick = () => {
+                        setMarker(place.lat, place.lon);
+                        searchInput.value = place.display_name;
+                        resultsBox.style.display = 'none';
+                    };
+                    resultsBox.appendChild(li);
+                });
+                resultsBox.style.display = 'block';
+            });
+    }
+
+    searchInput.addEventListener("input", function () {
+        clearTimeout(searchTimeout);
+        const query = this.value.trim();
+        if (query.length < 3) { resultsBox.style.display = 'none'; return; }
+        searchTimeout = setTimeout(() => searchPlace(query), 400);
+    });
+
+    searchBtn.addEventListener("click", function () {
+        const query = searchInput.value.trim();
+        if (query.length >= 3) searchPlace(query);
+    });
+
+    searchInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); searchBtn.click(); }
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".input-group")) resultsBox.style.display = 'none';
+    });
+</script>
+
 
             </fieldset>
 
@@ -503,86 +613,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- Script Leaflet et remplissage automatique de l'adresse --}}
-    <script>
-        var map = L.map('map').setView([5.345317, -4.024429], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19
-        }).addTo(map);
-
-        var marker;
-
-        function setMarker(lat, lng) {
-            if (marker) {
-                marker.setLatLng([lat, lng]);
-            } else {
-                marker = L.marker([lat, lng]).addTo(map);
-            }
-
-            map.setView([lat, lng], 15);
-
-            document.getElementById("latitude").value = lat;
-            document.getElementById("longitude").value = lng;
-
-            updateAddress(lat, lng);
-        }
-
-        function updateAddress(lat, lng) {
-            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.display_name) {
-                        document.getElementById("geolocalisation").value = data.display_name;
-                    }
-                });
-        }
-
-        /* ===== CLIC SUR LA CARTE ===== */
-        map.on('click', function (e) {
-            setMarker(e.latlng.lat, e.latlng.lng);
-        });
-
-        /* ===== RECHERCHE DE LIEU ===== */
-        document.getElementById("searchLocation").addEventListener("keyup", function (e) {
-            if (e.key === "Enter") {
-                let query = this.value;
-                if (!query) return;
-
-                fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1&accept-language=fr`)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.length > 0) {
-                            setMarker(data[0].lat, data[0].lon);
-                        } else {
-                            alert("Lieu non trouvé");
-                        }
-                    });
-            }
-        });
-
-        /* ===== MA POSITION ACTUELLE ===== */
-        document.getElementById("btnMyLocation").addEventListener("click", function () {
-            if (!navigator.geolocation) {
-                alert("La géolocalisation n'est pas supportée");
-                return;
-            }
-
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    let lat = position.coords.latitude;
-                    let lng = position.coords.longitude;
-                    setMarker(lat, lng);
-                },
-                function () {
-                    alert("Impossible d'obtenir votre position");
-                },
-                {
-                    enableHighAccuracy: true
-                }
-            );
-        });
-    </script>
 
 
     {{-- js comodite --}}
