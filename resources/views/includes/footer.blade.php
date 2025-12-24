@@ -9,7 +9,7 @@
 
                 {{-- Réseaux Sociaux (Ajouté) --}}
                 <div class="flex space-x-4 mt-4">
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/share/1KgiASzTSe/" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -22,7 +22,7 @@
                 <ul class="space-y-2 text-sm">
                     <li><a href="{{ route('accueil') }}" class="text-gray-400 hover:text-white transition">Accueil</a></li>
                     <li><a href="{{ route('recherche') }}" class="text-gray-400 hover:text-white transition">Rechercher</a></li>
-                    <li><a href="{{ route('admin.reservations') }}" class="text-gray-400 hover:text-white transition">Mes Réservations</a></li>
+                    <li><a href="{{ route('clients_historique') }}" class="text-gray-400 hover:text-white transition">Mes Réservations</a></li>
                 </ul>
             </div>
 
