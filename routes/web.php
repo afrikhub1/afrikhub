@@ -161,6 +161,9 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::put('/publicites/{publicite}', [PubliciteController::class, 'update'])->name('publicites.update');
     Route::delete('/publicites/{publicite}', [PubliciteController::class, 'destroy'])->name('publicites.destroy');
     Route::patch('/publicites/{publicite}/toggle', [PubliciteController::class, 'toggle'])->name('publicites.toggle');
+
+    // les news-letters - contacts
+    Route::get('/admin/contacts', [ContactController::class, 'index'])->name('contacts.index');
 });
 
 // routes/web.php

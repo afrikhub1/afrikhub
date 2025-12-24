@@ -26,4 +26,11 @@ class ContactController extends Controller
 
         return redirect()->back()->with('success', 'Votre message a été envoyé avec succès !');
     }
+    public function index()
+    {
+        // Récupération des contacts, triés par date décroissante
+        $contacts = Contact::orderBy('created_at', 'desc')->get();
+
+        return view('admin.news_letter', compact('contacts'));
+    }
 }
