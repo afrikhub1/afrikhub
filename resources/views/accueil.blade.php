@@ -464,18 +464,34 @@
                     ];
                 @endphp
 
-                @foreach($publicites as $pub)
-                    @php
-                        $color=$iconeColors[$pub->icone] ?? 'red';
-                    @endphp
-                    <span class="ms-5 my-0 p-0">
-                        <i class="fas {{ $pub->icone }}" style="color: {{ $color }};"></i>
-                    </span>
-                    <span class="m-0 p-0">{{ $pub->titre }} -</span>
-                    <span class="m-0 p-0"><a href="{{ $pub->lien }}" class="text-light fw-lighter">{{ $pub->lien }}</a></span>
-                @endforeach
+                @if($publicites->isEmpty())
+                    <div class="alert alert-info d-flex align-items-center gap-2">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="m-0 p-0">
+                             Pour toutes vos affiches et annonces publicitaires,
+                             contactez-nous au +225  0103090616 / +225 0789363442 / +225 0594480796
+                        </span>
+                        <a href="mailto:afrikhub1@gmail.com" class="ms-2 text-decoration-underline">
+                            cliquez ici pour laisser un mail
+                        </a>
+                    </div>
+                @else
+                    @foreach($publicites as $pub)
+                        @php
+                            $color = $iconeColors[$pub->icone] ?? 'red';
+                        @endphp
+                        <span class="ms-5 my-0 p-0">
+                            <i class="fas {{ $pub->icone }}" style="color: {{ $color }};"></i>
+                        </span>
+                        <span class="m-0 p-0">{{ $pub->titre }} -</span>
+                        <span class="m-0 p-0">
+                            <a href="{{ $pub->lien }}" class="text-light fw-lighter">{{ $pub->lien }}</a>
+                        </span>
+                    @endforeach
+                @endif
             </div>
         </div>
+
 
 
         <nav class="row col-12 justify-content-center m-0">
