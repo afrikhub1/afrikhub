@@ -1,37 +1,4 @@
 
-<style>
-                .trailer-container {
-                width: 100%;
-                overflow: hidden;
-                background: linear-gradient(135deg, #006d77, #00afb9);
-                padding: 15px 0;
-                }
-                .trailer-track {
-                display: inline-block;
-                white-space: nowrap;
-                animation: scroll-left 35s linear infinite;
-                font-size: 1.2rem;
-                color: #fff;
-                font-weight: 500;
-                }
-
-                .trailer-track span {
-                margin-right: 40px;
-                }
-
-                @keyframes scroll-left {
-                0% {
-                    transform: translateX(100%);
-                }
-                100% {
-                    transform: translateX(-100%);
-                }
-
-            }
-            .trailer-container:hover .trailer-track {
-            animation-play-state: paused;
-            }
-</style>
 <div id="carouselExample" class="carousel slide col-10 col-md-6 col-lg-6 m-0" data-bs-ride="carousel">
                     {{-- Indicateurs --}}
                     <div class="carousel-indicators">
