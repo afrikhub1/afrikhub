@@ -13,9 +13,10 @@
                     <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="text-gray-400 hover:text-indigo-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="route('news.letter')" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-
+            
             {{-- Colonne 2 : Liens Rapides (Exemple) --}}
             <div class="col-span-1">
                 <h4 class="text-lg font-semibold mb-3 text-indigo-300">Navigation</h4>
