@@ -46,6 +46,12 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
+// FAQ
+
+// Route OFAQ
+Route::get('/faq', function () {return view('FAQ'); })->name('faq');
+
+
 // --------------------------------------------------
 // ROUTES AUTHENTIFIÉES
 // --------------------------------------------------

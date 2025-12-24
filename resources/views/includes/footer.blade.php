@@ -30,7 +30,7 @@
             <div class="col-span-1">
                 <h4 class="text-lg font-semibold mb-3 text-indigo-300">Aide</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    <li><a href="{{ route('faq') }}" class="text-gray-400 hover:text-white transition">FAQ</a></li>
                     <li><a href="https://wa.me/2250769480232" class="text-gray-400 hover:text-white transition">Support Technique</a></li>
                     <li><a href="https://wa.me/2250769480232" class="text-gray-400 hover:text-white transition">Déposer une annonce</a></li>
                 </ul>
