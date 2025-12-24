@@ -91,7 +91,7 @@ Route::middleware(['auth'])->group(function () {
 
 
         // Route pour la page des QR codes
-        Route::get('/qrcodes', function () { return view('qrcodes'); })->name('qrcodes');
+        Route::get('/qrcodes', function () { return view('paiement.paiement')->name('qrcodes');
 
 
     });
