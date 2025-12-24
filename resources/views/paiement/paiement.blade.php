@@ -32,7 +32,7 @@
         }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
   <!-- Header -->
     <header class="bg-white border-b fixed w-full z-50 top-0">
