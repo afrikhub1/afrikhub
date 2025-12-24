@@ -737,9 +737,7 @@
         </div>
 
 
-        <footer>
-            <p id="contact">&copy; 2025 afrik’hub. tous droits réservés.<br />afrikhub1@gmail.com</p>
-        </footer>
+        
         <script>
             function toggleSidebar() {
                 document.getElementById("sidebar").classList.toggle("open");
