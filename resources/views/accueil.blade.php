@@ -175,7 +175,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0 1rem;
             color: white;
             position: relative;
             }
@@ -495,7 +494,7 @@
 
 
         <nav class="row col-12 justify-content-center m-0">
-            <section id="accueil" class="text-center py-5 row m-0 justify-content-center align-items-center ">
+            <section id="accueil" class="text-center py-1 row m-0 justify-content-center align-items-center ">
 
                 <div id="carouselExample" class="carousel slide col-10 col-md-8 col-lg-6 border" data-bs-ride="carousel">
                     {{-- Indicateurs --}}
