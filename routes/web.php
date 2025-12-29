@@ -32,6 +32,8 @@ Route::get('/conditions-generales', function () {return view('documentation.cond
 
 Route::get('/mentions-legales', function () {return view('documentation.mentions_legales');})->name('mentions_legales');
 Route::get('/politique-confidentialite', function () { return view('documentation.politique_de_confidentialite');})->name('politique_confidentialite');
+// routes/web.php
+Route::get('/accueil_recherche', [ResidenceController::class, 'recherche'])->name('residences.recherche');
 
 
 // Actions publiques

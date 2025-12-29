@@ -499,9 +499,65 @@
                 <div class="col-10 col-md-6 col-lg-6 m-0">
                     @include('includes.messages')
                     <h2>Bienvenue</h2>
-                    <span class="fs-6">Explorez l'Afrique autrement avec Afrik’Hub</span><br><br>
-                    <a href="{{ route('recherche') }}" class="btn-reserver me-2">Réserver</a>
-                    <a href="{{ route('mise_en_ligne') }}" class="btn-reserver">Ajouter un bien</a>
+                    <div class="container mt-4">
+                        <form action="{{ route('residences.recherche') }}"
+                            method="GET"
+                            class="p-4 rounded shadow"
+                            style="background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);">
+
+                            <div class="row g-3">
+
+                                <div class="col-md-2">
+                                    <label class="form-label">chambres</label>
+                                    <input type="number" name="chambres" class="form-control"
+                                        value="{{ request('chambres') }}">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">salons</label>
+                                    <input type="number" name="salons" class="form-control"
+                                        value="{{ request('salons') }}">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">ville</label>
+                                    <input type="text" name="ville" class="form-control"
+                                        value="{{ request('ville') }}">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">quartier / commune</label>
+                                    <input type="text" name="quartier" class="form-control"
+                                        value="{{ request('quartier') }}">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">prix max</label>
+                                    <input type="number" name="prix" class="form-control"
+                                        value="{{ request('prix') }}">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">type</label>
+                                    <select name="type" class="form-select">
+                                        <option value="">tous</option>
+                                        <option value="studio" {{ request('type')=='studio'?'selected':'' }}>studio</option>
+                                        <option value="appartement" {{ request('type')=='appartement'?'selected':'' }}>appartement</option>
+                                        <option value="villa" {{ request('type')=='villa'?'selected':'' }}>villa</option>
+                                        <option value="duplex" {{ request('type')=='duplex'?'selected':'' }}>duplex</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 text-end mt-3">
+                                    <button class="btn btn-primary px-4">
+                                        <i class="fa fa-search"></i> rechercher
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
 
             </section>

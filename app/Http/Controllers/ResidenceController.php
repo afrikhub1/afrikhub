@@ -109,6 +109,41 @@ class ResidenceController extends Controller
     }
 
 
+    public function recherche(Request $request)
+    {
+        $query = Residence::query();
+
+        if ($request->filled('chambres')) {
+            $query->where('nombre_chambres', $request->chambres);
+        }
+
+        if ($request->filled('salons')) {
+            $query->where('nombre_salons', $request->salons);
+        }
+
+        if ($request->filled('ville')) {
+            $query->where('ville', 'LIKE', "%{$request->ville}%");
+        }
+
+        if ($request->filled('quartier')) {
+            $query->where('quartier', 'LIKE', "%{$request->quartier}%");
+        }
+
+        if ($request->filled('prix')) {
+            $query->where('prix', '<=', $request->prix);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type_maison', $request->type);
+        }
+
+        $residences = $query->latest()->paginate(9);
+
+        return view('residences.recherche', compact('residences'));
+    }
+
+
+
     // Réserver à nouveau
     public function details($id)
     {
