@@ -96,9 +96,7 @@
                 $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
 
                 // Première image : S3 ou placeholder
-                $firstImage = count($images)
-                    ? \Illuminate\Support\Facades\Storage::disk('s3')->url($images[0])
-                    : asset('assets/images/placeholder.jpg');
+                $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
 
                 // Date de disponibilité
                 $dateDispo = $residence->date_disponible_apres
