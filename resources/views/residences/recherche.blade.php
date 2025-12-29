@@ -92,12 +92,10 @@
         @forelse ($residences as $residence)
 
             @php
-                use Illuminate\Support\Facades\Storage;
-
                 $images = $residence->img ?? [];
 
                 $firstImage = count($images)
-                    ? Storage::disk('s3')->url($images[0])
+                    ? \Illuminate\Support\Facades\Storage::disk('s3')->url($images[0])
                     : asset('assets/images/placeholder.jpg');
 
                 $dateDispo = $residence->date_disponible_apres
