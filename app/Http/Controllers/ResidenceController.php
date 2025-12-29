@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class ResidenceController extends Controller
 {
@@ -109,38 +110,61 @@ class ResidenceController extends Controller
     }
 
 
+
+
     public function recherche(Request $request)
     {
         $query = Residence::query();
 
+        /* ===============================
+       DISPONIBILITÉ
+    =============================== */
+        $query->where('disponible', true);
+
+        /* ===============================
+       FILTRES
+    =============================== */
+
         if ($request->filled('chambres')) {
-            $query->where('nombre_chambres', $request->chambres);
+            $query->where('nombre_chambres', '>=', $request->chambres);
         }
 
         if ($request->filled('salons')) {
-            $query->where('nombre_salons', $request->salons);
+            $query->where('nombre_salons', '>=', $request->salons);
         }
 
         if ($request->filled('ville')) {
-            $query->where('ville', 'LIKE', "%{$request->ville}%");
+            $query->where('ville', 'LIKE', '%' . $request->ville . '%');
         }
 
         if ($request->filled('quartier')) {
-            $query->where('quartier', 'LIKE', "%{$request->quartier}%");
+            $query->where('quartier', 'LIKE', '%' . $request->quartier . '%');
         }
 
         if ($request->filled('prix')) {
-            $query->where('prix', '<=', $request->prix);
+            $query->where('prix_journalier', '<=', $request->prix);
         }
 
         if ($request->filled('type')) {
-            $query->where('type_maison', $request->type);
+            $query->where('type_residence', $request->type);
         }
 
-        $residences = $query->latest()->paginate(9);
+        /* ===============================
+       DATE DE DISPONIBILITÉ
+    =============================== */
+        $query->where(function ($q) {
+            $q->whereNull('date_disponible_apres')
+                ->orWhere('date_disponible_apres', '<=', Carbon::now());
+        });
+
+        /* ===============================
+       RÉSULTAT
+    =============================== */
+        $residences = $query->latest()->paginate(9)->withQueryString();
 
         return view('residences.recherche', compact('residences'));
     }
+
 
 
 
