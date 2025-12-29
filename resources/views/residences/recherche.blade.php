@@ -92,8 +92,14 @@
         @forelse ($residences as $residence)
 
             @php
+                use Illuminate\Support\Facades\Storage;
+
                 $images = $residence->img ?? [];
-                $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+
+                $firstImage = count($images)
+                    ? Storage::disk('s3')->url($images[0])
+                    : asset('assets/images/placeholder.jpg');
+
                 $dateDispo = $residence->date_disponible_apres
                     ? \Carbon\Carbon::parse($residence->date_disponible_apres)
                     : null;
@@ -102,7 +108,9 @@
             <div class="col-md-4 mb-4">
                 <div class="card card-residence shadow border-0 h-100">
 
-                    <img src="{{ $firstImage }}" alt="image {{ $residence->nom }}">
+                    <img src="{{ $firstImage }}"
+                         alt="image {{ $residence->nom }}"
+                         loading="lazy">
 
                     <div class="card-body d-flex flex-column">
                         <h5 class="fw-bold">{{ $residence->nom }}</h5>

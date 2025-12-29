@@ -110,8 +110,6 @@ class ResidenceController extends Controller
     }
 
 
-
-
     public function recherche(Request $request)
     {
         $query = Residence::query();
