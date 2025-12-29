@@ -144,7 +144,7 @@ class ResidenceController extends Controller
     }
 
 
-    // Réserver à nouveau
+    // Détails d'une résidence
     public function details($id)
     {
         $residences_details = Residence::findOrFail($id);

@@ -53,6 +53,10 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name
 // Route OFAQ
 Route::get('/faq', function () {return view('FAQ'); })->name('faq');
 
+// Détails d'une résidence
+Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
+
+
 
 // --------------------------------------------------
 // ROUTES AUTHENTIFIÉES
@@ -61,7 +65,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Pages résidences
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
-    Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
     // Recherche
     Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche');

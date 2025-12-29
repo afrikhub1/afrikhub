@@ -329,13 +329,31 @@
                 <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
 
                 {{-- Reserve button opens modal (only for authenticated users) --}}
-                @auth
-                    <button class="btn btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
-                    Réserver
-                    </button>
-                @else
-                    <a class="btn btn-reserver" href="{{ route('login') }}">Se connecter pour réserver</a>
-                @endauth
+                {{-- Actions: Reserve / Back --}}
+                <div class="res-actions mt-3">
+                    <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
+
+                    @auth
+                        <button class="btn btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
+                            Réserver
+                        </button>
+                    @else
+                        <button class="btn btn-reserver" id="btnReserveGuest">
+                            Se connecter pour réserver
+                        </button>
+                    @endauth
+                </div>
+
+                <script>
+                document.getElementById('btnReserveGuest')?.addEventListener('click', function() {
+                    // Stocker l'ID de la résidence dans un cookie
+                    document.cookie = "residence_to_reserve={{ $residences_details->id }}; path=/; max-age=3600";
+
+                    // Rediriger vers la page de connexion
+                    window.location.href = "{{ route('login') }}";
+                });
+                </script>
+
                 </div>
             </div>
             </article>
