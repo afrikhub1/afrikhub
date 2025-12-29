@@ -409,6 +409,65 @@
             }
 
 
+            /* === FORMULAIRE DE RECHERCHE GLASS ULTRA === */
+            .search-glass {
+                background: rgba(255, 255, 255, 0.18); /* beaucoup plus transparent */
+                backdrop-filter: blur(18px) saturate(160%);
+                -webkit-backdrop-filter: blur(18px) saturate(160%);
+                border-radius: 22px;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow:
+                    0 10px 35px rgba(0, 0, 0, 0.25),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+            }
+
+            /* labels discrets */
+            .search-glass label {
+                color: rgba(255,255,255,0.85);
+                font-size: 0.85rem;
+                font-weight: 500;
+            }
+
+            /* champs transparents */
+            .search-glass .form-control,
+            .search-glass .form-select {
+                background: rgba(255,255,255,0.25);
+                border: 1px solid rgba(255,255,255,0.35);
+                color: #fff;
+                border-radius: 12px;
+            }
+
+            .search-glass .form-control::placeholder {
+                color: rgba(255,255,255,0.7);
+            }
+
+            .search-glass .form-control:focus,
+            .search-glass .form-select:focus {
+                background: rgba(255,255,255,0.35);
+                border-color: rgba(255,255,255,0.6);
+                box-shadow: 0 0 0 0.15rem rgba(255,255,255,0.25);
+                color: #fff;
+            }
+
+            /* bouton recherche premium */
+            .search-glass button {
+                background: linear-gradient(135deg, #00afb9, #006d77);
+                border: none;
+                border-radius: 30px;
+                padding: 10px 34px;
+                font-weight: 700;
+                color: #fff;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .search-glass button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+            }
+
+
+
         </style>
         <header class="p-1">
             <div class="col-12 row m-0 align-items-center">
@@ -500,62 +559,67 @@
                     @include('includes.messages')
                     <h2>Bienvenue</h2>
                     <div class="container mt-4">
-                        <form action="{{ route('residences.recherche') }}"
-                            method="GET"
-                            class="p-4 rounded shadow"
-                            style="background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);">
+<form action="{{ route('residences.recherche') }}"
+      method="GET"
+      class="search-glass p-4 p-md-5">
 
-                            <div class="row g-3">
+    <div class="row g-3 align-items-end">
 
-                                <div class="col-md-2">
-                                    <label class="form-label">chambres</label>
-                                    <input type="number" name="chambres" class="form-control"
-                                        value="{{ request('chambres') }}">
-                                </div>
+        <div class="col-md-2">
+            <label class="form-label">chambres</label>
+            <input type="number" name="chambres" class="form-control"
+                   placeholder="ex : 2"
+                   value="{{ request('chambres') }}">
+        </div>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">salons</label>
-                                    <input type="number" name="salons" class="form-control"
-                                        value="{{ request('salons') }}">
-                                </div>
+        <div class="col-md-2">
+            <label class="form-label">salons</label>
+            <input type="number" name="salons" class="form-control"
+                   placeholder="ex : 1"
+                   value="{{ request('salons') }}">
+        </div>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">ville</label>
-                                    <input type="text" name="ville" class="form-control"
-                                        value="{{ request('ville') }}">
-                                </div>
+        <div class="col-md-2">
+            <label class="form-label">ville</label>
+            <input type="text" name="ville" class="form-control"
+                   placeholder="abidjan"
+                   value="{{ request('ville') }}">
+        </div>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">quartier / commune</label>
-                                    <input type="text" name="quartier" class="form-control"
-                                        value="{{ request('quartier') }}">
-                                </div>
+        <div class="col-md-2">
+            <label class="form-label">quartier / commune</label>
+            <input type="text" name="quartier" class="form-control"
+                   placeholder="cocody"
+                   value="{{ request('quartier') }}">
+        </div>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">prix max</label>
-                                    <input type="number" name="prix" class="form-control"
-                                        value="{{ request('prix') }}">
-                                </div>
+        <div class="col-md-2">
+            <label class="form-label">prix max</label>
+            <input type="number" name="prix" class="form-control"
+                   placeholder="FCFA"
+                   value="{{ request('prix') }}">
+        </div>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">type</label>
-                                    <select name="type" class="form-select">
-                                        <option value="">tous</option>
-                                        <option value="studio" {{ request('type')=='studio'?'selected':'' }}>studio</option>
-                                        <option value="appartement" {{ request('type')=='appartement'?'selected':'' }}>appartement</option>
-                                        <option value="villa" {{ request('type')=='villa'?'selected':'' }}>villa</option>
-                                        <option value="duplex" {{ request('type')=='duplex'?'selected':'' }}>duplex</option>
-                                    </select>
-                                </div>
+        <div class="col-md-2">
+            <label class="form-label">type</label>
+            <select name="type" class="form-select">
+                <option value="">tous</option>
+                <option value="studio" {{ request('type')=='studio'?'selected':'' }}>studio</option>
+                <option value="appartement" {{ request('type')=='appartement'?'selected':'' }}>appartement</option>
+                <option value="villa" {{ request('type')=='villa'?'selected':'' }}>villa</option>
+                <option value="duplex" {{ request('type')=='duplex'?'selected':'' }}>duplex</option>
+            </select>
+        </div>
 
-                                <div class="col-12 text-end mt-3">
-                                    <button class="btn btn-primary px-4">
-                                        <i class="fa fa-search"></i> rechercher
-                                    </button>
-                                </div>
+        <div class="col-12 text-center mt-4">
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass me-2"></i>rechercher
+            </button>
+        </div>
 
-                            </div>
-                        </form>
+    </div>
+</form>
+
                     </div>
 
                 </div>
