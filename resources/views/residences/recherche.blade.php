@@ -92,16 +92,20 @@
         @forelse ($residences as $residence)
 
             @php
-                $images = $residence->img ?? [];
+                // Si img est une chaîne JSON, on la décode
+                $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
 
+                // Première image : S3 ou placeholder
                 $firstImage = count($images)
                     ? \Illuminate\Support\Facades\Storage::disk('s3')->url($images[0])
                     : asset('assets/images/placeholder.jpg');
 
+                // Date de disponibilité
                 $dateDispo = $residence->date_disponible_apres
                     ? \Carbon\Carbon::parse($residence->date_disponible_apres)
                     : null;
             @endphp
+
 
             <div class="col-md-4 mb-4">
                 <div class="card card-residence shadow border-0 h-100">
