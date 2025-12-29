@@ -116,15 +116,6 @@ class ResidenceController extends Controller
     {
         $query = Residence::query();
 
-        /* ===============================
-       DISPONIBILITÉ
-    =============================== */
-        $query->where('disponible', true);
-
-        /* ===============================
-       FILTRES
-    =============================== */
-
         if ($request->filled('chambres')) {
             $query->where('nombre_chambres', '>=', $request->chambres);
         }
@@ -149,23 +140,10 @@ class ResidenceController extends Controller
             $query->where('type_residence', $request->type);
         }
 
-        /* ===============================
-       DATE DE DISPONIBILITÉ
-    =============================== */
-        $query->where(function ($q) {
-            $q->whereNull('date_disponible_apres')
-                ->orWhere('date_disponible_apres', '<=', Carbon::now());
-        });
-
-        /* ===============================
-       RÉSULTAT
-    =============================== */
         $residences = $query->latest()->paginate(9)->withQueryString();
 
         return view('residences.recherche', compact('residences'));
     }
-
-
 
 
     // Réserver à nouveau
