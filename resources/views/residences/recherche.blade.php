@@ -14,10 +14,7 @@
     <style>
         body {
             min-height: 100vh;
-            background: linear-gradient(
-                rgba(0,0,0,0.4),
-                rgba(0,0,0,0.4)
-            ),
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
             url('/images/bg.jpg') center/cover no-repeat;
         }
 
@@ -27,13 +24,8 @@
             border-radius: 18px;
         }
 
-        .search-form label {
-            font-size: 0.9rem;
-            color: #333;
-        }
-
         .card-residence img {
-            height: 200px;
+            height: 220px;
             object-fit: cover;
         }
     </style>
@@ -42,94 +34,111 @@
 
 <div class="container py-5">
 
-    <!-- FORMULAIRE DE RECHERCHE -->
+    <!-- FORMULAIRE -->
     <div class="search-form p-4 shadow mb-5">
-
         <form method="GET" action="{{ route('residences.recherche') }}">
-
             <div class="row g-3">
 
                 <div class="col-md-2">
                     <label class="form-label">chambres</label>
-                    <input type="number" name="chambres" class="form-control"
-                           value="{{ request('chambres') }}">
+                    <input type="number" name="chambres" class="form-control" value="{{ request('chambres') }}">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">salons</label>
-                    <input type="number" name="salons" class="form-control"
-                           value="{{ request('salons') }}">
+                    <input type="number" name="salons" class="form-control" value="{{ request('salons') }}">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">ville</label>
-                    <input type="text" name="ville" class="form-control"
-                           value="{{ request('ville') }}">
+                    <input type="text" name="ville" class="form-control" value="{{ request('ville') }}">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">quartier / commune</label>
-                    <input type="text" name="quartier" class="form-control"
-                           value="{{ request('quartier') }}">
+                    <input type="text" name="quartier" class="form-control" value="{{ request('quartier') }}">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">prix max</label>
-                    <input type="number" name="prix" class="form-control"
-                           value="{{ request('prix') }}">
+                    <input type="number" name="prix" class="form-control" value="{{ request('prix') }}">
                 </div>
 
                 <div class="col-md-2">
-                    <label class="form-label">type de maison</label>
+                    <label class="form-label">type</label>
                     <select name="type" class="form-select">
                         <option value="">tous</option>
-                        <option value="studio" {{ request('type')=='studio' ? 'selected' : '' }}>studio</option>
-                        <option value="appartement" {{ request('type')=='appartement' ? 'selected' : '' }}>appartement</option>
-                        <option value="villa" {{ request('type')=='villa' ? 'selected' : '' }}>villa</option>
-                        <option value="duplex" {{ request('type')=='duplex' ? 'selected' : '' }}>duplex</option>
+                        @foreach(['studio','appartement','villa','duplex'] as $type)
+                            <option value="{{ $type }}" {{ request('type')==$type?'selected':'' }}>
+                                {{ $type }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
-                <div class="col-12 text-end mt-3">
+                <div class="col-12 text-end">
                     <button class="btn btn-primary px-4">
                         <i class="fa fa-search"></i> rechercher
                     </button>
                 </div>
 
             </div>
-
         </form>
-
     </div>
 
     <!-- RESULTATS -->
     <div class="row">
 
-        @forelse ($residences as $res)
+        @forelse ($residences as $residence)
+
+            @php
+                $images = $residence->img ?? [];
+                $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+                $dateDispo = $residence->date_disponible_apres
+                    ? \Carbon\Carbon::parse($residence->date_disponible_apres)
+                    : null;
+            @endphp
+
             <div class="col-md-4 mb-4">
-                <div class="card card-residence shadow border-0">
+                <div class="card card-residence shadow border-0 h-100">
 
-                    <img src="{{ asset('storage/'.$res->image_principale) }}" alt="image résidence">
+                    <img src="{{ $firstImage }}" alt="image {{ $residence->nom }}">
 
-                    <div class="card-body">
-                        <h5 class="mb-1">{{ $res->nom_residence }}</h5>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="fw-bold">{{ $residence->nom }}</h5>
 
                         <p class="text-muted mb-1">
-                            {{ $res->ville }} - {{ $res->quartier }}
+                            {{ $residence->ville }} - {{ $residence->quartier }}
                         </p>
 
                         <p class="mb-1">
-                            {{ $res->nombre_chambres }} chambres ·
-                            {{ $res->nombre_salons }} salons
+                            {{ $residence->nombre_chambres }} chambres ·
+                            {{ $residence->nombre_salons }} salons
                         </p>
 
-                        <strong class="text-primary">
-                            {{ number_format($res->prix) }} FCFA
+                        <p class="small text-muted">
+                            {{ Str::limit($residence->details, 80) }}
+                        </p>
+
+                        <strong class="text-primary mb-2">
+                            {{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA / jour
                         </strong>
+
+                        @if($dateDispo)
+                            <span class="badge bg-info mb-3">
+                                dispo le {{ $dateDispo->translatedFormat('d F Y') }}
+                            </span>
+                        @endif
+
+                        <a href="{{ route('details', $residence->id) }}"
+                           class="btn btn-outline-dark mt-auto rounded-pill">
+                            voir détails <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
                     </div>
 
                 </div>
             </div>
+
         @empty
             <div class="col-12">
                 <div class="alert alert-warning text-center">
@@ -147,8 +156,6 @@
 
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
