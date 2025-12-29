@@ -602,7 +602,7 @@
 
                                 <div class="col-md-2">
                                     <label class="form-label">type</label>
-                                    <select name="type" class="form-select">
+                                    <select name="type" class="form-select bg-white text-dark">
                                         <option value="">tous</option>
                                         <option value="studio" {{ request('type')=='studio'?'selected':'' }}>studio</option>
                                         <option value="appartement" {{ request('type')=='appartement'?'selected':'' }}>appartement</option>
