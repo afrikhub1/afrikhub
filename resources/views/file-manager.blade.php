@@ -4,139 +4,174 @@
 
 @section('style')
     <style>
-        .img-thumb {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 6px;
-            transition: transform 0.2s;
+        /* Fixer la hauteur pour le scroll interne */
+        .file-manager-container {
+            max-height: 65vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #4f46e5 #f3f4f6;
         }
-        .img-thumb:hover { transform: scale(2.5); z-index: 50; position: relative; }
-        .file-row:hover { background-color: rgba(79, 70, 229, 0.05); }
+
+        /* Effet sur les miniatures */
+        .img-thumb {
+            width: 45px; height: 45px;
+            object-fit: cover; border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .img-thumb:hover { transform: scale(3); z-index: 100; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2); }
+
+        /* Animation des lignes */
+        .file-row { transition: all 0.2s; border-left: 3px solid transparent; }
+        .file-row:hover { border-left: 3px solid #4f46e5; background-color: #f8fafc; }
+
+        /* Style pour le footer fixe en bas de page */
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+        main { flex: 1; }
     </style>
 @endsection
 
 @section('main')
 <div class="container-fluid p-4">
 
-    {{-- Fil d'Ariane & Titre --}}
-    <div class="mb-6">
-        <h1 class="text-3xl font-extrabold text-indigo-700 mb-2">
-            <i class="fas fa-cloud-upload-alt mr-3"></i> File Manager S3
-        </h1>
-        <nav class="flex text-gray-600 text-sm">
-            <a href="{{ route('files.index') }}" class="hover:text-indigo-600">Root</a>
+    {{-- En-tête Dynamique --}}
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <div>
+            <h1 class="text-3xl font-black text-indigo-800 flex items-center">
+                <span class="bg-indigo-100 p-2 rounded-lg mr-3">
+                    <i class="fas fa-folder-open text-indigo-600"></i>
+                </span>
+                Explorateur S3
+            </h1>
+            <p class="text-gray-500 text-sm mt-1">Gérez vos médias stockés sur Amazon S3</p>
+        </div>
+
+        {{-- Fil d'Ariane --}}
+        <nav class="bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100 flex text-sm">
+            <a href="{{ route('files.index') }}" class="text-indigo-600 hover:font-bold transition-all">Root</a>
             @if($folder)
                 @php $path = ''; @endphp
                 @foreach(explode('/', trim($folder, '/')) as $segment)
                     @php $path .= ($path ? '/' : '') . $segment; @endphp
-                    <span class="mx-2">/</span>
-                    <a href="{{ route('files.index', ['folder' => $path]) }}" class="hover:text-indigo-600">{{ $segment }}</a>
+                    <span class="mx-2 text-gray-400">/</span>
+                    <a href="{{ route('files.index', ['folder' => $path]) }}" class="text-gray-600 hover:text-indigo-600">{{ $segment }}</a>
                 @endforeach
             @endif
         </nav>
     </div>
 
-    {{-- Alertes --}}
-    @if(session('success'))
-        <div id="alert-success" class="flex justify-between items-center p-4 mb-4 rounded-lg bg-green-50 border-l-4 border-green-600 shadow-sm">
-            <span class="text-green-800"><i class="fas fa-check-circle mr-2"></i>{{ session('success') }}</span>
-            <button onclick="this.parentElement.remove()" class="text-green-700 ml-3">✕</button>
-        </div>
-    @endif
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {{-- Sidebar Gauche : Upload --}}
+        <div class="lg:col-span-3">
+            <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100 sticky top-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-cloud-upload-alt mr-2 text-indigo-500"></i> Nouveau Fichier
+                </h3>
 
-        {{-- Section Upload --}}
-        <div class="lg:col-span-1">
-            <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-                <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Uploader</h3>
                 <form method="POST" action="{{ route('files.upload') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="folder" value="{{ $folder }}">
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Choisir un fichier</label>
-                        <input type="file" name="file" class="block w-full text-sm text-gray-500
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-full file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-indigo-50 file:text-indigo-700
-                            hover:file:bg-indigo-100 cursor-pointer" required>
+                    <div class="group relative border-2 border-dashed border-gray-300 rounded-xl p-4 transition hover:border-indigo-400 bg-gray-50">
+                        <input type="file" name="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
+                        <div class="text-center">
+                            <i class="fas fa-file-image text-3xl text-gray-400 group-hover:text-indigo-500 mb-2"></i>
+                            <p class="text-xs text-gray-500">Cliquez ou glissez un fichier ici</p>
+                        </div>
                     </div>
 
-                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
-                        <i class="fas fa-upload mr-2"></i> Envoyer
+                    <button type="submit" class="w-full mt-4 bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 active:scale-95">
+                        Lancer l'envoi
                     </button>
                 </form>
 
-                @if($folder)
-                    <div class="mt-6">
-                        <a href="{{ route('files.index', ['folder' => (str_contains($folder, '/') ? dirname($folder) : '')]) }}"
-                           class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-                            <i class="fas fa-arrow-left mr-2"></i> Dossier Parent
-                        </a>
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Infos Dossier</p>
+                    <div class="bg-indigo-50 p-3 rounded-lg text-indigo-700 text-xs break-all">
+                        <i class="fas fa-link mr-1"></i> path: /{{ $folder ?: 'root' }}
                     </div>
-                @endif
+                </div>
             </div>
         </div>
 
-        {{-- Liste des fichiers --}}
-        <div class="lg:col-span-3">
-            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-                <div class="overflow-x-auto">
+        {{-- Zone Droite : Tableau avec Scroll --}}
+        <div class="lg:col-span-9">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+
+                {{-- Barre de titre du tableau --}}
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                    <span class="text-sm font-bold text-gray-600">{{ count($files) }} Élément(s)</span>
+                    <span class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-bold">Amazon S3 Storage</span>
+                </div>
+
+                {{-- Conteneur de scroll --}}
+                <div class="file-manager-container">
                     <table class="w-full text-left border-collapse">
-                        <thead class="bg-indigo-700 text-white">
-                            <tr>
-                                <th class="px-4 py-3 font-semibold text-sm uppercase">Nom</th>
-                                <th class="px-4 py-3 font-semibold text-sm uppercase text-center">Taille</th>
-                                <th class="px-4 py-3 font-semibold text-sm uppercase text-center">Aperçu</th>
-                                <th class="px-4 py-3 font-semibold text-sm uppercase text-right">Actions</th>
+                        <thead class="sticky top-0 bg-white shadow-sm z-10">
+                            <tr class="text-gray-400 text-[11px] uppercase tracking-wider">
+                                <th class="px-6 py-3 font-bold">Nom de l'élément</th>
+                                <th class="px-6 py-3 font-bold text-center">Taille</th>
+                                <th class="px-6 py-3 font-bold text-center">Aperçu</th>
+                                <th class="px-6 py-3 font-bold text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100">
+                        <tbody class="divide-y divide-gray-50">
+
+                            {{-- BOUTON RETOUR DANS LE TABLEAU --}}
+                            @if($folder)
+                                <tr class="bg-gray-50/50 hover:bg-gray-100 transition cursor-pointer"
+                                    onclick="window.location='{{ route('files.index', ['folder' => (str_contains($folder, '/') ? dirname($folder) : '')]) }}'">
+                                    <td colspan="4" class="px-6 py-3">
+                                        <div class="flex items-center text-indigo-600 font-bold text-sm">
+                                            <i class="fas fa-level-up-alt fa-rotate-270 mr-3"></i>
+                                            ... / Dossier parent
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+
                             @forelse($files as $file)
-                                <tr class="file-row transition">
-                                    <td class="px-4 py-4">
+                                <tr class="file-row">
+                                    <td class="px-6 py-4">
                                         @if($file['type'] === 'dir')
-                                            <a href="{{ route('files.index', ['folder' => trim($file['path'], '/')]) }}" class="flex items-center text-indigo-600 font-bold hover:underline">
-                                                <i class="fas fa-folder text-yellow-500 mr-3 text-xl"></i>
-                                                {{ $file['name'] }}
+                                            <a href="{{ route('files.index', ['folder' => trim($file['path'], '/')]) }}" class="flex items-center group">
+                                                <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-yellow-200 transition">
+                                                    <i class="fas fa-folder text-yellow-600"></i>
+                                                </div>
+                                                <span class="text-gray-800 font-semibold group-hover:text-indigo-600 transition">{{ $file['name'] }}</span>
                                             </a>
-                                        @php $currentFolder = trim($folder ?? '', '/');
-                                             $parentFolder = str_contains($currentFolder, '/') ? dirname($currentFolder) : '';
-                                        @endphp
                                         @else
-                                            <div class="flex items-center text-gray-700">
-                                                <i class="fas fa-file-alt text-gray-400 mr-3 text-xl"></i>
-                                                {{ $file['name'] }}
+                                            <div class="flex items-center">
+                                                <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                                                    <i class="fas fa-file text-blue-400"></i>
+                                                </div>
+                                                <span class="text-gray-600 text-sm">{{ $file['name'] }}</span>
                                             </div>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-500">
-                                        {{ $file['type'] === 'file' ? number_format($file['size'] / 1024, 2) . ' Mo' : '-' }}
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="text-xs font-mono text-gray-400">
+                                            {{ $file['type'] === 'file' ? number_format($file['size'] / 1024, 2) . ' Ko' : '--' }}
+                                        </span>
                                     </td>
-                                    <td class="px-4 py-4 text-center">
+                                    <td class="px-6 py-4 text-center">
                                         @if($file['type'] === 'file' && preg_match('/\.(jpg|jpeg|png|webp|gif)$/i', $file['name']))
-                                            <img src="{{ $file['url'] }}" class="img-thumb mx-auto shadow-sm" alt="Aperçu">
-                                        @elseif($file['type'] === 'file')
-                                            <span class="text-gray-300 text-xs italic">Pas d'aperçu</span>
+                                            <img src="{{ $file['url'] }}" class="img-thumb mx-auto shadow-sm ring-2 ring-white" alt="Aperçu">
                                         @endif
                                     </td>
-                                    <td class="px-4 py-4 text-right">
+                                    <td class="px-6 py-4">
                                         <div class="flex justify-end gap-2">
                                             @if($file['type'] === 'file')
-                                                <a href="{{ $file['url'] }}" target="_blank" class="p-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition" title="Voir">
-                                                    <i class="fas fa-eye"></i>
+                                                <a href="{{ $file['url'] }}" target="_blank" class="w-8 h-8 flex items-center justify-center bg-green-50 text-green-600 rounded-full hover:bg-green-600 hover:text-white transition shadow-sm">
+                                                    <i class="fas fa-external-link-alt text-xs"></i>
                                                 </a>
                                             @endif
 
-                                            <form action="{{ route('files.delete') }}" method="POST" onsubmit="return confirm('Supprimer définitivement ce fichier ?')">
-                                                @csrf
-                                                @method('DELETE')
+                                            <form action="{{ route('files.delete') }}" method="POST" onsubmit="return confirm('Confirmer la suppression ?')">
+                                                @csrf @method('DELETE')
                                                 <input type="hidden" name="path" value="{{ trim($file['path'], '/') }}">
-                                                <button type="submit" class="p-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition" title="Supprimer">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition shadow-sm">
+                                                    <i class="fas fa-trash-alt text-xs"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -144,9 +179,9 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="px-4 py-12 text-center text-gray-400 italic">
-                                        <i class="fas fa-folder-open text-4xl mb-3 block"></i>
-                                        Ce dossier est vide
+                                    <td colspan="4" class="px-6 py-20 text-center">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076444.png" class="w-20 mx-auto opacity-20 mb-4" alt="Vide">
+                                        <p class="text-gray-400 font-medium italic">Aucun fichier trouvé dans ce répertoire</p>
                                     </td>
                                 </tr>
                             @endforelse
