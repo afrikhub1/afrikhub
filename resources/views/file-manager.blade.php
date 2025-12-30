@@ -1,114 +1,121 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestionnaire de Fichiers</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f3f4f6; }
-    .file-card { background: #fff; border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer;
-        transition: all 0.2s; border: 2px solid transparent; }
-    .file-card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .file-card.selected { border-color: #2563eb; background: #e0f2fe; }
-    .file-name { margin-top: 0.5rem; font-size: 0.9rem; word-break: break-word; line-height: 1.2; max-height: 2.4em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-    .search-bar { padding: 0.5rem 1rem; border-radius: 12px; border: 1px solid #ccc; outline: none; transition: all 0.2s; }
-    .search-bar:focus { border-color: #3b82f6; box-shadow: 0 0 5px rgba(59,130,246,0.4); }
-</style>
+    <meta charset="UTF-8">
+    <title>File Manager S3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .img-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
+    </style>
 </head>
-<body>
-<div class="container mx-auto p-6">
-    <h1 class="text-2xl font-semibold mb-4">📂 Gestionnaire de Fichiers</h1>
+<body class="bg-light">
 
-    @if(session('success')) <p class="text-green-600 mb-2">{{ session('success') }}</p> @endif
-    @if(session('error')) <p class="text-red-600 mb-2">{{ session('error') }}</p> @endif
+@php
+$currentFolder = trim($folder ?? '', '/');
+$parentFolder = str_contains($currentFolder, '/') ? dirname($currentFolder) : '';
+@endphp
 
-    <!-- Barre d'outils -->
-    <div class="flex items-center justify-between mb-4 space-x-4">
-        @if($folder)
-        <a href="{{ route('file.manager', ['folder' => dirname($folder)]) }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 flex items-center">
+<div class="container py-5">
+
+    <h2 class="mb-3 text-center">☁️ File Manager S3</h2>
+
+    {{-- Bouton retour --}}
+    @if($currentFolder)
+        <a href="{{ route('files.index', ['folder' => $parentFolder]) }}" class="btn btn-outline-secondary mb-3">
             ⬅️ Retour
         </a>
-        @endif
-        <input type="text" id="search-input" class="search-bar flex-1" placeholder="Rechercher un fichier ou dossier...">
-    </div>
+    @endif
 
-    <!-- Grille des fichiers -->
-    <div id="file-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        @foreach($files as $file)
-        <div class="file-card relative" data-name="{{ strtolower($file['name']) }}">
-            <input type="checkbox" class="file-checkbox hidden" data-path="{{ $file['path'] }}">
-            <div class="file-icon">
-                @if($file['type'] === 'dir')
-                    <a href="{{ route('file.manager', ['folder' => $file['path']]) }}" class="block text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD43B" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
-                            <path d="M3 4a1 1 0 011-1h6l2 2h9a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
-                        </svg>
-                        <div class="file-name mt-1">{{ $file['name'] }}</div>
-                    </a>
-                @else
-                    <div class="file-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" class="w-12 h-12 mx-auto">
-                            <path d="M4 2h12l4 4v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/>
-                        </svg>
-                        <div class="file-name mt-1">{{ $file['name'] }}</div>
-                    </div>
-                @endif
+    {{-- Alerts --}}
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
 
-            </div>
-            <div class="file-name">{{ $file['name'] }}</div>
-            <div class="absolute inset-0 overlay-selected hidden rounded-xl pointer-events-none"></div>
+    {{-- Upload --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="POST" action="{{ route('files.upload') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="folder" value="{{ $currentFolder }}">
+
+                <div class="mb-3">
+                    <label class="form-label">Uploader un fichier</label>
+                    <input type="file" name="file" class="form-control" required>
+                </div>
+
+                <button class="btn btn-primary w-100">⬆️ Envoyer</button>
+            </form>
         </div>
-        @endforeach
     </div>
 
-    <!-- Bouton supprimer -->
-    <form method="POST" action="{{ route('file.manager.delete') }}" class="mt-4">
-        @csrf
-        <input type="hidden" name="path" id="delete-path">
-        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" id="delete-button" disabled>Supprimer sélection</button>
-    </form>
+    {{-- Liste fichiers et dossiers --}}
+    <div class="card">
+        <div class="card-header bg-dark text-white">Fichiers & Dossiers</div>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Nom</th>
+                        <th>Taille (Ko)</th>
+                        <th>Modifié</th>
+                        <th>Aperçu</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @forelse($files as $file)
+                    <tr>
+                        <td>{{ $file['type'] === 'file' ? '📄' : '📁' }}</td>
+
+                        <td>
+                            @if($file['type'] === 'dir')
+                                <a href="{{ route('files.index', ['folder' => trim($file['path'], '/')]) }}" class="fw-bold text-decoration-none">
+                                    {{ $file['name'] }}
+                                </a>
+                            @else
+                                {{ $file['name'] }}
+                            @endif
+                        </td>
+
+                        <td>{{ $file['size'] ?? '-' }}</td>
+                        <td>{{ $file['lastModified'] }}</td>
+
+                        <td>
+                            @if($file['type'] === 'file' && preg_match('/\.(jpg|jpeg|png|webp)$/i', $file['name']))
+                                <img src="{{ $file['url'] }}" class="img-thumb" alt="{{ $file['name'] }}">
+                            @endif
+                        </td>
+
+                        <td>
+                            @if($file['type'] === 'file' && $file['url'])
+                                <a href="{{ $file['url'] }}" target="_blank" class="btn btn-sm btn-success">Voir</a>
+                            @endif
+
+                            <form action="{{ route('files.delete') }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ?')">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="path" value="{{ trim($file['path'], '/') }}">
+                                <button class="btn btn-sm btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun fichier ou dossier</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
-<script>
-const fileCards = document.querySelectorAll('.file-card');
-const deleteBtn = document.getElementById('delete-button');
-const deletePath = document.getElementById('delete-path');
-const searchInput = document.getElementById('search-input');
-
-fileCards.forEach(card => {
-    const checkbox = card.querySelector('.file-checkbox');
-    const link = card.querySelector('a'); // vérifie si c'est un dossier
-
-    if (link) return; // ne fait rien pour les dossiers
-
-    card.addEventListener('click', () => {
-        const selected = !checkbox.checked;
-        checkbox.checked = selected;
-        card.classList.toggle('selected', selected);
-        updateDeleteButton();
-    });
-});
-
-
-function updateDeleteButton() {
-    const selected = document.querySelectorAll('.file-checkbox:checked');
-    if (selected.length === 1) {
-        deletePath.value = selected[0].dataset.path;
-        deleteBtn.disabled = false;
-    } else {
-        deletePath.value = '';
-        deleteBtn.disabled = true;
-    }
-}
-
-// Recherche simple
-searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-    fileCards.forEach(card => {
-        card.style.display = card.dataset.name.includes(query) ? 'block' : 'none';
-    });
-});
-</script>
 </body>
 </html>
