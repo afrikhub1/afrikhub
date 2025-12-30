@@ -7,7 +7,6 @@ use App\Models\Residence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use App\Models\User;
 class ReservationController extends Controller
 {
 
@@ -69,7 +68,8 @@ class ReservationController extends Controller
             $route = 'pro.dashboard';
         }
 
-        return redirect()->route($route)->with('success', 'Réservation enregistrée avec succès !');
+        return redirect()->route($route)->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
+
     }
 
     // Paiement
@@ -107,7 +107,6 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
-        $user = Auth::user();
         $reservation = Reservation::findOrFail($id);
         $residence = $reservation->residence;
 
@@ -131,9 +130,7 @@ class ReservationController extends Controller
         $residence->date_disponible_apres = $reservationDepart;
         $residence->save();
 
-        return $user->type_compte == 'client'
-            ? redirect()->route('clients_historique')->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.')
-            : redirect()->route('pro.dashboard')->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
+        return back()->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation par l\'administrateur.');
     }
 
 
@@ -145,7 +142,7 @@ class ReservationController extends Controller
             'date_validation' => now(), // date et heure actuelles
         ]);
 
-        return back()->with('success', 'Réservation refusée avec succès.');
+        return back()->with('success', 'Réservation refusée ❌');
     }
 
 }
