@@ -98,7 +98,6 @@
                                             </button>
                                         </form>
                                     </div>
-                                @else
                                 @elseif($reservation->status === 'confirmée')
                                     <div class="flex space-x-2">
                                         <form action="{{ route('admin.reservation.payee', $reservation->id) }}" method="POST">
