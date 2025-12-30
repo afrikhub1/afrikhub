@@ -27,6 +27,7 @@ class VerifyAccountController extends Controller
         // Activer le compte
         $user->status = 'actif';
         $user->token = null; // supprimer le token
+        $user->email_verified_at = now();
         $user->save();
 
         return redirect()->route('login')->with('success', 'Votre compte a été vérifié avec succès.');
