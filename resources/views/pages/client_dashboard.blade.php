@@ -143,7 +143,7 @@
               @elseif($res->status=='payé')
                 <div class="flex gap-2">
                   <button disabled class="flex-1 px-3 py-2 bg-green-100 text-slate-400 rounded-lg cursor-not-allowed">Payé</button>
-                  <a href="{{ route('sejour.interrompre', $res->id) }}" class="flex-1 px-3 py-2 bg-amber-600 text-white rounded-lg text-center hover:bg-amber-700">Interrompre</a>
+                  <a href="{{ route('sejour.interrompre', $res->id) }}" class="block bg-amber-600 text-white rounded-lg text-center hover:bg-amber-700">Interrompre</a>
                 </div>
               @endif
               <a href="{{ route('reservation.rebook', $res->id) }}" class="block text-center text-sm font-semibold text-slate-500 hover:text-slate-900 mt-2">Renouveler</a>
