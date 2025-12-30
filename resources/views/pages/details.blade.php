@@ -195,8 +195,9 @@
             <div class="d-flex align-items-center">
                 {{-- Desktop links --}}
                 <div class="nav-links d-none d-lg-flex align-items-center me-3">
-                    <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
                     @auth
+                        <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
+
                         <a class="nav-link" href="{{ Auth::user()->type_compte == 'professionnel' ? route('pro.dashboard') : route('clients_historique') }}">
                             Profil
                         </a>
@@ -206,7 +207,9 @@
 
                 {{-- Quick actions --}}
                 <a class="btn btn-ghost me-2 d-none d-lg-inline" href="javascript:history.back()" aria-label="Retour">Retour</a>
-                <a class="btn btn-header me-2 d-none d-lg-inline" href="{{ route('logout') }}">Déconnexion</a>
+                @auth
+                    <a class="btn btn-header me-2 d-none d-lg-inline" href="{{ route('logout') }}">Déconnexion</a>
+                @endauth
 
                 {{-- Mobile: sidebar toggle --}}
                 <button id="btnToggle" class="btn btn-ghost d-lg-none" aria-expanded="false" aria-controls="sidebar" title="Menu">
