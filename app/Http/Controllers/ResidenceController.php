@@ -175,7 +175,7 @@ class ResidenceController extends Controller
         $userId = Auth::id();
         // On récupère les résidences occupées appartenant à l'utilisateur connecté
         $residences_occupees = Reservation::where('proprietaire_id', $userId)
-            ->where('status', 'payé')
+            ->where('status', 'payée')
             ->get();
 
         return view('reservations.occupees', compact('residences_occupees'));

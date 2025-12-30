@@ -67,14 +67,14 @@
                                             'confirmée' => 'bg-green-600 text-white',
                                             'annulée' => 'bg-red-600 text-white',
                                             'interrompue' => 'bg-gray-500 text-white',
-                                            'payé' => 'bg-yellow-500 text-gray-900',
+                                            'payée' => 'bg-yellow-500 text-gray-900',
                                         ];
                                         $statusText = [
                                             'en attente' => 'En attente de validation',
                                             'confirmée' => 'Confirmée',
                                             'annulée' => 'Annulée (Client)',
                                             'interrompue' => 'Interrompue (Admin)',
-                                            'payé' => 'Payé',
+                                            'payée' => 'Payée',
                                         ];
                                     @endphp
                                     <span class="inline-block px-3 text-xs py-1 font-bold rounded-full shadow-md {{ $statusColors[$res->status] ?? 'bg-red-600 text-white' }}">

@@ -128,14 +128,14 @@ class PaiementController extends Controller
                 if ($reservation) {
                     $status_paystack = $data['data']['status'] ?? 'non-défini';
 
-                    if ($status_paystack === 'success' && $reservation->status !== 'payé') {
+                    if ($status_paystack === 'success' && $reservation->status !== 'payée') {
                         // Mettre à jour la DB
-                        $reservation->status = 'payé';
+                        $reservation->status = 'payée';
                         $reservation->date_paiement = now();
                         $reservation->reference = $data['data']['id'];
                         $reservation->save();
 
-                        Log::info("Réservation ID {$reservation->id} mise à jour en PAYÉ via webhook. Référence: {$reservation->reference}");
+                        Log::info("Réservation ID {$reservation->id} mise à jour en PAYÉE  via webhook. Référence: {$reservation->reference}");
                     } else {
                         Log::info("Webhook Paystack : Réservation ID {$reservation->id} déjà payée ou status Paystack: {$status_paystack}.");
                     }

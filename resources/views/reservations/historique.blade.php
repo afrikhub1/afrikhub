@@ -48,9 +48,9 @@
                                 <li class="flex justify-between items-center">
                                     <span class="text-gray-500">
                                         <i class="fas fa-calendar-check mr-2 text-amber-400"></i>
-                                        {{ $res->status != 'payé'
+                                        {{ $res->status != 'payée'
                                         ? $res->status . ' le : ' . (optional($res->date_validation)->format('d/m/Y') ?? '-')
-                                        : 'payé le : ' . (optional($res->date_paiement)->format('d/m/Y') ?? '-') }}
+                                        : 'payée le : ' . (optional($res->date_paiement)->format('d/m/Y') ?? '-') }}
 
                                     </span>
                                 </li>
