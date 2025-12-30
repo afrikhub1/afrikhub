@@ -341,12 +341,11 @@
 
                 <script>
                 document.getElementById('btnReserveGuest')?.addEventListener('click', function() {
-                    // Stocker l'ID de la résidence dans un cookie
                     document.cookie = "residence_to_reserve={{ $residences_details->id }}; path=/; max-age=3600";
-
-                    // Rediriger vers la page de connexion
+                    console.log("Cookie créé :", document.cookie); // ← ajoute ça
                     window.location.href = "{{ route('login') }}";
                 });
+
                 </script>
 
                 </div>
