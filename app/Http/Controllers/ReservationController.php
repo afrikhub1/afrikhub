@@ -121,7 +121,6 @@ class ReservationController extends Controller
             return back()->with('error', 'Impossible de confirmer : la résidence n’est pas disponible à ces dates.');
         }
 
-
         $reservation->status = 'confirmée';
         $reservation->date_validation = now();
         $reservation->save();
@@ -130,7 +129,7 @@ class ReservationController extends Controller
         $residence->date_disponible_apres = $reservationDepart;
         $residence->save();
 
-        return back()->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation par l\'administrateur.');
+        return back()->with('success', 'Réservation confirmée avec succès !');
     }
 
 
@@ -142,7 +141,7 @@ class ReservationController extends Controller
             'date_validation' => now(), // date et heure actuelles
         ]);
 
-        return back()->with('success', 'Réservation refusée ❌');
+        return back()->with('success', 'Réservation refusée avec succès !');
     }
 
 }
