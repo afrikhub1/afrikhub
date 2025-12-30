@@ -329,11 +329,11 @@
                     <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
 
                     @auth
-                        <button class="btn btn-reserver" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
+                        <button class="btn btn-reserver btn-outline-success" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
                             Réserver
                         </button>
                     @else
-                        <button class="btn btn-reserver" id="btnReserveGuest">
+                        <button class="btn btn-reserver btn-outline-success" id="btnReserveGuest">
                             Se connecter pour réserver
                         </button>
                     @endauth
