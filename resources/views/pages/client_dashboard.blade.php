@@ -111,7 +111,7 @@
             <!-- Badge -->
             <div class="mb-3 flex justify-center">
               <span class="text-xs text-white font-semibold px-2 py-1 rounded-full
-              {{ $res->status=='en attente' ? 'bg-indigo-500/50' : ($res->status=='confirmée' ? 'bg-green-500' : ($res->status=='annulée' ? 'bg-red-500' : 'bg-yellow-700')) }}">
+              {{ $res->status=='en attente' ? 'bg-indigo-500/50' : ($res->status=='confirmée' ? 'bg-green-500' : ($res->status=='annulée' ? 'bg-red-500' : 'bg-gray-600')) }}">
                 {{ $res->status }}
               </span>
             </div>
@@ -142,8 +142,8 @@
                     <a href="{{ route('paiement.qr', $res->id) }}" class="block bg-green-600 text-center text-sm font-semibold text-white mt-2 py-2 rounded">Payer</a>
               @elseif($res->status=='payée')
                 <div class="flex gap-2">
-                  <button disabled class="flex-1 px-3 py-2 bg-green-100 text-slate-400 rounded-lg cursor-not-allowed">Payé</button>
-                  <a href="{{ route('sejour.interrompre', $res->id) }}" class="flex-1 px-3 py-2 bg-amber-600 text-slate-400 rounded-lg hover:bg-amber-700">Interrompre</a>
+                  <button disabled class="flex-1 px-3 py-2 bg-green-100 text-slate-400 rounded-lg cursor-not-allowed">Payée</button>
+                  <a href="{{ route('sejour.interrompre', $res->id) }}" class="flex-1 px-3 py-2 bg-amber-600 text-slate-400 rounded-lg hover:bg-amber-700 text-white">Interrompre</a>
                 </div>
               @endif
               <a href="{{ route('reservation.rebook', $res->id) }}" class="block bg-gray-600 text-center text-sm text-white py-2 font-semibold text-slate-500 mt-2 rounded">Renouveler</a>
