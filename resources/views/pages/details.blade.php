@@ -326,11 +326,6 @@
 
                 {{-- Actions: Reserve / Back --}}
                 <div class="res-actions mt-3">
-                <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
-
-                {{-- Reserve button opens modal (only for authenticated users) --}}
-                {{-- Actions: Reserve / Back --}}
-                <div class="res-actions mt-3">
                     <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
 
                     @auth
