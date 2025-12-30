@@ -335,7 +335,7 @@
                         @endauth
                         @guest
                             <button onclick="document.cookie = 'residence_to_reserve={{ $residences_details->id }}; max-age=3600; path=/';
-                                window.location.href='{{ route('login') }}'">
+                                window.location.href='{{ route('login') }}'" class="btn btn-reserver btn-outline-success">
                                 Se connecter pour réserver
                             </button>
                         @endguest
