@@ -33,33 +33,40 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        // 🔹 Vérification cookie si query string residence existe
-        $residenceId = $request->query('residence');
+        // 🔹 Récupérer l'ID de résidence depuis le POST (champ hidden dans le formulaire)
+        $residenceId = $request->input('residence');
+
         if ($residenceId) {
+            // Crée le cookie (HTTPS + httpOnly)
             $cookie = cookie(
-                'residence_to_reserve',  // nom
-                $residenceId,            // valeur
-                60,                      // durée en minutes
-                null,                    // path
-                null,                    // domaine (auto)
-                true,                    // secure (HTTPS)
-                true,                    // httpOnly
-                false,                   // raw
-                'Lax'                    // SameSite
+                'residence_to_reserve', // nom
+                $residenceId,           // valeur
+                60,                     // durée en minutes
+                null,                   // path
+                null,                   // domaine
+                true,                   // secure
+                true,                   // httpOnly
+                false,                  // raw
+                'Lax'                   // SameSite
             );
 
-            // 🔹 On dd() pour vérifier le cookie
+            // 🔹 DD pour vérifier la création du cookie
             dd([
-                'residenceId' => $residenceId,
-                'cookie' => $cookie,
-                'cookies_in_request' => $request->cookies->all(),
+                'message' => 'Cookie créé !',
+                'cookie_name' => 'residence_to_reserve',
+                'cookie_value' => $residenceId,
+                'cookies_in_request' => $request->cookies->all()
             ]);
+
+            // Pour production, rediriger vers détails avec le cookie
+            // return redirect()->route('details', ['id' => $residenceId])->withCookie($cookie);
         }
 
-        // 🔹 Si pas de residenceId, on dd() quand même
+        // 🔹 DD si pas de résidence (pour tests)
         dd([
-            'message' => 'Pas de résidence dans la query string',
-            'cookies_in_request' => $request->cookies->all(),
+            'message' => 'Pas de résidence dans le formulaire',
+            'cookies_in_request' => $request->cookies->all()
         ]);
+
     }
 }
