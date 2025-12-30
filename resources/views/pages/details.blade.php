@@ -337,8 +337,6 @@
                         <form method="POST" action="{{ route('login.post') }}">
                             @csrf
                             <input type="hidden" name="residence" value="{{ request()->query('residence') }}">
-                            <input type="email" name="email" ...>
-                            <input type="password" name="password" ...>
                             <button type="submit">Se connecter</button>
                         </form>
 
