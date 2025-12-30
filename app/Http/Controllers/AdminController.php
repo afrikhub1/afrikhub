@@ -326,7 +326,7 @@ class AdminController extends Controller
         Reservation::where('id', $id)->update([
             'status' => 'payée', // Assurez-vous que votre base accepte l'accent ou utilisez 'payee'
             'reference' => $reference,
-            'date_validation' => now(),
+            'date_paiement' => now(),
         ]);
 
         return back()->with('success', 'Réservation marquée comme payée. Référence : ' . $reference);
