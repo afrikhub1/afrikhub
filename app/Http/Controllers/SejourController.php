@@ -104,12 +104,12 @@ class SejourController extends Controller
             return back()->with('error', 'Demande introuvable.');
         }
 
-        $residence = Residence::where('reservation_id', $demande->residence_id)->first();
+        $residence = Residence::where('id', $demande->residence_id)->first();
         if (!$residence) {
             return back()->with('error', 'Résidence introuvable pour cette demande.');
         }
 
-        $reservation = Reservation::where('id', $demande->reservation_id)
+        $reservation = Reservation::where('reservation_id', $demande->reservation_id)
             ->where('residence_id', $demande->residence_id)
             ->first();
         if (!$reservation) {
