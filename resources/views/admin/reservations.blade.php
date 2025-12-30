@@ -107,6 +107,7 @@
                                             </button>
                                         </form>
                                     </div>
+                                @else
 
                                     @php
                                         $color = match ($reservation->status) {
