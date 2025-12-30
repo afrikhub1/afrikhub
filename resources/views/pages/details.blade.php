@@ -272,91 +272,83 @@
 
             {{-- residences_details card: visual + details --}}
             <article class="res-card" aria-labelledby="res-title-{{ $residences_details->id }}">
-            {{-- Left: media --}}
-            <div class="res-card__visual" aria-hidden="false">
-                {{-- main preview (opens GLightbox) --}}
-                <img
-                id="mainPreview"
-                class="res-card__media"
-                src="{{ $first }}"
-                alt="{{ $residences_details->nom ?? 'Résidence' }}"
-                loading="lazy"
-                role="button"
-                tabindex="0"
-                aria-label="Ouvrir la galerie de la résidence"
-                />
+                {{-- Left: media --}}
+                <div class="res-card__visual" aria-hidden="false">
+                    {{-- main preview (opens GLightbox) --}}
+                    <img
+                    id="mainPreview"
+                    class="res-card__media"
+                    src="{{ $first }}"
+                    alt="{{ $residences_details->nom ?? 'Résidence' }}"
+                    loading="lazy"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Ouvrir la galerie de la résidence"
+                    />
 
-                {{-- thumbnails (if multiple images) --}}
-                @if(count($images) > 1)
-                <div class="res-card__thumbs" id="thumbs" aria-hidden="false">
-                    @foreach($images as $i => $img)
-                    <img src="{{ $img }}"
-                        data-index="{{ $i }}"
-                        class="{{ $i === 0 ? 'active' : '' }}"
-                        alt="Image {{ $i+1 }} de {{ $residences_details->nom }}" />
-                    @endforeach
-                </div>
-                @endif
-            </div>
-
-            {{-- Right: details & actions --}}
-            <div class="res-details" id="details-{{ $residences_details->id }}">
-                <h2 id="res-title-{{ $residences_details->id }}">{{ $residences_details->nom }}</h2>
-                <div class="res-meta">
-                <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residences_details->ville ?? 'Ville' }}, {{ $residences_details->pays ?? 'Pays' }}</span> <br>
-                <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residences_details->chambres ?? 1 }} chambres</span>
-                <span><i class="fas fa-user-friends me-1"></i> {{ $residences_details->salons ?? 1 }} salons</span>
+                    {{-- thumbnails (if multiple images) --}}
+                    @if(count($images) > 1)
+                    <div class="res-card__thumbs" id="thumbs" aria-hidden="false">
+                        @foreach($images as $i => $img)
+                        <img src="{{ $img }}"
+                            data-index="{{ $i }}"
+                            class="{{ $i === 0 ? 'active' : '' }}"
+                            alt="Image {{ $i+1 }} de {{ $residences_details->nom }}" />
+                        @endforeach
+                    </div>
+                    @endif
                 </div>
 
-                <p class="small-note">{!! nl2br(e(Str::limit($residences_details->details ?? '-', 600))) !!}</p>
+                {{-- Right: details & actions --}}
+                <div class="res-details" id="details-{{ $residences_details->id }}">
+                    <h2 id="res-title-{{ $residences_details->id }}">{{ $residences_details->nom }}</h2>
+                    <div class="res-meta">
+                    <span class="me-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $residences_details->ville ?? 'Ville' }}, {{ $residences_details->pays ?? 'Pays' }}</span> <br>
+                    <span class="me-3"><i class="fas fa-bed me-1"></i> {{ $residences_details->chambres ?? 1 }} chambres</span>
+                    <span><i class="fas fa-user-friends me-1"></i> {{ $residences_details->salons ?? 1 }} salons</span>
+                    </div>
 
-                <h2>Comodités</h2>
-                <p class="small-note">{!! nl2br(e(Str::limit($residences_details->commodites ?? '-', 600))) !!}</p>
-                <div class="res-price">
-                {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
+                    <p class="small-note">{!! nl2br(e(Str::limit($residences_details->details ?? '-', 600))) !!}</p>
+
+                    <h2>Comodités</h2>
+                    <p class="small-note">{!! nl2br(e(Str::limit($residences_details->commodites ?? '-', 600))) !!}</p>
+                    <div class="res-price">
+                    {{ number_format($residences_details->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / nuit
+                    </div>
+
+                    {{-- Prefacture quick info (hidden until dates selected) --}}
+                    <div id="prefacture" class="prefacture d-none" aria-hidden="true">
+                    <h6 class="fw-bold text-center mb-2">Pré-facture</h6>
+                    <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
+                    <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residences_details->prix_journalier ?? 0,0,',',' ') }} FCFA</p>
+                    <p class="mt-2 pt-2 border-top fw-bold"><strong>Total estimé :</strong> <span id="total">0</span> FCFA</p>
+                    </div>
+
+                    {{-- Actions: Reserve / Back --}}
+                    <div class="res-actions mt-3">
+                        <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
+
+                        @auth
+                            <button class="btn btn-reserver btn-outline-success" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
+                                Réserver
+                            </button>
+                        @endauth
+                        @guest
+                            <button class="btn btn-reserver btn-outline-success"
+                                    onclick="window.location.href='{{ route('login', ['residence' => $residences_details->id]) }}'">
+                                Se connecter pour réserver
+                            </button>
+                        @endguest
+
+                    </div>
                 </div>
-
-                {{-- Prefacture quick info (hidden until dates selected) --}}
-                <div id="prefacture" class="prefacture d-none" aria-hidden="true">
-                <h6 class="fw-bold text-center mb-2">Pré-facture</h6>
-                <p class="mb-1"><strong>Durée :</strong> <span id="jours">0</span> nuit(s)</p>
-                <p class="mb-1"><strong>Prix journalier :</strong> {{ number_format($residences_details->prix_journalier ?? 0,0,',',' ') }} FCFA</p>
-                <p class="mt-2 pt-2 border-top fw-bold"><strong>Total estimé :</strong> <span id="total">0</span> FCFA</p>
-                </div>
-
-                {{-- Actions: Reserve / Back --}}
-                <div class="res-actions mt-3">
-                    <a class="btn btn-outline-dark" href="{{ route('recherche') }}" aria-label="Retour aux résidences">⬅ Retour</a>
-
-                    @auth
-                        <button class="btn btn-reserver btn-outline-success" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
-                            Réserver
-                        </button>
-                    @endauth
-                    @guest
-                        <button class="btn btn-reserver btn-outline-success"
-                                onclick="window.location.href='{{ route('login', ['residence' => $residences_details->id]) }}'">
-                            Se connecter pour réserver
-                        </button>
-                    @endguest
-
-                </div>
-
-                <script>
-                    document.getElementById('btnReserveGuest')?.addEventListener('click', function() {
-                        window.location.href = "{{ route('login', ['residence' => $residences_details->id]) }}";
-                    });
-                </script>
-
-                </div>
-            </div>
             </article>
 
             {{-- Hidden GLightbox anchors (one per image) — used by GLightbox, kept hidden from layout --}}
             <div style="display:none" aria-hidden="true">
-            @foreach($images as $i => $img)
-                <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residences_details->id }}" data-title="{{ $residences_details->nom }}" data-index="{{ $i }}"></a>
-            @endforeach
+                @foreach($images as $i => $img)
+                    <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residences_details->id }}" data-title="{{ $residences_details->nom }}" data-index="{{ $i }}"></a>
+                @endforeach
             </div>
 
         </main>
