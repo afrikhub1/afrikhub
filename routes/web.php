@@ -165,7 +165,6 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::post('/interruptions/{id}/valider', [SejourController::class, 'validerDemande'])->name('admin.demande.valider');
     Route::post('/interruptions/{id}/rejeter', [SejourController::class, 'rejeterDemande'])->name('admin.demande.rejeter');
 
-    // file manager
     // File Manager
     Route::prefix('files')->name('files.')->group(function () {
         Route::get('/', [FileManagerController::class, 'index'])->name('index');
