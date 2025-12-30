@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
-
 class LoginController extends Controller
 {
-
     public function login(Request $request)
     {
         // Validation
@@ -35,6 +33,7 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
+        // 🔹 Vérification cookie si query string residence existe
         $residenceId = $request->query('residence');
         if ($residenceId) {
             $cookie = cookie(
@@ -49,15 +48,18 @@ class LoginController extends Controller
                 'Lax'                    // SameSite
             );
 
-            return redirect()->route('details', ['id' => $residenceId])->withCookie($cookie);
+            // 🔹 On dd() pour vérifier le cookie
+            dd([
+                'residenceId' => $residenceId,
+                'cookie' => $cookie,
+                'cookies_in_request' => $request->cookies->all(),
+            ]);
         }
 
-
-        // Redirection normale selon le type de compte
-        if ($user->type_compte == 'client') {
-            return redirect()->route('clients_historique');
-        } else {
-            return redirect()->route('pro.dashboard');
-        }
+        // 🔹 Si pas de residenceId, on dd() quand même
+        dd([
+            'message' => 'Pas de résidence dans la query string',
+            'cookies_in_request' => $request->cookies->all(),
+        ]);
     }
 }
