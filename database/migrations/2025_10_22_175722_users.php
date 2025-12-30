@@ -16,7 +16,7 @@ return new class extends Migration {
 
             // ---- Champs ajoutés ----
             $table->string('type_compte')->default('client'); // client | proprietaire | admin
-            $table->string('statut')->default('actif');       // actif | inactif | suspendu
+            $table->string('status')->default('actif');       // actif | inactif | suspendu
             $table->string('token')->nullable();              // token perso si besoin
 
             $table->rememberToken();
