@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('interruption_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('residence_id')->constrained()->onDelete('cascade');
+            $table->string('residence_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->string('status')->default('en_attente');
             $table->string('type_compte');
