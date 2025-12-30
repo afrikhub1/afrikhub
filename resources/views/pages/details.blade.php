@@ -341,10 +341,9 @@
 
                 <script>
                 document.getElementById('btnReserveGuest')?.addEventListener('click', function() {
-                    document.cookie = "residence_to_reserve={{ $residences_details->id }}; path=/; max-age=3600";
-                    console.log("Cookie créé :", document.cookie); // ← ajoute ça
-                    window.location.href = "{{ route('login') }}";
+                    window.location.href = "{{ route('login', ['residence' => $residences_details->id]) }}";
                 });
+
 
                 </script>
 

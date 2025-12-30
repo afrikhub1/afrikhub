@@ -6,17 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 
 class LoginController extends Controller
 {
+    
     public function login(Request $request)
     {
+        // Validation
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
+        // Récupération de l'utilisateur
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -27,17 +31,23 @@ class LoginController extends Controller
             return back()->withErrors(['email' => 'Votre compte est désactivé']);
         }
 
+        // Connexion
         Auth::login($user);
         $request->session()->regenerate();
 
-        // 🔹 Redirection après vérification du cookie
-        if ($residenceId = $request->cookie('residence_to_reserve')) {
-            cookie()->queue(cookie()->forget('residence_to_reserve'));
-            return redirect()->route('details', ['id' => $residenceId]);
+        // 🔹 Création du cookie si query string residence existe
+        $residenceId = $request->query('residence');
+        if ($residenceId) {
+            $cookie = cookie('residence_to_reserve', $residenceId, 60); // 60 min
+            // Rediriger vers la page détails avec cookie
+            return redirect()->route('details', $residenceId)->withCookie($cookie);
         }
 
-        return $user->type_compte == 'client'
-            ? redirect()->route('clients_historique')
-            : redirect()->route('pro.dashboard');
+        // Redirection normale selon le type de compte
+        if ($user->type_compte == 'client') {
+            return redirect()->route('clients_historique');
+        } else {
+            return redirect()->route('pro.dashboard');
+        }
     }
 }
