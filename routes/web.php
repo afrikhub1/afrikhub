@@ -167,8 +167,11 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
 
     // file manager
     // File Manager
-    Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file.manager');
-    Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('file.manager.delete');
+    Route::prefix('files')->name('files.')->group(function () {
+        Route::get('/', [FileManagerController::class, 'index'])->name('index');
+        Route::post('/upload', [FileManagerController::class, 'upload'])->name('upload');
+        Route::delete('/delete', [FileManagerController::class, 'delete'])->name('delete');
+    });
 
     // publicités
     Route::get('/publicites', [PubliciteController::class, 'index'])->name('publicites.index');
