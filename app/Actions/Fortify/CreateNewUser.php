@@ -98,11 +98,14 @@ class CreateNewUser implements CreatesNewUsers
         // Déconnexion pour éviter que Fortify ne connecte l'utilisateur automatiquement
         Auth::logout();
 
-        // On stocke le message de succès dans la session
-        session()->flash('status', 'Un mail de validation a été envoyé à l\'adresse ' . $utilisateur->email . '. Veuillez valider votre compte avant de vous connecter.');
+        // On définit le message
+        $message = "Inscription réussie ! Un email de validation a été envoyé à " . $utilisateur->email . ". Veuillez valider votre compte avant de vous connecter.";
 
-        // On force la redirection vers la page de login
-        redirect()->route('login')->send();
+        // On redirige avec le message flash 'success'
+        // 'throw' permet d'interrompre Fortify proprement ici
+        throw new \Illuminate\Http\Exceptions\HttpResponseException(
+            redirect()->route('login')->with('success', $message)
+        );
 
         return $utilisateur;
     }
