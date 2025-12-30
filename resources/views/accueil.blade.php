@@ -760,7 +760,7 @@
                                     @endif
 
                                     <div class="p-6 flex flex-col flex-grow border-t border-gray-200">
-                                        <h5 class="font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }}</h5>
+                                        <h5 class="font-extrabold text-indigo-800 mb-2 border-b border-gray-100 pb-2 truncate">{{ $residence->nom }} - {{ $residence->id }} : {{ $residence->type_residence }} </h5>
                                         <ul class="space-y-2 text-gray-700 flex-grow">
                                             <li class="flex justify-between items-center">
                                                 <span class="text-gray-500"><i class="fas fa-tag mr-2 text-green-500"></i>Prix / Jour :</span>
