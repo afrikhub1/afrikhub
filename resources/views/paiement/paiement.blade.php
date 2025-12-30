@@ -14,7 +14,7 @@
             font-weight: bold;
         }
         #qrDisplay img {
-            max-height: 300px;
+            max-height: 400px;
         }
         #qrDisplay {
             text-align: center;
@@ -124,7 +124,6 @@
 </div>
 
 <div class="row p-0 m-0 justify-content-center bottom-0">
->
 
 </div>
 <footer class="bottom-0">
