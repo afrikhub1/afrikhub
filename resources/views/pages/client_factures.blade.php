@@ -148,6 +148,9 @@
                             </a>
 
                             @if($facturestatus == 'confirmée')
+                                {{-- <a href="{{ route('payer', $res->id) }}" class="w-full py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition duration-150 shadow-md text-sm flex justify-center items-center gap-2">
+                                    <i class="fas fa-credit-card"></i> Procéder au Paiement
+                                </a> --}}
                                 <a href="{{ route('paiement.qr') }}" class="w-full py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition duration-150 shadow-md text-sm flex justify-center items-center gap-2">
                                     <i class="fas fa-credit-card"></i> Procéder au Paiement
                                 </a>
