@@ -58,16 +58,8 @@ class ReservationController extends Controller
             'status' => 'en attente',
         ]);
 
-        // on verifie si le l'utilisateur est un client
-        if (Auth::user()->type_compte == 'client') {
-
+        // Redirection vers l'historique des réservations avec message de succès
             $route = 'clients_historique';
-        }
-        // sinon il est forcement un user pro
-        else {
-            $route = 'pro.dashboard';
-        }
-
         return redirect()->route($route)->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
 
     }
