@@ -146,7 +146,7 @@
                   <a href="{{ route('sejour.interrompre', $res->id) }}" class="block bg-amber-600 text-white rounded-lg text-center hover:bg-amber-700">Interrompre</a>
                 </div>
               @endif
-              <a href="{{ route('reservation.rebook', $res->id) }}" class="block text-center text-sm font-semibold text-slate-500 hover:text-slate-900 mt-2">Renouveler</a>
+              <a href="{{ route('reservation.rebook', $res->id) }}" class="block bg-gray text-center text-sm text-white py-2 font-semibold text-slate-500 mt-2">Renouveler</a>
             </div>
           </div>
         </article>
