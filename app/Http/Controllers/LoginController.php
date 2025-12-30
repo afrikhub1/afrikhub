@@ -35,13 +35,23 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        // 🔹 Création du cookie si query string residence existe
         $residenceId = $request->query('residence');
         if ($residenceId) {
-            $cookie = cookie('residence_to_reserve', $residenceId, 60); // 60 min
-            // Rediriger vers la page détails avec cookie
-            return redirect()->route('details', $residenceId)->withCookie($cookie);
+            $cookie = cookie(
+                'residence_to_reserve',  // nom
+                $residenceId,            // valeur
+                60,                      // durée en minutes
+                null,                    // path
+                null,                    // domaine (auto)
+                true,                    // secure (HTTPS)
+                true,                    // httpOnly
+                false,                   // raw
+                'Lax'                    // SameSite
+            );
+
+            return redirect()->route('details', ['id' => $residenceId])->withCookie($cookie);
         }
+
 
         // Redirection normale selon le type de compte
         if ($user->type_compte == 'client') {
