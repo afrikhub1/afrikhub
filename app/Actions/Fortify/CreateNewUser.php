@@ -93,16 +93,17 @@ class CreateNewUser implements CreatesNewUsers
         // Envoi du mail de confirmation
         Mail::to($utilisateur->email)->send(new \App\Mail\TokenMail($utilisateur));
 
-        // Déconnexion immédiate
+        // ... après la création de l'utilisateur et l'envoi du mail ...
+
+        // Déconnexion pour éviter que Fortify ne connecte l'utilisateur automatiquement
         Auth::logout();
 
-        //notification
-        session()->flash('success', 'Inscription réussie ! Veuillez consulter votre email pour activer votre compte.');
+        // On stocke le message de succès dans la session
+        session()->flash('status', 'Un mail de validation a été envoyé à l\'adresse ' . $utilisateur->email . '. Veuillez valider votre compte avant de vous connecter.');
 
-        // Redirection vers logout ou login
-        redirect()->route('logout')->send(); // <- ici on force la redirection
+        // On force la redirection vers la page de login
+        redirect()->route('login')->send();
 
-        // On retourne quand même l’utilisateur pour Fortify (même si redirigé)
         return $utilisateur;
     }
 }
