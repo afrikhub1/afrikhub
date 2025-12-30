@@ -145,7 +145,7 @@ class ReservationController extends Controller
             'date_validation' => now(), // date et heure actuelles
         ]);
 
-        return back()->with('success', 'Réservation refusée ❌');
+        return back()->with('success', 'Réservation refusée avec succès.');
     }
 
 }
