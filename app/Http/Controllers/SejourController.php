@@ -65,7 +65,7 @@ class SejourController extends Controller
             'type_compte'=> $demandeur,
             'user_id' => $user->id,
             'residence_id' => $residence->id,
-            'reservation_id' => $reservation->code_reservation,
+            'reservation_id' => $reservation->reservation_code,
             'status' => 'en_attente'
         ]);
 
