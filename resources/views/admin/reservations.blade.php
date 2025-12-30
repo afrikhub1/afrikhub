@@ -102,8 +102,8 @@
                                     <div class="flex space-x-2">
                                         <form action="{{ route('admin.reservation.payee', $reservation->id) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 transition">
-                                                marquer comme payé
+                                            <button type="submit" class="fas fa-credit-card px-2 py-2 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 transition">
+                                                payée
                                             </button>
                                         </form>
                                     </div>
