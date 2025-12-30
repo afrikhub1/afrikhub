@@ -46,7 +46,7 @@ class ClientController extends Controller
 
         // Récupère uniquement les réservations qui peuvent servir de facture (payées, terminées ou confirmées)
         $reservations = Reservation::where('user_id', $userId)   //  Cible les réservations du client connecté
-            ->whereIn('status', ['payé', 'terminée'])  // status pour facture
+            ->whereIn('status', ['confirmée','payé', 'terminée'])  // status pour facture
             ->with('residence')  // Charger la résidence
             ->orderByDesc('created_at')
             ->get();
