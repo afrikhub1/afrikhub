@@ -99,6 +99,16 @@
                                         </form>
                                     </div>
                                 @else
+                                @elseif($reservation->status === 'confirmée')
+                                    <div class="flex space-x-2">
+                                        <form action="{{ route('admin.reservation.payee', $reservation->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 transition">
+                                                marquer comme payé
+                                            </button>
+                                        </form>
+                                    </div>
+
                                     @php
                                         $color = match ($reservation->status) {
                                             'confirmée' => 'bg-green-100 text-green-800',

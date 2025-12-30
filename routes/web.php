@@ -158,6 +158,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     //validation de reservation
     Route::post('/reservation/{id}/accepter', [AdminController::class, 'accepter'])->name('admin.reservation.accepter');
     Route::post('/reservation/{id}/refuser', [AdminController::class, 'refuser'])->name('admin.reservation.refuser');
+    Route::post('/reservation/{id}/marquer/payé', [AdminController::class, 'marquer_payé'])->name('admin.reservation.payee');
 
     // Gestion interruptions
     Route::get('/interruptions', [SejourController::class, 'adminDemandes'])->name('admin.demande.interruptions');

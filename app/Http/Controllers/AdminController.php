@@ -315,4 +315,15 @@ class AdminController extends Controller
 
         return back()->with('success', 'Réservation refusée ❌');
     }
+
+    public function marquer_payé($id)
+    {
+
+        Reservation::where('id', $id)->update([
+            'status' => 'payée',
+            'date_validation' => now(), // date et heure actuelles
+        ]);
+
+        return back()->with('success', 'Réservation marquée comme payée ✅');
+    }
 }
