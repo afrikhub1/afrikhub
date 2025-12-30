@@ -332,20 +332,13 @@
                         <button class="btn btn-reserver btn-outline-success" data-bs-toggle="modal" data-bs-target="#reservationModal" id="openReserve">
                             Réserver
                         </button>
-                    @else
-                        <button class="btn btn-reserver btn-outline-success" id="btnReserveGuest">
+                    @endauth
+                    @guest
+                        <button class="btn btn-reserver btn-outline-success"
+                                onclick="window.location.href='{{ route('login', ['residence' => $residences_details->id]) }}'">
                             Se connecter pour réserver
                         </button>
-                    @endauth
-                </div>
-
-                <script>
-                document.getElementById('btnReserveGuest')?.addEventListener('click', function() {
-                    window.location.href = "{{ route('login', ['residence' => $residences_details->id]) }}";
-                });
-
-
-                </script>
+                    @endguest
 
                 </div>
             </div>
@@ -564,6 +557,31 @@
             });
             })();
         </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Vérifier si le cookie existe
+                function getCookie(name) {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) return parts.pop().split(';').shift();
+                }
+
+                const residenceToReserve = getCookie('residence_to_reserve');
+                if (residenceToReserve) {
+                    // Ouvrir le modal de réservation automatiquement
+                    const reservationModalEl = document.getElementById('reservationModal');
+                    if(reservationModalEl) {
+                        const reservationModal = new bootstrap.Modal(reservationModalEl);
+                        reservationModal.show();
+
+                        // Supprimer le cookie pour ne pas rouvrir le modal à chaque reload
+                        document.cookie = "residence_to_reserve=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    }
+                }
+            });
+        </script>
+
 
     </body>
 </html>
