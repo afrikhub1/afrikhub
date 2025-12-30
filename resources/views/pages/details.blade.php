@@ -196,12 +196,12 @@
                 {{-- Desktop links --}}
                 <div class="nav-links d-none d-lg-flex align-items-center me-3">
                     <a class="nav-link" href="{{ route('recherche') }}">Résidences</a>
+                    @auth
+                        <a class="nav-link" href="{{ Auth::user()->type_compte == 'professionnel' ? route('pro.dashboard') : route('clients_historique') }}">
+                            Profil
+                        </a>
+                    @endauth
 
-                    @if(Auth::user()->type_compte == 'professionnel')
-                        <a class="nav-link" href="{{ route('pro.dashboard') }}">Profil</a>
-                    @else
-                        <a class="nav-link" href="{{ route('clients_historique') }}">Profil</a>
-                    @endif
                 </div>
 
                 {{-- Quick actions --}}
