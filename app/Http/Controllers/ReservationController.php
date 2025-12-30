@@ -132,8 +132,8 @@ class ReservationController extends Controller
         $residence->save();
 
         return $user->type_compte == 'client'
-            ? redirect()->route('clients_historique')->with('success', 'Connexion réussie ! Votre réservation est en attente de confirmation.')
-            : redirect()->route('pro.dashboard')->with('success', 'Connexion réussie ! Bienvenue sur votre tableau de bord.');
+            ? redirect()->route('clients_historique')->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.')
+            : redirect()->route('pro.dashboard')->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
     }
 
 
