@@ -5,201 +5,227 @@
     <title>Recherche de Résidences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         :root {
             --primary-color: #ff8a00;
-            --secondary-color: #0b1220;
-            --glass-bg: rgba(255, 255, 255, 0.9);
+            --secondary-color: #0f172a;
+            --light-gray: #f8fafc;
+            --border-color: #e2e8f0;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(rgba(11, 18, 32, 0.7), rgba(11, 18, 32, 0.7)),
-            url('/images/bg.jpg') center/cover no-repeat fixed;
-            color: #333;
+            background-color: #ffffff;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
         }
 
-        /* --- Formulaire de Recherche --- */
-        .search-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            margin-top: -20px;
+        /* --- En-tête --- */
+        .page-header {
+            padding: 60px 0 40px;
+            background-color: #ffffff;
+        }
+
+        /* --- Formulaire de Recherche (Style Épuré) --- */
+        .search-section {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            margin-bottom: 50px;
         }
 
         .form-label {
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--secondary-color);
-            margin-left: 5px;
+            color: #64748b;
+            margin-bottom: 8px;
         }
 
         .form-control, .form-select {
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            padding: 10px 15px;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            background-color: var(--light-gray);
+            transition: all 0.2s;
         }
 
         .form-control:focus {
+            background-color: #fff;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(255, 138, 0, 0.15);
+            box-shadow: none;
         }
 
         .btn-search {
-            background: var(--primary-color);
-            border: none;
+            background: var(--secondary-color);
             color: white;
-            font-weight: 700;
-            border-radius: 12px;
-            transition: transform 0.2s;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 12px 30px;
+            width: 100%;
+            transition: all 0.3s;
+            border: none;
         }
 
         .btn-search:hover {
-            background: #e67e00;
+            background: #000;
             transform: translateY(-2px);
         }
 
         /* --- Cartes Résidences --- */
         .card-residence {
-            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-            border-radius: 20px !important;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             overflow: hidden;
-            background: white;
+            transition: all 0.3s ease;
+            background: #fff;
         }
 
         .card-residence:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border-color: transparent;
         }
 
         .img-container {
             position: relative;
-            overflow: hidden;
+            height: 220px;
         }
 
         .card-residence img {
-            height: 240px;
             width: 100%;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
         }
 
-        .card-residence:hover img {
-            transform: scale(1.1);
-        }
-
-        .price-tag {
+        .price-badge {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--primary-color);
-            color: white;
-            padding: 6px 15px;
-            border-radius: 30px;
+            bottom: 15px;
+            left: 15px;
+            background: #ffffff;
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 8px;
             font-weight: 700;
+            font-size: 0.95rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .residence-type {
-            color: var(--primary-color);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
         .card-body {
-            padding: 1.5rem;
+            padding: 20px;
         }
 
-        .info-icons {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 10px 0;
-        }
-
-        .btn-details {
-            border: 2px solid var(--secondary-color);
+        .residence-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 5px;
             color: var(--secondary-color);
-            font-weight: 600;
-            border-radius: 12px;
-            transition: all 0.3s;
         }
 
-        .btn-details:hover {
+        .location-text {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .amenities {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-top: 1px solid var(--light-gray);
+            margin-bottom: 15px;
+        }
+
+        .amenity-item {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .amenity-item i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+
+        .btn-view {
+            background: var(--light-gray);
+            color: var(--secondary-color);
+            text-align: center;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .btn-view:hover {
             background: var(--secondary-color);
-            color: white;
+            color: #fff;
         }
 
-        /* Badge dispo */
         .badge-dispo {
-            background-color: rgba(0, 180, 162, 0.1);
-            color: #00b4a2;
-            border: 1px solid #00b4a2;
-            font-weight: 600;
+            font-size: 0.75rem;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="container py-5">
+<div class="container">
 
-    <div class="text-center text-white mb-5">
-        <h1 class="fw-bold display-4">Trouvez votre séjour idéal</h1>
-        <p class="lead opacity-75">Découvrez nos résidences de luxe et appartements meublés</p>
-    </div>
+    <header class="page-header text-center">
+        <h1 class="fw-bold">Nos Résidences</h1>
+        <p class="text-muted">Explorez nos meilleures offres de logements meublés</p>
+    </header>
 
-    <div class="search-container p-4 shadow-lg mb-5">
+    <div class="search-section">
         <form method="GET" action="{{ route('residences.recherche') }}">
             <div class="row g-3">
-                <div class="col-md-2 col-6">
-                    <label class="form-label"><i class="fa fa-bed me-1"></i> Chambres</label>
-                    <input type="number" name="chambres" class="form-control" placeholder="Ex: 2" value="{{ request('chambres') }}">
-                </div>
-
-                <div class="col-md-2 col-6">
-                    <label class="form-label"><i class="fa fa-couch me-1"></i> Salons</label>
-                    <input type="number" name="salons" class="form-control" placeholder="Ex: 1" value="{{ request('salons') }}">
+                <div class="col-md-2">
+                    <label class="form-label">Chambres</label>
+                    <input type="number" name="chambres" class="form-control" placeholder="0" value="{{ request('chambres') }}">
                 </div>
 
                 <div class="col-md-2">
-                    <label class="form-label"><i class="fa fa-map-marker-alt me-1"></i> Ville</label>
-                    <input type="text" name="ville" class="form-control" placeholder="Abidjan..." value="{{ request('ville') }}">
+                    <label class="form-label">Salons</label>
+                    <input type="number" name="salons" class="form-control" placeholder="0" value="{{ request('salons') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Ville ou Quartier</label>
+                    <input type="text" name="ville" class="form-control" placeholder="Où allez-vous ?" value="{{ request('ville') }}">
                 </div>
 
                 <div class="col-md-2">
-                    <label class="form-label"><i class="fa fa-location-arrow me-1"></i> Quartier</label>
-                    <input type="text" name="quartier" class="form-control" placeholder="Ex: Cocody" value="{{ request('quartier') }}">
-                </div>
-
-                <div class="col-md-2">
-                    <label class="form-label"><i class="fa fa-tag me-1"></i> Prix Max</label>
+                    <label class="form-label">Prix Max</label>
                     <input type="number" name="prix" class="form-control" placeholder="FCFA" value="{{ request('prix') }}">
                 </div>
 
-                <div class="col-md-2">
-                    <label class="form-label"><i class="fa fa-home me-1"></i> Type</label>
+                <div class="col-md-3">
+                    <label class="form-label">Type de bien</label>
                     <select name="type" class="form-select">
                         <option value="">Tous les types</option>
                         @foreach(['studio','appartement','villa','duplex'] as $type)
-                            <option value="{{ $type }}" {{ request('type')==$type?'selected':'' }}>
-                                {{ ucfirst($type) }}
-                            </option>
+                            <option value="{{ $type }}" {{ request('type')==$type?'selected':'' }}>{{ ucfirst($type) }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="col-12 mt-4 text-center">
-                    <button class="btn btn-search px-5 py-2 text-uppercase">
-                        <i class="fa fa-search me-2"></i> Lancer la recherche
+                <div class="col-12 mt-4">
+                    <button class="btn btn-search text-uppercase">
+                        <i class="fa fa-search me-2"></i> Filtrer les résultats
                     </button>
                 </div>
             </div>
@@ -215,58 +241,50 @@
             @endphp
 
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card card-residence shadow-sm border-0 h-100">
+                <article class="card-residence h-100">
                     <div class="img-container">
                         <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" loading="lazy">
-                        <div class="price-tag">
-                            {{ number_format($residence->prix_journalier, 0, ',', ' ') }} <small>FCFA</small>
+                        <div class="price-badge">
+                            {{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA
                         </div>
                     </div>
 
-                    <div class="card-body d-flex flex-column">
-                        <div class="residence-type mb-1">{{ $residence->type ?? 'Résidence' }}</div>
-                        <h5 class="fw-bold mb-1 text-dark">{{ $residence->nom }}</h5>
-
-                        <p class="text-muted small mb-2">
-                            <i class="fa fa-map-marker-alt text-danger me-1"></i> {{ $residence->ville }}, {{ $residence->quartier }}
-                        </p>
-
-                        <div class="info-icons d-flex justify-content-between border-top border-bottom py-2 my-2">
-                            <span><i class="fa fa-bed me-1"></i> {{ $residence->nombre_chambres }} Ch.</span>
-                            <span><i class="fa fa-couch me-1"></i> {{ $residence->nombre_salons }} Sal.</span>
-                            <span><i class="fa fa-expand me-1"></i> {{ $residence->superficie ?? '--' }}m²</span>
-                        </div>
-
-                        <p class="small text-muted mb-3">
-                            {{ Str::limit($residence->details, 70) }}
-                        </p>
-
+                    <div class="card-body">
                         @if($dateDispo)
-                            <div class="mb-3">
-                                <span class="badge badge-dispo p-2 w-100">
-                                    <i class="fa fa-calendar-check me-1"></i> Disponible le {{ $dateDispo->translatedFormat('d F Y') }}
-                                </span>
+                            <div class="badge-dispo">
+                                <i class="far fa-calendar-alt me-1"></i> Libre le {{ $dateDispo->translatedFormat('d M Y') }}
                             </div>
                         @endif
 
-                        <a href="{{ route('details', $residence->id) }}" class="btn btn-details mt-auto">
-                            Voir les détails <i class="fas fa-arrow-right ms-2"></i>
+                        <h2 class="residence-title">{{ $residence->nom }}</h2>
+                        <p class="location-text">
+                            <i class="fas fa-map-marker-alt me-1"></i> {{ $residence->ville }}, {{ $residence->quartier }}
+                        </p>
+
+                        <div class="amenities">
+                            <div class="amenity-item">
+                                <i class="fa fa-bed"></i> {{ $residence->nombre_chambres }} Ch.
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fa fa-couch"></i> {{ $residence->nombre_salons }} Sal.
+                            </div>
+                        </div>
+
+                        <a href="{{ route('details', $residence->id) }}" class="btn btn-view">
+                            Voir la fiche complète
                         </a>
                     </div>
-                </div>
+                </article>
             </div>
         @empty
-            <div class="col-12">
-                <div class="bg-white p-5 rounded-4 shadow-sm text-center">
-                    <i class="fa fa-search-minus fa-3x text-muted mb-3"></i>
-                    <h4 class="text-muted">Aucune résidence ne correspond à vos critères</h4>
-                    <a href="{{ url()->current() }}" class="btn btn-link text-primary">Réinitialiser les filtres</a>
-                </div>
+            <div class="col-12 py-5 text-center">
+                <p class="text-muted">Aucune résidence trouvée pour ces critères.</p>
+                <a href="{{ url()->current() }}" class="btn btn-outline-secondary btn-sm">Réinitialiser</a>
             </div>
         @endforelse
     </div>
 
-    <div class="d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center py-5">
         {{ $residences->withQueryString()->links() }}
     </div>
 </div>
