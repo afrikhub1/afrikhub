@@ -142,7 +142,7 @@
                     <a href="{{ route('paiement.qr', $res->id) }}" class="block bg-green-600 text-center text-sm font-semibold text-white mt-2 py-2 rounded">Payer</a>
               @elseif($res->status=='payée')
                 <div class="flex gap-2">
-                  <button disabled class="flex-1 px-3 py-2 bg-green-100 text-slate-400 rounded-lg cursor-not-allowed">Payé</button>
+                  <button disabled class="block px-3 py-2 bg-green-100 text-slate-400 rounded-lg cursor-not-allowed">Payé</button>
                   <a href="{{ route('sejour.interrompre', $res->id) }}" class="block bg-amber-600 text-white rounded-lg text-center hover:bg-amber-700">Interrompre</a>
                 </div>
               @endif
