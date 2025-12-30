@@ -7,6 +7,7 @@ use App\Models\Residence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\User;
 class ReservationController extends Controller
 {
 
@@ -106,6 +107,7 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
+        $user = Auth::user();
         $reservation = Reservation::findOrFail($id);
         $residence = $reservation->residence;
 
@@ -129,7 +131,9 @@ class ReservationController extends Controller
         $residence->date_disponible_apres = $reservationDepart;
         $residence->save();
 
-        return back()->with('success', 'Réservation confirmée avec succès !');
+        return $user->type_compte == 'client'
+            ? redirect()->route('clients_historique')->with('success', 'Connexion réussie ! Votre réservation est en attente de confirmation.')
+            : redirect()->route('pro.dashboard')->with('success', 'Connexion réussie ! Bienvenue sur votre tableau de bord.');
     }
 
 
