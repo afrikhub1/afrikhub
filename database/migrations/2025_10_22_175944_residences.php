@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->decimal('longitude', 10, 7)->nullable();
             $table->text('img')->nullable();
             $table->unsignedBigInteger('proprietaire_id');
-            $table->string('statut')->default('en_attente');
+            $table->string('status')->default('en_attente');
             $table->timestamps();
 
             $table->foreign('proprietaire_id')->references('id')->on('users')->onDelete('cascade');
