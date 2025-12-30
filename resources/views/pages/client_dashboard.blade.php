@@ -138,7 +138,7 @@
                 <button type="submit" class="w-full px-3 py-2 bg-red-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-red-700">Annuler</button>
               </form>
               @elseif($res->status=='confirmée')
-                <button disabled class="w-full px-3 py-2 bg-white-500 text-slate-400 rounded-lg">
+                <button disabled class="w-full px-3 py-2 bg-green-500 text-white-400 rounded-lg">
                     {{-- <a href="{{ route('payer', $res->id) }}" class="d-flex">payer</a> --}}
                     <a href="{{ route('paiement.qr') }}" class="d-flex text-dark">payer</a>
                 </button>
