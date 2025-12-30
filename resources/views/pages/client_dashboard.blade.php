@@ -111,7 +111,7 @@
             <!-- Badge -->
             <div class="mb-3 flex justify-center">
               <span class="text-xs text-white font-semibold px-2 py-1 rounded-full
-              {{ $res->status=='en attente' ? 'bg-indigo-500/50' : ($res->status=='confirmée' ? 'bg-green-500' : ($res->status=='annulée' ? 'bg-red-500' : 'bg-yellow-700')) }}">
+              {{ $res->status=='en attente' ? 'bg-indigo-500/50' : ($res->status=='confirmée' ? 'bg-green-500' : ($res->status=='annulée' ? 'bg-red-500' : 'bg-green-100')) }}">
                 {{ $res->status }}
               </span>
             </div>
