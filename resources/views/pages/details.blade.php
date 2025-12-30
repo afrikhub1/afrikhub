@@ -334,14 +334,19 @@
                         </button>
                     @endauth
                     @guest
-                        <form method="POST" action="{{ route('login.post') }}">
-                            @csrf
-                            <input type="hidden" name="residence" value="{{ request()->query('residence') }}">
-                            <button type="submit">Se connecter</button>
-                        </form>
-
+                        <button class="btn btn-reserver btn-outline-success"
+                                onclick="window.location.href='{{ route('login', ['residence' => $residences_details->id]) }}'">
+                            Se connecter pour réserver
+                        </button>
                     @endguest
 
+                </div>
+
+                <script>
+                    document.getElementById('btnReserveGuest')?.addEventListener('click', function() {
+                        window.location.href = "{{ route('login', ['residence' => $residences_details->id]) }}";
+                    });
+                </script>
 
                 </div>
             </div>
