@@ -335,10 +335,21 @@
                         @endauth
                         @guest
                             <button class="btn btn-reserver btn-outline-success"
-                                    onclick="window.location.href='{{ route('login', ['residence' => $residences_details->id]) }}'">
+                                    onclick="saveResidenceAndLogin('{{ $residences_details->id }}')">
                                 Se connecter pour réserver
                             </button>
                         @endguest
+                        <script>
+                            // Fonction pour enregistrer l'ID dans le cookie
+                            function saveResidenceAndLogin(id) {
+                                // On crée le cookie 'residence_to_reserve' valable 1 heure
+                                // Le chemin '/' est important pour que le cookie soit accessible partout
+                                document.cookie = "residence_to_reserve=" + id + "; max-age=3600; path=/";
+
+                                // Redirection vers la page de connexion
+                                window.location.href = "{{ route('login') }}";
+                            }
+                        </script>
 
                     </div>
                 </div>
