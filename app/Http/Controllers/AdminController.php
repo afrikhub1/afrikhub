@@ -319,11 +319,16 @@ class AdminController extends Controller
     public function marquer_payé($id)
     {
 
+
+        // Génération d'une référence unique (ex: ADMIN-6591A2B3C4D5E)
+        $reference = 'ADMIN-' . strtoupper(uniqid());
+
         Reservation::where('id', $id)->update([
-            'status' => 'payée',
-            'date_validation' => now(), // date et heure actuelles
+            'status' => 'payée', // Assurez-vous que votre base accepte l'accent ou utilisez 'payee'
+            'reference_paiement' => $reference,
+            'date_validation' => now(),
         ]);
 
-        return back()->with('success', 'Réservation marquée comme payée ✅');
+        return back()->with('success', 'Réservation marquée comme payée. Référence : ' . $reference);
     }
 }
