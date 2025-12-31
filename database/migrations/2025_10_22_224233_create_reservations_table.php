@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
                 $table->id();
                 $table->date('date_arrivee');
                 $table->date('date_depart');
-                $table->date('date_paiement');
+                $table->timestamp('date_paiement')->nullable();
                 $table->dateTime('date_validation')->nullable();
                 $table->integer('personnes')->default(1);
                 $table->string('reservation_code', 191)->unique();
