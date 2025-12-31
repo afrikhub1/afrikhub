@@ -18,7 +18,6 @@ class ResidenceController extends Controller
         return view('pages.mise_en_ligne');
     }
 
-    // Traite la soumission du formulaire
     public function store(Request $request)
     {
         $request->validate([
@@ -35,29 +34,38 @@ class ResidenceController extends Controller
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'commodites' => 'nullable|array', // On valide que c'est un tableau
         ]);
 
+        // 1. Gestion des Images sur S3
         $imagesPath = [];
-
         if ($request->hasFile('images')) {
             $nomDossier = 'residences/' . Str::slug($request->nom_residence) . '_' . time();
-
             foreach ($request->file('images') as $image) {
-                // Stocker sur S3
                 $path = $image->store($nomDossier, 's3');
-                $imagesPath[] = Storage::disk('s3')->url($path); // récupérer l'URL publique
+                $imagesPath[] = Storage::disk('s3')->url($path);
             }
         }
 
-        // Récupérer les commodités
-        $comodites = $request->input('autres_details', []); // [] si rien coché
-        $comoditesTexte = collect($comodites)
-            ->map(fn($c) => htmlspecialchars($c)) // sécurise le texte
-            ->implode(' - '); // transforme en chaîne séparée par " - "
+        // 2. TRAITEMENT DES COMMODITÉS (La correction est ici)
+        $comoditesFinales = [];
+        if ($request->has('commodites')) {
+            foreach ($request->commodites as $label => $data) {
+                // On vérifie si la case est cochée (active == 1)
+                if (isset($data['active']) && $data['active'] == "1") {
+                    // Si une valeur (nombre de chambres, pouces TV, etc.) est saisie, on l'ajoute au label
+                    $valeur = !empty($data['value']) ? " : " . $data['value'] : "";
+                    $comoditesFinales[] = $label . $valeur;
+                }
+            }
+        }
 
-        // Création de la résidence
+        // On transforme le tableau en chaîne de caractères "Wi-Fi - Piscine - Télévision : 55"
+        $comoditesTexte = implode(' - ', $comoditesFinales);
+
+        // 3. Création de la résidence
         Residence::create([
-            'proprietaire_id' => Auth::id(), // relation avec User
+            'proprietaire_id' => Auth::id(),
             'nom' => $request->nom_residence,
             'details' => $request->details,
             'quartier' => $request->details_position,
@@ -71,8 +79,8 @@ class ResidenceController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'img' => json_encode($imagesPath),
-            'status' => 'en_attente',
-            'commodites' => $comoditesTexte,
+            'status' => 'en attente',
+            'commodites' => $comoditesTexte, // Sauvegarde la chaîne propre
         ]);
 
         return redirect()->route('message')
