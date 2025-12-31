@@ -7,14 +7,6 @@
     <!-- Main Content Area (avec votre padding original pour compenser le header) -->
     <div class="container-fluid px-2 py-2 mt-2">
 
-        <!-- Simulation Message d'alerte (Static) -->
-        <div id="alert-message" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-8 shadow-lg" role="alert">
-            <strong class="font-bold">Succès !</strong>
-            <span class="block sm:inline">Résidence marquée comme occupée. (Message statique)</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="document.getElementById('alert-message').classList.add('hidden')">
-                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.697l-2.651 3.152a1.2 1.2 0 1 1-1.697-1.697l3.152-2.651-3.152-2.651a1.2 1.2 0 1 1 1.697-1.697l2.651 3.152 2.651-3.152a1.2 1.2 0 0 1 1.697 1.697l-3.152 2.651 3.152 2.651a1.2 1.2 0 0 1 0 1.697z"/></svg>
-            </span>
-        </div>
 
         <main class="bg-white px-4 py-2 md:p-3 rounded-xl shadow-2xl border border-gray-200">
 
@@ -79,12 +71,12 @@
                                     <span class="text-sm px-3 py-1 bg-yellow-500 text-white font-bold rounded-full capitalize shadow-md">En attente</span>
                                 @elseif($reservation_reçu->status === 'refusée')
                                     <span class="text-sm px-3 py-1 bg-red-500 text-white font-bold rounded-full capitalize shadow-md">Refusé</span>
-                                @elseif($reservation_reçu->status == 'payé')
+                                @elseif($reservation_reçu->status == 'payéé')
                                     <span class="text-sm px-3 py-1 bg-green-500 text-white font-bold rounded-full capitalize shadow-md">payé</span>
-                                @elseif($reservation_reçu->status == 'annulee')
+                                @elseif($reservation_reçu->status == 'annulée')
                                     <span class="text-sm px-3 py-1 bg-red-500 text-white font-bold rounded-full capitalize shadow-md">annulée</span>
                                 @else
-                                    <span class="text-sm px-3 py-1 bg-gray-500 text-white font-bold rounded-full capitalize shadow-md">Inconnu</span>
+                                    <span class="text-sm px-3 py-1 bg-gray-500 text-white font-bold rounded-full capitalize shadow-md">Interrompue</span>
                                 @endif
                             </div>
                             <p class="text-xs text-gray-500 mt-1">
