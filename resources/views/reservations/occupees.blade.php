@@ -19,21 +19,31 @@
                     </div>
                 @else
                     <div class="grid grid-cols-1 xs:grid-col-2 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
-                        @foreach($residences_occupees as $res_occupees)
-                            <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
-                                <div>
-                                    <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $res_occupees->residence->nom }}
-                                    </h5>
-                                    <p class="text-sm mb-2"><strong>Ville :</strong> {{ $res_occupees->residence->ville }}</p>
-                                    <p class="text-sm mb-2"><strong>Pays :</strong> {{ $res_occupees->residence->pays }}</p>
-                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>periode :</strong> {{ \Carbon\Carbon::parse($res_occupees->date_arrivee)->format('d/m/y') }} ➡ {{ \Carbon\Carbon::parse($res_occupees->date_depart)->format('d/m/y') }}</p>
+                       @foreach($residences_occupees as $res_occupees)
+                            {{-- On vérifie que $res_occupees n'est pas nul avant d'afficher --}}
+                            @if($res_occupees)
+                                <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-800 mb-3 flex items-center">
+                                            <i class="fas fa-building mr-3 text-red-600"></i>
+                                            {{-- Le ?? évite l'erreur si le nom est vide en base --}}
+                                            {{ $res_occupees->nom ?? 'Résidence sans nom' }}
+                                        </h5>
+
+                                        <p class="text-sm mb-2"><strong>Ville :</strong> {{ $res_occupees->ville ?? 'N/A' }}</p>
+                                        <p class="text-sm mb-2"><strong>Pays :</strong> {{ $res_occupees->pays ?? 'N/A' }}</p>
+                                        <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occupees->prix_journalier ?? 0, 0, ',', ' ') }} FCFA</p>
+
+                                        <div class="mt-4 p-2 bg-red-100 rounded text-red-700 text-xs font-bold uppercase text-center">
+                                            <i class="fas fa-user-lock mr-1"></i> Statut : Occupée
+                                        </div>
+                                    </div>
+
+                                    <a href="{{ route('sejour.interrompre', $res_occupees->id) }}" class="text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 text-center hover:bg-red-700 transition shadow-md">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
+                                    </a>
                                 </div>
-                                <a href="{{ route('sejour.interrompre', $res_occupees->id) }}" class=" text-sm w-full bg-red-600 text-white p-3 rounded-lg font-semibold mt-6 hover:bg-red-700 transition duration-150 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Libérer la Résidence
-                                </a>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 @endif

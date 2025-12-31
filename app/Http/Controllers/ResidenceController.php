@@ -181,7 +181,8 @@ class ResidenceController extends Controller
     public function occupees()
     {
         $userId = Auth::id();
-        // On récupère les résidences occupées appartenant à l'utilisateur connecté
+
+        // On récupère uniquement les résidences occupées appartenant à l'utilisateur
         $residences_occupees = Residence::where('proprietaire_id', $userId)
             ->where('disponible', 0)
             ->get();
