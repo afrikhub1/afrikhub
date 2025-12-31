@@ -376,14 +376,15 @@
                 color: #09008d !important;
             }
 
-            .trailer-container {
+            /* publicite en bande circulante */
+            /* .trailer-container {
                 width: 100%;
                 overflow: hidden;
                 background: linear-gradient(135deg, #006d77, #00afb9);
                 padding: 15px 0;
                 }
-                .trailer-track {
-                display: inline-block;
+                .trailer-track { */
+                /* display: inline-block;
                 white-space: nowrap;
                 animation: scroll-left 35s linear infinite;
                 font-size: 1.2rem;
@@ -406,7 +407,7 @@
             }
             .trailer-container:hover .trailer-track {
             animation-play-state: paused;
-            }
+            } */
 
 
             /* === FORMULAIRE DE RECHERCHE GLASS ULTRA === */
@@ -502,8 +503,8 @@
                 </div>
             </div>
         </header>
-
-        <div class="trailer-container">
+        {{-- publicite en blande ligne circulante --}}
+        {{-- <div class="trailer-container">
             <div class="trailer-track">
                 @php
                     $iconeColors = [
@@ -548,7 +549,7 @@
                     @endforeach
                 @endif
             </div>
-        </div>
+        </div> --}}
 
 
 
