@@ -176,11 +176,12 @@
                                     </li>
                                 </ul>
 
-                                <!-- Badge status -->
-                                <span class="{{ $res->disponibile ? 'bg-red-500' : 'bg-green-500' }}
-                                            w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150">
-                                    <i class="{{ $res->status ? 'fas fa-bed mr-2' : 'fas fa-check-circle mr-2' }}"></i>
-                                    {{ $res->disponibile ? 'Disponible' : 'Occupée' }}
+                                <span class="{{ $res->disponible == 1 ? 'bg-green-500' : 'bg-red-500' }}
+                                            w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150 flex items-center justify-center">
+
+                                    <i class="{{ $res->disponible == 1 ? 'fas fa-check-circle mr-2' : 'fas fa-bed mr-2' }}"></i>
+
+                                    {{ $res->disponible == 1 ? 'Disponible' : 'Occupée' }}
                                 </span>
 
                             </div>
