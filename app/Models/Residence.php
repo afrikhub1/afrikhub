@@ -12,7 +12,7 @@ class Residence extends Model
     protected $table = 'residences';
 
     protected $fillable = [
-        'proprietaire_id', // 👈 ajouté pour l'utilisateur connecté
+        'proprietaire_id', 
         'nom',
         'details',
         'nombre_chambres',

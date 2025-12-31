@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('residence_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->string('reservation_id')->change();
             $table->string('status')->default('en_attente');
             $table->string('type_compte');
             $table->timestamps();
