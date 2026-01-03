@@ -100,14 +100,14 @@
                     <td>
                         Hébergement du {{ $arrivee->format('d/m/Y') }} au {{ $depart->format('d/m/Y') }}
                     </td>
-                    <td class="text-right">{{ $nuits }} nuit(s)</td>
+                    <td class="text-right">{{ str_replace('-', '', number_format($nuits, 0, ',', ' ') )}} nuit(s)</td>
                     <td class="text-right">{{ str_replace('-', '', number_format($reservation->residence->prix_journalier, 0, ',', ' '))}} FCFA</td>
                     <td class="text-right">{{ str_replace('-', '', number_format($montantTotal, 0, ',', ' ')) }} FCFA</td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr class="total-row">
-                    <td colspan="3" class="text-right">MONTANT TOTAL PAYÉ</td>
+                    <td colspan="3" class="text-right">MONTANT TOTAL A PAYÉ</td>
                     <td class="text-right color-primary">{{ number_format($montantTotal, 0, ',', ' ') }} FCFA</td>
                 </tr>
             </tfoot>
