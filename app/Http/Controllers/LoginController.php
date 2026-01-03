@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ActivityLog;
 
 
 class LoginController extends Controller
@@ -35,6 +36,13 @@ class LoginController extends Controller
             cookie()->queue(cookie()->forget('residence_to_reserve'));
             return redirect()->route('details', ['id' => $residenceId]);
         }
+
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'Connexion',
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
 
         return $user->type_compte == 'client'
             ? redirect()->route('clients_historique')

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth; // ✅ Import de Auth
 use LDAP\Result;
 use PHPUnit\TextUI\XmlConfiguration\RemoveCacheResultFileAttribute;
+use App\Models\ActivityLog;
 
 class LogController extends Controller
 {
@@ -22,7 +23,13 @@ class LogController extends Controller
         return redirect()->route('login');
     }
 
-    
+    public function index()
+    {
+        $logs = ActivityLog::with('user')->latest()->paginate(20);
+        return view('admin.logs', compact('logs'));
+    }
+
+
 
 }
 

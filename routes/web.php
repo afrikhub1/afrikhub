@@ -21,6 +21,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\News_letterController;
 use App\Http\Controllers\CarouselController;
 
+
 // --------------------------------------------------
 // ROUTES PUBLIQUES
 // --------------------------------------------------
@@ -182,12 +183,12 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
 
     // les news-letters - contacts
     Route::get('/admin/contacts', [News_letterController::class, 'index'])->name('news.letter');
+
+    // Logs d'activité
+    Route::get('/admin/logs', [LogController::class, 'index'])->name('admin.logs');
 });
 
 // routes/web.php
-
-
-
 Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/carousels', [CarouselController::class, 'index'])->name('carousels.index');
     Route::get('/carousels/create', [CarouselController::class, 'create'])->name('carousels.create');
