@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('action');
             $table->text('description')->nullable();
             $table->string('ip_address');
+            $table->text('user_agent')->nullable();
             // Nouveaux champs
             $table->string('pays')->nullable();
             $table->string('ville')->nullable();
