@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
+
 
 class ForgotPasswordController extends Controller
 {
@@ -44,6 +47,22 @@ class ForgotPasswordController extends Controller
                 ->subject('Réinitialisation de votre mot de passe');
         });
 
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => null,
+            'action'     => 'mot de passe oublié',
+            'description' => 'Utilisateur a demandé une réinitialisation de mot de passe.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
         return redirect()->route('login')->with('success', 'Un lien de réinitialisation a été envoyé à votre email.');
     }
 
@@ -76,6 +95,22 @@ class ForgotPasswordController extends Controller
         $user->save();
 
         \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => $user->id,
+            'action'     => 'mot de passe réinitialisé',
+            'description' => 'Utilisateur a réinitialisé son mot de passe.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
 
         return redirect('/login')->with('success', 'Votre mot de passe a été réinitialisé avec succès.');
     }

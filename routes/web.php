@@ -184,7 +184,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::get('/admin/contacts', [News_letterController::class, 'index'])->name('news.letter');
 
     // Logs d'activité
-    Route::get('/admin/logs', [AdminController::class, 'index'])->name('admin.logs');
+    Route::get('/admin/logs', [AdminController::class, 'logs'])->name('admin.logs');
 });
 
 // routes/web.php

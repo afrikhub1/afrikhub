@@ -39,6 +39,7 @@ class LogController extends Controller
             return redirect()->route('details', ['id' => $residenceId]);
         }
 
+        // Journalisation de l'activité
         $ip = request()->ip();
         $position = Location::get($ip);
         ActivityLog::create([
@@ -61,6 +62,7 @@ class LogController extends Controller
 
     public function logout()
     {
+        // Journalisation de l'activité
         $ip = request()->ip();
         $position = Location::get($ip);
         ActivityLog::create([

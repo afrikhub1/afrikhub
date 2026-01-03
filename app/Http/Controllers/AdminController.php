@@ -105,8 +105,6 @@ class AdminController extends Controller
 
 
 
-    // N'oubliez pas d'inclure les autres méthodes (index, destroy, etc.) ici..
-
     public function update(Request $request, Residence $residence)
     {
         // 1. Validation des données du formulaire
@@ -137,12 +135,9 @@ class AdminController extends Controller
             'ville' => $validated['ville'],
             'quartier' => $validated['quartier'],
             'status' => $validated['status'],
-
-            // Assurez-vous d'utiliser le nom de champ correct pour la suspension/disponibilité
             'disponible' => !$request->has('is_suspended'),
 
         ]);
-        // Note: La sauvegarde des champs simples sera faite par le fill/save ci-dessus.
 
         // 3. Gestion de l'upload des nouvelles images
         if ($request->hasFile('img')) {
@@ -333,7 +328,7 @@ class AdminController extends Controller
         return back()->with('success', 'Réservation marquée comme payée. Référence : ' . $reference);
     }
 
-    public function index()
+    public function logs()
     {
         $logs = ActivityLog::with('user')->latest()->paginate(20);
         return view('admin.logs', compact('logs'));
