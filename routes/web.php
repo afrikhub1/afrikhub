@@ -4,7 +4,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileManagerController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\Mise_a_jour;
 use App\Http\Controllers\PubliciteController;
@@ -41,7 +40,7 @@ Route::get('/accueil_recherche', [ResidenceController::class, 'recherche'])->nam
 Route::get('/email_repeat', [LogController::class, 'email_repeat'])->name('email_repeat');
 Route::get('/verify/{token}', [VerifyAccountController::class, 'verify'])->name('verification.verify');
 Route::get('/logout', [LogController::class, 'logout'])->name('logout');
-Route::post('/login-auth', [LoginController::class, 'login'])->name('login.post');
+Route::post('/login-auth', [LogController::class, 'login'])->name('login.post');
 
 // mots de passe oublié
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');

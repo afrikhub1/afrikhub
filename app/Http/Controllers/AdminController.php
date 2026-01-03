@@ -8,6 +8,7 @@ use App\Models\Residence;
 use App\Models\Reservation;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ActivityLog;
 
 class AdminController extends Controller
 {
@@ -330,5 +331,11 @@ class AdminController extends Controller
         ]);
 
         return back()->with('success', 'Réservation marquée comme payée. Référence : ' . $reference);
+    }
+
+    public function index()
+    {
+        $logs = ActivityLog::with('user')->latest()->paginate(20);
+        return view('admin.logs', compact('logs'));
     }
 }
