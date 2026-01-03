@@ -31,7 +31,7 @@ class CreateNewUser implements CreatesNewUsers
             'nom' => [
                 'required',
                 'string',
-                'max:25',
+                'max:100',
                 'min:7',
                 Rule::unique(User::class, 'name'),
             ],
@@ -53,7 +53,7 @@ class CreateNewUser implements CreatesNewUsers
             // Mise à jour du message d'erreur pour la taille maximale du 'nom'
             'nom.required' => 'Le nom est obligatoire.',
             'nom.string'   => 'Le nom doit être une chaîne de caractères.',
-            'nom.max'      => 'Le nom ne doit pas dépasser 25 caractères.', // Message mis à jour
+            'nom.max'      => 'Le nom ne doit pas dépasser 100 caractères.', // Message mis à jour
             'nom.unique'   => 'Ce nom d\'utilisateur est déjà pris.',
 
             // Messages d'erreur pour le champ 'email'
