@@ -192,7 +192,7 @@
                                 {{ $message }}
                             </div>
                         @else
-                            <div class="invalid-feedback">Vous devez accepter les conditions.</div>
+                            <div class="invalid-feedback">Vous devez accepter les conditions. <a href="#">Lire</a></div>
                         @enderror
                     </div>
                 </div>
