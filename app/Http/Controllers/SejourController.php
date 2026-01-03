@@ -50,7 +50,7 @@ class SejourController extends Controller
         }
 
         $user = $request->user();
-        if ($reservation->user_id != $user->id) {
+        if ($reservation->user_id != $user->id || $reservation->proprietaire_id != $user->id) {
             return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
