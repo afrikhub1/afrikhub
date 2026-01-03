@@ -91,6 +91,11 @@
                 Newsletter
             </a>
 
+            <a href="{{ route('admin.logs') }}" class="flex items-center p-3 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V6m0 12v-2m-3-12h6m-6 16h6"></path></svg>
+                Journal des activités
+            </a>
+
         </nav>
         <div class="p-4 border-t border-gray-200 dark:border-gray-700 absolute bottom-0 w-full">
             <div class="flex items-center justify-between text-gray-700 dark:text-gray-300 p-2 rounded-lg bg-gray-50 dark:bg-gray-900">
