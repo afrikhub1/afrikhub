@@ -185,14 +185,14 @@
                     <div class="form-check @error('cgu') is-invalid @enderror">
                         <input class="form-check-input @error('cgu') is-invalid @enderror" type="checkbox" id="cgu" name="cgu" required/>
                         <label class="form-check-label" for="cgu">
-                            J’accepte les conditions générales d’utilisation
+                            J’accepte les conditions générales d’utilisation.  <a href="{{ route('politique_de_confidentialite') }}">Lire</a>
                         </label>
                         @error('cgu')
                             <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
                         @else
-                            <div class="invalid-feedback">Vous devez accepter les conditions. <a href="{{ route('politique_de_confidentialite') }}">Lire</a></div>
+                            <div class="invalid-feedback">Vous devez accepter les conditions.</div>
                         @enderror
                     </div>
                 </div>
