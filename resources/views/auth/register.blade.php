@@ -37,7 +37,7 @@
         </header>
 
         <div class="container mt-2">
-            <h2 class="mb-4">Formulaire d'inscription</h2>
+            <h2 class="mb-4 text-3xl">Formulaire d'inscription</h2>
 
             <!-- Affichage général des erreurs (si besoin d'un résumé, sinon les messages sous les champs suffisent) -->
             @if ($errors->any())
