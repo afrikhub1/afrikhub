@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('ip_address');
             $table->text('user_agent')->nullable();
-            // Nouveaux champs
+            // geolocation
             $table->string('pays')->nullable();
             $table->string('ville')->nullable();
             $table->string('latitude')->nullable();
