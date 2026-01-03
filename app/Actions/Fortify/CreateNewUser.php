@@ -3,15 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Support\Facades\{
-    Auth,
-    Hash,
-    Log,
-    Mail,
-    Validator
-};
+use Illuminate\Support\Facades\{Auth,Hash,Log,Mail,Validator};
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
+
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -88,6 +85,23 @@ class CreateNewUser implements CreatesNewUsers
             'status'      => $status,
             'password'    => Hash::make($input['password']),
         ]);
+
+        // log d'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => $utilisateur->id,
+            'action'     => 'creation de compte',
+            'description' => 'Utilisateur a créé un compte avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
 
 
         // Envoi du mail de confirmation
