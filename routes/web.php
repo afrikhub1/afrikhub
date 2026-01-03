@@ -53,6 +53,9 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name
 // Route OFAQ
 Route::get('/faq', function () {return view('FAQ'); })->name('faq');
 
+// politique de confidentialité
+Route::get('/politique-de-confidentialite', function () {return view('infos.politique_de_confidentialite'); })->name('politique_de_confidentialite');
+
 // Détails d'une résidence
 Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
 
