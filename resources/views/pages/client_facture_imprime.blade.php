@@ -108,7 +108,7 @@
             <tfoot>
                 <tr class="total-row">
                     <td colspan="3" class="text-right">MONTANT TOTAL A PAYÉ</td>
-                    <td class="text-right color-primary">{{ number_format($montantTotal, 0, ',', ' ') }} FCFA</td>
+                    <td class="text-right color-primary">{{ str_replace('-', '',  number_format($montantTotal, 0, ',', ' ')) }} FCFA</td>
                 </tr>
             </tfoot>
         </table>
