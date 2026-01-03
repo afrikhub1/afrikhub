@@ -28,6 +28,13 @@
                     <td class="p-4 text-sm text-gray-600">{{ $log->description }}</td>
                     <td class="p-4 text-xs text-mono text-gray-400">{{ $log->ip_address }}</td>
                     <td class="p-4 text-sm text-gray-600">{{ $log->created_at->format('d/m/Y H:i') }}</td>
+                    <td class="p-4">
+                        <div class="flex items-center">
+                            <img src="https://flagcdn.com/w20/{{ strtolower($log->code_pays) }}.png" class="mr-2 shadow-sm">
+                            <span class="text-sm font-semibold">{{ $log->ville }}, {{ $log->pays }}</span>
+                        </div>
+                        <p class="text-[10px] text-gray-400">GPS: {{ $log->latitude }}, {{ $log->longitude }}</p>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

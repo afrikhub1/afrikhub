@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.10.1",
         "league/flysystem-aws-s3-v3": "^3.30",
         "phpmailer/phpmailer": "^7.0",
+        "stevebauman/location": "^7.6",
         "unisharp/laravel-filemanager": "^2.12"
     },
     "require-dev": {

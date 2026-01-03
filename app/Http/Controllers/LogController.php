@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Stevebauman\Location\Facades\Location;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\ActivityLog;
 
@@ -37,10 +38,18 @@ class LogController extends Controller
             return redirect()->route('details', ['id' => $residenceId]);
         }
 
+        $ip = request()->ip();
+        $position = Location::get($ip);
         ActivityLog::create([
             'user_id'    => Auth::id(),
             'action'     => 'Connexion',
-            'ip_address' => request()->ip(),
+            'description'=> 'Utilisateur connecté avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
@@ -51,13 +60,28 @@ class LogController extends Controller
 
     public function logout()
     {
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'Connexion',
+            'description' => 'Utilisateur connecté avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
         Auth::logout();
 
-        // ✅ Supprimer la session actuelle (optionnel mais recommandé)
+        // Supprimer la session actuelle (optionnel mais recommandé)
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        // ✅ Rediriger vers la page de connexion
+        // Rediriger vers la page de connexion
         return redirect()->route('login');
     }
 

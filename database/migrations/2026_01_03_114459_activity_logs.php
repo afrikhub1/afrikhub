@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('action'); // ex: Connexion, Réservation, Modif MDP
-            $table->text('description')->nullable(); // Détails de l'action
-            $table->string('ip_address')->nullable();
-            $table->string('user_agent')->nullable(); // Navigateur utilisé
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('action');
+            $table->text('description')->nullable();
+            $table->string('ip_address');
+            // Nouveaux champs
+            $table->string('pays')->nullable();
+            $table->string('ville')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('code_pays')->nullable();
             $table->timestamps();
         });
     }

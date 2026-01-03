@@ -6,7 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityLog extends Model
 {
-    protected $fillable = ['user_id', 'action', 'description', 'ip_address', 'user_agent'];
+    protected $fillable = [
+        'user_id',
+        'action',
+        'description',
+        'ip_address',
+        'user_agent',
+        'pays',
+        'ville',
+        'latitude',
+        'longitude',
+        'code_pays'
+    ];
 
     public function user()
     {
