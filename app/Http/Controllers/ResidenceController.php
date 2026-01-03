@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
 
 class ResidenceController extends Controller
 {
@@ -81,6 +83,22 @@ class ResidenceController extends Controller
             'img' => json_encode($imagesPath),
             'status' => 'en attente',
             'commodites' => $comoditesTexte, // Sauvegarde la chaîne propre
+        ]);
+
+        // log d'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'ajout de résidence',
+            'description' => 'Utilisateur à ajouté une residence avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
         return redirect()->route('pro.dashboard')

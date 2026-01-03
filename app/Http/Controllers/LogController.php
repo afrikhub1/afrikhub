@@ -64,7 +64,7 @@ class LogController extends Controller
         $position = Location::get($ip);
         ActivityLog::create([
             'user_id'    => Auth::id(),
-            'action'     => 'Connexion',
+            'action'     => 'Deconnexion',
             'description' => 'Utilisateur deconnecté avec succès.',
             'ip_address' => $ip,
             'pays'       => $position ? $position->countryName : null,

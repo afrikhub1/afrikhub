@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation; // Assurez-vous d'avoir ce modèle
 use Barryvdh\DomPDF\Facade\Pdf; // La Facade corrigée
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
+
 
 class ClientController extends Controller
 {
@@ -63,6 +66,22 @@ class ClientController extends Controller
      */
     public function telechargerFacture($reservationId)
     {
+        // Logique de téléchargement de facture
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'Connexion',
+            'description' => 'Utilisateur deconnecté avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
         // 1. Recherche sécurisée (404 si non trouvé ou n'appartient pas à l'utilisateur)
         $reservation = Reservation::where('id', $reservationId)
             ->where('user_id', Auth::id())

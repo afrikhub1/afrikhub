@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\News_letter;
 use Illuminate\Http\Request;
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
 
 class News_letterController extends Controller
 {
@@ -24,6 +26,21 @@ class News_letterController extends Controller
         ]);
 
         News_letter::create($request->all());
+
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'news_letter',
+            'description' => 'l\'utilisateur a envoyé un message via la newsletter.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
 
 
         if (Auth::check()) {

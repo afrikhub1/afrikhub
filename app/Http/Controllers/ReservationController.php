@@ -7,6 +7,8 @@ use App\Models\Residence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
 class ReservationController extends Controller
 {
 
@@ -58,17 +60,50 @@ class ReservationController extends Controller
             'status' => 'en attente',
         ]);
 
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'reservation',
+            'description' => 'Utilisateur a effectué une réservation.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
         // Redirection vers l'historique des réservations avec message de succès
             $route = 'clients_historique';
         return redirect()->route($route)->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
 
     }
 
-    // Paiement
+    // annuler une réservation
     public function annuler($id)
     {
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'reservation',
+            'description' => 'Utilisateur a annulé une réservation.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
+        // Annulation de la réservation
         $reservation = Reservation::findOrFail($id);
-        // Ici tu peux intégrer un paiement avec Stripe, PayPal, etc.
+
         $reservation->status = 'annulée';
         $reservation->save();
 
@@ -99,6 +134,23 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'réservation',
+            'description' => 'Utilisateur a accepté une réservation.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
+        // accepter une réservation
         $reservation = Reservation::findOrFail($id);
         $residence = $reservation->residence;
 
@@ -128,6 +180,23 @@ class ReservationController extends Controller
     public function refuser($id)
     {
 
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'réfu de reservation',
+            'description' => 'Utilisateur à réfusé une reservation avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
+        // annulation
         Reservation::where('id', $id)->update([
             'status' => 'refusée',
             'date_validation' => now(), // date et heure actuelles

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Carousels;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Stevebauman\Location\Facades\Location;
+use App\Models\ActivityLog;
 
 class CarouselController extends Controller
 {
@@ -37,6 +40,21 @@ class CarouselController extends Controller
             'ordre' => $request->ordre ?? 0,
             'image' => $path,
             'actif' => true,
+        ]);
+
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'creation_carousel publicitaire',
+            'description' => 'Creation de carousel publicitaire.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
         return redirect()->route('carousels.index')->with('success', 'Image ajoutée !');
