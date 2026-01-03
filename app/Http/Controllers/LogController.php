@@ -65,7 +65,7 @@ class LogController extends Controller
         ActivityLog::create([
             'user_id'    => Auth::id(),
             'action'     => 'Connexion',
-            'description' => 'Utilisateur connecté avec succès.',
+            'description' => 'Utilisateur deconnecté avec succès.',
             'ip_address' => $ip,
             'pays'       => $position ? $position->countryName : null,
             'ville'      => $position ? $position->cityName : null,
