@@ -159,7 +159,7 @@
 
                                     <li class="flex justify-between items-center">
                                         <strong class="text-gray-600">Prix/Jour :</strong>
-                                        <span class="text-green-600 font-semibold">{{ $res->prix_journalier }} €</span>
+                                        <span class="text-green-600 font-semibold">{{ $res->prix_journalier }} fcfa</span>
                                     </li>
 
                                     <li class="flex justify-between items-center">
