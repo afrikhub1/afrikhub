@@ -9,6 +9,8 @@ use App\Models\Reservation;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ActivityLog;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationStatusMail;
 
 class AdminController extends Controller
 {
@@ -138,6 +140,7 @@ class AdminController extends Controller
             'disponible' => !$request->has('is_suspended'),
 
         ]);
+
 
         // 3. Gestion de l'upload des nouvelles images
         if ($request->hasFile('img')) {
@@ -297,6 +300,12 @@ class AdminController extends Controller
         $residence->date_disponible_apres = $reservationDepart;
         $residence->save();
 
+        Mail::to($reservation->user->email)->send(new ReservationStatusMail(
+            $reservation,
+            "Réservation confirmée !",
+            "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée."
+        ));
+
         return back()->with('success', 'Réservation confirmée avec succès !');
     }
 
@@ -308,6 +317,13 @@ class AdminController extends Controller
             'status' => 'refusée',
             'date_validation' => now(), // date et heure actuelles
         ]);
+
+        $reservation = Reservation::find($id); // Récupérer l'objet pour le mail
+        Mail::to($reservation->user->email)->send(new ReservationStatusMail(
+            $reservation,
+            "Demande de réservation refusée",
+            "Désolé, votre demande pour {$reservation->residence->nom} n'a pas pu être acceptée."
+        ));
 
         return back()->with('success', 'Réservation refusée ❌');
     }
