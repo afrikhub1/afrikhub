@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use App\Models\ActivityLog;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationStatusMail;
+
 class ReservationController extends Controller
 {
 
@@ -76,6 +79,12 @@ class ReservationController extends Controller
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
+        Mail::to(Auth::user()->email)->send(new ReservationStatusMail(
+            $reservation,
+            "Nouvelle demande de réservation",
+            "Votre demande pour la résidence {$residence->nom} a bien été enregistrée. Elle est en attente de validation."
+        ));
+
         // Redirection vers l'historique des réservations avec message de succès
             $route = 'clients_historique';
         return redirect()->route($route)->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
@@ -85,12 +94,19 @@ class ReservationController extends Controller
     // annuler une réservation
     public function annuler($id)
     {
+
+        // Annulation de la réservation
+        $reservation = Reservation::findOrFail($id);
+
+        $reservation->status = 'annulée';
+        $reservation->save();
+
         // Journalisation de l'activité
         $ip = request()->ip();
         $position = Location::get($ip);
         ActivityLog::create([
             'user_id'    => Auth::id(),
-            'action'     => 'reservation',
+            'action'     => 'reservation annulée',
             'description' => 'Utilisateur a annulé une réservation.',
             'ip_address' => $ip,
             'pays'       => $position ? $position->countryName : null,
@@ -101,11 +117,11 @@ class ReservationController extends Controller
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
-        // Annulation de la réservation
-        $reservation = Reservation::findOrFail($id);
-
-        $reservation->status = 'annulée';
-        $reservation->save();
+        Mail::to($reservation->user->email)->send(new ReservationStatusMail(
+            $reservation,
+            "Réservation annulée",
+            "Vous avez annulé votre réservation pour la résidence {$reservation->residence->nom}."
+        ));
 
         return redirect()->back()->with('error', 'Réservation annuléé.');
     }
@@ -134,21 +150,6 @@ class ReservationController extends Controller
 
     public function accepter($id)
     {
-        // Journalisation de l'activité
-        $ip = request()->ip();
-        $position = Location::get($ip);
-        ActivityLog::create([
-            'user_id'    => Auth::id(),
-            'action'     => 'réservation',
-            'description' => 'Utilisateur a accepté une réservation.',
-            'ip_address' => $ip,
-            'pays'       => $position ? $position->countryName : null,
-            'ville'      => $position ? $position->cityName : null,
-            'latitude'   => $position ? $position->latitude : null,
-            'longitude'  => $position ? $position->longitude : null,
-            'code_pays'  => $position ? $position->countryCode : null,
-            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
-        ]);
 
         // accepter une réservation
         $reservation = Reservation::findOrFail($id);
@@ -173,12 +174,43 @@ class ReservationController extends Controller
         $residence->date_disponible_apres = $reservationDepart;
         $residence->save();
 
+        // Journalisation de l'activité
+        $ip = request()->ip();
+        $position = Location::get($ip);
+        ActivityLog::create([
+            'user_id'    => Auth::id(),
+            'action'     => 'réservation acceptée',
+            'description' => 'Utilisateur a accepté une réservation.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
+        ]);
+
+
+        Mail::to($reservation->user->email)->send(new ReservationStatusMail(
+            $reservation,
+            "Réservation confirmée !",
+            "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée."
+        ));
+
+
+
         return back()->with('success', 'Réservation confirmée avec succès !');
     }
 
 
     public function refuser($id)
     {
+
+        // refuser une réservation
+        Reservation::where('id', $id)->update([
+            'status' => 'refusée',
+            'date_validation' => now(), // date et heure actuelles
+        ]);
 
         // Journalisation de l'activité
         $ip = request()->ip();
@@ -196,11 +228,12 @@ class ReservationController extends Controller
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
-        // annulation
-        Reservation::where('id', $id)->update([
-            'status' => 'refusée',
-            'date_validation' => now(), // date et heure actuelles
-        ]);
+        $reservation = Reservation::find($id); // Récupérer l'objet pour le mail
+        Mail::to($reservation->user->email)->send(new ReservationStatusMail(
+            $reservation,
+            "Demande de réservation refusée",
+            "Désolé, votre demande pour {$reservation->residence->nom} n'a pas pu être acceptée."
+        ));
 
         return back()->with('success', 'Réservation refusée avec succès !');
     }
