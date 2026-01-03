@@ -18,7 +18,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <div class="flex-shrink-0">
-                    <img src="{{ asset('assets/logo.png') }}" alt="Afrique Hub Logo" class="h-12 w-auto object-contain">
+                    <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrique Hub Logo" class="h-12 w-auto object-contain">
                 </div>
                 <span class="text-2xl font-black tracking-tighter text-indigo-900 uppercase hidden sm:block">Afrique Hub</span>
             </div>
@@ -38,7 +38,7 @@
         <div class="max-w-4xl mx-auto">
 
             <div class="flex justify-center mb-6">
-                <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-20 w-auto opacity-20 grayscale">
+                <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" class="h-20 w-auto opacity-20 grayscale">
             </div>
 
             <div class="text-center mb-16">
