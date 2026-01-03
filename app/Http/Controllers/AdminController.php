@@ -180,7 +180,7 @@ class AdminController extends Controller
         ]);
 
         // Redirige l'utilisateur vers la page précédente avec un message de succès.
-        return back()->with('success', 'Résidence marquée comme vérifiée ✅');
+        return back()->with('success', 'Résidence marquée comme vérifiée ');
     }
 
     // Désactive une résidence et la marque comme 'en attente'.
@@ -230,11 +230,11 @@ class AdminController extends Controller
         if ($user->status === 'suspendu') {
             // Si suspendu, on le réactive.
             $user->status = 'actif';
-            $message = "L'utilisateur {$user->name} a été réactivé ✅.";
+            $message = "L'utilisateur {$user->name} a été réactivé .";
         } else {
             // Si actif (ou autre), on le suspend.
             $user->status = 'suspendu';
-            $message = "L'utilisateur {$user->name} a été suspendu 🔒.";
+            $message = "L'utilisateur {$user->name} a été suspendu .";
         }
 
         // Sauvegarde la modification dans la base de données.
@@ -325,7 +325,7 @@ class AdminController extends Controller
             "Désolé, votre demande pour {$reservation->residence->nom} n'a pas pu être acceptée."
         ));
 
-        return back()->with('success', 'Réservation refusée ❌');
+        return back()->with('success', 'Réservation refusée');
     }
 
     public function marquer_payé($id)
