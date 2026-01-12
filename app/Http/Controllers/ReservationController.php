@@ -25,6 +25,8 @@ class ReservationController extends Controller
 
         $residence = Residence::findOrFail($id);
 
+       
+
         // Vérification de la disponibilité par date
         $dateArrivee = Carbon::parse($request->date_arrivee);
         $dateDisponibleApres = $residence->date_disponible_apres ? Carbon::parse($residence->date_disponible_apres) : null;
