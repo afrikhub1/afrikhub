@@ -4,16 +4,17 @@
     <style>
         body { font-family: sans-serif; color: #333; line-height: 1.6; }
         .container { width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 10px; }
-        .header { background: #4f46e5; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0; }
+        .header { background: linear-gradient(135deg, #006d77, #00afb9); color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0; }
         .content { padding: 20px; }
         .details { background: #f9fafb; padding: 15px; border-radius: 8px; margin-top: 20px; }
         .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
-            <h1>Afrique Hub</h1>
+            <h1>Afrik'Hub</h1>
         </div>
         <div class="content">
             <h2>{{ $statutTitre }}</h2>

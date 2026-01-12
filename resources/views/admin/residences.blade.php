@@ -163,6 +163,10 @@
                                             <i class="fas fa-trash-alt mr-1"></i> Supprimer
                                         </button>
                                     </form>
+
+                                    <a href="{{ route('admin.demande.valider', $demande->id) }}" class=" px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+                                        <i class="fas fa-edit mr-1"></i> Liberer
+                                    </a>
                                 </div>
                             </div>
                         </div>
