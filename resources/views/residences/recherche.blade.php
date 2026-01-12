@@ -253,7 +253,7 @@
                     <div class="card-body">
                         @if($dateDispo)
                             <div class="badge-dispo">
-                                <i class="far fa-calendar-alt me-1"></i> Libre le {{ $dateDispo->translatedFormat('d M Y') }}
+                                <i class="far fa-calendar-alt me-1"></i> Libre depuis {{ $dateDispo->translatedFormat('d M Y') }}
                             </div>
                         @endif
 
