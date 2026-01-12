@@ -72,8 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/recherche', [ResidenceController::class, 'recherche_img'])->name('recherche');
 
     // Réservations
-    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
-
+    Route::post('/reservation/{id}', [ReservationController::class, 'store'])->name('reservation.store');
     Route::post('/reservation/{id}/annulation', [ReservationController::class, 'annuler'])->name('reservation.annuler');
     Route::get('/reservation/{id}/rebook', [ReservationController::class, 'rebook'])->name('reservation.rebook');
     Route::get('/mes-demandes', [ReservationController::class, 'mesDemandes'])->name('mes_demandes');

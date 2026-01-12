@@ -383,15 +383,13 @@
                 <div class="modal-body">
                 <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
 
-                <form id="reservationForm" method="POST" action="{{ route('reservation.store') }}">
+                <form id="reservationForm" method="POST" action="{{ route('reservation.store', $residences_details->id) }}">
                     @csrf
 
                     <div class="mb-3">
                     <label for="date_arrivee" class="form-label">Date d'arrivée</label>
                     <input type="date" id="date_arrivee" name="date_arrivee" class="form-control" required />
                     </div>
-
-                    <input type="hidden" name="residence_id" value="{{ $residences_details->id }}">
 
                     <div class="mb-3">
                     <label for="date_depart" class="form-label">Date de départ</label>
