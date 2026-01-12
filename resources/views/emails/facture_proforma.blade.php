@@ -108,7 +108,7 @@
 
         <div class="footer">
             Afrik'Hub - Loin de chez vous, comme chez vous.<br>
-            RCCM: CI-ABJ-00-0000-B00 | Compte contribuable: 0000000 X<br>
+            Contact: 0103090616 | afrikhub1@gmail.com<br>
             © {{ date('Y') }} Tous droits réservés.
         </div>
     </div>
