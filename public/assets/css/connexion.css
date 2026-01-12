@@ -65,7 +65,7 @@ body {
   outline: none;
   border: 2px solid #00b4a2;
   box-shadow: 0 0 12px rgba(0,180,162,0.3);
-  background: #fff;
+  background: none;
 }
 
 label.form-label {
@@ -84,7 +84,7 @@ label.form-label {
   left: 12px;
   font-size: 0.8rem;
   color: #00b4a2;
-  background: #03030367;
+  background: none;
   padding: 0 4px;
 }
 
