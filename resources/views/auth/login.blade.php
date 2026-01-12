@@ -35,10 +35,7 @@
 
                         {{-- Email --}}
                         <div class="form-outline mb-3">
-                            <input type="email"
-                                class="form-control shadow-sm" id="email" name="email"
-                                required
-                                autocomplete="off"
+                            <input type="email" class="form-control shadow-sm" id="email" name="email" required autocomplete="off"
                                 placeholder=" ">
                             <label class="form-label" for="email">Email</label>
                         </div>
