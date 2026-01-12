@@ -383,7 +383,7 @@
                 <div class="modal-body">
                 <div id="validationMessage" class="alert alert-danger d-none" role="alert"></div>
 
-                <form id="reservationForm" method="POST" action="{{ route('reservation.store', $residences_details->id) }}">
+                <form id="reservationForm" method="POST" action="{{ route('reservation.store') }}">
                     @csrf
 
                     <div class="mb-3">
