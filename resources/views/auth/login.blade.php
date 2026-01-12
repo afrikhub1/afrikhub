@@ -30,7 +30,7 @@
 
                     @include('includes.messages')
 
-                    <form action="{{ route('login.post') }}" method="POST" class="w-100 justify-content-center row m-0">
+                    <form action="{{ route('login.post') }}" method="POST" class="w-100 justify-content-center row m-0" autocomplete="off">
                         @csrf
 
                         {{-- Email --}}
