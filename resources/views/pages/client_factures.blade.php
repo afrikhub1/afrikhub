@@ -126,13 +126,13 @@
                             </li>
 
                              <li class="flex justify-between items-center">
-                                <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> reference :</span>
+                                <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> référence :</span>
                                 <span class="text-gray-900 font-semibold">{{ $reference }}</span>
                             </li>
 
                              <li class="flex justify-between items-center">
                                 <span class="text-gray-500"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i> payé le :</span>
-                                <span class="text-gray-900 font-semibold">{{ $datePaiement }}</span>
+                                <span class="text-gray-900 font-semibold">{{ $datePaiement ?: 'Non payée' }}</span>
                             </li>
                         </ul>
 
