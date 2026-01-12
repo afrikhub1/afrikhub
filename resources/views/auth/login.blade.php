@@ -35,15 +35,13 @@
 
                         {{-- Email --}}
                         <div class="form-outline mb-3">
-                            <input type="email" class="form-control shadow-sm" id="email" name="email" required autocomplete="off"
-                                placeholder="email...">
+                            <input type="email" class="form-control shadow-sm" id="email" name="email" required autocomplete="off">
                             <label class="form-label" for="email">Email</label>
                         </div>
 
                         {{-- Mot de passe --}}
                         <div class="form-outline mb-2">
-                            <input type="password" class="form-control shadow-sm" id="password" name="password" required
-                                placeholder="mots de passe...">
+                            <input type="password" class="form-control shadow-sm" id="password" name="password" required>
                             <label class="form-label" for="password">Mot de passe</label>
                         </div>
 
