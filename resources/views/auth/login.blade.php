@@ -58,7 +58,7 @@
                             
                             {{-- L'œil pour masquer/afficher --}}
                             <span id="togglePassword" 
-                                style="position: absolute; right: 10px; top: 13px; cursor: pointer; z-index: 10; color: #555;">
+                                style="position: absolute; right: 20px; top: 13px; cursor: pointer; z-index: 10; color: #555;">
                                 <i class="fa-solid fa-eye" id="eyeIcon"></i>
                             </span>
                         </div>
