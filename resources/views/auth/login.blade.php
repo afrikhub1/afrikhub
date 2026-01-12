@@ -14,6 +14,10 @@
         <title> {{ config('app.name')}}-Connexion</title>
     </head>
     <body>
+        @if(session('cleared'))
+            {{-- Rafraîchit la page immédiatement une seule fois --}}
+            <meta http-equiv="refresh" content="0; url={{ route('login') }}">
+        @endif
         <section class="min-vh-100 d-flex justify-content-center align-items-center w-100">
 
             <div class="row m-0 col-lg-5 col-xl-4 col-md-6 col-10 shadow-lg border-0 p-4"
