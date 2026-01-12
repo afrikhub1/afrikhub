@@ -116,5 +116,23 @@
             });
         </script>
 
+<script>
+    (function() {
+        // 1. Force le rafraîchissement automatique si c'est la première visite sur la page de login
+        if (!window.location.hash.includes('clean')) {
+            window.location.hash = 'clean';
+            window.location.reload(true); // 'true' force le rechargement depuis le serveur (hors cache)
+        }
+
+        // 2. Vide physiquement les champs au chargement par sécurité
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+            }, 50); // Petit délai pour contrer l'autofill du navigateur
+        };
+    })();
+</script>
+
     </body>
 </html>
