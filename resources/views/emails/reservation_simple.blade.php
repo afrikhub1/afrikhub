@@ -25,13 +25,6 @@
 
     <p>Pour confirmer définitivement votre réservation, merci de procéder au règlement selon les modalités indiquées dans la facture jointe.</p>
 
-    <div style="text-align: center; margin: 35px 0;">
-        <a href="{{ url('/reserver/paiement/'.$reservation->reservation_code) }}" 
-           style="background-color: #006d77; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(0,109,119,0.2);">
-           Confirmer et Payer en ligne
-        </a>
-    </div>
-
     <p style="font-size: 14px;">Toute l'équipe d'<strong>Afrik'Hub</strong> vous remercie pour votre confiance et reste à votre entière disposition pour toute question.</p>
 
     <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0;">
