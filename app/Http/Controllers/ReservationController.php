@@ -30,9 +30,7 @@ class ReservationController extends Controller
         $dateDisponibleApres = $residence->date_disponible_apres ? Carbon::parse($residence->date_disponible_apres) : null;
 
         if ($dateDisponibleApres && $dateArrivee < $dateDisponibleApres) {
-            return back()
-                ->withErros(['date_arrivee' => 'Cette résidence n’est pas disponible à la date choisie.'])
-                ->withInput();
+            return redirect()->route('recherche')->with('error', 'Résidence indisponible a cette date.');
         }
 
         // Calcul du nombre de nuits
