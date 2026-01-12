@@ -251,24 +251,22 @@
                     </div>
 
                     <div class="card-body">
-                        @if ($dateDispo->isPast())
-                            <li>
-                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
-                                    Disponible depuis le {{ $dateDispo->translatedFormat('d F Y') }}
-                                </span>
-                            </li>
+                        @if($dateDispo)
+                            <div class="badge-dispo">
+                                <i class="far fa-calendar-alt me-1"></i> Libre depuis le {{ $dateDispo->translatedFormat('d M Y') }}
+                            </div>
+
                         @elseif ($dateDispo->isToday())
-                            <li>
-                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
-                                    Disponible
-                                </span>
-                            </li>
+
+                            <div class="badge-dispo">
+                                <i class="far fa-calendar-alt me-1"></i>Disponible
+                            </div>
+                        
                         @else
-                            <li>
-                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
-                                    Disponible à partir du {{ $dateDispo->translatedFormat('d F Y') }}
-                                </span>
-                            </li>
+                            <div class="badge-dispo">
+                                <i class="far fa-calendar-alt me-1"></i>Disponible à partir du {{ $dateDispo->translatedFormat('d F Y') }}
+                            </div>
+
                         @endif
 
                         <h2 class="residence-title">{{ $residence->nom }}</h2>
