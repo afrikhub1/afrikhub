@@ -27,12 +27,8 @@ class SejourController extends Controller
 
         $userId = Auth::id();
         if ($reservation->user_id != $userId) {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.'.$userId.'utilisateur'. $reservation->user_id);
+            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
-        elseif ($reservation->proprietaire_id==$userId)
-            {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.' . $userId . 'proprio' . $reservation->proprietaire_id);
-            }
 
         return view('pages.interrompre', compact('residence', 'reservation'));
     }
@@ -53,12 +49,12 @@ class SejourController extends Controller
             return redirect()->back()->with('error', 'Résidence introuvable.');
         }
 
-        $user = $request->user();
-        if ($reservation->user_id != $user->id || $reservation->proprietaire_id != $user->id) {
+        $userId = Auth::id();
+        if ($reservation->user_id != $userId || $reservation->proprietaire_id != $userId) {
             return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
-        if ($user->id == $reservation->proprietaire_id) {
+        if ($userId == $reservation->proprietaire_id) {
             $demandeur= 'proprietaire';
         }
         else{
