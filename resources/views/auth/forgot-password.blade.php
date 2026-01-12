@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: #667eea;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -54,7 +54,7 @@
         <button type="submit" class="btn btn-primary w-100">Envoyer le lien</button>
     </form>
 
-    <a href="{{ url('/login') }}" class="d-block text-center mt-3">← Retour à la connexion</a>
+    <a href="{{ url('/login') }}" class="d-block text-center mt-3 btn btn-light">← Retour à la connexion</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
