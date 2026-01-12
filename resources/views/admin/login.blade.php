@@ -37,7 +37,7 @@
                 <!-- Email -->
                 <div class="flex flex-col gap-1">
                     <label for="email" class="text-gray-700 font-semibold">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}"
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="off"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition"
                         placeholder="admin@exemple.com" required>
                 </div>
@@ -45,9 +45,9 @@
                 <!-- Mot de passe -->
                 <div class="flex flex-col gap-1">
                     <label for="password" class="text-gray-700 font-semibold">Mot de passe</label>
-                    <input type="password" name="password" id="password"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition"
-                        placeholder="••••••••" required>
+                    <input type="password" name="password" id="password" autocomplete="off"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
+                        outline-none transition"placeholder="mots de passe" required>
                 </div>
 
                 <!-- Bouton -->
