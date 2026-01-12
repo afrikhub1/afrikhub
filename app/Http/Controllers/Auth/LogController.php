@@ -13,23 +13,34 @@ use App\Models\ActivityLog;
 
 class LogController extends Controller
 {
-    public function login(Request $request)
+
+    public function showLoginForm(Request $request)
     {
-        // 1. Si la requête est en GET (affichage de la page), on nettoie tout
-        if ($request->isMethod('get')) {
-            if (Auth::check()) {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-
-                // On redirige vers la même page avec un paramètre pour ne pas boucler
-                return redirect()->route('login')->with('cleared', true);
-            }
-
-            
+        // 1. Si l'utilisateur est connecté, on le déconnecte
+        if (Auth::check()) {
+            Auth::logout();
         }
 
-        // 2. Si on est ici, c'est que c'est une requête POST (Tentative de connexion)
+        // 2. Si le paramètre 'cleared' n'est pas dans l'URL, on force la redirection
+        if (!$request->has('cleared')) {
+            $request->session()->flush();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            // On redirige vers /login?cleared=1
+            return redirect()->view('auth.login', ['cleared' => 1]);
+        }
+
+        // 3. Sinon, on affiche la page normalement avec les headers anti-cache
+        return response()
+            ->view('auth.login') // Remplace par ton chemin exact
+            ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 1990 00:00:00 GMT');
+    }
+
+    public function login(Request $request)
+    {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -37,61 +48,46 @@ class LogController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // Vérification identifiants
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors(['email' => 'Identifiants invalides']);
         }
 
-        // Vérification statut
         if ($user->status !== 'actif') {
             return back()->withErrors(['email' => 'Votre compte est désactivé']);
         }
 
-        // Connexion réussie
         Auth::login($user);
         $request->session()->regenerate();
 
-        // Journalisation de l'activité
-        $this->logActivity($user);
-
-        // --- GESTION DES REDIRECTIONS PRIORITAIRES ---
-
-        // A. Lien de paiement (Mail)
         if (session()->has('url.intended')) {
             return redirect()->intended();
         }
-
-        // B. Cookie de réservation
+        
+        // 🔹 Redirection après vérification du cookie
         if ($residenceId = $request->cookie('residence_to_reserve')) {
             cookie()->queue(cookie()->forget('residence_to_reserve'));
             return redirect()->route('details', ['id' => $residenceId]);
         }
 
-        // C. Par défaut selon le rôle
-        return $user->type_compte == 'client'
-            ? redirect()->route('clients_historique')
-            : redirect()->route('pro.dashboard');
-    }
-
-    /**
-     * Petite fonction privée pour garder le code propre
-     */
-    private function logActivity($user)
-    {
+        // Journalisation de l'activité
         $ip = request()->ip();
         $position = Location::get($ip);
         ActivityLog::create([
-            'user_id'     => $user->id,
-            'action'      => 'Connexion',
-            'description' => 'Utilisateur connecté avec succès.',
-            'ip_address'  => $ip,
-            'pays'        => $position ? $position->countryName : null,
-            'ville'       => $position ? $position->cityName : null,
-            'latitude'    => $position ? $position->latitude : null,
-            'longitude'   => $position ? $position->longitude : null,
-            'code_pays'   => $position ? $position->countryCode : null,
-            'user_agent'  => request()->header('User-Agent'),
+            'user_id'    => Auth::id(),
+            'action'     => 'Connexion',
+            'description'=> 'Utilisateur connecté avec succès.',
+            'ip_address' => $ip,
+            'pays'       => $position ? $position->countryName : null,
+            'ville'      => $position ? $position->cityName : null,
+            'latitude'   => $position ? $position->latitude : null,
+            'longitude'  => $position ? $position->longitude : null,
+            'code_pays'  => $position ? $position->countryCode : null,
+            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
+
+        return $user->type_compte == 'client'
+            ? redirect()->route('clients_historique')
+            : redirect()->route('pro.dashboard');
     }
 
     public function logout()
