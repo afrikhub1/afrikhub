@@ -15,19 +15,23 @@ class SejourController extends Controller
      */
     public function interrompreForm($reservationId)
     {
-        $reservation = Reservation::where('id', $reservationId)->first();
+        // Utilisation de find() pour plus de simplicité
+        $reservation = Reservation::find($reservationId);
+
         if (!$reservation) {
             return redirect()->back()->with('error', 'Réservation introuvable.');
         }
 
-        $residence = Residence::where('id', $reservation->residence_id)->first();
+        $residence = Residence::find($reservation->residence_id);
+
         if (!$residence) {
             return redirect()->back()->with('error', 'Résidence introuvable.');
         }
 
         $userId = Auth::id();
+        // Vérification stricte : seul le client lié à la réservation accède au formulaire
         if ($reservation->user_id != $userId) {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.'.'user : '. $userId . 'reservation user : ' . $reservation->user_id);
+            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
         }
 
         return view('pages.interrompre', compact('residence', 'reservation'));
@@ -36,52 +40,41 @@ class SejourController extends Controller
     /**
      * Envoyer la demande d'interruption
      */
-    public function demanderInterruption(Request $request, $reservation)
+    public function demanderInterruption(Request $request, $reservationId)
     {
+        $reservation = Reservation::find($reservationId);
 
-        $reservation = Reservation::where('id', $reservation)->first();
         if (!$reservation) {
             return redirect()->back()->with('error', 'Réservation introuvable.');
         }
 
-        $residence = Residence::where('id', $reservation->residence_id)->first();
-        if (!$residence) {
-            return redirect()->back()->with('error', 'Résidence introuvable.');
-        }
-
         $userId = Auth::id();
-        if ($reservation->user_id != $userId || $reservation->proprietaire_id != $userId) {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.' . 'user : ' . $userId . 'reservation user : ' . $reservation->user_id);
+
+        // --- CORRECTION LOGIQUE ICI ---
+        // On vérifie si l'utilisateur est SOIT le client (user_id), SOIT le propriétaire
+        $isClient = ($reservation->user_id == $userId);
+        $isProprietaire = ($reservation->proprietaire_id == $userId);
+
+        if (!$isClient && !$isProprietaire) {
+            return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé à demander cette interruption.');
         }
 
-        if ($userId == $reservation->proprietaire_id) {
-            $demandeur= 'proprietaire';
-        }
-        else{
-            $demandeur='client';
-        }
+        // Détermination du rôle du demandeur
+        $demandeur = $isProprietaire ? 'proprietaire' : 'client';
 
+        // Création de la demande
         InterruptionRequest::create([
-            'type_compte'=> $demandeur,
-            'user_id' => $userId,
-            'residence_id' => $residence->id,
+            'type_compte'    => $demandeur,
+            'user_id'        => $userId,
+            'residence_id'   => $reservation->residence_id,
             'reservation_id' => $reservation->reservation_code,
-            'status' => 'en_attente'
+            'status'         => 'en_attente'
         ]);
 
-        $user_type= Auth::user()->type_compte;
-        // on verifie si le l'utilisateur est un client
-        if ($user_type== 'client') {
+        // Redirection dynamique selon le type de compte
+        $route = (Auth::user()->type_compte == 'client') ? 'clients_historique' : 'pro.dashboard';
 
-            $route = 'clients_historique';
-        }
-        // sinon il est forcement un user pro
-        else {
-            $route = 'pro.dashboard';
-        }
-
-
-        return redirect()->route($route)->with('success', 'Votre demande a été envoyée à l’admin.');
+        return redirect()->route($route)->with('success', 'Votre demande d’interruption a été transmise à l’administration.');
     }
 
     /**
@@ -89,47 +82,43 @@ class SejourController extends Controller
      */
     public function adminDemandes()
     {
-        // On récupère toutes les demandes avec uniquement les IDs, pas de relations
-        $demandes = InterruptionRequest::all();
+        // Récupération par ordre de création (les plus récentes en premier)
+        $demandes = InterruptionRequest::latest()->get();
         return view('admin.admin_interruptions', compact('demandes'));
     }
 
     /**
-     * Valider une demande (admin) avec where et IDs
+     * Valider une demande (admin)
      */
     public function validerDemande($id)
     {
-        $demande = InterruptionRequest::where('id', $id)->first();
+        $demande = InterruptionRequest::find($id);
+
         if (!$demande) {
             return back()->with('error', 'Demande introuvable.');
         }
 
-        $residence = Residence::where('id', $demande->residence_id)->first();
-        if (!$residence) {
-            return back()->with('error', 'Résidence introuvable pour cette demande.');
+        // On cherche les modèles liés
+        $residence = Residence::find($demande->residence_id);
+        $reservation = Reservation::where('reservation_code', $demande->reservation_id)->first();
+
+        if (!$residence || !$reservation) {
+            return back()->with('error', 'Impossible de lier la demande à une résidence ou une réservation existante.');
         }
 
-        $reservation = Reservation::where('reservation_code', $demande->reservation_id)
-            ->where('residence_id', $demande->residence_id)
-            ->first();
-        if (!$reservation) {
-            return back()->with('error', 'Réservation introuvable ou ne correspond pas à la résidence.');
-        }
+        // 1. Libérer la résidence
+        $residence->update([
+            'disponible' => 1,
+            'date_disponible_apres' => null
+        ]);
 
-        // Libérer la résidence
-        $residence->disponible = 1;
-        $residence->date_disponible_apres = null;
-        $residence->save();
+        // 2. Mettre à jour le statut de la réservation
+        $reservation->update(['status' => 'interrompue']);
 
-        // Mettre à jour le status de la réservation
-        $reservation->status = 'interrompue';
-        $reservation->save();
+        // 3. Valider la demande d'interruption
+        $demande->update(['status' => 'validee']);
 
-        // Mettre à jour le status de la demande
-        $demande->status = 'validee';
-        $demande->save();
-
-        return back()->with('success', 'Demande validée, résidence libérée.');
+        return back()->with('success', 'Séjour interrompu avec succès. La résidence est à nouveau disponible.');
     }
 
     /**
@@ -137,14 +126,14 @@ class SejourController extends Controller
      */
     public function rejeterDemande($id)
     {
-        $demande = InterruptionRequest::where('id', $id)->first();
+        $demande = InterruptionRequest::find($id);
+
         if (!$demande) {
             return back()->with('error', 'Demande introuvable.');
         }
 
-        $demande->status = 'rejete';
-        $demande->save();
+        $demande->update(['status' => 'rejete']);
 
-        return back()->with('success', 'Demande rejetée.');
+        return back()->with('success', 'La demande d’interruption a été rejetée.');
     }
 }
