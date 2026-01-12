@@ -47,7 +47,7 @@
                         </div>
 
                         {{-- Mot de passe --}}
-                        <div class="form-outline my-2">
+                        <div class="form-outline my-2 position-relative">
                             <input type="password"
                                 class="form-control shadow-sm"
                                 id="password"
@@ -55,6 +55,12 @@
                                 required
                                 placeholder=" ">
                             <label class="form-label bg-none" for="password">Mot de passe</label>
+                            
+                            {{-- L'œil pour masquer/afficher --}}
+                            <span id="togglePassword" 
+                                style="position: absolute; right: 15px; top: 13px; cursor: pointer; z-index: 10; color: #555;">
+                                <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                            </span>
                         </div>
 
                         {{-- Lien mot de passe oublié --}}
@@ -98,5 +104,22 @@
                 </div>
             </div>
         </section>
+
+        <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            const eyeIcon = document.querySelector('#eyeIcon');
+        
+            togglePassword.addEventListener('click', function (e) {
+                // Basculer le type d'input
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // Basculer l'icône (œil / œil barré)
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        </script>
+        
     </body>
 </html>
