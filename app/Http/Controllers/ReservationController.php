@@ -198,7 +198,7 @@ class ReservationController extends Controller
             $reservation,
             "Réservation confirmée !",
             "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée.",
-            $urlPaiement // On passe l'URL ici
+            $urlPaiement
         ));
 
 
