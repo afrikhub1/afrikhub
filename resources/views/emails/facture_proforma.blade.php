@@ -55,7 +55,7 @@
                 <td class="info-box">
                     <div class="info-label">Facturé à</div>
                     <strong>{{ $reservation->client }}</strong><br>
-                    Email: {{ $reservation->client_email ?? 'N/A' }}
+                    Email: {{ $reservation->user->email ?? 'N/A' }}
                 </td>
                 <td class="info-box" style="text-align: right;">
                     <div class="info-label">Statut</div>
