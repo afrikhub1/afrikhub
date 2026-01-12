@@ -391,6 +391,8 @@
                     <input type="date" id="date_arrivee" name="date_arrivee" class="form-control" required />
                     </div>
 
+                    <input type="hidden" name="residence_id" value="{{ $residences_details->id }}">
+
                     <div class="mb-3">
                     <label for="date_depart" class="form-label">Date de départ</label>
                     <input type="date" id="date_depart" name="date_depart" class="form-control" required />
