@@ -16,24 +16,27 @@ class LogController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        // 1. Si l'utilisateur est connecté, on le déconnecte
+        // 1. Déconnexion si nécessaire
         if (Auth::check()) {
             Auth::logout();
         }
 
-        // 2. Si le paramètre 'cleared' n'est pas dans l'URL, on force la redirection
+        // 2. REDIRECTION (Obligatoire pour forcer le rafraîchissement du navigateur)
+        // On ne peut pas utiliser view() ici, sinon la page ne se recharge pas
         if (!$request->has('cleared')) {
             $request->session()->flush();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            // On redirige vers /login?cleared=1
-            return redirect()->view('auth.login', ['cleared' => 1]);
+            return redirect()->route('login', ['cleared' => 1]);
         }
 
-        // 3. Sinon, on affiche la page normalement avec les headers anti-cache
+        // 3. AFFICHAGE (Ici on utilise view comme tu le souhaites)
+        // On ajoute les headers pour que le cache soit totalement vidé
         return response()
-            ->view('auth.login') // Remplace par ton chemin exact
+            ->view('auth.login', [
+                'status' => 'Session réinitialisée' // Tu peux passer des données à ta view ici
+            ])
             ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
             ->header('Pragma', 'no-cache')
             ->header('Expires', 'Sat, 01 Jan 1990 00:00:00 GMT');
