@@ -11,9 +11,24 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // On indique à Laravel de ne pas chiffrer ce cookie précis
+        // 1. Tes cookies non chiffrés
         $middleware->encryptCookies(except: [
             'residence_to_reserve',
+        ]);
+
+        // 2. Déclare tes 3 middlewares pour pouvoir les utiliser dans web.php
+        $middleware->alias([
+            'is_pro'    => \App\Http\Middleware\ProMiddleware::class,
+            'is_client' => \App\Http\Middleware\ClientMiddleware::class,
+            'is_admin'  => \App\Http\Middleware\AdminMiddleware::class,
+            'no-back'   => \App\Http\Middleware\PreventBackHistory::class,
+        ]);
+
+        // 3. APPLIQUE L'ANTI-RETOUR GLOBALEMENT
+        // En l'ajoutant ici, toutes tes pages (Pro, Client, Admin)
+        // seront protégées contre le bouton "Retour" du navigateur.
+        $middleware->web(append: [
+            \App\Http\Middleware\PreventBackHistory::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

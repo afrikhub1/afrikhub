@@ -64,7 +64,7 @@ Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('deta
 // --------------------------------------------------
 // ROUTES AUTHENTIFIÉES
 // --------------------------------------------------
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'no-back'])->group(function () {
 
     // Pages résidences
     Route::get('/mise_en_ligne', fn() => view('pages.mise_en_ligne'))->name('mise_en_ligne');
@@ -94,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/devenir-pro', [DevenirProController::class, 'validerDevenirPro'])->name('valider_devenir_pro');
 
     // Professionnel (Pro)
-    Route::middleware([ProMiddleware::class])->group(function () {
+    Route::middleware(['auth', 'is_pro'])->group(function () {
         Route::get('/pro/dashboard', [ResidenceController::class, 'dashboard_resi_reserv'])->name('pro.dashboard');
         Route::get('/dashboard_resi_reserv', [ResidenceController::class, 'dashboard_resi_reserv'])->name('dashboard_resi_reserv');
         Route::get('/reservationRecu', [ResidenceController::class, 'reservationRecu'])->name('reservationRecu');
@@ -136,14 +136,14 @@ Route::get('/auto/terminer', [Mise_a_jour::class, 'terminerReservationsDuJour'])
 // --------------------------------------------------
 
 // Login Admin (PUBLIC)
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['no-back'])->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
 // Dashboard et gestion admin (PROTÉGÉ)
-Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
+Route::prefix('admin')->middleware(['is_admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin_residences', [AdminController::class, 'residences'])->name('admin.residences');
 
