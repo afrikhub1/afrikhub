@@ -12,6 +12,7 @@ use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationStatusMail;
 use App\Mail\ReservationProformaMail;
+use App\Mail\ReservationConfirme;
 
 class ReservationController extends Controller
 {
@@ -193,7 +194,7 @@ class ReservationController extends Controller
         // Dans votre contrôleur au moment de l'envoi
         $urlPaiement = route('reservation.payment', ['code' => $reservation->reservation_code]);
 
-        Mail::to($reservation->user->email)->send(new ReservationStatusMail(
+        Mail::to($reservation->user->email)->send(new ReservationConfirme(
             $reservation,
             "Réservation confirmée !",
             "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée.",
