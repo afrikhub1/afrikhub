@@ -77,6 +77,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservation/{id}/rebook', [ReservationController::class, 'rebook'])->name('reservation.rebook');
     Route::get('/mes-demandes', [ReservationController::class, 'mesDemandes'])->name('mes_demandes');
 
+    // paiment
+    // Route pour la page des QR codes / paiement
+    Route::get('/paiement/qr', function () {return view('paiement.paiement');})->name('paiement.qr');
+
+    Route::get('/reserver/paiement/{code}', [ReservationController::class, 'paymentForm'])->name('reservation.payment');
+
     // Mode client
     Route::get('/client/reservations', [ClientController::class, 'historiqueReservations'])->name('clients_historique');
     Route::get('/client/factures', [ClientController::class, 'historiqueFactures'])->name('factures');

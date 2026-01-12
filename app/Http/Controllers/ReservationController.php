@@ -190,10 +190,14 @@ class ReservationController extends Controller
         ]);
 
 
+        // Dans votre contrôleur au moment de l'envoi
+        $urlPaiement = route('reservation.payment', ['code' => $reservation->reservation_code]);
+
         Mail::to($reservation->user->email)->send(new ReservationStatusMail(
             $reservation,
             "Réservation confirmée !",
-            "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée."
+            "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée.",
+            $urlPaiement // On passe l'URL ici
         ));
 
 

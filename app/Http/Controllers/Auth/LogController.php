@@ -33,6 +33,10 @@ class LogController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
+        if (session()->has('url.intended')) {
+            return redirect()->intended();
+        }
+        
         // 🔹 Redirection après vérification du cookie
         if ($residenceId = $request->cookie('residence_to_reserve')) {
             cookie()->queue(cookie()->forget('residence_to_reserve'));
