@@ -14,7 +14,7 @@ class VerifyAccountController extends Controller
     public function verify(string $token, Request $request)
     {
         // Récupérer l'email depuis la query string
-        $email = $request->query('email');
+        $email = $request->query('email');      
 
         // Chercher l'utilisateur correspondant
         $user = User::where('email', $email)
