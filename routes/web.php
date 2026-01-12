@@ -25,7 +25,7 @@ use App\Http\Controllers\CarouselController;
 // ROUTES PUBLIQUES
 // --------------------------------------------------
 Route::get('/', [PubliciteController::class, 'accueil'])->name('accueil');
-Route::get('/login', [LogController::class, 'showLoginForm'])->name('login');
+Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
 Route::get('/message', fn() => view('pages.messages'))->name('message');
 Route::get('/conditions-generales', function () {return view('documentation.conditions_generales');})->name('conditions_generales');
