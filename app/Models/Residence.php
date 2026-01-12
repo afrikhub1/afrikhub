@@ -60,7 +60,7 @@ class Residence extends Model
         return $this->hasMany(Reservation::class, 'residence_id');
     }
 
-    public function dateDisponibleAvecNettoyage(int $joursNettoyage = 2)
+    public function dateDisponibleAvecNettoyage(int $joursNettoyage = 1)
     {
         // Si la résidence est libre dar disponible est un bouleen
         if ($this->disponible) {
