@@ -230,8 +230,12 @@
     <h2 class="mb-5 text-center fw-bold fs-3 text-secondary">
         Résultats de recherche pour : <span class="text-primary">{{ request('ville_quartier') ?: 'Toutes les résidences' }}</span>
     </h2>
+    
 
     <div class="row">
+        
+        @include('includes.messages')
+
         <div class="col-12 main-content">
             @if ($recherches->isEmpty())
                 <div class="alert alert-warning text-center fw-bold rounded-3 p-4">
