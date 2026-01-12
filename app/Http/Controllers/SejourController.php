@@ -27,11 +27,11 @@ class SejourController extends Controller
 
         $userId = Auth::id();
         if ($reservation->user_id != $userId) {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.'.$userId.'et'. $reservation->user_id);
+            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.'.$userId.'utilisateur'. $reservation->user_id);
         }
         elseif ($reservation->proprietaire_id==$userId)
             {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.' . $userId . 'et' . $reservation->user_id);
+            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.' . $userId . 'proprio' . $reservation->proprietaire_id);
             }
 
         return view('pages.interrompre', compact('residence', 'reservation'));
