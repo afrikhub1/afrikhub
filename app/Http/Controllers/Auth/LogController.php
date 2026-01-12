@@ -14,34 +14,6 @@ use App\Models\ActivityLog;
 class LogController extends Controller
 {
 
-    public function showLoginForm(Request $request)
-    {
-        // 1. Déconnexion si nécessaire
-        if (Auth::check()) {
-            Auth::logout();
-        }
-
-        // 2. REDIRECTION (Obligatoire pour forcer le rafraîchissement du navigateur)
-        // On ne peut pas utiliser view() ici, sinon la page ne se recharge pas
-        if (!$request->has('cleared')) {
-            $request->session()->flush();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            return redirect()->route('login', ['cleared' => 1]);
-        }
-
-        // 3. AFFICHAGE (Ici on utilise view comme tu le souhaites)
-        // On ajoute les headers pour que le cache soit totalement vidé
-        return response()
-            ->view('auth.login', [
-                'status' => 'Session réinitialisée' // Tu peux passer des données à ta view ici
-            ])
-            ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', 'Sat, 01 Jan 1990 00:00:00 GMT');
-    }
-
     public function login(Request $request)
     {
         $request->validate([
