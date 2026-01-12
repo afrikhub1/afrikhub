@@ -27,7 +27,7 @@ class SejourController extends Controller
 
         $userId = Auth::id();
         if ($reservation->user_id != $userId) {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.');
+            return redirect()->back()->with('error', 'Vous ne pouvez pas interrompre ce séjour.'.'user : '. $userId . 'reservation user : ' . $reservation->user_id);
         }
 
         return view('pages.interrompre', compact('residence', 'reservation'));
@@ -63,7 +63,7 @@ class SejourController extends Controller
 
         InterruptionRequest::create([
             'type_compte'=> $demandeur,
-            'user_id' => $user->id,
+            'user_id' => $userId,
             'residence_id' => $residence->id,
             'reservation_id' => $reservation->reservation_code,
             'status' => 'en_attente'
