@@ -36,12 +36,9 @@
                         {{-- Email --}}
                         <div class="form-outline mb-3">
                             <input type="email"
-                                class="form-control shadow-sm"
-                                id="email"
-                                name="email"
-                                value="{{ old('email') }}"
+                                class="form-control shadow-sm" id="email" name="email"
                                 required
-                                autocomplete="email"
+                                autocomplete="off"
                                 placeholder=" ">
                             <label class="form-label" for="email">Email</label>
                         </div>
