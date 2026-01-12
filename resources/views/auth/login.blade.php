@@ -54,7 +54,7 @@
                                 name="password"
                                 required
                                 placeholder=" ">
-                            <label class="form-label" for="password">Mot de passe</label>
+                            <label class="form-label bg-none" for="password">Mot de passe</label>
                         </div>
 
                         {{-- Lien mot de passe oublié --}}
