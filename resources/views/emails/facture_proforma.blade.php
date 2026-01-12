@@ -39,7 +39,7 @@
             <tr>
                 <td class="company-info">
                     <h1>Afrik'Hub</h1>
-                    <p style="font-size: 12px; margin: 5px 0;">Abidjan, Côte d'Ivoire<br>Contact: +225 00 00 00 00</p>
+                    <p style="font-size: 12px; margin: 5px 0;">Abidjan, Côte d'Ivoire<br>Contact: +225 0103090616</p>
                 </td>
                 <td class="invoice-title" style="text-align: right;">
                     <h2>FACTURE PROFORMA</h2>
