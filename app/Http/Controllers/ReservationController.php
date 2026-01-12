@@ -15,7 +15,7 @@ use App\Mail\ReservationStatusMail;
 class ReservationController extends Controller
 {
 
-    public function store(Request $request, $residenceId)
+    public function store(Request $request, $id)
     {
         $request->validate([
             'date_arrivee' => 'required|date|after_or_equal:today',
@@ -23,7 +23,7 @@ class ReservationController extends Controller
             'personnes' => 'required|integer|min:1',
         ]);
 
-        $residence = Residence::findOrFail($residenceId);
+        $residence = Residence::findOrFail($id);
 
         // Vérification de la disponibilité par date
         $dateArrivee = Carbon::parse($request->date_arrivee);
