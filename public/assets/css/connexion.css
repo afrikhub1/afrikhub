@@ -73,7 +73,7 @@ label.form-label {
   position: absolute;
   top: 14px;
   left: 15px;
-  color: #dddbdb;
+  color: #000000;
   font-size: 0.95rem;
   transition: all 0.3s ease;
   pointer-events: none;
