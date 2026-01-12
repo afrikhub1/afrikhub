@@ -19,16 +19,14 @@ class LogController extends Controller
         if ($request->isMethod('get')) {
             if (Auth::check()) {
                 Auth::logout();
-            }
-            $request->session()->flush();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
 
-            return response()
-                ->view('auth.login') // Assure-toi que c'est le bon chemin vers ta vue
-                ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
-                ->header('Pragma', 'no-cache')
-                ->header('Expires', 'Sat, 01 Jan 1990 00:00:00 GMT');
+                // On redirige vers la même page avec un paramètre pour ne pas boucler
+                return redirect()->route('login')->with('cleared', true);
+            }
+
+            
         }
 
         // 2. Si on est ici, c'est que c'est une requête POST (Tentative de connexion)
