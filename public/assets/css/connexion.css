@@ -82,7 +82,7 @@ label.form-label {
 .form-control:focus + label,
 .form-control:not(:placeholder-shown) + label {
   top: -5px;
-  left: 12px;
+  left: 18px;
   font-size: 0.8rem;
   color: #0e0e0e;
   font-weight: bold;
