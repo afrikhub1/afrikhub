@@ -12,7 +12,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
 
-    <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-4">
+    <body class="min-h-screen flex items-center justify-center p-4" style='background: linear-gradient(135deg, #006d77, #00afb9);'>
 
         <div class="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 animate-fadeIn">
 
