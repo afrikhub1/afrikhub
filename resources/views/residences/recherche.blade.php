@@ -188,7 +188,7 @@
     <header class="page-header text-center">
         <h1 class="fw-bold">Nos Résidences</h1>
         <p class="text-muted">Explorez nos meilleures offres de logements meublés</p>
-        <button class="btn btn-outline-dark" > <a class="d-flex text-decoration-none" href="{{route('accueil')}}">retour a l'accueil</a></button>
+         <a class="d-flex text-decoration-none" href="{{route('accueil')}}"><button class="btn btn-outline-dark" > Retour à l'accueil </button></a>
     </header>
 
     <div class="search-section">
