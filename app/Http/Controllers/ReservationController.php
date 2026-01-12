@@ -11,6 +11,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationStatusMail;
+use App\Mail\ReservationProformaMail;
 
 class ReservationController extends Controller
 {
@@ -79,11 +80,9 @@ class ReservationController extends Controller
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
-        Mail::to(Auth::user()->email)->send(new ReservationStatusMail(
-            $reservation,
-            "Nouvelle demande de réservation",
-            "Votre demande pour la résidence {$residence->nom} a bien été enregistrée. Elle est en attente de validation."
-        ));
+        // Envoi du PDF de la facture proforma
+        Mail::to($reservation->user->email)->send(new ReservationProformaMail($reservation));
+
 
         // Redirection vers l'historique des réservations avec message de succès
             $route = 'clients_historique';
