@@ -47,7 +47,7 @@
                         </div>
 
                         {{-- Mot de passe --}}
-                        <div class="form-outline mt-2">
+                        <div class="form-outline my-2">
                             <input type="password"
                                 class="form-control shadow-sm"
                                 id="password"
