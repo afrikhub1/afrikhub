@@ -34,7 +34,7 @@
                         @csrf
 
                         {{-- Email --}}
-                        <div class="form-outline mb-3">
+                        <div class="form-outline mb-5">
                             <input type="email"
                                 class="form-control shadow-sm"
                                 id="email"
@@ -47,7 +47,7 @@
                         </div>
 
                         {{-- Mot de passe --}}
-                        <div class="form-outline mb-2">
+                        <div class="form-outline mt-2">
                             <input type="password"
                                 class="form-control shadow-sm"
                                 id="password"
