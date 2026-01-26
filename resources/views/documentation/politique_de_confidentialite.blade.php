@@ -134,7 +134,7 @@
     </main>
 
     <footer class="py-12 text-center text-slate-400 text-sm">
-        <p>Afrique Hub - Système de Gestion Immobilière Cloud</p>
+        <p>Afrik'Hub - Système de Gestion Immobilière Cloud</p>
     </footer>
 
 </body>
