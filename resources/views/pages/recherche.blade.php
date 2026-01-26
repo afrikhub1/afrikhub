@@ -216,7 +216,7 @@
         @endif
         <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-2"></i> Accueil</a>
 
-        <div class="mt-4 pt-3 border-top border-secondary">
+        <div class="mt-4 mx-3 pt-3 border-top border-secondary">
             <a href="{{ route('logout') }}" class="btn btn-custom-primary rounded-pill w-100 shadow">
                 <i class="fa fa-sign-out me-2"></i> Déconnexion
             </a>
