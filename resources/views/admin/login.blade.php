@@ -7,7 +7,8 @@
 
         <!-- FontAwesome -->
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
+        <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
         <!-- Tailwind -->
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
