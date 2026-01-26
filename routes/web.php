@@ -28,6 +28,7 @@ Route::get('/', [PubliciteController::class, 'accueil'])->name('accueil');
 
 Route::get('/login', fn() => view('auth.login'))->middleware('no-back')->name('login');
 Route::get('/register', fn() => view('auth.register'))->name('register');
+Route::post('/register', fn() => view('auth.register'))->name('register.post');
 Route::get('/message', fn() => view('pages.messages'))->name('message');
 Route::get('/conditions-generales', function () {return view('documentation.conditions_generales');})->name('conditions_generales');
 
