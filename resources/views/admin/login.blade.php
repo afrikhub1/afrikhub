@@ -46,15 +46,17 @@
                 <!-- Mot de passe -->
                 <div class="flex flex-col gap-1">
                     <label for="password" class="text-gray-700 font-semibold">Mot de passe</label>
-                    <input type="password" name="password" id="password" autocomplete="off"
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
-                        outline-none transition"placeholder="mots de passe" required>
-
+                    
+                    <div class="relative flex items-center">
+                        <input type="password" name="password" id="password" autocomplete="off"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition pr-10" 
+                            placeholder="mots de passe" required>
+                        
                         <span id="togglePassword" 
-                                style="cursor: pointer; z-index: 10; color: #555;">
+                              class="absolute right-3 cursor-pointer text-gray-500 hover:text-indigo-600 transition">
                             <i class="fa-solid fa-eye" id="eyeIcon"></i> 
                         </span>
-                    
+                    </div>
                 </div>
 
                 <!-- Bouton -->
