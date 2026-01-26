@@ -17,9 +17,9 @@
     <main class="py-12 px-4">
         <div class="max-w-4xl mx-auto">
 
-            <button class="btn-back btn btn-outline-primary" onclick="history.back()">
+            <button onclick="history.back() class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200">
                 <i class="fas fa-arrow-left"></i> Retour
-            </button>
+              </button>
 
             <div class="flex justify-center mb-6">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-20 w-auto opacity-20 grayscale">
