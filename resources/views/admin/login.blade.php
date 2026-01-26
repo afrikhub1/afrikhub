@@ -49,12 +49,11 @@
                     <input type="password" name="password" id="password" autocomplete="off"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
                         outline-none transition"placeholder="mots de passe" required>
+
+                        <span>
+                            <i class="fa-solid fa-eye" id="eyeIcon"></i> 
+                        </span>
                     
-                    <!-- Icône pour afficher/masquer le mot de passe -->
-                    <span id="togglePassword" 
-                        style="position: absolute; right: 20px; top: 13px; cursor: pointer; z-index: 10; color: #555;">
-                        <i class="fa-solid fa-eye" id="eyeIcon"></i>
-                    </span>
                 </div>
 
                 <!-- Bouton -->
