@@ -7,8 +7,12 @@
                 <h3 class="text-xl font-bold text-indigo-400">Afrikhub</h3>
                 <p class="text-sm text-gray-400 mt-2">Votre Hub de Résidences en Afrique.</p>
 
-                {{-- Réseaux Sociaux (Ajouté) --}}
                 <div class="flex space-x-4 mt-4">
+                    <p class="text-sm text-white-400 mt-2"> <i class="fa fa-phone me-3"></i>+225 01 03 09 06 16</p>
+                </div>
+
+                {{-- Réseaux Sociaux (Ajouté) --}}
+                <div class="flex space-x-4 mt-1">
                     <a href="https://www.facebook.com/share/1KgiASzTSe/" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.tiktok.com/@afrikhub5?_r=1&_t=ZM-92UhuMQAC3I" class="text-gray-400 hover:text-indigo-400 transition" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     <a href="https://www.instagram.com/afrikhub2025?igsh=N25qeDltY2U3Mjdy" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -16,10 +20,6 @@
                     <a href="{{ route('newsletters.create') }}" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
 
-                <div class="flex space-x-4 mt-4">
-                    <p class="text-sm text-white-400 mt-2"> <i class="fa fa-phone"></i>+225 01 03 09 06 16.</p>
-                </div>
-                
             </div>
 
             {{-- Colonne 2 : Liens Rapides (Exemple) --}}
