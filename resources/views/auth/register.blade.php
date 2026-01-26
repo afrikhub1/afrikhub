@@ -84,7 +84,7 @@
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
                         required placeholder="Ex: Harry@234"/>
 
-                            <p class="font-bold mb-1 text-warning" style="font-style: oblique">Au moins 8 caractères - majuscule - chiffre - caractère spécial Ex: mon@Mot123</p>
+                            <p class="font-bold mb-1 text-warning" style="font-style: oblique">Au moins 8 caractères - majuscule - chiffre - caractère spécial. Ex: mon@Mot123</p>
 
                     @error('password')
                         <div class="invalid-feedback">
