@@ -14,26 +14,6 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <header class="glass-effect sticky top-0 z-50 border-b border-slate-200">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="flex-shrink-0">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="Afrique Hub Logo" class="h-12 w-auto object-contain">
-                </div>
-                <span class="text-2xl font-black tracking-tighter text-indigo-900 uppercase hidden sm:block">Afrique Hub</span>
-            </div>
-
-            <nav class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
-                <a href="/" class="hover:text-indigo-600 transition">Accueil</a>
-                <a href="#" class="text-indigo-600 underline decoration-2 underline-offset-4">Politique</a>
-            </nav>
-
-            <a href="javascript:history.back()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-full text-sm font-bold transition flex items-center">
-                <i class="fas fa-arrow-left mr-2"></i>Retour
-            </a>
-        </div>
-    </header>
-
     <main class="py-12 px-4">
         <div class="max-w-4xl mx-auto">
 
