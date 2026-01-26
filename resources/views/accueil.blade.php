@@ -832,7 +832,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-6 mb-0">
                     {{-- Colonne 1 : Logo / Slogan (Ajouté) --}}
                     <div class="col-span-2 md:col-span-1">
-                        <h3 class="text-xl font-bold text-indigo-400">Afrikhub</h3>
+                        <h3 class="text-xl font-bold text-indigo-400">Afrik'Hub</h3>
                         <p class="text-sm text-white-400 mt-2">Votre Hub de Résidences en Afrique.</p>
 
                         <div class="flex space-x-4 mt-2">
@@ -885,7 +885,7 @@
                 {{-- Barre d'Information Basse --}}
                 <div class="flex flex-col md:flex-row justify-between items-center text-white-500 pt-2">
                     <p class="text-sm order-2 md:order-1 mt-3 md:mt-0">
-                        &copy; {{ date('Y') }} Afrikhub. Tous droits réservés.
+                        &copy; {{ date('Y') }} Afrik'Hub. Tous droits réservés.
                     </p>
                     <p class="text-sm order-1 md:order-2">
                         <i class="fas fa-map-marker-alt mr-2 text-indigo-500"></i> Basé en Afrique de l'Ouest
