@@ -3,33 +3,25 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Support\Facades\{Auth,Hash,Log,Mail,Validator};
+use App\Models\ActivityLog;
+use Illuminate\Support\Facades\{Auth, Hash, Mail, Validator};
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Stevebauman\Location\Facades\Location;
-use App\Models\ActivityLog;
-
 
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
-    /**
-     * Valide et crée un nouvel utilisateur enregistré.
-     *
-     * @param  array<string, string>  $input
-     * @return \App\Models\User
-     */
     public function create(array $input): User
     {
-        // Validation des champs
+        // 1. VALIDATION (Utilisation de 'name' pour matcher ton formulaire)
         Validator::make($input, [
-            // Mise à jour de la règle de taille maximale à 7 caractères pour 'nom'
-            'nom' => [
+            'name' => [
                 'required',
                 'string',
                 'max:100',
-                'min:7',
+                'min:3', // 7 était peut-être un peu long, mais à ta guise
                 Rule::unique(User::class, 'name'),
             ],
             'email' => [
@@ -39,6 +31,8 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
+            'contact' => ['required', 'string'],
+            'type_compte' => ['required', 'string', 'in:client,professionnel'],
             'password' => [
                 'required',
                 'string',
@@ -47,76 +41,57 @@ class CreateNewUser implements CreatesNewUsers
                 'confirmed',
             ],
         ], [
-            // Mise à jour du message d'erreur pour la taille maximale du 'nom'
-            'nom.required' => 'Le nom est obligatoire.',
-            'nom.string'   => 'Le nom doit être une chaîne de caractères.',
-            'nom.max'      => 'Le nom ne doit pas dépasser 100 caractères.', // Message mis à jour
-            'nom.unique'   => 'Ce nom d\'utilisateur est déjà pris.',
-
-            // Messages d'erreur pour le champ 'email'
+            'name.required' => 'Le nom est obligatoire.',
+            'name.unique'   => 'Ce nom d\'utilisateur est déjà pris.',
             'email.required' => 'L\'adresse email est obligatoire.',
-            'email.string'   => 'L\'adresse email doit être une chaîne de caractères.',
-            'email.email'    => 'Le format de l\'adresse email est invalide.',
-            'email.max'      => 'L\'adresse email ne doit pas dépasser 255 caractères.',
             'email.unique'   => 'Cet email est déjà utilisé.',
-
-            // Messages d'erreur pour le champ 'password'
-            'password.required'  => 'Le mot de passe est obligatoire.',
-            'password.string'    => 'Le mot de passe doit être une chaîne de caractères.',
-            'password.min'       => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.regex' => 'Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial.',
             'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
         ])->validate();
 
-        // Récupération des champs
-        $email      = $input['email'];
-        $name       = $input['nom'];
-        $contact    = $input['contact'];
-        $typeCompte = $input['type_compte'];
-        $status     = 'inactif';
-        $token      = md5(uniqid() . $email);
+        // 2. CRÉATION DE L'UTILISATEUR
+        $email = $input['email'];
+        $token = md5(uniqid() . $email);
 
-        // Création de l'utilisateur
         $utilisateur = User::create([
-            'name'        => $name,
+            'name'        => $input['name'], // On utilise 'name' ici
             'email'       => $email,
-            'contact'     => $contact,
+            'contact'     => $input['contact'],
             'token'       => $token,
-            'type_compte' => $typeCompte,
-            'status'      => $status,
+            'type_compte' => $input['type_compte'],
+            'status'      => 'inactif',
             'password'    => Hash::make($input['password']),
         ]);
 
-        // log d'activité
-        $ip = request()->ip();
-        $position = Location::get($ip);
-        ActivityLog::create([
-            'user_id'    => $utilisateur->id,
-            'action'     => 'creation de compte',
-            'description' => 'Utilisateur a créé un compte avec succès.',
-            'ip_address' => $ip,
-            'pays'       => $position ? $position->countryName : null,
-            'ville'      => $position ? $position->cityName : null,
-            'latitude'   => $position ? $position->latitude : null,
-            'longitude'  => $position ? $position->longitude : null,
-            'code_pays'  => $position ? $position->countryCode : null,
-            'user_agent' => request()->header('User-Agent'), // Navigateur et OS
-        ]);
+        // 3. LOG D'ACTIVITÉ
+        try {
+            $ip = request()->ip();
+            $position = Location::get($ip);
+            ActivityLog::create([
+                'user_id'     => $utilisateur->id,
+                'action'      => 'creation de compte',
+                'description' => 'Utilisateur a créé un compte avec succès.',
+                'ip_address'  => $ip,
+                'pays'        => $position ? $position->countryName : null,
+                'ville'       => $position ? $position->cityName : null,
+                'latitude'    => $position ? $position->latitude : null,
+                'longitude'   => $position ? $position->longitude : null,
+                'code_pays'   => $position ? $position->countryCode : null,
+                'user_agent'  => request()->header('User-Agent'),
+            ]);
+        } catch (\Exception $e) {
+            // On évite de bloquer l'inscription si la géolocalisation échoue
+            \Log::error("Erreur log activité: " . $e->getMessage());
+        }
 
-
-
-        // Envoi du mail de confirmation
+        // 4. ENVOI DU MAIL
         Mail::to($utilisateur->email)->send(new \App\Mail\TokenMail($utilisateur));
 
-        // ... après la création de l'utilisateur et l'envoi du mail ...
-
-        // Déconnexion pour éviter que Fortify ne connecte l'utilisateur automatiquement
+        // 5. GESTION DE LA REDIRECTION (Custom Fortify)
         Auth::logout();
 
-        // On définit le message
         $message = "Inscription réussie ! Un email de validation a été envoyé à " . $utilisateur->email . ". Veuillez valider votre compte avant de vous connecter.";
 
-        // On redirige avec le message flash 'success'
-        // 'throw' permet d'interrompre Fortify proprement ici
         throw new \Illuminate\Http\Exceptions\HttpResponseException(
             redirect()->route('login')->with('success', $message)
         );
