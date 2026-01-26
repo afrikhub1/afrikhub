@@ -185,7 +185,7 @@
     </div>
 
     <footer style="text-align: center; padding: 30px; color: #888;">
-        &copy; 2026 Afrik’Hub Location — Abidjan, Côte d'Ivoire.
+        &copy; 2026 Afrik’Hub — Abidjan, Côte d'Ivoire.
     </footer>
 </body>
 </html>
