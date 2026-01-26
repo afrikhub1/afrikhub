@@ -47,7 +47,7 @@
                                 <i class="fas fa-shield-alt mr-3 text-indigo-500"></i>Engagement et Contrat
                             </h2>
                             <p class="text-slate-600 leading-relaxed text-lg">
-                                Afrique hub s’engage à vous assurer la meilleure expérience vécue à l’étranger. Le contrat entre Afrique hub et vous débute officiellement <strong>après paiement total de votre facture avec justification</strong>.
+                                Afrik'Hub s’engage à vous assurer la meilleure expérience vécue à l’étranger. Le contrat entre Afrique hub et vous débute officiellement <strong>après paiement total de votre facture avec justification</strong>.
                             </p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                 <i class="fas fa-wallet mr-3 text-emerald-500"></i>Annulation et Remboursement
                             </h2>
                             <p class="text-slate-600 leading-relaxed">
-                                Afrique hub s’engage à vous restituer votre dû selon les termes du contrat, si la réservation est annulée dans le délai prescrit par nos conditions générales.
+                                Afrik'Hub s’engage à vous restituer votre dû selon les termes du contrat, si la réservation est annulée dans le délai prescrit par nos conditions générales.
                             </p>
                         </div>
                     </div>
@@ -75,7 +75,8 @@
                                 <i class="fas fa-ban mr-3"></i>Sous-traitance et Dégâts
                             </h2>
                             <p class="text-slate-600 leading-relaxed mb-6">
-                                Toute sous-traitance en dehors de la réservation officielle est <strong>strictement interdite</strong>. Afrique hub ne sera aucunement tenue pour responsable en cas de désagréments suite à une pratique non officielle.
+                                Toute sous-traitance en dehors de la réservation officielle est <strong>strictement interdite</strong>
+                                . Afrik'Hub ne sera aucunement tenue pour responsable en cas de désagréments suite à une pratique non officielle.
                             </p>
                             <div class="bg-rose-50 border-l-4 border-rose-500 p-6 rounded-r-2xl">
                                 <p class="text-rose-900 font-semibold italic">
@@ -123,7 +124,7 @@
                 <div class="bg-slate-900 p-8 text-center">
                     <p class="text-slate-400 text-sm mb-4 italic">En effectuant une réservation, vous reconnaissez avoir pris connaissance et accepté l'ensemble des points susmentionnés.</p>
                     <div class="flex justify-center space-x-6 text-slate-500 text-xs">
-                        <span>© 2026 AFRIQUE HUB</span>
+                        <span>© 2026 Afrik'Hub</span>
                         <span>•</span>
                         <span>Mis à jour le 03/01/2026</span>
                     </div>
