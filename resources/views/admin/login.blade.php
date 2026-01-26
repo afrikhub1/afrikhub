@@ -68,7 +68,7 @@
             </form>
 
             <p class="text-center text-gray-600  mt-6">
-                &copy; {{ date('Y') }} Mon Afrik'Hub — Tous droits réservés
+                &copy; {{ date('Y') }} Afrik'Hub — Tous droits réservés
             </p>
         </div>
 
