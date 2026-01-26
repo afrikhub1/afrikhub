@@ -17,7 +17,7 @@
     <main class="py-12 px-4">
         <div class="max-w-4xl mx-auto">
 
-            <button class="btn-back" onclick="history.back()">
+            <button class="btn-back btn btn-outline-primary" onclick="history.back()">
                 <i class="fas fa-arrow-left"></i> Retour
             </button>
 
