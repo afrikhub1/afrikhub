@@ -171,8 +171,8 @@
                     </a>
                 @endif
             </li>
-            <a href="javascript:history.back()" class="nav-link text-white fw-bold">
-               <i class="fas fa-sign-out mx-3"></i> Retour</a>
+            <a href="javascript:history.back()" class="nav-link text-white fw-bold mx-3">
+               <i class="fas fa-sign-out"></i> Retour</a>
             <li class="nav-item mx-2">
                 <!-- Bouton orange pour contraste élevé -->
                 <a href="{{ route('logout') }}" class="btn btn-custom-primary btn-sm px-3 py-2 d-flex align-items-center rounded-pill">
