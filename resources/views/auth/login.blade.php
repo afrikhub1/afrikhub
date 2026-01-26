@@ -48,12 +48,7 @@
 
                         {{-- Mot de passe --}}
                         <div class="form-outline my-2 position-relative">
-                            <input type="password"
-                                class="form-control shadow-sm"
-                                id="password"
-                                name="password"
-                                required
-                                placeholder=" ">
+                            <input type="password" class="form-control shadow-sm" id="password" name="password" required placeholder=" ">
                             <label class="form-label bg-none" for="password">Mot de passe</label>
                             
                             {{-- L'œil pour masquer/afficher --}}
