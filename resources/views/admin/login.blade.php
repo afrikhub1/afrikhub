@@ -47,7 +47,7 @@
                 <div class="flex flex-col gap-1">
                     <label for="password" class="text-gray-700 font-semibold">Mot de passe</label>
                     <input type="password" name="password" id="password" autocomplete="off"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
                         outline-none transition"placeholder="mots de passe" required>
 
                         <span id="togglePassword" 
