@@ -838,7 +838,7 @@
                         {{-- Réseaux Sociaux (Ajouté) --}}
                         <div class="flex space-x-4 mt-4">
                             <a href="https://www.facebook.com/share/1KgiASzTSe/" class="text-white-400 hover:text-indigo-400 transition" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="text-white-400 hover:text-indigo-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.tiktok.com/@afrikhub5?_r=1&_t=ZM-92UhuMQAC3I" class="text-gray-400 hover:text-indigo-400 transition" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                             <a href="https://www.instagram.com/afrikhub2025?igsh=N25qeDltY2U3Mjdy" class="text-white-400 hover:text-indigo-400 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                             <a href="https://www.linkedin.com/company/afrik-hub/" class="text-white-400 hover:text-indigo-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                             <a href="{{ route('newsletters.create') }}" class="text-white-400 hover:text-indigo-400 transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
