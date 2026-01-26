@@ -130,7 +130,7 @@
         <div class="info-card">
             <p>
                 Le présent site est édité par :<br>
-                <strong>Afrik’Hub Location</strong>, société de services technologiques.<br>
+                <strong>Afrik’Hub Location</strong>, société de services de location.<br>
                 Siège social : Abidjan, Cocody – Côte d’Ivoire<br>
                 Contact : <a href="mailto:afrikhub1@gmail.com">afrikhub1@gmail.com</a> – +225 01 03 09 06 16<br>
                 Responsable de publication : Direction Afrik’Hub
