@@ -47,7 +47,7 @@
             @endif
 
             <!-- Formulaire principal -->
-            <form method="POST" action="{{ route('register.post') }}" class="row g-3 p-4 rounded shadow-sm needs-validation">
+            <form method="POST" action="{{ route('register') }}" class="row g-3 p-4 rounded shadow-sm needs-validation">
                 @csrf
 
                 <!-- Nom complet -->
