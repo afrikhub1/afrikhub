@@ -83,7 +83,9 @@
                     <label for="password" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
                         required placeholder="Ex: Harry@234"/>
-
+                    <span class="absolute right-3 cursor-pointer text-gray-500 hover:text-indigo-600" onclick="toggleVisibility('password', 'eye1')">
+                        <i class="fas fa-eye" id="eye1"></i>
+                    </span>
                             <p class="font-bold mb-1 text-warning" style="font-style: oblique">Au moins 8 caractères - majuscule - chiffre - caractère spécial. Ex: mon@Mot123</p>
 
                     @error('password')
@@ -234,6 +236,21 @@
                     }, false);
                 });
             })();
+        </script>
+
+        <script>
+            // Fonction pour basculer l'oeil
+            function toggleVisibility(inputId, eyeId) {
+                const input = document.getElementById(inputId);
+                const eye = document.getElementById(eyeId);
+                if (input.type === "password") {
+                    input.type = "text";
+                    eye.classList.replace("fa-eye", "fa-eye-slash");
+                } else {
+                    input.type = "password";
+                    eye.classList.replace("fa-eye-slash", "fa-eye");
+                }
+            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
