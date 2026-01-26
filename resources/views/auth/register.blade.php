@@ -83,6 +83,16 @@
                     <label for="password" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
                         required placeholder="Ex: Harry@234"/>
+                    
+                    <small class="text-muted">
+                        Le mot de passe doit contenir :
+                        <ul>
+                            <li>Au moins 8 caractères</li>
+                            <li>Une lettre majuscule</li>
+                            <li>Un chiffre</li>
+                        </ul>
+                    </small>
+                        
                     @error('password')
                         <div class="invalid-feedback">
                             {{ $message }}
