@@ -188,7 +188,7 @@
                     <div class="form-check @error('cgu') is-invalid @enderror">
                         <input class="form-check-input @error('cgu') is-invalid @enderror" type="checkbox" id="cgu" name="cgu" required/>
                         <label class="form-check-label" for="cgu">
-                            J’accepte les conditions générales d’utilisation.  <a class="text-warning fw-light" href="{{ route('politique_de_confidentialite') }}">Lire</a>
+                            J’accepte les conditions générales d’utilisation.  <a class="text-warning fw-light" href="{{ route('politique_confidentialite') }}">Lire</a>
                         </label>
                         @error('cgu')
                             <div class="invalid-feedback d-block">

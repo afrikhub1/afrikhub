@@ -31,8 +31,15 @@ Route::get('/register', fn() => view('auth.register'))->name('register');
 Route::get('/message', fn() => view('pages.messages'))->name('message');
 Route::get('/conditions-generales', function () {return view('documentation.conditions_generales');})->name('conditions_generales');
 
+// Route OFAQ
+Route::get('/faq', function () {return view('FAQ');})->name('faq');
+
+// Mentions légales
 Route::get('/mentions-legales', function () {return view('documentation.mentions_legales');})->name('mentions_legales');
+
+// Politique de confidentialité
 Route::get('/politique-confidentialite', function () { return view('documentation.politique_de_confidentialite');})->name('politique_confidentialite');
+
 // routes/web.php
 Route::get('/accueil_recherche', [ResidenceController::class, 'recherche'])->name('residences.recherche');
 
@@ -48,13 +55,6 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
-
-
-// Route OFAQ
-Route::get('/faq', function () {return view('FAQ'); })->name('faq');
-
-// politique de confidentialité
-Route::get('/politique-de-confidentialite', function () {return view('infos.politique_de_confidentialite'); })->name('politique_de_confidentialite');
 
 // Détails d'une résidence
 Route::get('/details/{id}', [ResidenceController::class, 'details'])->name('details');
