@@ -843,6 +843,10 @@
                             <a href="https://www.linkedin.com/company/afrik-hub/" class="text-white-400 hover:text-indigo-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                             <a href="{{ route('newsletters.create') }}" class="text-white-400 hover:text-indigo-400 transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
                         </div>
+
+                        <div class="flex space-x-4 mt-4">
+                            <p class="text-sm text-white-400 mt-2"> <i class="fa fa-phone"></i>+225 01 03 09 06 16.</p>
+                        </div>
                     </div>
 
                     {{-- Colonne 2 : Liens Rapides (Exemple) --}}
