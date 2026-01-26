@@ -135,10 +135,6 @@
                 Contact : <a href="mailto:afrikhub1@gmail.com">afrikhub1@gmail.com</a> – +225 01 03 09 06 16<br>
                 Responsable de publication : Direction Afrik’Hub
             </p>
-            <p>
-                <strong>Hébergement :</strong><br>
-                Assuré par LWS (ou votre hébergeur) – France – <a href="https://www.lws.fr">www.lws.fr</a>
-            </p>
         </div>
 
         <h2><i class="fas fa-user-lock"></i> 2. Politique de confidentialité</h2>
