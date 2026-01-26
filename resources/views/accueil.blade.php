@@ -840,7 +840,7 @@
                         </div>
 
                         {{-- Réseaux Sociaux (Ajouté) --}}
-                        <div class="flex space-x-4 mt-2">
+                        <div class="flex space-x-4 mt-2 ps-3">
                             <a href="https://www.facebook.com/share/1KgiASzTSe/" class="text-white-400 hover:text-indigo-400 transition" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                             <a href="https://www.tiktok.com/@afrikhub5?_r=1&_t=ZM-92UhuMQAC3I" class="text-white-400 hover:text-indigo-400 transition" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                             <a href="https://www.instagram.com/afrikhub2025?igsh=N25qeDltY2U3Mjdy" class="text-white-400 hover:text-indigo-400 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>

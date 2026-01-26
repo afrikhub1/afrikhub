@@ -8,7 +8,7 @@
                 <p class="text-sm text-gray-400 mt-2">Votre Hub de Résidences en Afrique.</p>
 
                 <div class="flex space-x-4 mt-2">
-                    <p class="text-sm text-white-400 mt-2"> <i class="fa fa-phone me-3"></i>+225 01 03 09 06 16</p>
+                    <p class="text-sm text-gray-400 mt-2"> <i class="fa fa-phone me-3"></i>+225 01 03 09 06 16</p>
                 </div>
 
                 {{-- Réseaux Sociaux (Ajouté) --}}

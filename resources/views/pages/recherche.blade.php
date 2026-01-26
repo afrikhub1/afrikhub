@@ -133,7 +133,7 @@
     </style>
 </head>
 
-<body>
+<body class="p-0 hv-100">
 
 {{-- HEADER (NON FIXE) - Thème Sombre et Orange --}}
 <header class="bg-dark shadow">
