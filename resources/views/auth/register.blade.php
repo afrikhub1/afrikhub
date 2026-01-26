@@ -87,9 +87,7 @@
                         <div class="mt-2 p-3 bg-blue-50 border-l-4 border-blue-500 rounded text-sm text-blue-800">
                             <p class="font-bold mb-1">Sécurité du mot de passe :</p>
                             <ul class="list-disc list-inside space-y-1 ml-1">
-                                <li>Au moins 8 caractères</li>
-                                <li>Une lettre majuscule</li>
-                                <li>Un chiffre</li>
+                                <li>Au moins 8 caractères - Une lettre majuscule - Un chiffre</li>
                             </ul>
                         </div>
                         
