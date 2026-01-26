@@ -52,10 +52,10 @@
 
                 <!-- Nom complet -->
                 <div class="col-12 col-md-6">
-                    <label for="nom" class="form-label">Nom complet</label>
-                    <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom"
-                        value="{{ old('nom') }}" required placeholder="John Doe"/>
-                    @error('nom')
+                    <label for="name" class="form-label">Nom complet</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
+                        value="{{ old('name') }}" required placeholder="John Doe"/>
+                    @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
