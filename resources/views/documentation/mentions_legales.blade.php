@@ -3,24 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentions Légales</title>
+    <title>Mentions Légales - Afrik’Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f7f6;
             color: #333;
         }
 
         .container {
             max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
+            margin: 40px auto;
+            padding: 40px;
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        /* Bouton Retour */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            color: #0d47a1;
+            transform: translateX(-5px);
         }
 
         h1, h2 {
@@ -29,119 +48,148 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
         }
 
         h2 {
-            margin-top: 30px;
-            margin-bottom: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 i {
+            font-size: 1.2rem;
         }
 
         p, ul {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         ul {
-            list-style-type: disc;
-            padding-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+        }
+
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #1a73e8;
+        }
+
+        .info-card {
+            background-color: #f8faff;
+            border: 1px solid #e1e8f5;
+            padding: 20px;
+            border-radius: 10px;
         }
 
         hr {
             border: 0;
             height: 1px;
-            background: #ddd;
-            margin: 30px 0;
+            background: #eee;
+            margin: 40px 0;
+        }
+
+        .faq-box {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .faq-box strong {
+            color: #1a73e8;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="javascript:history.back()" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+
         <h1>Mentions Légales & Informations</h1>
 
-        <h2>1. Mentions légales</h2>
-        <p>
-            Le présent site est édité par :<br>
-            <strong>[Nom de l’entreprise]</strong>, société [forme juridique], au capital de [montant], immatriculée au RCCM de [ville/pays] sous le numéro [numéro].<br>
-            Siège social : [adresse] – Côte d’Ivoire<br>
-            Contact : [email] – [numéro WhatsApp/téléphone]<br>
-            Responsable de publication : [Nom du représentant légal]
-        </p>
-        <p>
-            L’hébergement du site est assuré par :<br>
-            [Nom de l’hébergeur] – [pays] – [coordonnées]
-        </p>
-        <p>
-            <strong>Propriété intellectuelle :</strong><br>
-            L’ensemble du contenu du site (textes, images, logos, base de données, design, etc.) est protégé par le droit de la propriété intellectuelle. Toute reproduction ou utilisation sans autorisation écrite est interdite.
-        </p>
-        <hr>
+        <h2><i class="fas fa-building"></i> 1. Édition du site</h2>
+        <div class="info-card">
+            <p>
+                Le présent site est édité par :<br>
+                <strong>Afrik’Hub Location</strong>, société de services technologiques.<br>
+                Siège social : Abidjan, Cocody – Côte d’Ivoire<br>
+                Contact : <a href="mailto:afrikhub1@gmail.com">afrikhub1@gmail.com</a> – +225 01 03 09 06 16<br>
+                Responsable de publication : Direction Afrik’Hub
+            </p>
+            <p>
+                <strong>Hébergement :</strong><br>
+                Assuré par LWS (ou votre hébergeur) – France – <a href="https://www.lws.fr">www.lws.fr</a>
+            </p>
+        </div>
 
-        <h2>2. Politique de confidentialité</h2>
+        <h2><i class="fas fa-user-lock"></i> 2. Politique de confidentialité</h2>
         <p>
-            Dans le cadre de l’utilisation de notre plateforme de réservation, nous collectons certaines informations personnelles (nom, numéro de téléphone, email, pièce d’identité éventuellement, historique de réservation, préférences clients, etc.).
-        </p>
-        <p>Nous les utilisons uniquement pour :</p>
-        <ul>
-            <li>traiter les réservations</li>
-            <li>assurer la mise en relation avec les propriétaires</li>
-            <li>garantir la gestion contractuelle du service</li>
-            <li>prévenir les fraudes</li>
-            <li>améliorer l’expérience utilisateur</li>
-            <li>envoyer des messages transactionnels (confirmation, rappel, facturation)</li>
-        </ul>
-        <p>Nous ne vendons jamais vos données à des tiers. Vous disposez d’un droit d’accès, de modification et de suppression de vos données sur simple demande à [adresse mail de contact].</p>
-        <hr>
-
-        <h2>3. Support technique / Aide</h2>
-        <p>
-            Le support client est à votre disposition pour toute assistance liée :
+            Nous collectons vos données (nom, contact, historique) pour assurer le bon fonctionnement de vos réservations.
         </p>
         <ul>
-            <li>à la création de compte</li>
-            <li>à la réservation d’un véhicule ou appartement</li>
-            <li>au paiement</li>
-            <li>à l’annulation ou modification d’une réservation</li>
-            <li>à la gestion d’une annonce propriétaire</li>
-            <li>aux problèmes techniques sur le site</li>
+            <li>Traitement sécurisé des réservations et paiements.</li>
+            <li>Mise en relation directe avec les propriétaires.</li>
+            <li>Prévention des fraudes et sécurité des comptes.</li>
+            <li>Envoi des confirmations par Email / SMS / WhatsApp.</li>
         </ul>
-        <p>
-            Vous pouvez contacter l’assistance via :<br>
-            Email : [email]<br>
-            WhatsApp / Téléphone : [numéro]<br>
-            Formulaire de contact disponible dans la section Support Technique
-        </p>
-        <p>Délai de réponse moyen : 24 heures ouvrées.</p>
+        <p><strong>Vos droits :</strong> Vous disposez d’un droit d’accès et de suppression de vos données via <a href="mailto:afrikhub1@gmail.com">afrikhub1@gmail.com</a>.</p>
+
         <hr>
 
-        <h2>4. FAQ – Questions fréquentes</h2>
-        <p><strong>Q :</strong> Comment effectuer une réservation ?<br>
-           <strong>R :</strong> Il suffit de sélectionner un véhicule ou appartement, choisir les dates et valider avec le paiement ou acompte.</p>
-        <p><strong>Q :</strong> La plateforme est-elle sécurisée ?<br>
-           <strong>R :</strong> Oui, nous utilisons un système de cryptage SSL et tous les paiements sont sécurisés.</p>
-        <p><strong>Q :</strong> Comment annuler une réservation ?<br>
-           <strong>R :</strong> Vous pouvez annuler directement dans votre espace client selon les conditions d’annulation établies.</p>
-        <p><strong>Q :</strong> Je suis propriétaire, comment déposer une annonce ?<br>
-           <strong>R :</strong> Il suffit de créer un compte propriétaire et soumettre votre bien à validation.</p>
-        <hr>
-
-        <h2>5. Conditions générales d’utilisation et de réservation</h2>
+        <h2><i class="fas fa-headset"></i> 3. Support technique</h2>
+        <p>Notre équipe vous assiste pour tout problème lié à votre compte ou vos annonces :</p>
         <ul>
-            <li>Les informations fournies lors de l’inscription doivent être exactes</li>
-            <li>Toute réservation est contractuelle entre vous et le propriétaire</li>
-            <li>Vous respectez les conditions d’utilisation du véhicule ou logement</li>
-            <li>Toute dégradation est à la charge du locataire selon l’état des lieux</li>
-            <li>Tout litige est géré selon le droit ivoirien / ou autre juridiction à définir</li>
+            <li>Assistance au paiement et facturation.</li>
+            <li>Aide à la mise en ligne d'annonces propriétaires.</li>
+            <li>Problèmes de connexion ou bugs techniques.</li>
         </ul>
+        <p>Délai de réponse moyen : <strong>24 heures ouvrées.</strong></p>
+
         <hr>
 
-        <h2>6. Déposer une annonce</h2>
+        <h2><i class="fas fa-question-circle"></i> 4. FAQ Express</h2>
+        <div class="faq-box">
+            <p><strong>Q : Comment réserver ?</strong><br>
+            R : Choisissez votre bien, sélectionnez les dates et procédez au paiement sécurisé.</p>
+        </div>
+        <div class="faq-box">
+            <p><strong>Q : Est-ce sécurisé ?</strong><br>
+            R : Oui, nous utilisons le cryptage SSL et des passerelles de paiement certifiées.</p>
+        </div>
+
+        <hr>
+
+        <h2><i class="fas fa-gavel"></i> 5. Conditions de Publication</h2>
+        <p>Pour déposer une annonce, le propriétaire s'engage à :</p>
         <ul>
-            <li>Fournir des informations réelles et vérifiables</li>
-            <li>Poster uniquement des biens dont ils sont légalement propriétaires ou gestionnaires</li>
-            <li>Respecter la qualité des descriptions et visuels</li>
-            <li>Accepter les conditions de commission définies par la plateforme</li>
+            <li>Fournir des visuels réels et non trompeurs du bien.</li>
+            <li>Être le propriétaire légal ou mandataire autorisé.</li>
+            <li>Répondre aux demandes de réservation dans un délai raisonnable.</li>
         </ul>
-        <p>Toute annonce frauduleuse entraînera la suspension immédiate du compte.</p>
+        <p><em>Afrik’Hub se réserve le droit de supprimer toute annonce jugée frauduleuse sans préavis.</em></p>
     </div>
+
+    <footer style="text-align: center; padding: 30px; color: #888;">
+        &copy; 2026 Afrik’Hub Location — Abidjan, Côte d'Ivoire.
+    </footer>
 </body>
 </html>
