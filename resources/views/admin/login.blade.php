@@ -48,6 +48,11 @@
                     <input type="password" name="password" id="password" autocomplete="off"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
                         outline-none transition"placeholder="mots de passe" required>
+                    
+                    <!-- Icône pour afficher/masquer le mot de passe -->
+                    <div id="togglePassword" class="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500">
+                        <i id="eyeIcon" class="fas fa-eye"></i>
+                    </div> 
                 </div>
 
                 <!-- Bouton -->
@@ -73,6 +78,22 @@
                 animation: fadeIn 0.6s ease-out;
             }
         </style>
+
+        <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            const eyeIcon = document.querySelector('#eyeIcon');
+
+            togglePassword.addEventListener('click', function (e) {
+                // Basculer le type d'input
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // Basculer l'icône (œil / œil barré)
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        </script>
 
     </body>
 </html>
