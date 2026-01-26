@@ -50,7 +50,8 @@
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 
                         outline-none transition"placeholder="mots de passe" required>
 
-                        <span>
+                        <span id="togglePassword" 
+                                style="cursor: pointer; z-index: 10; color: #555;">
                             <i class="fa-solid fa-eye" id="eyeIcon"></i> 
                         </span>
                     
