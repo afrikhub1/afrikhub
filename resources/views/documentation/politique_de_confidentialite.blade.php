@@ -17,6 +17,10 @@
     <main class="py-12 px-4">
         <div class="max-w-4xl mx-auto">
 
+            <button class="btn-back" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i> Retour
+            </button>
+
             <div class="flex justify-center mb-6">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-20 w-auto opacity-20 grayscale">
             </div>
