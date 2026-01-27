@@ -62,17 +62,17 @@
                                         </div>
 
                                         <h5 class="text-xl font-black text-slate-800 mb-4 leading-tight">
-                                            {{ $res_occupees->nom ?? 'Résidence sans nom' }}
+                                            {{ $res_occupees->residence->nom ?? 'Résidence sans nom' }}
                                         </h5>
 
                                         <div class="space-y-3 mb-8">
                                             <div class="flex items-center text-sm font-medium text-slate-500">
                                                 <i class="fas fa-map-marker-alt w-6 text-brand"></i>
-                                                {{ $res_occupees->ville ?? 'N/A' }}, {{ $res_occupees->pays ?? 'N/A' }}
+                                                {{ $res_occupees->residence->ville ?? 'N/A' }}, {{ $res_occupees->residence->pays ?? 'N/A' }}
                                             </div>
                                             <div class="flex items-center text-sm font-medium text-slate-700">
                                                 <i class="fas fa-tag w-6 text-brand"></i>
-                                                {{ number_format($res_occupees->prix_journalier ?? 0, 0, ',', ' ') }} 
+                                                {{ number_format($res_occupees->residence->prix_journalier ?? 0, 0, ',', ' ') }} 
                                                 <span class="ml-1 text-[10px] text-slate-400 font-bold uppercase">FCFA / Nuit</span>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                                     </div>
 
                                     <div class="mt-8">
-                                        <a href="{{ route('sejour.interrompre', $res_occupees->reservations->first()->id) }}" 
+                                        <a href="{{ route('sejour.interrompre', $res_occupees->id) }}" 
                                            class="group flex items-center justify-center gap-3 w-full bg-slate-900 text-white p-4 rounded-2xl font-bold text-sm hover:bg-rose-600 transition-all duration-300 shadow-lg shadow-slate-200 hover:shadow-rose-200">
                                             <i class="fas fa-key transition-transform group-hover:-rotate-45"></i>
                                             Libérer la Résidence
