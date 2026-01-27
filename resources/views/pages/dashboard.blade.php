@@ -1,6 +1,6 @@
 @extends('pages.heritage_pages')
 
-@section('dashboard', '- Tableau de bord')
+@section('title', 'Tableau de bord')
 
 @section('main')
     {{-- On force le overflow-x-hidden sur le parent pour stopper tout glissement horizontal --}}
