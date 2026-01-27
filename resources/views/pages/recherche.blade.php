@@ -79,7 +79,7 @@
             </div>
         @else
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                @foreach($residences as $index => $residence)
+                @foreach($recherches as $index => $residence)
                     <div class="residence-card-premium flex flex-col overflow-hidden animate-reveal" style="animation-delay: {{ $index * 0.1 }}s">
                         
                         @php
