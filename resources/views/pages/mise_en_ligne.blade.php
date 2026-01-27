@@ -1,6 +1,3 @@
-</body>
-</html>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -19,39 +16,51 @@
 
     <style>
         :root {
-            /* Palette basée sur votre dégradé */
+            /* Harmonisation avec votre couleur de base pétrole */
             --primary-gradient: linear-gradient(135deg, #006d77, #00afb9);
             --primary-color: #006d77;
-            --secondary-color: #00afb9;
-            --accent-soft: rgba(0, 175, 185, 0.1);
-            --text-dark: #2d3436;
+            --primary-dark: #004d54;
+            --accent-color: #FF8C00; /* Orange conservé pour le bouton d'action */
         }
 
         body {
-            background-color: #f0f4f5;
-            color: var(--text-dark);
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
+            background-color: #f4f7f6;
+            color: #2d3436;
+            font-family: 'Poppins', Arial, sans-serif;
+            /* Tailles de texte de base */
+            font-size: 1rem;
         }
 
-        /* Navbar avec effet Glassmorphism */
+        /* Ajustements de texte sur différents écrans */
+        @media (max-width: 576px) {
+            body { font-size: 0.85rem; }
+            .container h2 { font-size: 1.5rem !important; }
+            legend { font-size: 1.1rem !important; }
+        }
+
+        @media (min-width: 992px) {
+            body { font-size: 0.95rem; }
+            .container h2 { font-size: 2.2rem !important; }
+        }
+
         .navbar {
             background: var(--primary-gradient) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-brand img {
-            height: 45px;
-            filter: brightness(0) invert(1); /* Assure la visibilité du logo si sombre */
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .desktop-nav-links .nav-link {
             color: rgba(255, 255, 255, 0.9) !important;
             font-weight: 500;
-            margin-left: 15px;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
 
         .desktop-nav-links .nav-link:hover {
@@ -59,455 +68,453 @@
             transform: translateY(-2px);
         }
 
-        /* Formulaire & Fieldsets */
+        .offcanvas-header {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
         fieldset {
             background-color: #fff;
-            border: none;
-            border-radius: 1.25rem;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-            margin-bottom: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
         }
 
         legend {
-            float: none;
-            width: auto;
             font-weight: 700;
             color: var(--primary-color);
-            background: var(--accent-soft);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2rem;
+            padding: 0 1rem;
+            font-size: 1.3rem;
+            width: inherit;
         }
 
         .form-label {
             font-weight: 500;
-            color: #4a5568;
-            margin-bottom: 0.6rem;
-            font-size: 0.95rem;
+            color: #4a4a4a;
+            font-size: 0.9rem;
         }
 
-        .form-control, .form-select {
-            border: 1.5px solid #e2e8f0;
-            border-radius: 0.75rem;
-            padding: 0.75rem 1rem;
-            transition: all 0.2s;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 4px rgba(0, 175, 185, 0.15);
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 109, 119, 0.15);
         }
 
         .input-group-text {
-            background-color: #f8fafc;
-            border: 1.5px solid #e2e8f0;
-            border-right: none;
+            background-color: #f8f9fa;
             color: var(--primary-color);
+            border-color: #ced4da;
         }
 
-        /* Bouton de soumission */
+        /* Bouton de soumission avec couleur d'accent orange */
         .btn-submit {
-            background: var(--primary-gradient);
+            background-color: var(--accent-color);
             color: #fff;
             border: none;
             font-weight: 600;
-            padding: 1rem 3.5rem;
-            border-radius: 50px;
-            transition: all 0.4s;
-            box-shadow: 0 10px 20px rgba(0, 109, 119, 0.3);
+            padding: 0.8rem 2.5rem;
+            border-radius: 0.5rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+            font-size: 1rem;
         }
 
         .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(0, 109, 119, 0.4);
-            color: white;
-            filter: brightness(1.1);
+            background-color: #e67e00;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
         }
 
-        /* Carte et Map */
-        #map {
-            height: 350px;
-            border-radius: 1rem;
-            border: 2px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        .container h2 {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
         }
 
-        .btn-primary { background-color: var(--primary-color); border: none; }
-        .btn-primary:hover { background-color: var(--secondary-color); }
-
-        /* Commodités */
         .commodite-item {
-            border: 1.5px solid #f1f5f9;
-            background: #f8fafc;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 1rem;
+            border: 1px solid #f0f0f0;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+            background-color: #ffffff;
         }
 
         .commodite-item:hover {
-            border-color: var(--secondary-color);
-            background: #fff !important;
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background-color: #e6f2f3 !important;
+            border-color: var(--primary-color);
         }
 
         .form-check-input:checked {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         #images {
-            border: 2px dashed #cbd5e1;
-            background: #f8fafc;
-            padding: 2rem;
-            text-align: center;
+            border: 2px dashed #00afb9;
+            background-color: #f0fbfc;
         }
 
-        h2 {
-            font-weight: 800;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-            margin-bottom: 3rem;
+        .btn-primary { /* Bouton recherche map */
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--primary-gradient);
-            border-radius: 2px;
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
         }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('accueil') }}">
-                <img src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
-            </a>
+        <div class="container-fluid">
+            <h1>
+                <img class="h-auto" style="width: 80px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo">
+            </h1>
 
-            <div class="collapse navbar-collapse desktop-nav-links" id="navbarNav">
-                <div class="navbar-nav ms-auto align-items-center">
+            <div class="collapse navbar-collapse desktop-nav-links" id="navbarNavDesktop">
+                <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="{{ route('accueil') }}"><i class="fas fa-home me-1"></i> Accueil</a>
                     @if(Auth::user()->type_compte == 'professionnel')
-                        <a class="nav-link" href="{{ route('pro.dashboard') }}"><i class="fas fa-user-circle me-1"></i> Profil Pro</a>
+                        <a class="nav-link" href="{{ route('pro.dashboard') }}"><i class="fas fa-briefcase me-1"></i> Profil</a>
                     @else
-                        <a class="nav-link" href="{{ route('clients_historique') }}"><i class="fas fa-user-circle me-1"></i> Mon Espace</a>
+                        <a class="nav-link" href="{{ route('clients_historique') }}"><i class="fas fa-briefcase me-1"></i> Profil</a>
                     @endif
                     <a class="nav-link" href="{{ route('recherche') }}"><i class="fas fa-search me-1"></i> Recherche</a>
-                    <a class="nav-link btn btn-sm btn-light text-dark ms-lg-3 px-3" href="{{ route('logout') }}" style="border-radius: 50px;">Déconnexion</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
                 </div>
             </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
-        <div class="offcanvas-header" style="background: var(--primary-gradient)">
-            <h5 class="offcanvas-title text-white"><i class="fa-solid fa-house-chimney me-2"></i> Menu</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                <i class="fa-solid fa-house-chimney me-2"></i> Menu Afrik'Hub
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0">
-            <div class="list-group list-group-flush">
-                <a href="{{ route('accueil') }}" class="list-group-item list-group-item-action border-0 p-3"><i class="fas fa-home me-3 text-primary"></i>Accueil</a>
-                <a href="{{ route('recherche') }}" class="list-group-item list-group-item-action border-0 p-3"><i class="fas fa-search me-3 text-primary"></i>Recherche</a>
-                <a href="{{ route('logout') }}" class="list-group-item list-group-item-action border-0 p-3"><i class="fas fa-sign-out-alt me-3 text-danger"></i>Déconnexion</a>
-            </div>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="{{ route('accueil') }}"><i class="fas fa-home me-3"></i> Accueil</a>
+                    @if(Auth::user()->type_compte == 'professionnel')
+                        <a class="nav-link" href="{{ route('pro.dashboard') }}"><i class="fas fa-briefcase me-3"></i> Profil</a>
+                    @else
+                        <a class="nav-link" href="{{ route('clients_historique') }}"><i class="fas fa-briefcase me-3"></i> Profil</a>
+                    @endif
+                    <a class="nav-link" href="{{ route('recherche') }}"><i class="fas fa-search me-3"></i> Recherche</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-3"></i> Déconnexion</a>
+            </nav>
         </div>
     </div>
 
-    <div class="container mt-5 mb-5 text-center">
-        <h2>Publier votre annonce</h2>
+    <div class="container mt-5 mb-5">
+        <h2>Mettre votre résidence en location</h2>
 
-        <div class="row justify-content-center text-start mt-4">
-            <div class="col-lg-10">
-                <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+        <form action="{{ route('residences.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-                    <fieldset>
-                        <legend><i class="fas fa-info-circle me-2"></i> Base</legend>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <label class="form-label">Nom de la résidence</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-tag"></i></span>
-                                    <input type="text" class="form-control" name="nom_residence" placeholder="Ex: Villa des Almadies" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Pays</label>
-                                <input type="text" class="form-control" name="pays" placeholder="Sénégal, CI..." required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Ville</label>
-                                <input type="text" class="form-control" name="ville" placeholder="Dakar, Abidjan..." required>
-                            </div>
+            <fieldset class="mb-5">
+                <legend>Informations générales <i class="fas fa-info-circle"></i></legend>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label for="nom_residence" class="form-label">Nom de la résidence</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                            <input type="text" class="form-control" id="nom_residence" name="nom_residence" placeholder="Nom de votre annonce" required>
                         </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend><i class="fas fa-bed me-2"></i> Caractéristiques</legend>
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <label class="form-label">Type de bien</label>
-                                <select class="form-select" name="type_residence" required>
-                                    <option value="" disabled selected>Sélectionnez un type</option>
-                                    <option value="Appartement">Appartement</option>
-                                    <option value="Maison">Maison basse</option>
-                                    <option value="Studio">Studio</option>
-                                    <option value="Villa">Villa</option>
-                                    <option value="Chalet">Chalet</option>
-                                    <option value="Autre">Autre</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Nombre de chambres</label>
-                                <input type="number" class="form-control" name="nb_chambres" min="1" required>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="nb_salons" class="form-label">Nombre de salons</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-couch"></i></span>
-                                    <input type="number" class="form-control" id="nb_salons" name="nb_salons" min="0" required>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-8">
-                                <label for="details_position" class="form-label">Repère proche de la résidence</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" class="form-control" id="details_position" name="details_position" placeholder="Ex: Cocody derrière la RTI" required>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label class="form-label">Prix / Nuit (FCFA)</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" name="prix_jour" required>
-                                    <span class="input-group-text">CFA</span>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Description détaillée</label>
-                                <textarea class="form-control" name="details" rows="4" placeholder="Décrivez les atouts de votre logement..."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="mt-5">
-                            <h6 class="fw-bold mb-3 text-muted">Équipements & Services</h6>
-                            <div class="row g-3">
-                                @php
-                                    $commodites = [
-
-                                        /* ===== BÂTIMENT / ACCÈS ===== */
-                                        "Niveau d’étage" => ["icon" => "fa-building", "type" => "number"],
-                                        "Ascenseur" => ["icon" => "fa-elevator"],
-                                        "Accès PMR" => ["icon" => "fa-wheelchair"],
-                                        "Gardien / Concierge" => ["icon" => "fa-user-shield"],
-                                        "Surveillance 24/24" => ["icon" => "fa-shield-alt"],
-
-                                        /* ===== STATIONNEMENT ===== */
-                                        "Parking interne" => ["icon" => "fa-parking"],
-                                        "Parking externe" => ["icon" => "fa-car"],
-                                        "Nombre de places de parking" => ["icon" => "fa-car-side", "type" => "number"],
-
-                                        /* ===== EXTÉRIEUR ===== */
-                                        "Balcon" => ["icon" => "fa-tree"],
-                                        "Terrasse" => ["icon" => "fa-tree"],
-                                        "Jardin" => ["icon" => "fa-seedling"],
-                                        "Piscine" => ["icon" => "fa-swimming-pool"],
-
-                                        /* ===== COUCHAGE / SANITAIRES ===== */
-                                        "Nombre de chambres" => ["icon" => "fa-bed", "type" => "number"],
-                                        "Nombre de salles d’eau" => ["icon" => "fa-shower", "type" => "number"],
-                                        "Eau chaude" => ["icon" => "fa-water"],
-
-                                        /* ===== CLIMATISATION ===== */
-                                        "Split toutes les chambres et salon" => ["icon" => "fa-snowflake"],
-                                        "Split toutes les chambres sauf salon" => ["icon" => "fa-snowflake"],
-                                        "Split salon uniquement" => ["icon" => "fa-snowflake"],
-                                        "Split autre (à préciser)" => ["icon" => "fa-snowflake", "type" => "text"],
-
-                                        /* ===== SALON ===== */
-                                        "Salon fauteuil nombre de places" => ["icon" => "fa-couch", "type" => "number"],
-
-                                        "lit des chambres" => ["icon" => "fa-bed", "type" => "number"],
-
-                                        "Table basse salon" => ["icon" => "fa-table"],
-
-                                        /* ===== SALLE À MANGER ===== */
-                                        "Salle à manger nombre de place" => ["icon" => "fa-chair", "type" => "text"],
-
-                                        /* ===== CUISINE ===== */
-                                        "Réfrigérateur" => ["icon" => "fa-box"],
-                                        "Congélateur combiné" => ["icon" => "fa-box"],
-                                        "Four" => ["icon" => "fa-fire"],
-                                        "Gazinière" => ["icon" => "fa-fire"],
-                                        "Micro-ondes" => ["icon" => "fa-microchip"],
-                                        "Mixeur" => ["icon" => "fa-blender"],
-                                        "Bouilloire électrique" => ["icon" => "fa-blender"],
-                                        "Machine à laver linge" => ["icon" => "fa-washer"],
-                                        "Fer à repasser" => ["icon" => "fa-shirt"],
-
-                                        /* ===== MULTIMÉDIA ===== */
-                                        "Télévision salon (pouces)" => ["icon" => "fa-tv", "type" => "number"],
-                                        "Télévision chambre (pouces)" => ["icon" => "fa-tv", "type" => "number"],
-                                        "Abonnement chaînes internationales" => ["icon" => "fa-tv"],
-                                        "Canal +" => ["icon" => "fa-tv"],
-                                        "Wi-Fi" => ["icon" => "fa-wifi"],
-
-                                        /* ===== SERVICES ===== */
-                                        "Service ménager" => ["icon" => "fa-broom"],
-                                        "Changement de draps" => ["icon" => "fa-bed"],
-                                        "Nettoyage hebdomadaire" => ["icon" => "fa-calendar-check"],
-
-                                        /* ===== SÉCURITÉ ===== */
-                                        "Porte blindée" => ["icon" => "fa-door-closed"],
-                                        "Coffre-fort" => ["icon" => "fa-lock"],
-                                        "Caméras de surveillance" => ["icon" => "fa-video"],
-                                    ];
-                                @endphp
-
-                            
-                                @foreach ($commodites as $label => $data)
-                                    @php
-                                        $id = 'com_' . md5($label);
-                                        $type = $data['type'] ?? null;
-                                    @endphp
-
-                                    <div class="col-6 col-md-3">
-                                        <div class="p-3 commodite-item shadow-sm h-100">
-                                            <label class="form-check " for="{{ $id }}">
-                                                <input
-                                                    class="form-check-input "
-                                                    type="checkbox"
-                                                    name="commodites[{{ $label }}][active]"
-                                                    value="1"
-                                                    id="{{ $id }}"
-                                                    data-target="field_{{ $id }}"
-                                                >
-                                                <i class="fas {{ $data['icon'] }}" style="color: var(--primary-color);"></i>
-                                                <span>{{ $label }}</span>
-                                            </label>
-
-                                            @if ($type)
-                                                <input
-                                                    type="{{ $type }}"
-                                                    class="form-control d-none commodite-field"
-                                                    name="commodites[{{ $label }}][value]"
-                                                    id="field_{{ $id }}"
-                                                    placeholder="Préciser {{ strtolower($label) }}"
-                                                >
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend><i class="fas fa-map-marked-alt me-2"></i> Emplacement</legend>
-                        <div class="row g-4">
-                            <div class="col-md-7">
-                                <div class="input-group mb-3">
-                                    <input type="text" id="searchLocation" class="form-control" placeholder="Rechercher une adresse...">
-                                    <button class="btn btn-primary" type="button" id="btnSearchLocation"><i class="fas fa-search"></i></button>
-                                    <button class="btn btn-outline-secondary" type="button" id="btnMyLocation"><i class="fas fa-crosshairs"></i></button>
-                                </div>
-                                <div id="map"></div>
-                            </div>
-                            <div class="col-md-5">
-                                <label class="form-label">Adresse précise</label>
-                                <textarea class="form-control mb-3" name="geolocalisation" id="geolocalisation" rows="3" readonly placeholder="L'adresse s'affichera ici..."></textarea>
-                                <div class="row g-2">
-                                    <div class="col-6">
-                                        <input type="text" class="form-control form-control-sm" name="latitude" id="latitude" placeholder="Lat" readonly>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="text" class="form-control form-control-sm" name="longitude" id="longitude" placeholder="Long" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend><i class="fas fa-camera me-2"></i> Galerie</legend>
-                        <div class="text-center p-4" id="images-container">
-                            <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
-                            <p class="text-muted mt-2 small">Sélectionnez jusqu'à 5 photos haute résolution.</p>
-                        </div>
-                    </fieldset>
-
-                    <div class="text-center mb-5">
-                        <button type="submit" class="btn btn-submit btn-lg">
-                            <i class="fas fa-paper-plane me-2"></i> Valider mon annonce
-                        </button>
                     </div>
-                </form>
+                    <div class="col-md-3">
+                        <label for="pays" class="form-label">Pays</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-globe-africa"></i></span>
+                            <input type="text" class="form-control" id="pays" name="pays" placeholder="Ex: Côte d'Ivoire" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ville" class="form-label">Ville</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-city"></i></span>
+                            <input type="text" class="form-control" id="ville" name="ville" placeholder="Ex: Abidjan" required>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-5">
+                <legend>Détails de la résidence <i class="fas fa-bed"></i></legend>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <label for="type_residence" class="form-label">Type de résidence</label>
+                        <select class="form-select" id="type_residence" name="type_residence" required>
+                            <option value="" disabled selected>Sélectionnez un type</option>
+                            <option value="Appartement">Appartement</option>
+                            <option value="Maison">Maison basse</option>
+                            <option value="Studio">Studio</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Chalet">Chalet</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nb_chambres" class="form-label">Nombre de chambres</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-person-booth"></i></span>
+                            <input type="number" class="form-control" id="nb_chambres" name="nb_chambres" min="1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nb_salons" class="form-label">Nombre de salons</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-couch"></i></span>
+                            <input type="number" class="form-control" id="nb_salons" name="nb_salons" min="0" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="prix_jour" class="form-label">Prix par jour (FCFA)</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
+                            <input type="number" class="form-control" id="prix_jour" name="prix_jour" min="1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="details_position" class="form-label">Repère proche de la résidence</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" class="form-control" id="details_position" name="details_position" placeholder="Ex: Cocody derrière la RTI" required>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label for="details" class="form-label">Description détaillée de la résidence</label>
+                        <textarea class="form-control" id="details" name="details" rows="4"
+                                placeholder="Ex: Appartement lumineux de 3 chambres, cuisine équipée, proche des commerces et transports..." required></textarea>
+                    </div>
+
+                </div>
+
+                <div class="mt-5">
+                    <label class="form-label fw-semibold">
+                        Commodités <i class="fas fa-star"></i>
+                    </label>
+
+                    <div class="row g-3">
+                        @php
+                            $commodites = [
+                                "Niveau d’étage" => ["icon" => "fa-building", "type" => "number"],
+                                "Ascenseur" => ["icon" => "fa-elevator"],
+                                "Accès PMR" => ["icon" => "fa-wheelchair"],
+                                "Gardien / Concierge" => ["icon" => "fa-user-shield"],
+                                "Surveillance 24/24" => ["icon" => "fa-shield-alt"],
+                                "Parking interne" => ["icon" => "fa-parking"],
+                                "Parking externe" => ["icon" => "fa-car"],
+                                "Nombre de places de parking" => ["icon" => "fa-car-side", "type" => "number"],
+                                "Balcon" => ["icon" => "fa-tree"],
+                                "Terrasse" => ["icon" => "fa-tree"],
+                                "Jardin" => ["icon" => "fa-seedling"],
+                                "Piscine" => ["icon" => "fa-swimming-pool"],
+                                "Nombre de chambres" => ["icon" => "fa-bed", "type" => "number"],
+                                "Nombre de salles d’eau" => ["icon" => "fa-shower", "type" => "number"],
+                                "Eau chaude" => ["icon" => "fa-water"],
+                                "Split toutes les chambres et salon" => ["icon" => "fa-snowflake"],
+                                "Split toutes les chambres sauf salon" => ["icon" => "fa-snowflake"],
+                                "Split salon uniquement" => ["icon" => "fa-snowflake"],
+                                "Split autre (à préciser)" => ["icon" => "fa-snowflake", "type" => "text"],
+                                "Salon fauteuil nombre de places" => ["icon" => "fa-couch", "type" => "number"],
+                                "lit des chambres" => ["icon" => "fa-bed", "type" => "number"],
+                                "Table basse salon" => ["icon" => "fa-table"],
+                                "Salle à manger nombre de place" => ["icon" => "fa-chair", "type" => "text"],
+                                "Réfrigérateur" => ["icon" => "fa-box"],
+                                "Congélateur combiné" => ["icon" => "fa-box"],
+                                "Four" => ["icon" => "fa-fire"],
+                                "Gazinière" => ["icon" => "fa-fire"],
+                                "Micro-ondes" => ["icon" => "fa-microchip"],
+                                "Mixeur" => ["icon" => "fa-blender"],
+                                "Bouilloire électrique" => ["icon" => "fa-blender"],
+                                "Machine à laver linge" => ["icon" => "fa-washer"],
+                                "Fer à repasser" => ["icon" => "fa-shirt"],
+                                "Télévision salon (pouces)" => ["icon" => "fa-tv", "type" => "number"],
+                                "Télévision chambre (pouces)" => ["icon" => "fa-tv", "type" => "number"],
+                                "Abonnement chaînes internationales" => ["icon" => "fa-tv"],
+                                "Canal +" => ["icon" => "fa-tv"],
+                                "Wi-Fi" => ["icon" => "fa-wifi"],
+                                "Service ménager" => ["icon" => "fa-broom"],
+                                "Changement de draps" => ["icon" => "fa-bed"],
+                                "Nettoyage hebdomadaire" => ["icon" => "fa-calendar-check"],
+                                "Porte blindée" => ["icon" => "fa-door-closed"],
+                                "Coffre-fort" => ["icon" => "fa-lock"],
+                                "Caméras de surveillance" => ["icon" => "fa-video"],
+                            ];
+                        @endphp
+
+                        @foreach ($commodites as $label => $data)
+                            @php
+                                $id = 'comodite_' . md5($label);
+                                $type = $data['type'] ?? null;
+                            @endphp
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="p-3 bg-light rounded shadow-sm h-100 commodite-item">
+                                    <label class="form-check d-flex align-items-center gap-2 mb-2" for="{{ $id }}">
+                                        <input
+                                            class="form-check-input commodite-checkbox"
+                                            type="checkbox"
+                                            name="commodites[{{ $label }}][active]"
+                                            value="1"
+                                            id="{{ $id }}"
+                                            data-target="field_{{ $id }}"
+                                        >
+                                        <i class="fas {{ $data['icon'] }}" style="color: var(--primary-color);"></i>
+                                        <span style="font-size: 0.85rem;">{{ $label }}</span>
+                                    </label>
+
+                                    @if ($type)
+                                        <input
+                                            type="{{ $type }}"
+                                            class="form-control d-none commodite-field"
+                                            name="commodites[{{ $label }}][value]"
+                                            id="field_{{ $id }}"
+                                            placeholder="Préciser"
+                                            style="font-size: 0.8rem;"
+                                        >
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="mt-5 row">
+                    <div class="col-md-6">
+                        <label class="form-label">Coordonnées géographiques</label>
+                        <div class="input-group mb-2 position-relative">
+                            <input type="text" id="searchLocation" class="form-control" placeholder="Rechercher un lieu..." autocomplete="off">
+                            <button class="btn btn-primary" type="button" id="btnSearchLocation">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" type="button" id="btnMyLocation">
+                                <i class="fas fa-location-crosshairs"></i>
+                            </button>
+                            <ul id="searchResults" class="list-group position-absolute w-100 shadow" style="top: 100%; z-index: 1000; display: none;"></ul>
+                        </div>
+                        <div id="map" style="height: 300px; border-radius: 10px;"></div>
+                    </div>
+
+                    <div class="col-md-6 d-flex flex-column justify-content-start">
+                        <label class="form-label invisible">Lat/Lng</label>
+                        <input class="form-control mb-3" type="text" id="latitude" name="latitude" placeholder="Latitude" required>
+                        <input class="form-control mb-3" type="text" id="longitude" name="longitude" placeholder="Longitude" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-compass"></i></span>
+                            <input type="text" class="form-control" name="geolocalisation" id="geolocalisation" placeholder="Géolocalisation" required>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var map = L.map('map').setView([5.345317, -4.024429], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+                    var marker;
+                    function setMarker(lat, lng) {
+                        if (marker) { marker.setLatLng([lat, lng]); }
+                        else { marker = L.marker([lat, lng]).addTo(map); }
+                        map.setView([lat, lng], 15);
+                        document.getElementById("latitude").value = lat;
+                        document.getElementById("longitude").value = lng;
+                        updateAddress(lat, lng);
+                    }
+                    function updateAddress(lat, lng) {
+                        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data && data.display_name) {
+                                    document.getElementById("geolocalisation").value = data.display_name;
+                                }
+                            });
+                    }
+                    map.on('click', function (e) { setMarker(e.latlng.lat, e.latlng.lng); });
+                    document.getElementById("btnMyLocation").addEventListener("click", function () {
+                        if (!navigator.geolocation) { alert("La géolocalisation n'est pas supportée"); return; }
+                        navigator.geolocation.getCurrentPosition(
+                            function (pos) { setMarker(pos.coords.latitude, pos.coords.longitude); },
+                            function () { alert("Impossible d'obtenir votre position"); },
+                            { enableHighAccuracy: true }
+                        );
+                    });
+                    const searchInput = document.getElementById("searchLocation");
+                    const searchBtn = document.getElementById("btnSearchLocation");
+                    const resultsBox = document.getElementById("searchResults");
+                    let searchTimeout = null;
+                    function searchPlace(query) {
+                        fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&accept-language=fr`)
+                            .then(res => res.json())
+                            .then(data => {
+                                resultsBox.innerHTML = '';
+                                if (!data.length) { resultsBox.style.display = 'none'; return; }
+                                data.forEach(place => {
+                                    const li = document.createElement("li");
+                                    li.className = "list-group-item list-group-item-action";
+                                    li.textContent = place.display_name;
+                                    li.onclick = () => {
+                                        setMarker(place.lat, place.lon);
+                                        searchInput.value = place.display_name;
+                                        resultsBox.style.display = 'none';
+                                    };
+                                    resultsBox.appendChild(li);
+                                });
+                                resultsBox.style.display = 'block';
+                            });
+                    }
+                    searchInput.addEventListener("input", function () {
+                        clearTimeout(searchTimeout);
+                        const query = this.value.trim();
+                        if (query.length < 3) { resultsBox.style.display = 'none'; return; }
+                        searchTimeout = setTimeout(() => searchPlace(query), 400);
+                    });
+                    searchBtn.addEventListener("click", function () {
+                        const query = searchInput.value.trim();
+                        if (query.length >= 3) searchPlace(query);
+                    });
+                </script>
+            </fieldset>
+
+            <fieldset class="mb-5">
+                <legend>Images <i class="fas fa-images"></i></legend>
+                <label for="images" class="form-label">Ajouter des images (min. 1, max. 5)</label>
+                <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
+            </fieldset>
+
+            <div class="d-flex justify-content-center mb-5">
+                <button type="submit" class="btn btn-submit">
+                    <i class="fas fa-check-circle me-2"></i> Soumettre la résidence
+                </button>
             </div>
-        </div>
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
-        var map = L.map('map').setView([5.345317, -4.024429], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        var marker;
-
-        function setMarker(lat, lng) {
-            if (marker) marker.setLatLng([lat, lng]);
-            else marker = L.marker([lat, lng]).addTo(map);
-            map.setView([lat, lng], 15);
-            document.getElementById("latitude").value = lat;
-            document.getElementById("longitude").value = lng;
-            updateAddress(lat, lng);
-        }
-
-        function updateAddress(lat, lng) {
-            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.display_name) {
-                        document.getElementById("geolocalisation").value = data.display_name;
-                    }
-                });
-        }
-
-        map.on('click', function (e) { setMarker(e.latlng.lat, e.latlng.lng); });
-
-        document.getElementById("btnMyLocation").addEventListener("click", function () {
-            if (!navigator.geolocation) return;
-            navigator.geolocation.getCurrentPosition(function (pos) {
-                setMarker(pos.coords.latitude, pos.coords.longitude);
+        document.querySelectorAll('.commodite-checkbox').forEach(cb => {
+            cb.addEventListener('change', function () {
+                const field = document.getElementById(this.dataset.target);
+                if (!field) return;
+                if (this.checked) {
+                    field.classList.remove('d-none');
+                    field.focus();
+                } else {
+                    field.classList.add('d-none');
+                    field.value = '';
+                }
             });
         });
-
-        // Logique de recherche simplifiée pour l'exemple
-        document.getElementById("btnSearchLocation").addEventListener("click", function() {
-            let query = document.getElementById("searchLocation").value;
-            fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`)
-                .then(res => res.json())
-                .then(data => {
-                    if(data[0]) setMarker(data[0].lat, data[0].lon);
-                });
-        });
     </script>
+
 </body>
 </html>
