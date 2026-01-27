@@ -5,184 +5,162 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{{ config('app.name') }} - @yield('title')</title>
 
-    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
-    <!-- GLightbox CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-    /* ===== Base ===== */
+    /* ===== Base (Mode Clair) ===== */
     body {
         font-family: 'Inter', sans-serif;
-        background-color: #f3f4f6;
-        font-size: 16px;
-        line-height: 1.6;
+        background-color: #f9fafb;
+        font-size: 16px; /* Base pour desktop */
+        line-height: 1.5;
         color: #1f2937;
+        -webkit-font-smoothing: antialiased;
     }
-    p, span, li, a { font-size: 1rem; font-weight: 400; line-height: 1.6; }
 
-    /* ===== Titres ===== */
-    h1 { font-size: 1.875rem; font-weight: 700; color: #111827; }
-    h2 { font-size: 1.5rem; font-weight: 600; color: #111827; }
-    h5 { font-size: 1rem; font-weight: 500; color: #111827; }
+    /* ===== Typographie Responsive ===== */
+    h1 { font-size: 1.75rem; font-weight: 700; color: #111827; letter-spacing: -0.025em; }
+    h2 { font-size: 1.35rem; font-weight: 600; color: #111827; }
+    h5 { font-size: 1rem; font-weight: 500; }
+    p, span, li, a { font-size: 1rem; }
 
-    /* ===== Header ===== */
-    header h1 { font-size: 1.25rem; font-weight: 600; color: #fff; }
+    /* Ajustements pour écrans < 720px */
+    @media (max-width: 720px) {
+        body { font-size: 14px; } /* Réduction de la base */
+        h1 { font-size: 1.4rem; }
+        h2 { font-size: 1.15rem; }
+        h5 { font-size: 0.9rem; }
+        p, span, li, a { font-size: 0.95rem; }
+        
+        /* Ajustement du Header Mobile */
+        header h1 { font-size: 0.9rem !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+    }
 
-    /* ===== Stats ===== */
+    /* ===== Header & Stats ===== */
     .stats-link {
         flex: 1 1 20%;
-        min-width: 120px;
-        padding: 0.5rem;
+        min-width: 100px;
+        padding: 0.4rem;
         text-align: center;
         border-radius: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: #d1d5db;
-        transition: background 0.2s;
+        font-size: 0.75rem; /* Plus petit pour tenir sur une ligne */
+        font-weight: 600;
+        color: #9ca3af;
+        transition: all 0.2s;
     }
-    .stats-link:hover { background-color: #1f2937; }
+    .stats-link i { display: block; margin-bottom: 2px; font-size: 1rem; }
+    
+    @media (min-width: 768px) {
+        .stats-link { font-size: 0.85rem; }
+        .stats-link i { display: inline; margin-bottom: 0; margin-right: 4px; }
+    }
 
     /* ===== Sidebar ===== */
     #sidebar {
         transition: transform 0.3s ease-in-out;
         transform: translateX(100%);
         position: fixed;
-        top: 0;
-        right: 0;
-        width: 80%;
-        max-width: 350px;
-        height: 100%;
-        z-index: 50;
-        padding: 1.5rem;
-        box-shadow: -4px 0 12px rgba(0,0,0,0.3);
-        overflow-y: auto;
-        font-size: 16px;
+        top: 0; right: 0; width: 85%; max-width: 320px; height: 100%;
+        z-index: 100;
+        padding: 2rem 1.5rem;
         background-color: #111827;
+        box-shadow: -10px 0 15px -3px rgba(0, 0, 0, 0.1);
     }
     #sidebar.active { transform: translateX(0); }
-    #sidebar a { font-size: 1rem; font-weight: 500; transition: color 0.2s; }
+    .sidebar-link { display: block; padding: 0.75rem 0; color: #e5e7eb; border-bottom: 1px solid #1f2937; }
 
-    /* ===== Main ===== */
-    main { padding-top: 10rem; padding-left: 0.5rem; padding-right: 0.5rem; }
-
-    @media (min-width: 1024px) { main { padding-left: 2rem; padding-right: 2rem; } }
-
-    /* ===== Footer ===== */
-    footer { font-size: 0.875rem; color: #6b7280; text-align: center; padding: 1rem 0; }
-
-    /* ===== Badges ===== */
-    span { font-size: 0.75rem; }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-        body { font-size: 14px; }
-        header h1, .headerfixe_link { font-size: 0.8rem; }
-        .stats-link { flex: 1 1 45%; font-size: 0.75rem; margin-bottom: 0.25rem; }
-        #sidebar a { font-size: 0.875rem; }
-        /* ===== Titres ===== */
-        h1 { font-size: 1.5rem; font-weight: 700; color: #111827; }
-        h2 { font-size: 1.2rem; font-weight: 600; color: #111827; }
-        h5 { font-size: 0.8rem; font-weight: 500; color: #111827; }
+    /* ===== Main Spacing ===== */
+    main { padding-top: 10.5rem; } /* Espace pour le header double */
+    
+    @media (max-width: 720px) {
+        main { padding-top: 9.5rem; } 
     }
-    /* faire disparaitre le bouton de reservation pour un ecran inferieur a 590px */
-    @media (max-width: 590px) {
-        .reservation {
-            display: none;
-        }
-    }
+
+    /* Utilitaires */
+    .btn-indigo { background-color: #4f46e5; color: white; }
+    .btn-indigo:hover { background-color: #4338ca; }
     </style>
 </head>
 
 <body class="bg-gray-50">
 
-    <!-- HEADER FIXE -->
-    <header class="bg-gray-900 shadow-lg fixed top-0 left-0 right-0 z-40">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex items-center justify-between py-3">
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('accueil') }}" class="block">
-                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto" />
+    <header class="bg-gray-900 shadow-xl fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-3">
+            <div class="flex items-center justify-between py-2 md:py-3">
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('accueil') }}">
+                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" class="h-8 md:h-10 w-auto" />
                     </a>
-                    <h1>{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
+                    <h1 class="text-white text-base md:text-lg m-0">{{ Auth::user()->name ?? 'Pro' }}</h1>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo flex items-center gap-1 text-white headerfixe_link">
-                        <i class="fas fa-plus"></i> Ajouter
+                
+                <div class="flex items-center space-x-1 md:space-x-2">
+                    <a href="{{ route('mise_en_ligne') }}" class="px-2 py-1.5 rounded-md bg-indigo-600 text-white text-xs font-bold md:text-sm flex items-center gap-1">
+                        <i class="fas fa-plus"></i> <span class="hidden xs:inline">Ajouter</span>
                     </a>
-                    <a href="{{ route('clients_historique') }}" class="btn btn-gray d-none d-md-flex items-center gap-1 text-white headerfixe_link">
-                        <i class="fas fa-calendar-check"></i> Réservations
-                    </a>
-                    <a href="{{ route('recherche') }}" class="text-gray-300 hover:text-white p-2 rounded-lg headerfixe_link">
+                    <a href="{{ route('recherche') }}" class="p-2 text-gray-400 hover:text-white">
                         <i class="fas fa-search"></i>
                     </a>
-                    <a href="{{ route('pro.dashboard') }}" class="btn btn-gray flex items-center gap-1 text-white headerfixe_link">
-                        <i class="fas fa-user"></i> Profil
-                    </a>
-                    <button id="toggleSidebar" class="p-2 rounded-lg text-white hover:bg-indigo-700 transition headerfixe_link">
+                    <button id="toggleSidebar" class="p-2 bg-gray-800 text-white rounded-md">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Stats -->
-            <div class="flex flex-wrap justify-between text-center border-t border-gray-800 py-2 -mx-2">
+            <div class="flex items-center justify-between border-t border-gray-800 py-2">
                 <a href="{{ route('pro.residences') }}" class="stats-link">
-                    <i class="fas fa-home mr-1"></i> Résidences
-                    <span class="ml-1 px-2 bg-red-600 text-xs font-bold rounded-full">{{ $totalResidences }}</span>
+                    <i class="fas fa-home text-blue-400"></i>
+                    <span>{{ $totalResidences }}</span>
                 </a>
                 <a href="{{ route('occupees') }}" class="stats-link">
-                    <i class="fas fa-lock mr-1"></i> Occupées
-                    <span class="ml-1 px-2 bg-yellow-500 text-xs font-bold rounded-full">{{ $totalResidencesOccupees }}</span>
+                    <i class="fas fa-lock text-yellow-500"></i>
+                    <span>{{ $totalResidencesOccupees }}</span>
                 </a>
                 <a href="{{ route('mes_demandes') }}" class="stats-link">
-                    <i class="fas fa-spinner mr-1"></i> Demandes
-                    <span class="ml-1 px-2 bg-gray-600 text-xs font-bold rounded-full">{{ $totalDemandesEnAttente }}</span>
+                    <i class="fas fa-envelope text-purple-400"></i>
+                    <span>{{ $totalDemandesEnAttente }}</span>
                 </a>
                 <a href="{{ route('reservationRecu') }}" class="stats-link">
-                    <i class="fas fa-clock mr-1"></i> Historique
-                    <span class="ml-1 px-2 bg-green-600 text-xs font-bold rounded-full">{{ $totalReservationsRecu }}</span>
+                    <i class="fas fa-history text-green-500"></i>
+                    <span>{{ $totalReservationsRecu }}</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="text-white flex flex-col items-center">
-        <button id="closeSidebar" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-            <i class="fas fa-times"></i>
-        </button>
-
-        <div class="mt-12 w-full flex flex-col space-y-4">
-            <a href="{{ route('accueil') }}" class="sidebar-link">Accueil</a>
-            <a href="{{ route('recherche') }}" class="sidebar-link">Recherche</a>
-            <a href="{{ route('reservationRecu') }}" class="sidebar-link">Réservation</a>
-            <a href="{{ route('pro.dashboard') }}" class="sidebar-link">Profil</a>
-            <a href="{{ route('pro.residences') }}" class="sidebar-link">Mes Résidences</a>
-            <a href="{{ route('mise_en_ligne') }}" class="sidebar-link">Mise en ligne</a>
-            <a href="{{ route('occupees') }}" class="sidebar-link">Résidences occupées</a>
-            <a href="{{ route('mes_demandes') }}" class="sidebar-link">Demandes</a>
-            <a href="{{ route('logout') }}" class="w-full text-center py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-lg flex items-center justify-center gap-2">
-                Déconnexion
-            </a>
+    <aside id="sidebar">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-xs font-bold tracking-widest text-gray-500 uppercase">Menu</span>
+            <button id="closeSidebar" class="text-gray-400"><i class="fas fa-times fa-lg"></i></button>
         </div>
+
+        <nav class="space-y-1">
+            <a href="{{ route('accueil') }}" class="sidebar-link font-medium">Tableau de bord</a>
+            <a href="{{ route('pro.residences') }}" class="sidebar-link">Mes Résidences</a>
+            <a href="{{ route('mes_demandes') }}" class="sidebar-link">Demandes</a>
+            <a href="{{ route('reservationRecu') }}" class="sidebar-link">Historique</a>
+            <a href="{{ route('pro.dashboard') }}" class="sidebar-link">Mon Profil</a>
+            
+            <div class="pt-10">
+                <a href="{{ route('logout') }}" class="flex items-center justify-center gap-2 w-full py-3 bg-red-600/10 text-red-500 rounded-xl font-bold border border-red-600/20">
+                    <i class="fas fa-power-off"></i> Déconnexion
+                </a>
+            </div>
+        </nav>
     </aside>
 
-    <!-- MAIN -->
-    <main class="main">
-        <div class="m-0 p-0">
-            @include('includes.messages')
-            @yield('main')
-        </div>
+    <main class="max-w-7xl mx-auto px-2 md:px-4">
+        @include('includes.messages')
+        @yield('main')
     </main>
 
-    <!-- FOOTER -->
-         @include('includes.footer')
-    <!-- JS Sidebar -->
+    @include('includes.footer')
+
     <script>
         const sidebar = document.getElementById('sidebar');
         const toggleSidebar = document.getElementById('toggleSidebar');
@@ -197,16 +175,5 @@
             }
         });
     </script>
-
-    <!-- GLightbox -->
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, zoomable: true });
-        });
-    </script>
-
-    @stack('scripts')
-    @yield('script')
 </body>
 </html>
