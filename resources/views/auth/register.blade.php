@@ -91,9 +91,8 @@
                         placeholder="Ex: Harry@234"
                     />
 
-                    <span
-                        class="position-absolute end-0 translate-middle-y me-3 cursor-pointer text-gray-500 hover:text-indigo-600"
-                        onclick="toggleVisibility('password', 'eye1')" style=" top: 13px;"
+                    <span class="position-absolute end-0 translate-middle-y me-3 cursor-pointer text-gray-500 hover:text-indigo-600"
+                        onclick="toggleVisibility('password', 'eye1')" style=" top: 8px;"
                     >
                         <i class="fas fa-eye" id="eye1"></i>
                     </span>
