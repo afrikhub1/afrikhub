@@ -84,7 +84,7 @@
                                     </div>
 
                                     <div class="mt-8">
-                                        <a href="{{ route('sejour.interrompre', $res_occupees->id) }}" 
+                                        <a href="{{ route('sejour.interrompre', $res_occupees->reservations->first()->id) }}" 
                                            class="group flex items-center justify-center gap-3 w-full bg-slate-900 text-white p-4 rounded-2xl font-bold text-sm hover:bg-rose-600 transition-all duration-300 shadow-lg shadow-slate-200 hover:shadow-rose-200">
                                             <i class="fas fa-key transition-transform group-hover:-rotate-45"></i>
                                             Libérer la Résidence
