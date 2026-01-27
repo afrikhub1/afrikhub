@@ -201,9 +201,12 @@ class ResidenceController extends Controller
     {
         $userId = Auth::id();
 
-        // On récupère uniquement les résidences occupées appartenant à l'utilisateur
+        // On récupère les résidences occupées AVEC leur réservation confirmée
         $residences_occupees = Residence::where('proprietaire_id', $userId)
             ->where('disponible', 0)
+            ->with(['reservations' => function ($query) {
+                $query->where('status', 'confirmée'); // On cible le séjour en cours
+            }])
             ->get();
 
         return view('reservations.occupees', compact('residences_occupees'));
