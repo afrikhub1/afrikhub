@@ -14,62 +14,62 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
 
-    <!-- GLightbox -->
-    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
-
     <style>
         :root {
             --color-primary: #006d77;
             --color-primary-light: #00afb9;
             --color-accent: #ffb703;
-            --color-soft-bg: #f8f9fa;
-            --color-background: #ffffff;
-            --footer-height: 60px;
             --main-gradient: linear-gradient(135deg, #006d77, #00afb9);
+            --color-soft-bg: #f8f9fa;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-background);
-            padding-bottom: var(--footer-height);
+            background: #ffffff;
             color: #444;
         }
 
-        .btn-custom-primary {
+        /* ===== HEADER ===== */
+        .main-header {
             background: var(--main-gradient);
-            border: none;
             color: white;
-            transition: transform 0.2s;
+        }
+        .main-header .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+        .main-header .nav-link:hover {
+            opacity: 0.85;
+        }
+
+        .btn-custom-primary {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            font-weight: 600;
         }
         .btn-custom-primary:hover {
-            transform: scale(1.03);
-            opacity: 0.9;
-            color: white;
+            background: #f1f5f9;
+            color: var(--color-primary);
         }
 
         .btn-outline-custom {
-            border: 2px solid var(--color-primary);
-            color: var(--color-primary);
+            border: 2px solid white;
+            color: white;
             background: transparent;
         }
         .btn-outline-custom:hover {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .text-primary {
-            color: var(--color-primary) !important;
+            background: white;
+            color: var(--color-primary);
         }
 
         .card {
             border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #edf2f7 !important;
+            transition: 0.3s;
         }
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 14px 28px rgba(0, 109, 119, 0.15);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.12);
         }
 
         .card-img-top {
@@ -80,47 +80,39 @@
         /* Sidebar */
         #sidebar {
             position: fixed;
-            top: 0;
             right: 0;
-            width: 100%;
-            max-width: 300px;
+            top: 0;
             height: 100%;
-            background-color: var(--color-soft-bg);
-            padding: 1.5rem;
-            border-left: 1px solid #eee;
-            z-index: 1060;
+            max-width: 300px;
+            width: 100%;
+            background: var(--color-soft-bg);
             transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.4s;
+            z-index: 1060;
+            padding: 1.5rem;
         }
         #sidebar.active {
             transform: translateX(0);
         }
-
-        .sidebar-link {
-            color: #4a5568;
-            padding: 12px 15px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            display: block;
-            border-radius: 10px;
-            transition: background 0.2s;
-        }
-        .sidebar-link:hover {
-            background: rgba(0, 109, 119, 0.08);
-        }
-
         #sidebar-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 1050;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
             display: none;
+            z-index: 1050;
         }
         #sidebar-overlay.active {
             display: block;
+        }
+        .sidebar-link {
+            display: block;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #374151;
+            text-decoration: none;
+        }
+        .sidebar-link:hover {
+            background: rgba(0,109,119,0.1);
         }
     </style>
 </head>
@@ -128,43 +120,49 @@
 <body>
 
 <!-- ================= HEADER ================= -->
-<header class="bg-white border-bottom border-light">
+<header class="main-header">
     <div class="container-fluid px-4 py-3 d-flex align-items-center justify-content-between">
 
         <a href="{{ route('accueil') }}">
-            <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" style="width:75px">
+            <img src="{{ asset('assets/images/logo_01.png') }}" style="width:75px">
         </a>
 
-        <form class="d-none d-md-flex mx-auto" style="max-width: 450px;"
+        <form class="d-none d-md-flex mx-auto" style="max-width:450px"
               method="GET" action="{{ route('recherche') }}">
-            <input class="form-control me-2 rounded-pill bg-light px-4"
+            <input class="form-control me-2 rounded-pill px-4"
                    type="search"
                    name="ville_quartier"
                    placeholder="Rechercher une ville..."
                    value="{{ request('ville_quartier') ?? '' }}">
-            <button class="btn btn-custom-primary rounded-circle"
-                    style="width:45px;height:45px">
-                <i class="fas fa-search"></i>
+            <button class="btn btn-light rounded-circle" style="width:45px;height:45px">
+                <i class="fas fa-search text-primary"></i>
             </button>
         </form>
 
         <ul class="navbar-nav d-none d-lg-flex flex-row gap-3 align-items-center mb-0">
-            <li><a href="{{ route('accueil') }}" class="nav-link text-dark fw-medium">Accueil</a></li>
-            <li><a href="{{ route('faq') }}" class="nav-link text-dark fw-medium">FAQ</a></li>
+
+            <li><a href="{{ route('accueil') }}" class="nav-link">Accueil</a></li>
+            <li><a href="{{ route('faq') }}" class="nav-link">FAQ</a></li>
 
             @auth
-                <li>
-                    <a href="{{ route('clients_historique') }}"
-                       class="nav-link text-dark fw-medium">
-                        Mes réservations
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('devenir_pro') }}"
-                       class="btn btn-outline-custom rounded-pill px-3">
-                        Devenir Pro
-                    </a>
-                </li>
+                {{-- CLIENT UNIQUEMENT --}}
+                @if(Auth::user()->type_compte === 'client')
+                    <li>
+                        <a href="{{ route('clients_historique') }}" class="nav-link">
+                            Mes réservations
+                        </a>
+                    </li>
+                @endif
+
+                {{-- PROFESSIONNEL UNIQUEMENT --}}
+                @if(Auth::user()->type_compte === 'professionnel')
+                    <li>
+                        <a href="{{ route('pro.dashboard') }}" class="nav-link">
+                            Dashboard Pro
+                        </a>
+                    </li>
+                @endif
+
                 <li>
                     <a href="{{ route('logout') }}"
                        class="btn btn-custom-primary rounded-pill px-4">
@@ -183,152 +181,65 @@
             @endguest
         </ul>
 
-        <button id="toggleSidebar" class="btn btn-light rounded-circle shadow-sm ms-3">
-            <i class="fas fa-bars text-primary"></i>
+        <button id="toggleSidebar" class="btn btn-light rounded-circle ms-3">
+            <i class="fas fa-bars"></i>
         </button>
     </div>
 </header>
 
 <!-- ================= SIDEBAR ================= -->
 <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<div id="sidebar">
 
-<div id="sidebar" class="shadow-xl">
     <button class="btn btn-light rounded-circle mb-4" onclick="toggleSidebar()">
         <i class="fas fa-times"></i>
     </button>
 
-    <div class="d-flex flex-column h-100 gap-2">
+    @auth
+        <div class="mb-4 border-bottom pb-3">
+            <strong>{{ Auth::user()->name }}</strong><br>
+            <span class="badge bg-light text-primary border">
+                {{ Auth::user()->type_compte }}
+            </span>
+        </div>
+    @endauth
 
-        @auth
-            <div class="mb-4 pb-3 border-bottom">
-                <h6 class="fw-bold mb-1">{{ Auth::user()->name }}</h6>
-                <span class="badge bg-light text-primary border">
-                    {{ Auth::user()->type_compte }}
-                </span>
-            </div>
-        @endauth
+    <a href="{{ route('accueil') }}" class="sidebar-link">
+        <i class="fas fa-home me-2 text-primary"></i> Accueil
+    </a>
 
-        <a href="{{ route('accueil') }}" class="sidebar-link">
-            <i class="fas fa-home me-2 text-primary"></i> Accueil
-        </a>
-
-        <a href="{{ route('residences.recherche') }}" class="sidebar-link">
-            <i class="fas fa-search me-2 text-primary"></i> Rechercher
-        </a>
-
-        <a href="{{ route('faq') }}" class="sidebar-link">
-            <i class="fas fa-circle-question me-2 text-primary"></i> FAQ
-        </a>
-
-        <a href="{{ route('conditions_generales') }}" class="sidebar-link">
-            <i class="fas fa-file-contract me-2 text-primary"></i> Conditions générales
-        </a>
-
-        <a href="{{ route('politique_confidentialite') }}" class="sidebar-link">
-            <i class="fas fa-shield-halved me-2 text-primary"></i> Confidentialité
-        </a>
-
-        @auth
-            <hr>
+    {{-- CLIENT --}}
+    @auth
+        @if(Auth::user()->type_compte === 'client')
             <a href="{{ route('clients_historique') }}" class="sidebar-link">
                 <i class="fas fa-calendar-check me-2 text-primary"></i> Mes réservations
             </a>
-
             <a href="{{ route('factures') }}" class="sidebar-link">
                 <i class="fas fa-file-invoice me-2 text-primary"></i> Mes factures
             </a>
+        @endif
 
-            <a href="{{ route('devenir_pro') }}" class="sidebar-link">
-                <i class="fas fa-briefcase me-2 text-primary"></i> Devenir Pro
+        {{-- PRO --}}
+        @if(Auth::user()->type_compte === 'professionnel')
+            <a href="{{ route('pro.dashboard') }}" class="sidebar-link">
+                <i class="fas fa-gauge me-2 text-primary"></i> Dashboard Pro
             </a>
-        @endauth
+            <a href="{{ route('pro.residences') }}" class="sidebar-link">
+                <i class="fas fa-building me-2 text-primary"></i> Mes résidences
+            </a>
+        @endif
+    @endauth
 
-        <div class="mt-auto pt-4">
-            <a href="{{ route('logout') }}"
-               class="btn btn-outline-danger w-100 rounded-pill">
-                Quitter
-            </a>
-        </div>
+    <a href="{{ route('faq') }}" class="sidebar-link">
+        <i class="fas fa-circle-question me-2 text-primary"></i> FAQ
+    </a>
+
+    <div class="mt-auto pt-4">
+        <a href="{{ route('logout') }}"
+           class="btn btn-outline-danger w-100 rounded-pill">
+            Quitter
+        </a>
     </div>
-</div>
-
-<!-- ================= CONTENU ================= -->
-<div class="container my-5">
-
-    <h2 class="text-center fw-bold mb-2">
-        Résultats pour :
-        <span class="text-primary">
-            {{ request('ville_quartier') ?: 'Toutes les résidences' }}
-        </span>
-    </h2>
-
-    <p class="text-center text-muted mb-5">
-        {{ $recherches->count() }} résidence(s) trouvée(s)
-    </p>
-
-    @if($recherches->isEmpty())
-        <p class="text-center text-muted">Aucun résultat trouvé.</p>
-    @else
-        <div class="row g-4 justify-content-center">
-            @foreach($recherches as $residence)
-                @php
-                    $images = is_string($residence->img) ? json_decode($residence->img, true) : [];
-                    $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
-                    $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
-                @endphp
-
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-                    <div class="card w-100">
-                        <img src="{{ $firstImage }}" class="card-img-top">
-
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="fw-bold mb-2">{{ $residence->nom }}</h5>
-
-                            <div class="d-flex justify-content-between small text-muted mb-2">
-                                <span>
-                                    <i class="fas fa-location-dot text-primary"></i>
-                                    {{ $residence->ville }}
-                                </span>
-                                <span class="badge bg-light text-primary border">
-                                    Résidence
-                                </span>
-                            </div>
-
-                            <div class="small mb-2">
-                                <i class="fas fa-bed text-primary"></i>
-                                {{ $residence->nombre_chambres ?? 0 }} chambres
-                                •
-                                <i class="fas fa-couch text-primary"></i>
-                                {{ $residence->nombre_salons ?? 0 }} salons
-                            </div>
-
-                            <div class="fw-bold mb-3">
-                                {{ number_format($residence->prix_journalier, 0, ',', ' ') }}
-                                FCFA / jour
-                            </div>
-
-                            <div class="mb-3">
-                                @if($dateDispo->isPast())
-                                    <span class="badge bg-success">Disponible</span>
-                                @elseif($dateDispo->isToday())
-                                    <span class="badge bg-primary">Aujourd’hui</span>
-                                @else
-                                    <span class="badge bg-warning">
-                                        Libre le {{ $dateDispo->translatedFormat('d F') }}
-                                    </span>
-                                @endif
-                            </div>
-
-                            <a href="{{ route('details', $residence->id) }}"
-                               class="btn btn-outline-custom rounded-pill mt-auto">
-                                Détails
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
