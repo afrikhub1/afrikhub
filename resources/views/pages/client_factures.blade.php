@@ -65,9 +65,10 @@
     </nav>
 </aside>
 
-<main class="max-w-7xl mx-auto p-4 pt-10 pb-10">
+<main class="max-w-7xl mx-auto p-4 pt-32 pb-20">
 
     <div class="text-center mb-12">
+        <span class="inline-block px-4 py-1.5 bg-emerald-50 text-brand text-xs font-bold uppercase tracking-widest rounded-full mb-4">Espace Facturation</span>
         <h1 class="text-3xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
             Historique de Facturation
         </h1>
@@ -163,7 +164,7 @@
     @endif
 </main>
 
-@include('includes.footer')
+@include('includes.footer');
 
 <script>
     const sidebar = document.getElementById('mobileSidebar');
