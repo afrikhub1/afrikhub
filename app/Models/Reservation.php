@@ -34,11 +34,15 @@ class Reservation extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withDefault([
+            'nom' => 'Client inconnu' // Remplacé 'name' par 'nom' ici
+        ]);
     }
 
-    public function residence()
+    public function proprietaire()
     {
-        return $this->belongsTo(Residence::class, 'residence_id');
+        return $this->belongsTo(User::class, 'proprietaire_id')->withDefault([
+            'nom' => 'Propriétaire inconnu' // Remplacé 'name' par 'nom' ici
+        ]);
     }
 }
