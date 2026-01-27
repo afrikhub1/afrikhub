@@ -135,7 +135,13 @@
                     <div class="font-bold" style="font-size: 11pt;">{{ $reservation->user->name }}</div>
                     <div style="line-height: 1.5;">
                         {{ $reservation->user->email }}<br>
-                        Statut : <strong>{{ strtoupper($reservation->status) }}</strong>
+
+                        @php
+                            $statusBrut = $reservation->status;
+                            // On force le statut en majuscule proprement
+                            $statusMaj = mb_strtoupper($statusBrut, 'UTF-8');
+                        @endphp
+                        Statut : <strong>{{ $statusMaj }}</strong>
                     </div>
                 </td>
             </tr>
