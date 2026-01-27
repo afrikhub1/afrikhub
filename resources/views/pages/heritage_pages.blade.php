@@ -13,146 +13,172 @@
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-    /* CSS COMMUN */
+    /* BASE */
     body {
         font-family: 'Inter', sans-serif;
-        background-color: #f3f4f6;
+        background-color: #f8fafc;
         -webkit-font-smoothing: antialiased;
     }
 
-    /* VERSION MOBILE (< 768px) */
+    /* VARIABLES DE COULEURS HARMONISÉES */
+    :root {
+        --brand-gradient: linear-gradient(135deg, #006d77, #00afb9);
+        --brand-dark: #006d77;
+        --brand-light: #00afb9;
+    }
+
+    /* HEADER & STATS */
+    .main-header {
+        background: var(--brand-gradient);
+    }
+
+    .stats-link {
+        flex: 1 1 20%;
+        text-align: center;
+        transition: all 0.2s ease;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+    }
+    .stats-link:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+    }
+
+    /* RESPONSIVE DESIGN */
     @media (max-width: 767px) {
         body { font-size: 14px; }
-        h1 { font-size: 1.4rem; font-weight: 700; }
-        main { padding-top: 9.5rem; } /* Hauteur header mobile */
-        
-        .stats-link {
-            flex: 1 1 20%;
-            min-width: 70px;
-            padding: 0.4rem;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .stats-link i { display: block; margin-bottom: 2px; font-size: 1rem; }
+        main { padding-top: 9.5rem; }
+        .stats-link { font-size: 0.7rem; padding: 0.5rem 0.2rem; }
+        .stats-link i { display: block; margin-bottom: 3px; font-size: 1.1rem; }
     }
 
-    /* VERSION DESKTOP (>= 768px) */
     @media (min-width: 768px) {
-        body { font-size: 16px; line-height: 1.6; }
-        h1 { font-size: 1.875rem; font-weight: 700; }
-        main { padding-top: 10rem; padding-left: 2rem; padding-right: 2rem; }
-        
-        .stats-link {
-            flex: 1 1 20%;
-            min-width: 120px;
-            padding: 0.5rem;
-            font-size: 0.875rem;
-            transition: background 0.2s;
-            color: #d1d5db;
-        }
-        .stats-link:hover { background: linear-gradient(135deg, #006d77, #00afb9); color: white; }
+        main { padding-top: 10.5rem; padding-left: 2rem; padding-right: 2rem; }
+        .stats-link { font-size: 0.85rem; padding: 0.6rem; border-radius: 0.5rem; }
+        .stats-link i { margin-right: 5px; }
     }
 
-    /* SIDEBAR (Commune) */
+    /* SIDEBAR */
     #sidebar {
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         transform: translateX(100%);
         position: fixed;
-        top: 0; right: 0; width: 80%; max-width: 350px; height: 100%;
-        z-index: 100;
+        top: 0; right: 0; width: 85%; max-width: 320px; height: 100%;
+        z-index: 1000;
         padding: 2rem 1.5rem;
-        background: linear-gradient(135deg, #006d77, #00afb9);
-        box-shadow: -10px 0 15px rgba(0,0,0,0.3);
+        background: var(--brand-gradient);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.2);
     }
     #sidebar.active { transform: translateX(0); }
-    .sidebar-link { display: block; padding: 0.75rem 0; color: #e5e7eb; border-bottom: 1px solid #1f2937; text-decoration: none; }
+    
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        color: white;
+        text-decoration: none;
+        border-radius: 0.75rem;
+        margin-bottom: 0.5rem;
+        transition: background 0.2s;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-link i { width: 30px; font-size: 1.2rem; opacity: 0.9; }
 
-    /* Utilitaires spécifiques */
-    .btn-indigo { background-color: #4f46e5; color: white; }
+    /* BOUTONS */
+    .btn-brand {
+        background: #fff;
+        color: var(--brand-dark) !important;
+        font-weight: 700;
+        border: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .btn-brand:hover {
+        background: #f1f5f9;
+        transform: translateY(-1px);
+    }
+
     @media (max-width: 590px) { .reservation { display: none; } }
     </style>
 </head>
 
 <body>
 
-    <header class="shadow-xl fixed top-0 left-0 right-0 z-50" style="background: linear-gradient(135deg, #006d77, #00afb9);">
+    <header class="main-header shadow-lg fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-3 md:px-4">
             
-            <div class="flex items-center justify-between py-2 md:py-3">
+            <div class="flex items-center justify-between py-2 md:py-4">
                 <div class="flex items-center space-x-3">
                     <a href="{{ route('accueil') }}">
-                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" class="h-8 md:h-10 w-auto" />
+                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" class="h-9 md:h-12 w-auto" />
                     </a>
-                    <h1 class="text-white text-sm md:text-xl font-semibold m-0 truncate max-w-[120px] md:max-w-none">
-                        {{ Auth::user()->name ?? 'Utilisateur' }}
+                    <h1 class="text-white text-base md:text-xl font-bold m-0 tracking-tight truncate max-w-[130px] md:max-w-none">
+                        {{ Auth::user()->name ?? 'Espace Pro' }}
                     </h1>
                 </div>
                 
-                <div class="flex items-center space-x-1 md:space-x-3">
-                    <a href="{{ route('mise_en_ligne') }}" class="btn btn-indigo px-2 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm flex items-center gap-1">
-                        <i class="fas fa-plus"></i> <span class="hidden sm:inline">Ajouter</span>
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <a href="{{ route('mise_en_ligne') }}" class="btn btn-brand px-3 py-1.5 md:px-5 md:py-2 rounded-lg text-xs md:text-sm flex items-center gap-2 transition-all">
+                        <i class="fas fa-plus-circle"></i> <span class="hidden sm:inline">Ajouter</span>
                     </a>
 
-                    <a href="{{ route('clients_historique') }}" class="hidden md:flex btn btn-secondary items-center gap-2 text-sm">
-                        <i class="fas fa-calendar-check"></i> Réservations
+                    <a href="{{ route('recherche') }}" class="text-white/80 hover:text-white p-2 transition">
+                        <i class="fas fa-search fa-lg"></i>
                     </a>
 
-                    <a href="{{ route('recherche') }}" class="text-gray-400 hover:text-white p-2">
-                        <i class="fas fa-search"></i>
-                    </a>
-
-                    <a href="{{ route('pro.dashboard') }}" class="hidden md:flex text-gray-400 hover:text-white p-2 border border-gray-700 rounded-lg">
-                        <i class="fas fa-user"></i>
-                    </a>
-
-                    <button id="toggleSidebar" class="p-2 bg-gray-800 text-white rounded-md hover:bg-indigo-600 transition">
-                        <i class="fas fa-bars"></i>
+                    <button id="toggleSidebar" class="p-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-all border border-white/20">
+                        <i class="fas fa-bars fa-lg"></i>
                     </button>
                 </div>
             </div>
 
-            <div class="flex items-center justify-between border-t border-gray-800 py-2 -mx-2">
+            <div class="flex items-center justify-between border-t border-white/10 py-2">
                 <a href="{{ route('pro.residences') }}" class="stats-link">
-                    <i class="fas fa-home text-blue-400"></i>
+                    <i class="fas fa-home"></i>
                     <span class="hidden md:inline">Résidences</span>
-                    <span class="ml-1 px-2 bg-red-600 text-[10px] font-bold rounded-full text-white">{{ $totalResidences }}</span>
+                    <span class="ml-1 px-2 py-0.5 bg-white/20 text-[10px] font-black rounded-full text-white">{{ $totalResidences }}</span>
                 </a>
                 <a href="{{ route('occupees') }}" class="stats-link">
-                    <i class="fas fa-lock text-yellow-500"></i>
+                    <i class="fas fa-calendar-check"></i>
                     <span class="hidden md:inline">Occupées</span>
-                    <span class="ml-1 px-2 bg-yellow-600 text-[10px] font-bold rounded-full text-white">{{ $totalResidencesOccupees }}</span>
+                    <span class="ml-1 px-2 py-0.5 bg-yellow-400 text-[10px] font-black rounded-full text-black">{{ $totalResidencesOccupees }}</span>
                 </a>
                 <a href="{{ route('mes_demandes') }}" class="stats-link">
-                    <i class="fas fa-envelope text-purple-400"></i>
+                    <i class="fas fa-bell"></i>
                     <span class="hidden md:inline">Demandes</span>
-                    <span class="ml-1 px-2 bg-gray-600 text-[10px] font-bold rounded-full text-white">{{ $totalDemandesEnAttente }}</span>
+                    <span class="ml-1 px-2 py-0.5 bg-red-500 text-[10px] font-black rounded-full text-white">{{ $totalDemandesEnAttente }}</span>
                 </a>
                 <a href="{{ route('reservationRecu') }}" class="stats-link">
-                    <i class="fas fa-history text-green-500"></i>
+                    <i class="fas fa-receipt"></i>
                     <span class="hidden md:inline">Historique</span>
-                    <span class="ml-1 px-2 bg-green-600 text-[10px] font-bold rounded-full text-white">{{ $totalReservationsRecu }}</span>
+                    <span class="ml-1 px-2 py-0.5 bg-green-400 text-[10px] font-black rounded-full text-black">{{ $totalReservationsRecu }}</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <aside id="sidebar" class="text-white">
-        <div class="flex justify-between items-center mb-6">
-            <span class="text-xs font-bold tracking-widest text-gray-500 uppercase">Menu</span>
-            <button id="closeSidebar" class="text-gray-400 hover:text-white"><i class="fas fa-times fa-lg"></i></button>
+    <aside id="sidebar">
+        <div class="flex justify-between items-center mb-10">
+            <div class="bg-white/10 px-3 py-1 rounded-full">
+                <span class="text-[10px] font-black tracking-widest text-white uppercase">Menu Navigation</span>
+            </div>
+            <button id="closeSidebar" class="w-10 h-10 flex items-center justify-center rounded-full bg-black/10 text-white hover:bg-black/20 transition">
+                <i class="fas fa-times fa-lg"></i>
+            </button>
         </div>
 
-        <nav class="flex flex-col space-y-2">
-            <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home mr-3 text-indigo-400"></i>Accueil</a>
-            <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-building mr-3 text-indigo-400"></i>Mes Résidences</a>
-            <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-paper-plane mr-3 text-indigo-400"></i>Demandes</a>
-            <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-check-circle mr-3 text-indigo-400"></i>Réservations</a>
-            <a href="{{ route('pro.dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle mr-3 text-indigo-400"></i>Mon Profil</a>
+        <nav class="space-y-1">
+            <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-th-large"></i> Accueil</a>
+            <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-layer-group"></i> Mes Résidences</a>
+            <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-inbox"></i> Demandes</a>
+            <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-history"></i> Historique</a>
+            <a href="{{ route('pro.dashboard') }}" class="sidebar-link"><i class="fas fa-user-cog"></i> Mon Profil</a>
             
-            <div class="pt-8">
-                <a href="{{ route('logout') }}" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition shadow-lg">
-                    <i class="fas fa-power-off"></i> Déconnexion
+            <div class="mt-12 pt-6 border-t border-white/10">
+                <a href="{{ route('logout') }}" class="flex items-center justify-center gap-3 w-full py-4 bg-white text-[#006d77] rounded-xl font-black shadow-xl hover:bg-red-50 hover:text-red-600 transition-all active:scale-95">
+                    <i class="fas fa-power-off"></i> DÉCONNEXION
                 </a>
             </div>
         </nav>
@@ -172,22 +198,22 @@
         const toggleSidebar = document.getElementById('toggleSidebar');
         const closeSidebar = document.getElementById('closeSidebar');
 
-        toggleSidebar.addEventListener('click', () => sidebar.classList.add('active'));
-        closeSidebar.addEventListener('click', () => sidebar.classList.remove('active'));
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Empêche le scroll quand menu ouvert
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            document.body.style.overflow = '';
+        });
 
         document.addEventListener('click', e => {
             if (!sidebar.contains(e.target) && !toggleSidebar.contains(e.target)) {
                 sidebar.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, zoomable: true });
-        });
-    </script>
-    @stack('scripts')
 </body>
 </html>
