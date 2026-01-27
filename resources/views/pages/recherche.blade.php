@@ -11,11 +11,10 @@
 
     <style>
         :root {
-            /* Application de ta couleur de base en dégradé et couleurs unies associées */
             --color-primary: #006d77; 
             --color-primary-light: #00afb9;
             --main-gradient: linear-gradient(135deg, #006d77, #00afb9);
-            --color-secondary: #212529;
+            --color-soft-bg: #f8f9fa;
             --color-background: #FFFFFF; 
             --footer-height: 60px;
         }
@@ -23,200 +22,176 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--color-background);
             padding-bottom: var(--footer-height);
-            color: #333;
+            color: #444;
         }
-
-        /* Tailles de texte et design */
-        h2 { font-size: 1.75rem !important; }
-        .card-title { font-size: 1.15rem !important; }
-        .card-text { font-size: 0.9rem !important; }
-        .btn { font-size: 0.9rem !important; font-weight: 500; }
 
         .btn-custom-primary {
             background: var(--main-gradient);
             border: none;
             color: white;
-            transition: opacity 0.2s;
+            transition: transform 0.2s;
         }
         .btn-custom-primary:hover {
-            opacity: 0.9;
+            transform: scale(1.02);
             color: white;
+            opacity: 0.9;
         }
-        .btn-dark-secondary {
-            background-color: var(--color-secondary);
-            border-color: var(--color-secondary);
+
+        .btn-outline-custom {
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            background: transparent;
+        }
+        .btn-outline-custom:hover {
+            background: var(--color-primary);
             color: white;
         }
 
-        /* Correction des couleurs d'accentuation (icônes et titres) */
         .text-primary { color: var(--color-primary) !important; }
 
         .card {
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #eee !important;
+            transition: all 0.3s ease;
+            border: 1px solid #edf2f7 !important;
         }
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 12px 24px rgba(0, 109, 119, 0.1);
         }
-        .card-img-top {
-            height: 12rem;
-            object-fit: cover;
-        }
+        .card-img-top { height: 12rem; object-fit: cover; }
 
+        /* Sidebar version claire */
         #sidebar {
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
             position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            max-width: 300px;
+            top: 0; right: 0;
+            width: 100%; max-width: 300px;
             z-index: 1060;
             height: 100%;
-            background-color: var(--color-secondary);
+            background-color: var(--color-soft-bg);
             padding: 1.5rem;
+            border-left: 1px solid #eee;
         }
         #sidebar.active { transform: translateX(0); }
         .sidebar-link {
-            color: #dee2e6;
+            color: #4a5568;
             padding: 12px 15px;
             text-decoration: none;
             font-size: 0.95rem;
+            display: block;
+            border-radius: 8px;
         }
+        #sidebar-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.3); z-index: 1050; display: none;
+        }
+        #sidebar-overlay.active { display: block; }
     </style>
 </head>
 
 <body>
 
-{{-- HEADER - Version Claire --}}
-<header class="bg-white border-bottom shadow-sm">
-    <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
-
+<header class="bg-white border-bottom border-light">
+    <div class="container-fluid px-4 py-3 d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
             <a href="{{ route('accueil') }}">
-                <img class="h-auto" style="width: 80px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Afrik'Hub Logo"/>
+                <img style="width: 75px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Logo"/>
             </a>
         </div>
 
-        <form class="d-flex mx-auto search-form-container" style="max-width: 500px;" method="GET" action="{{ route('recherche') }}">
-            <input class="form-control me-2 rounded-pill border-light-subtle bg-light" type="search"
-                   placeholder="Ville, quartier, référence..." aria-label="Rechercher" name="ville_quartier"
-                   value="{{ request('ville_quartier') ?? '' }}"
-            />
-            <button class="btn btn-custom-primary rounded-pill px-3" type="submit">
+        <form class="d-flex mx-auto search-form-container d-none d-md-flex" style="max-width: 450px;" method="GET" action="{{ route('recherche') }}">
+            <input class="form-control me-2 rounded-pill border-light-subtle bg-light px-4" type="search"
+                   placeholder="Rechercher une ville..." name="ville_quartier"
+                   value="{{ request('ville_quartier') ?? '' }}">
+            <button class="btn btn-custom-primary rounded-circle" style="width: 45px; height: 45px;" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
 
-        <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4 g-4">
-            <li class="nav-item mx-2">
-                @if(Auth::user()->type_compte == 'professionnel')
-                    <a href="{{ route('pro.dashboard') }}" class="nav-link text-dark fw-bold mx-2"> <i class="fas fa-user-circle text-primary"></i> Profil</a>
-                @endif
-                @if(Auth::user()->type_compte == 'client')
-                    <a href="{{ route('clients_historique') }}" class="nav-link text-dark fw-bold mx-2">
-                        <i class="fa fa-user-circle me-2 text-primary"></i>Profil
-                    </a>
-                @endif
-            </li>
-            <a href="javascript:history.back()" class="nav-link text-muted fw-bold small me-3">
-               <i class="fas fa-arrow-left"></i> Retour</a>
+        <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 g-4">
             <li class="nav-item">
-                <a href="{{ route('logout') }}" class="btn btn-custom-primary btn-sm px-4 rounded-pill">
-                    <i class="fa fa-sign-out me-2"></i> Déconnexion
+                <a href="{{ route('logout') }}" class="btn btn-custom-primary px-4 rounded-pill shadow-sm">
+                    Déconnexion
                 </a>
             </li>
         </ul>
 
-        <button id="toggleSidebar" class="btn btn-link ms-3 p-0" type="button">
-             <i class="fas fa-bars fa-lg text-dark"></i>
+        <button id="toggleSidebar" class="btn btn-light rounded-circle ms-3 shadow-sm" type="button">
+             <i class="fas fa-bars text-primary"></i>
         </button>
     </div>
 </header>
 
 <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
-<div id="sidebar" class="text-white d-flex flex-column shadow-lg">
-    <button id="closeSidebar" class="btn text-white align-self-end p-0 mb-4" type="button" onclick="toggleSidebar()">
-        <i class="fas fa-times fa-2x"></i>
+<div id="sidebar" class="shadow-xl">
+    <button id="closeSidebar" class="btn btn-light rounded-circle mb-4" type="button" onclick="toggleSidebar()">
+        <i class="fas fa-times text-muted"></i>
     </button>
-
     <div class="w-100 d-flex flex-column gap-2">
-        <div class="mb-4 pb-3 border-bottom border-secondary">
-             @auth
-                 <h4 class="text-lg font-bold text-white mb-0"> {{ Auth::user()->name }}</h4>
-                 <span class="text-xs uppercase tracking-wider" style="color: var(--color-primary-light);">{{ Auth::user()->type_compte }}</span>
-             @endauth
-        </div>
-
-        @if(Auth::user()->type_compte == 'professionnel')
-            <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-history me-2"></i> Mon Historique</a>
-            <a href="{{ route('pro.dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
-            <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-hotel me-2"></i> Mes Residences</a>
-            <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-2"></i> Mise en ligne</a>
-            <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Résidences Occupées</a>
-            <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-2"></i> Demandes</a>
-        @endif
-         @if(Auth::user()->type_compte == 'client')
-            <a href="{{ route('clients_historique') }}" class="sidebar-link"><i class="fas fa-user-circle me-2"></i> Mon Compte</a>
-        @endif
-        <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-2"></i> Accueil</a>
-
-        <div class="mt-4 pt-3 border-top border-secondary">
-            <a href="{{ route('logout') }}" class="btn btn-custom-primary rounded-pill w-100">
-                <i class="fa fa-sign-out me-2"></i> Déconnexion
-            </a>
+        @auth
+            <div class="mb-4 pb-3 border-bottom">
+                 <h4 class="h6 fw-bold text-dark mb-1"> {{ Auth::user()->name }}</h4>
+                 <span class="badge rounded-pill bg-light text-primary border">{{ Auth::user()->type_compte }}</span>
+            </div>
+        @endauth
+        <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-2 text-primary"></i> Accueil</a>
+        <div class="mt-auto pt-4">
+            <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 rounded-pill border-light">Quitter</a>
         </div>
     </div>
 </div>
 
 <div class="container my-5">
-    <h2 class="mb-5 text-center fw-bold text-dark">
+    <h2 class="mb-5 text-center fw-bold">
         Résultats pour : <span class="text-primary">{{ request('ville_quartier') ?: 'Toutes les résidences' }}</span>
     </h2>
     
     <div class="row">
-        @include('includes.messages')
-
-        <div class="col-12 main-content">
+        <div class="col-12">
             @if ($recherches->isEmpty())
-                <div class="alert bg-light border text-center fw-bold rounded-3 p-5">
-                    <i class="fas fa-search fa-3x mb-3 text-muted"></i><br>
-                    Désolé, aucune résidence trouvée.
+                <div class="text-center py-5">
+                    <p class="fw-medium text-muted">Aucun résultat trouvé.</p>
                 </div>
             @else
                 <div class="row g-4 justify-content-center">
                     @foreach($recherches as $residence)
-                        @php
-                            $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
-                            $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
-                        @endphp
-
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-                            <div class="card h-100 w-100 shadow-sm">
-                                <a href="javascript:void(0)" class="glightbox-trigger-{{ $residence->id }}">
-                                   <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="card-img-top" loading="lazy">
-                                </a>
+                            <div class="card h-100 w-100 shadow-sm border-0">
+                                @php
+                                    $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
+                                    $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+                                    $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
+                                @endphp
 
-                                @foreach($images as $key => $image)
-                                    <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" style="display: none;" data-trigger=".glightbox-trigger-{{ $residence->id }}"></a>
-                                @endforeach
+                                <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="card-img-top">
 
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-dark mb-2">{{ $residence->nom }}</h5>
-                                    <p class="card-text text-muted mb-3">
-                                         {{ Str::limit($residence->description, 80) }}
-                                    </p>
+                                    <h5 class="card-title fw-bold mb-2">{{ $residence->nom }}</h5>
                                     
-                                    <div class="small mb-3">
-                                        <div class="mb-1"><i class="fas fa-map-marker-alt me-2 text-primary"></i> {{ $residence->ville }}</div>
-                                        <div class="fw-bold text-dark"><i class="fas fa-tag me-2 text-primary"></i> {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / jour</div>
+                                    <div class="d-flex flex-wrap gap-3 small mb-3 text-muted">
+                                        <span><i class="fas fa-bed me-1 text-primary"></i> <strong>{{ $residence->nombre_chambres ?? '0' }}</strong> Chambre(s)</span>
+                                        <span><i class="fas fa-couch me-1 text-primary"></i> <strong>{{ $residence->nombre_salons ?? '0' }}</strong> Salon(s)</span>
                                     </div>
 
-                                    <a href="{{ route('details', $residence->id) }}" class="btn btn-dark-secondary rounded-pill mt-auto w-100">
-                                        Détails <i class="fas fa-arrow-right ms-2"></i>
+                                    <div class="small mb-3">
+                                        <div class="mb-1"><i class="fas fa-map-marker-alt me-2 text-primary"></i> {{ $residence->ville }}</div>
+                                        <div class="fw-bold text-dark">{{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} FCFA / jour</div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        @if ($dateDispo->isPast())
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Disponible</span>
+                                        @elseif ($dateDispo->isToday())
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">Aujourd'hui</span>
+                                        @else
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">Libre le {{ $dateDispo->translatedFormat('d F') }}</span>
+                                        @endif
+                                    </div>
+
+                                    <a href="{{ route('details', $residence->id) }}" class="btn btn-outline-custom rounded-pill mt-auto w-100">
+                                        Détails
                                     </a>
                                 </div>
                             </div>
@@ -228,35 +203,13 @@
     </div>
 </div>
 
-@include('includes.footer')
-
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const sidebar = document.getElementById('sidebar');
-    const toggleButton = document.getElementById('toggleSidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-
     function toggleSidebar() {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.classList.toggle('overflow-hidden');
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('sidebar-overlay').classList.toggle('active');
     }
-
-    if (toggleButton) toggleButton.addEventListener('click', toggleSidebar);
-
-    const lightbox = GLightbox();
-    document.querySelectorAll('[data-trigger]').forEach(link => {
-        const triggerSelector = link.getAttribute('data-trigger');
-        const triggerElement = document.querySelector(triggerSelector);
-        if (triggerElement) {
-            triggerElement.addEventListener('click', function(e) {
-                e.preventDefault();
-                const galleryLinks = document.querySelectorAll(`.glightbox[data-gallery="${link.getAttribute('data-gallery')}"]`);
-                if (galleryLinks.length > 0) lightbox.openAt(0, galleryLinks[0]);
-            });
-        }
-    });
+    document.getElementById('toggleSidebar').addEventListener('click', toggleSidebar);
 </script>
 </body>
 </html>
