@@ -1,66 +1,89 @@
-<footer class="bg-gray-800 border-t border-indigo-700 m-0 bottom-0 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-8">
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-6 mb-0">
-            {{-- Colonne 1 : Logo / Slogan (Ajouté) --}}
-            <div class="col-span-2 md:col-span-1">
-                <h3 class="text-xl font-bold text-indigo-400">Afrik'Hub</h3>
-                <p class="text-sm text-gray-400 mt-2">Votre Hub de Résidences en Afrique.</p>
-
-                <div class="flex space-x-4 mt-2">
-                    <p class="text-sm text-gray-400 mt-2"> <i class="fa fa-phone me-3"></i>+225 01 03 09 06 16</p>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    /* ===== Base & Typographie Fluide ===== */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f3f4f6;
+        color: #1f2937;
+        /* Utilisation de clamp pour une taille de police qui s'adapte sans paliers brutaux */
+        font-size: clamp(14px, 1.2vw, 16px); 
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    /* ===== Titres Adaptatifs ===== */
+    h1 { 
+        font-size: clamp(1.25rem, 4vw, 1.875rem); 
+        font-weight: 700; 
+        color: #111827; 
+        letter-spacing: -0.02em;
+    }
+    
+    h2 { 
+        font-size: clamp(1.1rem, 3vw, 1.5rem); 
+        font-weight: 600; 
+    }
+    
+    /* Spécificité pour le nom d'utilisateur dans le header */
+    header h1 { 
+        font-size: 1rem !important; 
+        font-weight: 600; 
+        white-space: nowrap;
+    }
+    
+    /* ===== Gestion des liens et textes secondaires ===== */
+    .stats-link {
+        flex: 1 1 auto;
+        padding: 0.5rem 0.25rem;
+        font-size: 0.75rem; /* Forcer petit sur mobile */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+    }
+    
+    @media (min-width: 768px) {
+        .stats-link { font-size: 0.875rem; text-transform: none; }
+    }
+    
+    /* ===== Footer Typo ===== */
+    footer h3 { font-size: 1.25rem; font-weight: 800; }
+    footer h4 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    footer ul li a { font-size: 0.875rem; transition: all 0.2s ease; }
+    
+    /* ===== Ajustements sous 720px ===== */
+    @media (max-width: 720px) {
+        /* Évite que les longs mots ne cassent le layout */
+        h1, h2, h3, p {
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
+        /* Réduction des marges pour laisser plus de place au texte */
+        main { padding-top: 9rem; } 
+        
+        .headerfixe_link span {
+            display: none; /* Cache le texte "Ajouter" ou "Profil" si trop étroit, garde l'icône */
+        }
+    }
+    </style>
+    
+    <header class="bg-gray-900 shadow-lg fixed top-0 left-0 right-0 z-40">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between py-3">
+                <div class="flex items-center space-x-3 min-w-0"> <a href="{{ route('accueil') }}" class="flex-shrink-0">
+                        <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" class="h-8 w-auto" />
+                    </a>
+                    <h1 class="text-white truncate">{{ Auth::user()->name ?? 'Utilisateur' }}</h1>
                 </div>
-
-                {{-- Réseaux Sociaux (Ajouté) --}}
-                <div class="flex space-x-4 mt-2 ps-4">
-                    <a href="https://www.facebook.com/share/1KgiASzTSe/" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.tiktok.com/@afrikhub5?_r=1&_t=ZM-92UhuMQAC3I" class="text-gray-400 hover:text-indigo-400 transition" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://www.instagram.com/afrikhub2025?igsh=N25qeDltY2U3Mjdy" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/afrik-hub/" class="text-gray-400 hover:text-indigo-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="{{ route('newsletters.create') }}" class="text-gray-400 hover:text-indigo-400 transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
-
-            </div>
-
-            {{-- Colonne 2 : Liens Rapides (Exemple) --}}
-            <div class="col-span-1">
-                <h4 class="text-lg font-semibold mb-3 text-indigo-300">Navigation</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="{{ route('accueil') }}" class="text-gray-400 hover:text-white transition">Accueil</a></li>
-                    <li><a href="{{ route('recherche') }}" class="text-gray-400 hover:text-white transition">Rechercher</a></li>
-                    <li><a href="{{ route('clients_historique') }}" class="text-gray-400 hover:text-white transition">Mes Réservations</a></li>
-                </ul>
-            </div>
-
-            {{-- Colonne 3 : Support & Aide --}}
-            <div class="col-span-1">
-                <h4 class="text-lg font-semibold mb-3 text-indigo-300">Aide</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="{{ route('faq') }}" class="text-gray-400 hover:text-white transition">FAQ</a></li>
-                    <li><a href="https://wa.me/2250769480232" class="text-gray-400 hover:text-white transition">Support Technique</a></li>
-                    <li><a href="https://wa.me/2250769480232" class="text-gray-400 hover:text-white transition">Déposer une annonce</a></li>
-                </ul>
-            </div>
-
-            {{-- Colonne 4 : Légal --}}
-            <div class="col-span-1">
-                <h4 class="text-lg font-semibold mb-3 text-indigo-300">Légal</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="{{ route('mentions_legales')}}" class="text-gray-400 hover:text-white transition">Mentions Légales</a></li>
-                    <li><a href="{{ route('politique_confidentialite') }}" class="text-gray-400 hover:text-white transition">Politique de Confidentialité</a></li>
-                    <li><a href="{{ route('conditions_generales') }}" class="text-gray-400 hover:text-white transition">Conditions Générales</a></li>
-                </ul>
-            </div>
+            
+            <div class="flex justify-between border-t border-gray-800 py-2">
+                <a href="#" class="stats-link flex flex-col md:flex-row items-center justify-center">
+                    <i class="fas fa-home mb-1 md:mb-0 md:mr-2"></i>
+                    <span class="hidden xs:inline">Résidences</span>
+                    <span class="ml-1 px-2 bg-red-600 rounded-full text-[10px]">{{ $totalResidences }}</span>
+                </a>
+                </div>
         </div>
-
-        {{-- Barre d'Information Basse --}}
-        <div class="flex flex-col md:flex-row justify-between items-center text-gray-500 pt-2">
-            <p class="text-sm order-2 md:order-1 mt-3 md:mt-0">
-                &copy; {{ date('Y') }} Afrik'Hub. Tous droits réservés.
-            </p>
-            <p class="text-sm order-1 md:order-2">
-                <i class="fas fa-map-marker-alt mr-2 text-indigo-500"></i> Basé en Afrique de l'Ouest
-            </p>
-        </div>
-    </div>
-</footer>
+    </header>
