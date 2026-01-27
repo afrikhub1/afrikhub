@@ -24,7 +24,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         // Validation des champs
         Validator::make($input, [
-            // Mise à jour de la règle de taille maximale à 7 caractères pour 'name'
+            // Mise à jour de la règle de taille maximale à 7 caractères pour 'nom'
             'name' => [
                 'required',
                 'string',
