@@ -1,310 +1,373 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultats de recherche - Afrik'hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Recherche de Résidences</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #006d77, #00afb9);
-            --primary-color: #006d77;
-            --secondary-dark: #1a202c;
-            --bg-light: #f8fafc;
+            --primary: #006d77;
+            --accent: #00afb9;
+            --gradient: linear-gradient(135deg, #006d77, #00afb9);
+            --dark: #0f172a;
+            --slate-500: #64748b;
+            --slate-100: #f1f5f9;
+            --radius-lg: 18px;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
-            padding-bottom: 60px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
         }
 
-        /* Boutons & Couleurs */
-        .btn-custom-primary {
-            background: var(--primary-gradient);
-            border: none;
-            color: white;
-            font-weight: 700;
-            transition: all 0.3s ease;
+        /* --- En-tête --- */
+        .page-header {
+            padding: 80px 0 40px;
+            background: radial-gradient(circle at top right, #e2e8f0, transparent);
         }
-        .btn-custom-primary:hover {
+
+        .page-header h1 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .btn-outline-dark {
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-weight: 600;
+            border: 2px solid var(--dark);
+            transition: 0.3s;
+        }
+
+        .btn-outline-dark:hover {
+            background: var(--dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 109, 119, 0.2);
-            color: white;
         }
 
-        .btn-dark-secondary {
-            background-color: var(--secondary-dark);
-            border: none;
-            color: white;
-            font-weight: 700;
-        }
-
-        /* Design des Cartes */
-        .card {
+        /* --- Formulaire de Recherche --- */
+        .search-section {
+            background: #ffffff;
             border: none;
             border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            background: white;
+            padding: 35px;
+            box-shadow: var(--shadow-xl);
+            margin-top: -20px;
+            margin-bottom: 60px;
         }
-        .card:hover {
+
+        .form-label {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--slate-500);
+            margin-bottom: 10px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid var(--slate-100);
+            padding: 12px 16px;
+            background-color: var(--slate-100);
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 175, 185, 0.1);
+        }
+
+        .btn-search {
+            background: var(--gradient);
+            color: white;
+            font-weight: 700;
+            border-radius: 14px;
+            padding: 16px;
+            width: 100%;
+            transition: 0.3s;
+            border: none;
+            box-shadow: 0 10px 15px -3px rgba(0, 109, 119, 0.3);
+        }
+
+        .btn-search:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0, 109, 119, 0.4);
+            color: white;
+        }
+
+        /* --- Cartes Résidences --- */
+        .card-residence {
+            border: none;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fff;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-residence:hover {
             transform: translateY(-10px);
-            box-shadow: 0 30px 60px -12px rgba(0, 109, 119, 0.15);
+            box-shadow: var(--shadow-xl);
         }
-        .card-img-top {
-            height: 14rem;
+
+        .img-container {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .card-residence img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: 0.6s;
         }
-        .card:hover .card-img-top {
+
+        .card-residence:hover img {
             transform: scale(1.1);
         }
 
-        /* Badge de prix Glassmorphism */
         .price-badge {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.85);
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
-            padding: 0.5rem 1.2rem;
-            border-radius: 15px;
-            color: var(--primary-color);
-            font-weight: 900;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            z-index: 10;
-        }
-
-        /* Sidebar Coulissante */
-        #sidebar {
-            transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
-            transform: translateX(100%);
-            position: fixed;
-            top: 0; right: 0; width: 100%; max-width: 320px;
-            z-index: 1060; height: 100%;
-            background: var(--secondary-dark);
-            padding: 2rem;
-            box-shadow: -15px 0 35px rgba(0,0,0,0.2);
-        }
-        #sidebar.active { transform: translateX(0); }
-        
-        .sidebar-link {
-            color: #e2e8f0;
-            padding: 12px 15px;
+            color: var(--primary);
+            padding: 8px 16px;
             border-radius: 12px;
-            transition: 0.3s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        .sidebar-link:hover {
-            background: rgba(0, 175, 185, 0.1);
-            color: #00afb9;
+            font-weight: 800;
+            font-size: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
 
-        #sidebar-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(3px);
-            z-index: 1050; display: none;
+        .card-body {
+            padding: 25px;
         }
-        #sidebar-overlay.active { display: block; }
+
+        .residence-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .location-text {
+            font-size: 0.9rem;
+            color: var(--slate-500);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .amenities {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-top: 1px solid var(--slate-100);
+            margin-bottom: 20px;
+        }
+
+        .amenity-item {
+            font-size: 0.85rem;
+            color: var(--dark);
+            font-weight: 700;
+            background: var(--slate-100);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .amenity-item i {
+            color: var(--accent);
+            margin-right: 6px;
+        }
+
+        .btn-view {
+            background: var(--dark);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .btn-view:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .badge-dispo {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background-color: #dcfce7;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .badge-dispo.today { background: #fef9c3; color: #854d0e; }
+        .badge-dispo.future { background: #fee2e2; color: #991b1b; }
     </style>
 </head>
-
 <body>
 
-{{-- HEADER --}}
-<header class="bg-white shadow-sm sticky-top">
-    <div class="container-fluid px-4 py-2 d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center">
-            <a href="{{ route('accueil') }}">
-                <img style="width: 75px;" src="{{ asset('assets/images/logo_01.png') }}" alt="Logo"/>
-            </a>
-        </div>
+<div class="container">
 
-        <form class="d-flex mx-auto search-form-container w-100" style="max-width: 550px;" method="GET" action="{{ route('recherche') }}">
-            <div class="input-group">
-                <input class="form-control rounded-start-pill border-end-0 px-4" type="search"
-                       placeholder="Ville, quartier..." name="ville_quartier"
-                       value="{{ request('ville_quartier') ?? '' }}" />
-                <button class="btn btn-custom-primary rounded-end-pill px-4" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
+    <header class="page-header text-center">
+        <h1 class="display-5">Nos Résidences</h1>
+        <p class="text-muted fw-medium">L'exceptionnel à portée de clic pour vos séjours meublés</p>
+         <a class="d-flex text-decoration-none justify-content-center mt-3" href="{{route('accueil')}}">
+            <button class="btn btn-outline-dark">
+                <i class="fas fa-arrow-left me-2"></i> Retour à l'accueil 
+            </button>
+        </a>
+    </header>
+
+    <div class="search-section">
+        <form method="GET" action="{{ route('residences.recherche') }}">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-2">
+                    <label class="form-label">Chambres</label>
+                    <input type="number" name="chambres" class="form-control" placeholder="0" value="{{ request('chambres') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Salons</label>
+                    <input type="number" name="salons" class="form-control" placeholder="0" value="{{ request('salons') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Ville ou Quartier</label>
+                    <div class="input-group">
+                        <span class="input-group-text border-0 bg-transparent ps-0"><i class="fas fa-location-dot text-accent"></i></span>
+                        <input type="text" name="ville" class="form-control" placeholder="Où allez-vous ?" value="{{ request('ville') }}">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Prix Max (FCFA)</label>
+                    <input type="number" name="prix" class="form-control" placeholder="Illimité" value="{{ request('prix') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Type de bien</label>
+                    <select name="type" class="form-select">
+                        <option value="">Tous les types</option>
+                        @foreach(['studio','appartement','villa','duplex'] as $type)
+                            <option value="{{ $type }}" {{ request('type')==$type?'selected':'' }}>{{ ucfirst($type) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <button class="btn btn-search">
+                        <i class="fa fa-sliders me-2"></i> FILTRER LES RÉSULTATS
+                    </button>
+                </div>
             </div>
         </form>
-
-        <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center mb-0 ms-4 gap-3">
-            <li class="nav-item">
-                @if(Auth::user()->type_compte == 'professionnel')
-                    <a href="{{ route('pro.dashboard') }}" class="nav-link text-dark fw-bold"> <i class="fas fa-user-circle text-custom-primary"></i> Profil</a>
-                @endif
-                @if(Auth::user()->type_compte == 'client')
-                    <a href="{{ route('clients_historique') }}" class="nav-link text-dark fw-bold"> <i class="fa fa-user-circle text-custom-primary"></i> Profil</a>
-                @endif
-            </li>
-            <a href="javascript:history.back()" class="nav-link text-muted fw-medium small"> <i class="fas fa-undo-alt"></i> Retour</a>
-            <li class="nav-item">
-                <a href="{{ route('logout') }}" class="btn btn-custom-primary btn-sm px-4 rounded-pill">Quitter</a>
-            </li>
-        </ul>
-
-        <button id="toggleSidebar" class="btn btn-link ms-3 p-0" type="button">
-             <i class="fas fa-bars-staggered fa-lg text-dark"></i>
-        </button>
-    </div>
-</header>
-
-{{-- SIDEBAR --}}
-<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
-<div id="sidebar" class="text-white d-flex flex-column">
-    <button id="closeSidebar" class="btn text-white align-self-end p-0 mb-4" type="button" onclick="toggleSidebar()">
-        <i class="fas fa-times fa-2x opacity-50"></i>
-    </button>
-
-    <div class="w-100 d-flex flex-column gap-2">
-        <div class="text-center mb-5 pb-3 border-bottom border-gray-700">
-             @auth
-                 <p class="text-xs text-uppercase tracking-widest text-gray-500 mb-1">Session active</p>
-                 <h4 class="font-bold"> {{ Auth::user()->name }}</h4>
-             @endauth
-        </div>
-
-        @if(Auth::user()->type_compte == 'professionnel')
-            <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-history me-3"></i> Historique</a>
-            <a href="{{ route('pro.dashboard') }}" class="sidebar-link"><i class="fas fa-user-circle me-3"></i> Mon Compte</a>
-            <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-hotel me-3"></i> Mes Residences</a>
-            <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-upload me-3"></i> Mise en ligne</a>
-            <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-alt me-3"></i> Occupées</a>
-            <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-bell me-3"></i> Demandes</a>
-        @endif
-        
-        <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home me-3"></i> Accueil</a>
-
-        <div class="mt-5 pt-4">
-            <a href="{{ route('logout') }}" class="btn btn-custom-primary rounded-xl w-100 py-3">
-                <i class="fa fa-sign-out me-2"></i> Déconnexion
-            </a>
-        </div>
-    </div>
-</div>
-
-{{-- CONTENU PRINCIPAL --}}
-<div class="container my-5">
-    <div class="mb-12 text-center">
-        <h2 class="fw-black fs-2 text-dark">
-            Résultats pour : <span class="text-transparent bg-clip-text" style="background-image: var(--primary-gradient);">{{ request('ville_quartier') ?: 'Toutes les résidences' }}</span>
-        </h2>
-        <div class="h-1 w-20 bg-custom-gradient mx-auto mt-3 rounded-full"></div>
     </div>
 
     <div class="row">
-        @include('includes.messages')
+        @forelse ($residences as $residence)
+            @php
+                $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
+                $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
+                $dateDispo = $residence->date_disponible_apres ? \Carbon\Carbon::parse($residence->date_disponible_apres) : null;
+            @endphp
 
-        <div class="col-12 main-content">
-            @if ($residences->isEmpty())
-                <div class="alert bg-white shadow-sm text-center py-5 rounded-4 border-0">
-                    <i class="fas fa-search-minus fa-3x text-gray-200 mb-3"></i>
-                    <p class="fw-bold text-gray-500">Désolé, aucune résidence ne correspond à votre recherche.</p>
-                </div>
-            @else
-                <div class="row g-4">
-                    @foreach($residences as $residence)
-                        @php
-                            $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
-                            $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
-                        @endphp
+            <div class="col-lg-4 col-md-6 mb-5">
+                <article class="card-residence h-100">
+                    <div class="img-container">
+                        <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" loading="lazy">
+                        <div class="price-badge">
+                            {{ number_format($residence->prix_journalier, 0, ',', ' ') }} <small style="font-size: 0.6rem">FCFA</small>
+                        </div>
+                    </div>
 
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-                            <div class="card shadow-sm w-100 overflow-hidden">
-                                <div class="position-relative">
-                                    <div class="price-badge">
-                                        {{ number_format($residence->prix_journalier ?? 0, 0, ',', ' ') }} <small class="text-[10px]">FCFA</small>
-                                    </div>
+                    <div class="card-body">
+                        @if(!$dateDispo || $dateDispo->isPast())
+                            <div class="badge-dispo">
+                                <i class="fas fa-check-circle me-2"></i> Disponible
+                            </div>
+                        @elseif ($dateDispo->isToday())
+                            <div class="badge-dispo today">
+                                <i class="fas fa-clock me-2"></i> Libre aujourd'hui
+                            </div>
+                        @else
+                            <div class="badge-dispo future">
+                                <i class="fas fa-calendar-days me-2"></i> Libre le {{ $dateDispo->translatedFormat('d M') }}
+                            </div>
+                        @endif
 
-                                    <a href="javascript:void(0)" class="glightbox-trigger-{{ $residence->id }} block">
-                                        <img src="{{ $firstImage }}" alt="{{ $residence->nom }}" class="card-img-top" loading="lazy">
-                                    </a>
-                                </div>
+                        <h2 class="residence-title">{{ $residence->nom }}</h2>
+                        <p class="location-text">
+                            <i class="fas fa-map-marker-alt me-1 text-accent"></i> {{ $residence->ville }}, {{ $residence->quartier }}
+                        </p>
 
-                                {{-- Liens GLightbox CACHÉS --}}
-                                @foreach($images as $key => $image)
-                                    <a href="{{ $image }}" class="glightbox" data-gallery="gallery-{{ $residence->id }}" data-title="{{ $residence->nom }}" style="display: none;"></a>
-                                @endforeach
-
-                                <div class="card-body d-flex flex-column p-4">
-                                    <h5 class="fw-black text-dark mb-1">{{ $residence->nom }}</h5>
-                                    <p class="text-muted small mb-4 line-clamp-2">
-                                        {{ Str::limit($residence->description, 90) }}
-                                    </p>
-
-                                    <div class="bg-light rounded-3 p-3 mb-4">
-                                        <div class="d-flex justify-content-between mb-2 small">
-                                            <span class="text-muted"><i class="fas fa-bed me-2"></i>Chambres</span>
-                                            <span class="fw-bold">{{ $residence->nombre_chambres ?? '-' }}</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between small">
-                                            <span class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>Situation</span>
-                                            <span class="fw-bold">{{ $residence->ville ?? '-' }}</span>
-                                        </div>
-                                    </div>
-
-                                    @php $dateDispo = \Carbon\Carbon::parse($residence->date_disponible); @endphp
-                                    <div class="mb-4 text-center">
-                                        @if ($dateDispo->isPast() || $dateDispo->isToday())
-                                            <span class="badge bg-green-100 text-green-700 px-3 py-2 rounded-pill w-100 font-bold">Disponible</span>
-                                        @else
-                                            <span class="badge bg-orange-100 text-orange-700 px-3 py-2 rounded-pill w-100 font-bold">Le {{ $dateDispo->translatedFormat('d F') }}</span>
-                                        @endif
-                                    </div>
-
-                                    <a href="{{ route('details', $residence->id) }}" class="btn btn-dark-secondary rounded-pill py-2 w-100 transition hover:scale-105">
-                                        Détails <i class="fas fa-arrow-right ms-2"></i>
-                                    </a>
-                                </div>
+                        <div class="amenities">
+                            <div class="amenity-item">
+                                <i class="fa fa-bed"></i> {{ $residence->nombre_chambres }}
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fa fa-couch"></i> {{ $residence->nombre_salons }}
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fa fa-shield-halved"></i> Sécurisé
                             </div>
                         </div>
-                    @endforeach
+
+                        <a href="{{ route('details', $residence->id) }}" class="btn btn-view">
+                            Voir les détails <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        @empty
+            <div class="col-12 py-5 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-house-circle-exclamation fa-4x text-slate-100"></i>
                 </div>
-            @endif
-        </div>
+                <h4 class="fw-bold">Aucun résultat</h4>
+                <p class="text-muted">Essayez d'élargir vos critères de recherche.</p>
+                <a href="{{ url()->current() }}" class="btn btn-dark rounded-pill px-4 mt-2">Réinitialiser</a>
+            </div>
+        @endforelse
+    </div>
+
+    <div class="d-flex justify-content-center py-5">
+        {{ $residences->withQueryString()->links() }}
     </div>
 </div>
 
-@include('includes.footer')
-
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    const toggleButton = document.getElementById('toggleSidebar');
-
-    function toggleSidebar() {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.classList.toggle('overflow-hidden');
-    }
-
-    if (toggleButton) { toggleButton.addEventListener('click', toggleSidebar); }
-
-    const lightbox = GLightbox();
-    document.querySelectorAll('[data-trigger]').forEach(link => {
-        const triggerSelector = link.getAttribute('data-trigger');
-        const triggerElement = document.querySelector(triggerSelector);
-        if (triggerElement) {
-            triggerElement.addEventListener('click', function(e) {
-                e.preventDefault();
-                const galleryLinks = document.querySelectorAll(`.glightbox[data-gallery="${link.getAttribute('data-gallery')}"]`);
-                if (galleryLinks.length > 0) { lightbox.openAt(0, galleryLinks[0]); }
-            });
-        }
-    });
-</script>
 </body>
 </html>
