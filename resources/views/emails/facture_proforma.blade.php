@@ -3,75 +3,110 @@
 <head>
     <meta charset="utf-8">
     <style>
-        /* Correction : Fond blanc pur et suppression des marges inutiles */
+        /* Reset complet pour PDF */
+        @page { margin: 0; }
         body { 
             font-family: 'Helvetica', Arial, sans-serif; 
             color: #444; 
-            line-height: 1.5; 
-            background-color: #ffffff; /* Fond blanc */
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
+            width: 100%;
         }
         
-        /* Correction : Suppression de l'ombre (box-shadow) et du cadre gris */
-        .container { 
-            width: 100%; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            background: #fff; 
-            padding: 20px; /* Réduit pour mieux tenir sur une page A4 */
+        /* Conteneur principal centré */
+        .wrapper {
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px; /* Espace interne identique à gauche et à droite */
+            box-sizing: border-box;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        
+        /* Header */
+        .invoice-header-table { 
+            border-bottom: 2px solid #006d77; 
+            padding-bottom: 15px; 
+            margin-bottom: 30px; 
         }
         
-        /* En-tête Proforma */
-        .invoice-header-table { width: 100%; border-bottom: 2px solid #006d77; padding-bottom: 15px; margin-bottom: 20px; }
         .company-info h1 { color: #006d77; margin: 0; font-size: 26px; text-transform: uppercase; }
-        .invoice-title h2 { margin: 0; color: #006d77; font-size: 20px; }
+        .invoice-title h2 { margin: 0; color: #006d77; font-size: 20px; text-align: right; }
         
-        /* Infos Client & Facture */
-        .info-section { width: 100%; margin-bottom: 30px; border-collapse: collapse; }
-        .info-box { vertical-align: top; width: 50%; }
+        /* Section Infos */
+        .info-section { margin-bottom: 40px; }
         .info-label { color: #888; font-size: 11px; text-transform: uppercase; margin-bottom: 5px; }
         
         /* Tableau des prix */
-        .invoice-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        .invoice-table th { background: #f9fafb; border-bottom: 1px solid #eee; padding: 12px; text-align: left; font-size: 13px; color: #006d77; }
-        .invoice-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; }
+        .invoice-table { margin: 20px 0; }
+        .invoice-table th { 
+            background: #f9fafb; 
+            border-bottom: 1px solid #eee; 
+            padding: 12px; 
+            text-align: left; 
+            font-size: 13px; 
+            color: #006d77; 
+        }
+        .invoice-table td { padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 14px; }
         
-        /* Totaux alignés proprement pour PDF */
-        .total-table { float: right; width: 250px; margin-top: 10px; border-collapse: collapse; }
-        .total-table td { padding: 8px 0; }
-        .grand-total { border-top: 2px solid #006d77; font-weight: bold; font-size: 16px; color: #006d77; }
+        /* Totaux alignés à droite */
+        .total-container { text-align: right; margin-top: 20px; }
+        .total-table { width: 280px; margin-left: auto; } /* Force l'alignement à droite */
+        .total-table td { padding: 8px 5px; }
+        .grand-total { border-top: 2px solid #006d77; font-weight: bold; font-size: 18px; color: #006d77; }
         
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 11px; background: #e0f2f1; color: #006d77; border: 1px solid #b2dfdb; }
-        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 60px; border-top: 1px solid #eee; padding-top: 15px; }
-        .clear { clear: both; }
+        .status-badge { 
+            display: inline-block; 
+            padding: 6px 15px; 
+            background: #e0f2f1; 
+            color: #006d77; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: bold;
+        }
+
+        .footer { 
+            text-align: center; 
+            font-size: 10px; 
+            color: #999; 
+            margin-top: 80px; 
+            border-top: 1px solid #eee; 
+            padding-top: 20px; 
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="wrapper">
         <table class="invoice-header-table">
             <tr>
-                <td class="company-info">
+                <td>
                     <h1>Afrik'Hub</h1>
-                    <p style="font-size: 12px; margin: 5px 0;">Abidjan, Côte d'Ivoire<br>Contact: +225 0103090616</p>
+                    <p style="font-size: 12px; margin-top: 5px;">
+                        Abidjan, Côte d'Ivoire<br>
+                        Contact: +225 0103090616
+                    </p>
                 </td>
-                <td style="text-align: right;" class="invoice-title">
+                <td style="text-align: right; vertical-align: top;">
                     <h2>FACTURE PROFORMA</h2>
-                    <p style="font-size: 13px; margin: 5px 0;">N° {{ $reservation->reservation_code }}<br>Date: {{ date('d/m/Y') }}</p>
+                    <p style="font-size: 13px; margin-top: 5px;">
+                        N° {{ $reservation->reservation_code }}<br>
+                        Date: {{ date('d/m/Y') }}
+                    </p>
                 </td>
             </tr>
         </table>
 
         <table class="info-section">
             <tr>
-                <td class="info-box">
+                <td width="60%">
                     <div class="info-label">Facturé à</div>
-                    <strong style="font-size: 16px;">{{ $reservation->client }}</strong><br>
+                    <strong style="font-size: 18px; color: #333;">{{ $reservation->client }}</strong><br>
                     <span style="font-size: 13px;">Email: {{ $reservation->user->email ?? 'N/A' }}</span>
                 </td>
-                <td class="info-box" style="text-align: right;">
-                    <div class="info-label">Statut de la demande</div>
+                <td width="40%" style="text-align: right; vertical-align: bottom;">
+                    <div class="info-label" style="margin-bottom: 8px;">Statut de la demande</div>
                     <span class="status-badge">{{ strtoupper($statutTitre) }}</span>
                 </td>
             </tr>
@@ -80,48 +115,53 @@
         <table class="invoice-table">
             <thead>
                 <tr>
-                    <th width="50%">Description</th>
-                    <th width="20%">Détails</th>
-                    <th width="30%" style="text-align: right;">Montant</th>
+                    <th width="50%">Description du service</th>
+                    <th width="20%">Durée</th>
+                    <th width="30%" style="text-align: right;">Montant Total</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        <strong>Séjour : {{ $reservation->residence->nom }}</strong><br>
-                        <small style="color: #777;">Du {{ \Carbon\Carbon::parse($reservation->date_arrivee)->format('d/m/Y') }} au {{ \Carbon\Carbon::parse($reservation->date_depart)->format('d/m/Y') }}</small>
+                        <strong>Location : {{ $reservation->residence->nom }}</strong><br>
+                        <span style="color: #777; font-size: 12px;">Période : Du {{ \Carbon\Carbon::parse($reservation->date_arrivee)->format('d/m/Y') }} au {{ \Carbon\Carbon::parse($reservation->date_depart)->format('d/m/Y') }}</span>
                     </td>
                     <td>
                         {{ \Carbon\Carbon::parse($reservation->date_arrivee)->diffInDays($reservation->date_depart) }} nuit(s)
                     </td>
-                    <td style="text-align: right; font-weight: bold;">
+                    <td style="text-align: right; font-weight: bold; font-size: 15px;">
                         {{ number_format($reservation->total, 0, ',', ' ') }} FCFA
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <table class="total-table">
-            <tr>
-                <td style="font-size: 13px;">Sous-total :</td>
-                <td style="text-align: right; font-size: 13px;">{{ number_format($reservation->total, 0, ',', ' ') }} FCFA</td>
-            </tr>
-            <tr class="grand-total">
-                <td>TOTAL TTC :</td>
-                <td style="text-align: right;">{{ number_format($reservation->total, 0, ',', ' ') }} FCFA</td>
-            </tr>
-        </table>
-        
-        <div class="clear"></div>
+        <div class="total-container">
+            <table class="total-table">
+                <tr>
+                    <td style="font-size: 13px; color: #666;">Sous-total :</td>
+                    <td style="text-align: right; font-size: 13px;">{{ number_format($reservation->total, 0, ',', ' ') }} FCFA</td>
+                </tr>
+                <tr class="grand-total">
+                    <td>TOTAL TTC :</td>
+                    <td style="text-align: right;">{{ number_format($reservation->total, 0, ',', ' ') }} FCFA</td>
+                </tr>
+            </table>
+        </div>
 
-        <div style="margin-top: 50px; font-size: 12px; border-left: 3px solid #006d77; padding-left: 15px;">
-            <p><strong>Note :</strong> {{ $messageCustom }}</p>
-            <p style="color: #666; font-style: italic;">Cette facture proforma est valable 48 heures. Elle ne constitue pas une preuve de paiement.</p>
+        <div style="clear: both;"></div>
+
+        <div style="margin-top: 60px; font-size: 12px; border-left: 4px solid #006d77; padding-left: 15px; color: #555;">
+            <p style="margin-bottom: 5px;"><strong>Note importante :</strong></p>
+            <p style="margin: 0;">{{ $messageCustom }}</p>
+            <p style="margin-top: 10px; color: #888; font-style: italic;">
+                Cette facture proforma est valable 48 heures. Elle ne constitue pas une preuve de paiement définitive.
+            </p>
         </div>
 
         <div class="footer">
             <strong>Afrik'Hub</strong> - Loin de chez vous, comme chez vous.<br>
-            Contact: 0103090616 | afrikhub1@gmail.com<br>
+            Abidjan, Côte d'Ivoire | Contact: +225 0103090616 | afrikhub1@gmail.com<br>
             © {{ date('Y') }} Tous droits réservés.
         </div>
     </div>
