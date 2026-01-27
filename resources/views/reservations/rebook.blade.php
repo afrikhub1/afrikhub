@@ -219,7 +219,7 @@
             CONFIRMER LA RÉSERVATION
         </button>
 
-        <a href="javascript:history.back()" class="back-link">
+        <a href="{{ route('clients_historique') }}" class="back-link">
             <i class="fas fa-arrow-left me-1"></i> Retourner en arrière
         </a>
     </form>
