@@ -51,7 +51,7 @@
             transition: background 0.2s;
             color: #d1d5db;
         }
-        .stats-link:hover { background-color: #1f2937; color: white; }
+        .stats-link:hover { background: linear-gradient(135deg, #006d77, #00afb9); color: white; }
     }
 
     /* SIDEBAR (Commune) */
@@ -62,7 +62,7 @@
         top: 0; right: 0; width: 80%; max-width: 350px; height: 100%;
         z-index: 100;
         padding: 2rem 1.5rem;
-        background-color: #111827;
+        background: linear-gradient(135deg, #006d77, #00afb9);
         box-shadow: -10px 0 15px rgba(0,0,0,0.3);
     }
     #sidebar.active { transform: translateX(0); }
