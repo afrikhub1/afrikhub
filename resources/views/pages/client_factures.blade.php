@@ -21,7 +21,7 @@
         .glass-header { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-50 hv-100 p-0 m-0">
 
 <header class="glass-header border-b border-slate-100 fixed top-0 left-0 right-0 z-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
