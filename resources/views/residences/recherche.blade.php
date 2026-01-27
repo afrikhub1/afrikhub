@@ -169,16 +169,6 @@
             background: var(--secondary-color);
             color: #fff;
         }
-
-        .badge-dispo {
-            font-size: 0.75rem;
-            background-color: #fef3c7;
-            color: #92400e;
-            padding: 4px 10px;
-            border-radius: 6px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -254,15 +244,15 @@
                     <div class="card-body">
                         @if(!$dateDispo || $dateDispo->isPast())
                             <div class="badge-dispo">
-                                <i class="far fa-calendar-alt me-1"></i> Disponible
+                                <i class="far fa-calendar-alt me-1 bg-success"></i> Disponible
                             </div>
                         @elseif ($dateDispo->isToday())
                             <div class="badge-dispo">
-                                <i class="far fa-calendar-alt me-1"></i> Disponible aujourd'hui
+                                <i class="far fa-calendar-alt me-1 bg-success"></i> Disponible aujourd'hui
                             </div>
                         @else
-                            <div class="badge-dispo">
-                                <i class="far fa-calendar-alt me-1"></i> Libre le {{ $dateDispo->translatedFormat('d M Y') }}
+                            <div class="badge-dispo bg">
+                                <i class="far fa-calendar-alt me-1 bg-danger"></i> Libre le {{ $dateDispo->translatedFormat('d M Y') }}
                             </div>
                         @endif
 
