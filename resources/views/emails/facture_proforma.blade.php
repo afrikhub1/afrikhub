@@ -14,14 +14,6 @@
             width: 100%;
         }
         
-        /* Conteneur principal centré */
-        .wrapper {
-            width: 100%;
-            margin: 0 auto;
-            padding: 40px; /* Espace interne identique à gauche et à droite */
-            box-sizing: border-box;
-        }
-
         table { width: 100%; border-collapse: collapse; }
         
         /* Header */
@@ -78,7 +70,7 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="container m-0" style="padding: 40px;">
         <table class="invoice-header-table">
             <tr>
                 <td>
