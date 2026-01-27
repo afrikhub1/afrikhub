@@ -11,7 +11,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationStatusMail;
-use App\Mail\FactureProformaMail;
+use App\Mail\ReservationProformaMail;
 use App\Mail\ReservationConfirme;
 
 class ReservationController extends Controller
@@ -82,11 +82,12 @@ class ReservationController extends Controller
         ]);
 
         // Envoi du PDF de la facture proforma
-        Mail::to($reservation->user->email)->send(new FactureProformaMail($reservation));
+        Mail::to($reservation->user->email)->send(new ReservationProformaMail($reservation));
+
 
 
         // Redirection vers l'historique des réservations avec message de succès
-            $route = 'clients_historique';
+        $route = 'clients_historique';
         return redirect()->route($route)->with('success', 'Réservation confirmée avec succès ! Votre demande est actuellement en attente de confirmation.');
 
     }
