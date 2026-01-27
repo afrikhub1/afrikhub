@@ -82,7 +82,7 @@ class ReservationController extends Controller
         ]);
 
         // Envoi du PDF de la facture proforma
-        Mail::to($reservation->user->email)->send(new ReservationProformaMail($reservation));
+        Mail::to($reservation->user->email)->send(new ReservationStatusMail($reservation));
 
 
         // Redirection vers l'historique des réservations avec message de succès
