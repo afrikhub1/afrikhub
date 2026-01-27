@@ -13,7 +13,6 @@
   {{-- GLightbox CSS --}}
   <link href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/glightbox.min.css" rel="stylesheet">
 
-  {{-- ======= Styles locaux (Focus Visuel uniquement) ======= --}}
   <style>
     :root {
       --primary: #006d77;
@@ -48,6 +47,86 @@
       font-weight: 700;
       border: none;
       box-shadow: 0 4px 12px rgba(0, 109, 119, 0.2);
+    }
+
+    /* ======= SIDEBAR PRO STYLE ======= */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: -320px; /* Caché à droite */
+      width: 320px;
+      height: 100vh;
+      background: white;
+      z-index: 1100;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      padding: 30px 20px;
+    }
+
+    #sidebar.active {
+      right: 0;
+    }
+
+    #sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1050;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+
+    #sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      transition: 0.2s;
+    }
+
+    .sidebar-link i {
+      width: 24px;
+      margin-right: 12px;
+      font-size: 1.1rem;
+      color: var(--slate-500);
+      transition: 0.2s;
+    }
+
+    .sidebar-link:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    .sidebar-link:hover i {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+
+    .sidebar-link.active {
+      background: rgba(0, 109, 119, 0.08);
+      color: var(--primary);
     }
 
     /* Titre & Typo */
@@ -114,7 +193,7 @@
       box-shadow: 0 0 0 3px var(--accent);
     }
 
-    /* Sidebar de détails */
+    /* Sidebar de détails (Fiche de prix) */
     .res-details {
       background: white;
       border-radius: 32px;
@@ -143,7 +222,6 @@
       margin: 24px 0;
     }
 
-    /* Prefacture */
     .prefacture {
       background: #f8fafc;
       border-radius: 20px;
@@ -152,7 +230,6 @@
       margin-bottom: 24px;
     }
 
-    /* Bouton Réserver */
     .btn-reserver {
       background: var(--gradient) !important;
       border: none !important;
@@ -169,7 +246,6 @@
       box-shadow: 0 20px 25px -5px rgba(0, 175, 185, 0.4);
     }
 
-    /* Modals & Inputs */
     .modal-content { border-radius: 32px; border: none; padding: 10px; }
     .form-control { 
       border-radius: 14px; 
@@ -178,9 +254,6 @@
       background: #f8fafc;
     }
     .form-control:focus { border-color: var(--accent); box-shadow: none; background: #fff; }
-
-    /* Sidebar mobile */
-    #sidebar { border-radius: 32px 0 0 32px; }
   </style>
 </head>
 <body>
@@ -204,7 +277,7 @@
           <a class="btn btn-header d-none d-lg-inline" href="{{ route('logout') }}">Déconnexion</a>
         @endauth
 
-        <button id="btnToggle" class="btn btn-light rounded-circle ms-2 d-lg-none" style="width: 45px; height: 45px;">
+        <button id="btnToggle" class="btn btn-light rounded-circle ms-2" style="width: 45px; height: 45px;">
           <i class="fas fa-bars-staggered"></i>
         </button>
       </div>
@@ -214,21 +287,53 @@
   <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
   <aside id="sidebar">
     <div class="sidebar-header">
-      <h4 class="fw-bold mb-0">Menu</h4>
-      <button class="btn-close btn-close-white" onclick="toggleSidebar()"></button>
+      <h4 class="fw-bold mb-0">Navigation</h4>
+      <button class="btn btn-light rounded-circle" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
     </div>
-    @if(Auth::check() && Auth::user()->type_compte === 'professionnel')
-      <a class="sidebar-link" href="{{ route('pro.dashboard') }}">Profil</a>
-      <a class="sidebar-link" href="{{ route('recherche') }}">Recherche</a>
-      <a class="sidebar-link" href="{{ route('mes_demandes') }}">Demandes</a>
-      <a class="sidebar-link" href="{{ route('reservationRecu') }}">Réservations</a>
-    @elseif(Auth::check() && Auth::user()->type_compte === 'client')
-      <a class="sidebar-link" href="{{ route('clients_historique') }}">Mon Profil</a>
-    @endif
-    <a class="sidebar-link" href="javascript:history.back()">Retour</a>
-    <a class="sidebar-link" href="{{ route('accueil') }}">Accueil</a>
-    <div class="mt-auto p-3">
-      <a class="btn btn-header w-100" href="{{ route('logout') }}">Déconnexion</a>
+    
+    <div class="sidebar-menu">
+      <a class="sidebar-link" href="{{ route('accueil') }}">
+        <i class="fas fa-house"></i> Accueil
+      </a>
+      
+      @if(Auth::check() && Auth::user()->type_compte === 'professionnel')
+        <a class="sidebar-link" href="{{ route('pro.dashboard') }}">
+          <i class="fas fa-user-tie"></i> Mon Profil Pro
+        </a>
+        <a class="sidebar-link" href="{{ route('recherche') }}">
+          <i class="fas fa-search"></i> Parcourir
+        </a>
+        <a class="sidebar-link" href="{{ route('mes_demandes') }}">
+          <i class="fas fa-envelope-open-text"></i> Mes Demandes
+        </a>
+        <a class="sidebar-link" href="{{ route('reservationRecu') }}">
+          <i class="fas fa-calendar-check"></i> Réservations reçues
+        </a>
+      @elseif(Auth::check() && Auth::user()->type_compte === 'client')
+        <a class="sidebar-link" href="{{ route('clients_historique') }}">
+          <i class="fas fa-user-circle"></i> Mon Profil
+        </a>
+        <a class="sidebar-link" href="{{ route('recherche') }}">
+          <i class="fas fa-magnifying-glass"></i> Trouver un logement
+        </a>
+      @endif
+
+      <a class="sidebar-link" href="javascript:history.back()">
+        <i class="fas fa-chevron-left"></i> Page précédente
+      </a>
+    </div>
+
+    <div class="mt-auto">
+      <hr class="text-muted opacity-25">
+      @auth
+        <a class="btn btn-header w-100 py-3" href="{{ route('logout') }}">
+          <i class="fas fa-right-from-bracket me-2"></i> Déconnexion
+        </a>
+      @else
+        <a class="btn btn-header w-100 py-3" href="{{ route('login') }}">
+          <i class="fas fa-user me-2"></i> Connexion
+        </a>
+      @endauth
     </div>
   </aside>
 
@@ -305,7 +410,6 @@
       </div>
     </article>
 
-    {{-- GLightbox hidden anchors --}}
     <div style="display:none">
       @foreach($images as $i => $img)
         <a href="{{ $img }}" class="glightbox" data-gallery="res-{{ $residences_details->id }}" data-title="{{ $residences_details->nom }}"></a>
@@ -313,7 +417,6 @@
     </div>
   </main>
 
-  {{-- Modal de Réservation --}}
   <div class="modal fade" id="reservationModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg">
@@ -348,7 +451,6 @@
     </div>
   </div>
 
-  {{-- Modal de Confirmation --}}
   <div class="modal fade" id="confirmationModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content text-center p-4">
@@ -371,14 +473,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/glightbox.min.js"></script>
   
   <script>
-    // Navigation Sidebar
     function toggleSidebar(){
       document.getElementById('sidebar').classList.toggle('active');
       document.getElementById('sidebar-overlay').classList.toggle('active');
     }
     document.getElementById('btnToggle')?.addEventListener('click', toggleSidebar);
 
-    // Galerie Photo
     document.addEventListener('DOMContentLoaded', function(){
       const lightbox = GLightbox({ selector: '.glightbox', loop: true });
       const mainPreview = document.getElementById('mainPreview');
@@ -397,13 +497,11 @@
       });
     });
 
-    // Login Cookie Logic
     function saveResidenceAndLogin(id) {
       document.cookie = "residence_to_reserve=" + id + "; max-age=3600; path=/";
       window.location.href = "{{ route('login') }}";
     }
 
-    // Reservation & Calcul
     (function(){
       const prix = Number(@json($residences_details->prix_journalier ?? 0));
       const d1 = document.getElementById('date_arrivee');
