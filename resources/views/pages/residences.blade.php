@@ -1,6 +1,6 @@
 @extends('pages.heritage_pages')
 
-@section('dashboard', '- Tableau de bord')
+@section('title', 'Mes Résidences')
 
 @section('main')
     <!-- Main Content Area (Ajusté pour le Header) -->

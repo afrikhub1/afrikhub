@@ -1,6 +1,6 @@
 @extends('pages.heritage_pages')
 
-@section('dashboard', '- residences occupées')
+@section('title', 'Résidences Occupées')
 
 @section('main')
     <div class="container-fluid px-2 py-2 mt-2">
