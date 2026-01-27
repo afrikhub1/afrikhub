@@ -1,86 +1,110 @@
 @extends('pages.heritage_pages')
 
-@section('title', 'Réservations reçu')
+@section('title', 'Réservations reçues')
+
 @section('main')
-    <!-- Main Content Area (Ajusté pour le Header) -->
-    <div class="container-fluid px-2 py-2 mt-2">
-        <main class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
-            <!-- Titre Principal de la Page -->
-            <div class="page-header text-center mb-8">
-                <h1 class="text-2xl font-extrabold text-amber-600 mb-2 border-b-4 border-amber-500 pb-3 inline-block">
-                    <i class="fas fa-history mr-3 text-2xl"></i> Réservations reçu
+    <style>
+        /* TA COULEUR DE BASE ET STYLES PERSONNALISÉS */
+        .bg-gradient-brand { background: linear-gradient(135deg, #006d77, #00afb9); }
+        .text-brand { color: #006d77; }
+        .border-brand { border-color: #006d77; }
+        .card-res-received { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 10px 25px -5px rgba(0, 109, 119, 0.05);
+        }
+        .card-res-received:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 30px -10px rgba(0, 109, 119, 0.15);
+        }
+    </style>
+
+    <div class="container-fluid px-4 py-6 mt-4">
+        <main class="bg-white p-6 md:p-10 rounded-[2rem] shadow-xl border border-slate-100">
+            
+            <div class="page-header text-center mb-12">
+                <span class="inline-block px-4 py-1.5 bg-emerald-50 text-brand text-[0.65rem] font-bold uppercase tracking-[0.2em] rounded-full mb-3">
+                    Gestion des demandes
+                </span>
+                <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-2">
+                    Réservations reçues
                 </h1>
+                <div class="w-24 h-1.5 bg-gradient-brand mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 xs:grid-col-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 @forelse($reservationsRecu as $res)
-                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col border-4
-                        @if($res->status == 'confirmée') border-green-500/50 hover:shadow-green-300/50
-                        @elseif($res->status == 'en_attente') border-blue-500/50 hover:shadow-blue-300/50
-                        @elseif($res->status == 'terminée') border-gray-400/50 hover:shadow-gray-300/50
-                        @else border-yellow-500/50 hover:shadow-red-300/50 @endif
-                        transition duration-300 transform hover:scale-[1.01]">
+                    <div class="card-res-received bg-white rounded-[2rem] overflow-hidden flex flex-col border border-slate-100
+                        @if($res->status == 'confirmée') border-t-emerald-500 border-t-4
+                        @elseif($res->status == 'en_attente') border-t-cyan-500 border-t-4
+                        @elseif($res->status == 'terminée') border-t-slate-400 border-t-4
+                        @else border-t-rose-500 border-t-4 @endif">
 
-                        <div class="p-5 flex flex-col flex-grow text-center">
+                        <div class="p-6 flex flex-col flex-grow">
 
-                            <!-- status -->
-                            <div class="mb-3">
+                            <div class="mb-4 flex justify-between items-start">
                                 @php
                                     $statusClass = [
-                                        'en_attente' => 'bg-blue-600 text-white',
-                                        'confirmée' => 'bg-green-600 text-white',
-                                        'terminée' => 'bg-gray-500 text-white',
-                                        'annulée' => 'bg-red-600 text-white',
-                                    ][$res->status] ?? 'bg-gray-400 text-gray-800';
+                                        'en_attente' => 'bg-cyan-50 text-cyan-600 border border-cyan-100',
+                                        'confirmée' => 'bg-emerald-50 text-emerald-600 border border-emerald-100',
+                                        'terminée' => 'bg-slate-50 text-slate-600 border border-slate-100',
+                                        'annulée' => 'bg-rose-50 text-rose-600 border border-rose-100',
+                                    ][$res->status] ?? 'bg-gray-50 text-gray-600';
                                 @endphp
-                                <span class="inline-block px-3 py-1 text-xs font-bold {{ $statusClass }} rounded-full shadow-md">
-                                    {{ ucfirst(str_replace('_', ' ', $res->status)) }}
+                                <span class="px-3 py-1 text-[0.65rem] font-black uppercase tracking-wider {{ $statusClass }} rounded-lg">
+                                    {{ mb_strtoupper(str_replace('_', ' ', $res->status), 'UTF-8') }}
                                 </span>
+                                <i class="fas fa-receipt text-slate-200 text-xl"></i>
                             </div>
 
-                            <!-- INFOS PRINCIPALES -->
-                            <h5 class="text-xl font-extrabold text-gray-800 mb-2 truncate">{{ $res->residence->nom }}</h5>
-                            <p class="text-sm text-gray-500 mb-4">
-                                <i class="fas fa-map-marker-alt text-amber-500 mr-1"></i> {{ $res->residence->ville }}
+                            <h5 class="text-xl font-bold text-slate-800 mb-1 truncate">{{ $res->residence->nom }}</h5>
+                            <p class="text-xs font-semibold text-slate-400 mb-6 flex items-center">
+                                <i class="fas fa-location-dot text-brand mr-1.5"></i> {{ $res->residence->ville }}
                             </p>
 
-                            <ul class="space-y-2 text-sm text-gray-700 font-medium border-t pt-4 border-gray-100 mb-4">
-                                <li class="flex justify-between items-center">
-                                    <span class="text-gray-500">
-                                        <i class="fas fa-calendar-check mr-2 text-amber-400"></i>
+                            <ul class="space-y-3 text-sm border-t border-slate-50 pt-5 mb-6">
+                                <li class="flex flex-col gap-1">
+                                    <span class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">Suivi :</span>
+                                    <span class="text-slate-700 font-bold italic text-xs">
+                                        <i class="fas fa-clock mr-1.5 text-brand/50"></i>
                                         {{ $res->status != 'payée'
-                                        ? $res->status . ' le : ' . (optional($res->date_validation)->format('d/m/Y') ?? '-')
-                                        : 'payée le : ' . (optional($res->date_paiement)->format('d/m/Y') ?? '-') }}
-
+                                        ? mb_strtoupper($res->status, 'UTF-8') . ' LE ' . (optional($res->date_validation)->format('d/m/Y') ?? '-')
+                                        : 'PAYÉE LE ' . (optional($res->date_paiement)->format('d/m/Y') ?? '-') }}
                                     </span>
                                 </li>
-                                <li class="flex justify-between items-center">
-                                    <span class="text-gray-500"><i class="fas fa-user-friends mr-2 text-amber-400"></i> Période :</span>
-                                    <span class="text-gray-900 font-semibold">
-                                        {{ $res->date_arrivee ? \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/Y') : '-' }}
-                                        ➡
+                                <li class="flex flex-col gap-1">
+                                    <span class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">Période :</span>
+                                    <span class="text-slate-700 font-bold text-xs">
+                                        <i class="fas fa-calendar-alt mr-1.5 text-brand/50"></i>
+                                        {{ $res->date_arrivee ? \Carbon\Carbon::parse($res->date_arrivee)->format('d/m/Y') : '-' }} 
+                                        <i class="fas fa-arrow-right mx-1 text-[10px] text-slate-300"></i>
                                         {{ $res->date_depart ? \Carbon\Carbon::parse($res->date_depart)->format('d/m/Y') : '-' }}
                                     </span>
                                 </li>
                             </ul>
 
-                            <!-- TOTAL -->
-                            <div class="mt-auto border-t pt-3">
-                                <p class="text-lg font-extrabold text-amber-600">
-                                    Total : {{ number_format($res->total, 0, ',', ' ') }} FCFA
-                                </p>
-                                <p class="text-xs text-gray-400 mt-1">
-                                    Réservé le {{ $res->created_at->format('d/m/Y') }}
+                            <div class="mt-auto bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase">Montant perçu</span>
+                                    <p class="text-lg font-black text-brand">
+                                        {{ number_format($res->total, 0, ',', ' ') }} <small class="text-[10px]">FCFA</small>
+                                    </p>
+                                </div>
+                                <p class="text-[9px] text-slate-400 mt-2 text-right italic font-medium">
+                                    Reçu le {{ $res->created_at->format('d/m/Y') }}
                                 </p>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <div class="col-span-full bg-white p-8 rounded-xl shadow-lg text-center mx-auto max-w-xl">
-                        <p class="text-lg text-gray-500"><i class="fas fa-box-open mr-2"></i> Vous n’avez encore aucune réservation.</p>
+                    <div class="col-span-full py-20 text-center">
+                        <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-inbox text-3xl text-slate-200"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Aucune réservation pour le moment</h3>
+                        <p class="text-slate-500 max-w-sm mx-auto">Dès qu'un client réservera l'un de vos biens, il apparaîtra ici.</p>
                     </div>
                 @endforelse
             </div>
-        </div>
+        </main>
     </div>
 @endsection
-
