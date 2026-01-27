@@ -79,14 +79,28 @@
                 </div>
 
                 <!-- Mot de passe -->
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 position-relative">
                     <label for="password" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                        required placeholder="Ex: Harry@234"/>
-                    <span class="absolute right-3 cursor-pointer text-gray-500 hover:text-indigo-600" onclick="toggleVisibility('password', 'eye1')">
+
+                    <input
+                        type="password"
+                        class="form-control @error('password') is-invalid @enderror pe-5"
+                        id="password"
+                        name="password"
+                        required
+                        placeholder="Ex: Harry@234"
+                    />
+
+                    <span
+                        class="position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer text-gray-500 hover:text-indigo-600"
+                        onclick="toggleVisibility('password', 'eye1')"
+                    >
                         <i class="fas fa-eye" id="eye1"></i>
                     </span>
-                            <p class="font-bold mb-1 text-warning" style="font-style: oblique">Au moins 8 caractères - majuscule - chiffre - caractère spécial. Ex: mon@Mot123</p>
+
+                    <p class="font-bold mb-1 text-warning" style="font-style: oblique">
+                        Au moins 8 caractères - majuscule - chiffre - caractère spécial. Ex: mon@Mot123
+                    </p>
 
                     @error('password')
                         <div class="invalid-feedback">
