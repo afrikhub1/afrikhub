@@ -1,89 +1,79 @@
-
 @extends('pages.heritage_pages')
 
 @section('dashboard', '- Tableau de bord')
 
 @section('main')
-    <!-- Main Content Area (avec votre padding original pour compenser le header) -->
     <div class="container-fluid px-2 py-2 mt-2">
+        <main class="bg-white p-3 md:p-6 rounded-xl shadow-2xl border border-gray-200">
 
-
-        <main class="bg-white px-4 py-2 md:p-3 rounded-xl shadow-2xl border border-gray-200">
-
-            <!-- Résidences Occupées -->
-            <section id="occupees" class="mb-10 row m-0">
-                 <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
-                    <i class="fas fa-key text-indigo-500 mr-3"></i> Résidences occupée
+            <section id="occupees" class="mb-10">
+                <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-lg md:text-2xl">
+                    <i class="fas fa-key text-indigo-500 mr-3"></i> Résidences occupées
                 </h2>
 
-                <div class="p-2 d-flex">
-                    {{-- Filtrage des réservations confirmées directement dans la vue (approche Blade) --}}
-
+                <div class="w-full">
                     @if($residences_occupees->isEmpty())
                         <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg text-center shadow-inner">
-                            <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence actuellement occupée.
+                            <i class="fas fa-info-circle mr-2"></i> Aucune résidence actuellement occupée.
                         </div>
                     @else
-                        <div class="flex flex-wrap gap-4">
-                            @foreach($residences_occupees as $residences_occupees)
-                            <div class="w-full sm:w-[320px] bg-red-50 border-2 border-red-400 rounded-xl shadow-2xl p-6 flex flex-col justify-between">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            @foreach($residences_occupees as $res_occ)
+                            <div class="bg-red-50 border-2 border-red-400 rounded-xl shadow-lg p-5 flex flex-col justify-between">
                                 <div>
-                                    <h5 class=" font-bold text-red-800 mb-3 flex items-center">
-                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $residences_occupees->nom }}
+                                    <h5 class="font-bold text-red-800 mb-3 flex items-center text-base truncate">
+                                        <i class="fas fa-building mr-3 text-red-600"></i> {{ $res_occ->nom }}
                                     </h5>
-
-
-                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($residences_occupees->prix_journalier, 0, ',', ' ') }} FCFA</p>
-                                    <p class="text-sm mb-2"><strong>Fin :</strong> {{ $residences_occupees->date_disponible_apres }}</p>
-
+                                    <p class="text-sm mb-2"><strong>Prix journalier :</strong> {{ number_format($res_occ->prix_journalier, 0, ',', ' ') }} FCFA</p>
+                                    <p class="text-sm mb-2"><strong>Fin :</strong> {{ $res_occ->date_disponible_apres }}</p>
                                 </div>
                             </div>
-                        @endforeach
+                            @endforeach
                         </div>
                     @endif
                 </div>
             </section>
 
-            <!-- Historique des Réservations -->
             <section id="historique" class="mb-10">
-                 <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
-                    <i class="fas fa-history text-indigo-500 mr-3"></i> Demandes réçu
+                <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-lg md:text-2xl">
+                    <i class="fas fa-history text-indigo-500 mr-3"></i> Demandes reçues
                 </h2>
 
-
                 @if($reservation_reçu->isEmpty())
-                    <div class="bg-blue-100 border border-blue-200 text-blue-700 p-4 rounded-lg text-center shadow-inner">
+                    <div class="bg-blue-100 border border-blue-200 text-blue-700 p-4 rounded-lg text-center">
                         <i class="fas fa-info-circle mr-2"></i> Aucun historique de réservation trouvé.
                     </div>
                 @else
                     <ul class="divide-y divide-gray-200 border border-gray-200 rounded-xl overflow-hidden shadow-lg">
-                        @foreach($reservation_reçu as $reservation_reçu)
-                        <li class="p-4 bg-white hover:bg-gray-50 transition duration-150">
-                            <div class="flex justify-between items-start flex-wrap gap-2">
-                                <p class="text-gray-800 font-medium">
-                                    <strong class="uppercase text-indigo-700">{{ $reservation_reçu->residence->nom }}</strong>
-                                    <span class="text-sm text-gray-500">réservée par Mr/Mme <strong>{{ $reservation_reçu->client }}</strong>.</span>
-                                </p>
-                                {{-- Badge de status --}}
-                                @if($reservation_reçu->status === 'confirmée')
-                                    <span class="text-sm px-3 py-1 bg-green-500 text-white font-bold rounded-full capitalize shadow-md">Accepté</span>
-                                @elseif($reservation_reçu->status === 'en attente')
-                                    <span class="text-sm px-3 py-1 bg-yellow-500 text-white font-bold rounded-full capitalize shadow-md">En attente</span>
-                                @elseif($reservation_reçu->status === 'refusée')
-                                    <span class="text-sm px-3 py-1 bg-red-500 text-white font-bold rounded-full capitalize shadow-md">Refusé</span>
-                                @elseif($reservation_reçu->status == 'payéé')
-                                    <span class="text-sm px-3 py-1 bg-green-500 text-white font-bold rounded-full capitalize shadow-md">payé</span>
-                                @elseif($reservation_reçu->status == 'annulée')
-                                    <span class="text-sm px-3 py-1 bg-red-500 text-white font-bold rounded-full capitalize shadow-md">annulée</span>
-                                @else
-                                    <span class="text-sm px-3 py-1 bg-gray-500 text-white font-bold rounded-full capitalize shadow-md">Interrompue</span>
-                                @endif
+                        @foreach($reservation_reçu as $res_recu)
+                        <li class="p-4 bg-white hover:bg-gray-50 transition">
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-3">
+                                <div class="w-full">
+                                    <p class="text-gray-800 font-medium leading-tight">
+                                        <strong class="uppercase text-indigo-700 block sm:inline">{{ $res_recu->residence->nom }}</strong>
+                                        <span class="text-sm text-gray-500 block sm:inline"> réservée par Mr/Mme <strong>{{ $res_recu->client }}</strong>.</span>
+                                    </p>
+                                </div>
+                                {{-- Status Badges --}}
+                                <div class="shrink-0">
+                                    @php
+                                        $statusClasses = [
+                                            'confirmée' => 'bg-green-500',
+                                            'payéé' => 'bg-green-500',
+                                            'en attente' => 'bg-yellow-500',
+                                            'refusée' => 'bg-red-500',
+                                            'annulée' => 'bg-red-500'
+                                        ];
+                                        $bgColor = $statusClasses[$res_recu->status] ?? 'bg-gray-500';
+                                    @endphp
+                                    <span class="text-xs px-3 py-1 {{ $bgColor }} text-white font-bold rounded-full shadow-sm">
+                                        {{ $res_recu->status }}
+                                    </span>
+                                </div>
                             </div>
-                            <p class="text-xs text-gray-500 mt-1">
-                                <i class="fas fa-calendar-alt mr-1"></i> Période : du **{{ \Carbon\Carbon::parse($reservation_reçu->date_arrivee)->format('d/m/Y') }}** au **{{ \Carbon\Carbon::parse($reservation_reçu->date_depart)->format('d/m/Y') }}**
-                            </p>
-                            <div class="text-xs text-gray-400 mt-2">
-                                Réservée le {{ \Carbon\Carbon::parse($reservation_reçu->create_at)->format('d/m/Y') }} | Validée le {{ \Carbon\Carbon::parse($reservation_reçu->date_validation)->format('d/m/Y') }}
+                            <div class="mt-3 grid grid-cols-1 gap-1 text-xs text-gray-500">
+                                <p><i class="fas fa-calendar-alt mr-1"></i> Du {{ \Carbon\Carbon::parse($res_recu->date_arrivee)->format('d/m/Y') }} au {{ \Carbon\Carbon::parse($res_recu->date_depart)->format('d/m/Y') }}</p>
+                                <p class="text-gray-400">Créé le {{ \Carbon\Carbon::parse($res_recu->create_at)->format('d/m/Y') }}</p>
                             </div>
                         </li>
                         @endforeach
@@ -91,107 +81,53 @@
                 @endif
             </section>
 
-            <!-- SECTION PRINCIPALE DES RÉSIDENCES (avec Carrousel GLightbox) -->
             <section id="reservation" class="mb-10 border-t pt-8 border-gray-200">
-                <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-center">
-                    <i class="fas fa-home text-indigo-500 mr-3"></i> Toutes Mes Résidences en Gestion
+                <h2 class="font-extrabold text-gray-900 mb-8 text-center border-b-4 border-indigo-500 pb-3 text-lg md:text-2xl">
+                    <i class="fas fa-home text-indigo-500 mr-3"></i> Mes Résidences
                 </h2>
 
                 @if($residences->isEmpty())
                     <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-info-circle mr-2"></i> Vous n'avez aucune résidence enregistrée.
+                        <i class="fas fa-info-circle mr-2"></i> Aucune résidence enregistrée.
                     </div>
                 @else
-                    <div class="album-container flex flex-wrap gap-8 justify-center bg-gray-50 p-2  rounded-2xl shadow-inner border border-gray-100">
-
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         @foreach($residences as $res)
                             @php
-                                // Décodage JSON des images si nécessaire
                                 $images = is_string($res->img) ? json_decode($res->img, true) ?? [] : $res->img;
-
-                                $firstImage = $images[0] ?? null;
-                                $imagePath = $firstImage
-                                    ?: "https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d'image";
+                                $imagePath = $images[0] ?? "https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d'image";
                             @endphp
 
-                            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl
-                                transition duration-500 hover:shadow-indigo-400/50
-                                flex flex-col items-center
-                                w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4
-                                p-4 sm:p-3">
-
-                                <!-- Image principale cliquable pour GLightbox -->
-                                <div class="w-full">
-                                    {{-- Lien principal --}}
-                                    <a href="{{ $imagePath }}" class="glightbox block" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}">
-                                        <img src="{{ $imagePath }}" class="w-full h-48 object-cover hover:opacity-90"
-                                            onerror="this.src='https://placehold.co/400x250/E0E7FF/4F46E5?text=Pas+d\'image';"
-                                            alt="Image de la résidence">
+                            <div class="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all flex flex-col overflow-hidden">
+                                <div class="relative h-48 w-full">
+                                    <a href="{{ $imagePath }}" class="glightbox" data-gallery="res-{{ $res->id }}">
+                                        <img src="{{ $imagePath }}" class="w-full h-full object-cover" alt="Résidence">
                                     </a>
-
-                                    {{-- Images supplémentaires --}}
-                                    @if(is_array($images))
-                                        @foreach($images as $key => $image)
-                                            @if($key > 0)
-                                                <a href="{{ $image }}" class="glightbox" data-gallery="residence-{{ $res->id }}" data-title="{{ $res->nom }}" hidden></a>
-                                            @endif
-                                        @endforeach
-                                    @endif
                                 </div>
 
-                                <!-- Nom résidence -->
-                                <div class="uppercase font-bold text-gray-800 mb-3
-                                            border-b border-indigo-300 w-full text-center pb-2 truncate">
-                                    {{ $res->nom }}
+                                <div class="p-4 flex flex-col flex-grow">
+                                    <div class="uppercase font-bold text-gray-800 mb-3 border-b border-indigo-100 pb-2 truncate text-center">
+                                        {{ $res->nom }}
+                                    </div>
+
+                                    <ul class="text-xs text-gray-700 space-y-2 mb-4">
+                                        <li class="flex justify-between"><strong>Chambres:</strong> <span>{{ $res->nombre_chambres }} <i class="fas fa-door-closed text-indigo-400"></i></span></li>
+                                        <li class="flex justify-between"><strong>Prix/Jour:</strong> <span class="text-green-600 font-bold">{{ number_format($res->prix_journalier, 0, ',', ' ') }} F</span></li>
+                                        <li class="flex justify-between"><strong>Ville:</strong> <span>{{ $res->ville }}</span></li>
+                                    </ul>
+
+                                    <div class="mt-auto">
+                                        <span class="{{ $res->disponible == 1 ? 'bg-green-500' : 'bg-red-500' }} block w-full py-2 text-white text-xs font-bold rounded-lg text-center shadow">
+                                            <i class="{{ $res->disponible == 1 ? 'fas fa-check-circle' : 'fas fa-bed' }} mr-1"></i>
+                                            {{ $res->disponible == 1 ? 'Disponible' : 'Occupée' }}
+                                        </span>
+                                    </div>
                                 </div>
-
-                                <!-- Infos -->
-                                <ul class="text-sm text-gray-700 w-full space-y-1 mb-4">
-                                    <li class="flex justify-between items-center">
-                                        <strong class="text-gray-600">Chambres :</strong>
-                                        <span>{{ $res->nombre_chambres }} <i class="fas fa-door-closed text-indigo-500"></i></span>
-                                    </li>
-
-                                    <li class="flex justify-between items-center">
-                                        <strong class="text-gray-600">Salons :</strong>
-                                        <span>{{ $res->nombre_salons }} <i class="fas fa-couch text-indigo-500"></i></span>
-                                    </li>
-
-                                    <li class="flex justify-between items-center">
-                                        <strong class="text-gray-600">Prix/Jour :</strong>
-                                        <span class="text-green-600 font-semibold">{{ $res->prix_journalier }} fcfa</span>
-                                    </li>
-
-                                    <li class="flex justify-between items-center">
-                                        <strong class="text-gray-600">Ville :</strong>
-                                        <span>{{ $res->ville }} <i class="fas fa-map-marker-alt text-indigo-500"></i></span>
-                                    </li>
-                                </ul>
-
-                                <span class="{{ $res->disponible == 1 ? 'bg-green-500' : 'bg-red-500' }}
-                                            w-full p-3 text-white font-bold rounded-xl text-center shadow-lg transition duration-150 flex items-center justify-center">
-
-                                    <i class="{{ $res->disponible == 1 ? 'fas fa-check-circle mr-2' : 'fas fa-bed mr-2' }}"></i>
-
-                                    {{ $res->disponible == 1 ? 'Disponible' : 'Occupée' }}
-                                </span>
-
                             </div>
                         @endforeach
-
                     </div>
                 @endif
             </section>
         </main>
     </div>
 @endsection
-
-@section('script')
-    <script>
-    const lightbox = GLightbox({
-        selector: '.glightbox'
-    });
-</script>
-
-@endsection
-
