@@ -11,10 +11,12 @@
 
     <style>
         :root {
-            --color-primary: #FF8C00; 
-            --color-primary-hover: #CC7000;
+            /* Application de ta couleur de base en dégradé et couleurs unies associées */
+            --color-primary: #006d77; 
+            --color-primary-light: #00afb9;
+            --main-gradient: linear-gradient(135deg, #006d77, #00afb9);
             --color-secondary: #212529;
-            --color-background: #FFFFFF; /* Forcé en blanc pour retirer le dark mode */
+            --color-background: #FFFFFF; 
             --footer-height: 60px;
         }
         body {
@@ -31,13 +33,13 @@
         .btn { font-size: 0.9rem !important; font-weight: 500; }
 
         .btn-custom-primary {
-            background-color: var(--color-primary);
-            border-color: var(--color-primary);
+            background: var(--main-gradient);
+            border: none;
             color: white;
-            transition: all 0.2s;
+            transition: opacity 0.2s;
         }
         .btn-custom-primary:hover {
-            background-color: var(--color-primary-hover);
+            opacity: 0.9;
             color: white;
         }
         .btn-dark-secondary {
@@ -45,6 +47,9 @@
             border-color: var(--color-secondary);
             color: white;
         }
+
+        /* Correction des couleurs d'accentuation (icônes et titres) */
+        .text-primary { color: var(--color-primary) !important; }
 
         .card {
             border-radius: 12px;
@@ -84,7 +89,7 @@
     </style>
 </head>
 
-<body class='hv-100 p-0 m-0'>
+<body>
 
 {{-- HEADER - Version Claire --}}
 <header class="bg-white border-bottom shadow-sm">
@@ -101,7 +106,7 @@
                    placeholder="Ville, quartier, référence..." aria-label="Rechercher" name="ville_quartier"
                    value="{{ request('ville_quartier') ?? '' }}"
             />
-            <button class="btn btn-custom-primary rounded-pill" type="submit">
+            <button class="btn btn-custom-primary rounded-pill px-3" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
@@ -142,7 +147,7 @@
         <div class="mb-4 pb-3 border-bottom border-secondary">
              @auth
                  <h4 class="text-lg font-bold text-white mb-0"> {{ Auth::user()->name }}</h4>
-                 <span class="text-xs text-orange-400 uppercase tracking-wider">{{ Auth::user()->type_compte }}</span>
+                 <span class="text-xs uppercase tracking-wider" style="color: var(--color-primary-light);">{{ Auth::user()->type_compte }}</span>
              @endauth
         </div>
 
