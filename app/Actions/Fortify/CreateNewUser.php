@@ -69,7 +69,7 @@ class CreateNewUser implements CreatesNewUsers
 
         // Récupération des champs
         $email      = $input['email'];
-        $name       = $input['nom'];
+        $name       = $input['name'];
         $contact    = $input['contact'];
         $typeCompte = $input['type_compte'];
         $status     = 'inactif';
