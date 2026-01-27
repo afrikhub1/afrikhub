@@ -201,8 +201,10 @@
             <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-house-chimney w-8"></i> Mes Residences</a>
             <a href="{{ route('mise_en_ligne') }}" class="sidebar-link"><i class="fas fa-plus-circle w-8"></i> Ajouter un bien</a>
             <a href="{{ route('occupees') }}" class="sidebar-link"><i class="fas fa-calendar-check w-8"></i> Occupations</a>
+
         @endif
-        
+
+        <a href="{{ route('clients_historique') }}" class="sidebar-link"><i class="fas fa-user w-8"></i> Mode Client</a>
         <a href="{{ route('accueil') }}" class="sidebar-link"><i class="fas fa-home w-8"></i> Accueil</a>
 
         <div class="mt-10">

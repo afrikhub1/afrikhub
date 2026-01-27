@@ -174,6 +174,7 @@
             <a href="{{ route('pro.residences') }}" class="sidebar-link"><i class="fas fa-layer-group"></i> Mes Résidences</a>
             <a href="{{ route('mes_demandes') }}" class="sidebar-link"><i class="fas fa-inbox"></i> Demandes</a>
             <a href="{{ route('reservationRecu') }}" class="sidebar-link"><i class="fas fa-history"></i> Historique</a>
+            <a href="{{ route('clients_historique') }}" class="sidebar-link"><i class="fas fa-user"></i> Mode Client</a>
             <a href="{{ route('pro.dashboard') }}" class="sidebar-link"><i class="fas fa-user-cog"></i> Mon Profil</a>
             
             <div class="mt-12 pt-6 border-t border-white/10">

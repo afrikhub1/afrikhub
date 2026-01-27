@@ -106,6 +106,7 @@
       @elseif(Auth::check() && Auth::user()->type_compte === 'client')
         <a class="sidebar-link" href="{{ route('clients_historique') }}"><i class="fas fa-history"></i> Historique</a>
       @endif
+      <a class="sidebar-link" href="{{ route('clients_historique') }}"><i class="fas fa-user"></i> Mode Client</a>
       <a class="sidebar-link" href="{{ route('recherche') }}"><i class="fas fa-search"></i> Explorer</a>
       <a class="sidebar-link" href="{{ route('accueil') }}"><i class="fas fa-house"></i> Accueil</a>
     </div>
