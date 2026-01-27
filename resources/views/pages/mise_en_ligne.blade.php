@@ -16,156 +16,164 @@
 
     <style>
         :root {
-            /* Harmonisation avec votre couleur de base pétrole */
             --primary-gradient: linear-gradient(135deg, #006d77, #00afb9);
             --primary-color: #006d77;
-            --primary-dark: #004d54;
-            --accent-color: #FF8C00; /* Orange conservé pour le bouton d'action */
+            --secondary-color: #00afb9;
+            --accent-soft: rgba(0, 175, 185, 0.1);
+            --text-dark: #2d3436;
         }
-
+        
         body {
-            background-color: #f4f7f6;
-            color: #2d3436;
-            font-family: 'Poppins', Arial, sans-serif;
-            /* Tailles de texte de base */
-            font-size: 1rem;
+            background-color: #f0f4f5;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
         }
-
-        /* Ajustements de texte sur différents écrans */
-        @media (max-width: 576px) {
-            body { font-size: 0.85rem; }
-            .container h2 { font-size: 1.5rem !important; }
-            legend { font-size: 1.1rem !important; }
-        }
-
-        @media (min-width: 992px) {
-            body { font-size: 0.95rem; }
-            .container h2 { font-size: 2.2rem !important; }
-        }
-
+        
+        /* ================= NAVBAR ================= */
         .navbar {
             background: var(--primary-gradient) !important;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
         }
-
-        .navbar-brand {
-            color: #fff !important;
-            font-weight: 700;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        
         .desktop-nav-links .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
+            color: rgba(255,255,255,.9) !important;
             font-weight: 500;
-            transition: 0.3s;
+            margin-left: 12px;
+            transition: .3s;
         }
-
+        
         .desktop-nav-links .nav-link:hover {
             color: #fff !important;
             transform: translateY(-2px);
         }
-
-        .offcanvas-header {
+        
+        /* ================= TITRES ================= */
+        .container h2 {
+            font-weight: 800;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+        
+        .container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
             background: var(--primary-gradient);
-            color: white;
+            border-radius: 2px;
         }
-
+        
+        /* ================= FIELDSETS ================= */
         fieldset {
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            background: #fff;
+            border: none;
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,.04);
         }
-
+        
         legend {
+            float: none;
+            width: auto;
             font-weight: 700;
             color: var(--primary-color);
-            padding: 0 1rem;
-            font-size: 1.3rem;
-            width: inherit;
+            background: var(--accent-soft);
+            padding: .5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
         }
-
+        
+        /* ================= FORM ================= */
         .form-label {
             font-weight: 500;
-            color: #4a4a4a;
-            font-size: 0.9rem;
+            color: #4a5568;
+            font-size: .95rem;
         }
-
+        
+        .form-control,
+        .form-select {
+            border: 1.5px solid #e2e8f0;
+            border-radius: .75rem;
+            padding: .75rem 1rem;
+            transition: .2s;
+        }
+        
         .form-control:focus,
         .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(0, 109, 119, 0.15);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 4px rgba(0,175,185,.15);
         }
-
+        
         .input-group-text {
-            background-color: #f8f9fa;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-right: none;
             color: var(--primary-color);
-            border-color: #ced4da;
         }
-
-        /* Bouton de soumission avec couleur d'accent orange */
+        
+        /* ================= COMMODITÉS ================= */
+        .commodite-item {
+            border: 1.5px solid #f1f5f9;
+            background: #f8fafc;
+            border-radius: 1rem;
+            transition: .3s;
+        }
+        
+        .commodite-item:hover {
+            border-color: var(--secondary-color);
+            background: #fff !important;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        /* ================= MAP ================= */
+        #map {
+            border-radius: 1rem;
+            border: 2px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,.08);
+        }
+        
+        /* ================= IMAGES ================= */
+        #images {
+            border: 2px dashed #cbd5e1;
+            background: #f8fafc;
+            padding: 2rem;
+        }
+        
+        /* ================= BOUTON ================= */
         .btn-submit {
-            background-color: var(--accent-color);
+            background: var(--primary-gradient);
             color: #fff;
             border: none;
             font-weight: 600;
-            padding: 0.8rem 2.5rem;
-            border-radius: 0.5rem;
-            transition: 0.3s;
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
-            font-size: 1rem;
+            padding: 1rem 3.5rem;
+            border-radius: 50px;
+            transition: .4s;
+            box-shadow: 0 10px 20px rgba(0,109,119,.3);
         }
-
+        
         .btn-submit:hover {
-            background-color: #e67e00;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0,109,119,.4);
             color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
         }
-
-        .container h2 {
-            color: var(--primary-color);
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 2.5rem;
-        }
-
-        .commodite-item {
-            border: 1px solid #f0f0f0;
-            border-radius: 0.75rem;
-            transition: all 0.2s ease-in-out;
-            background-color: #ffffff;
-        }
-
-        .commodite-item:hover {
-            background-color: #e6f2f3 !important;
-            border-color: var(--primary-color);
-        }
-
-        .form-check-input:checked {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        #images {
-            border: 2px dashed #00afb9;
-            background-color: #f0fbfc;
-        }
-
-        .btn-primary { /* Bouton recherche map */
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
-        }
-    </style>
+        </style>
+        
 </head>
 
 <body>
