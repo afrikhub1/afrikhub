@@ -92,7 +92,7 @@
                     />
 
                     <span
-                        class="position-absolute top-13px end-0 translate-middle-y me-3 cursor-pointer text-gray-500 hover:text-indigo-600"
+                        class="position-absolute top-5px end-0 translate-middle-y me-3 cursor-pointer text-gray-500 hover:text-indigo-600"
                         onclick="toggleVisibility('password', 'eye1')"
                     >
                         <i class="fas fa-eye" id="eye1"></i>
