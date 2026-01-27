@@ -84,7 +84,7 @@
     </style>
 </head>
 
-<body>
+<body class='hv-100 p-0 m-0'>
 
 {{-- HEADER - Version Claire --}}
 <header class="bg-white border-bottom shadow-sm">
