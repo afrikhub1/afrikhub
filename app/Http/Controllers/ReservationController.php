@@ -81,8 +81,12 @@ class ReservationController extends Controller
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
-        // Envoi du PDF de la facture proforma
-        Mail::to($reservation->user->email)->send(new ReservationStatusMail($reservation));
+        $statutTitre = "Proforma de réservation";
+        $messageCustom = "Voici votre proforma de réservation pour la résidence {$reservation->residence->nom}.";
+
+        Mail::to($reservation->client->email)->send(
+            new ReservationStatusMail($reservation, $statutTitre, $messageCustom)
+        );
 
 
         // Redirection vers l'historique des réservations avec message de succès
