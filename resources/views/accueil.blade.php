@@ -826,7 +826,7 @@
         </div>
 
 
-        @include('incldes.footer')
+        @include('includes.footer')
         <script>
             function toggleSidebar() {
                 document.getElementById("sidebar").classList.toggle("open");
