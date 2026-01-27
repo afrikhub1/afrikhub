@@ -30,7 +30,7 @@
             </div>
 
             <p>Merci de nous faire confiance.</p>
-            <a href="{{ $urlPaiement }}" 
+            <a href="{{ route('paiement.qr') }}" 
                 style="background-color: #006d77; color: #ffffff; padding: 15px 35px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 16px; display: inline-block; transition: background-color 0.3s;">
                 Payer {{ number_format($reservation->total, 0, ',', ' ') }} FCFA
             </a>

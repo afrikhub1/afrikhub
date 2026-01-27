@@ -13,14 +13,12 @@ use Queueable, SerializesModels;
 public $reservation;
 public $messageCustom;
 public $statutTitre;
-public $urlPaiement;
 
 public function __construct(Reservation $reservation, $statutTitre, $messageCustom)
 {
 $this->reservation = $reservation;
 $this->statutTitre = $statutTitre;
 $this->messageCustom = $messageCustom;
-$this->urlPaiement = $urlPaiement;
 
 }
 

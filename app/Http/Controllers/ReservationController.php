@@ -192,14 +192,12 @@ class ReservationController extends Controller
         ]);
 
 
-        // Dans votre contrôleur au moment de l'envoi
-        $urlPaiement = route('reservation.payment', ['code' => $reservation->reservation_code]);
-
+        // On a supprimé la ligne $urlPaiement
         Mail::to($reservation->user->email)->send(new ReservationConfirme(
             $reservation,
             "Réservation confirmée !",
-            "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée.",
-            $urlPaiement
+            "Bonne nouvelle ! Votre réservation pour {$reservation->residence->nom} a été acceptée."
+            
         ));
 
 
