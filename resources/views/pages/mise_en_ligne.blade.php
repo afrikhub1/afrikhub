@@ -1,3 +1,6 @@
+</body>
+</html>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -260,17 +263,36 @@
                             <div class="col-md-4">
                                 <label class="form-label">Type de bien</label>
                                 <select class="form-select" name="type_residence" required>
-                                    <option value="" disabled selected>Choisir...</option>
-                                    <option>Appartement</option>
-                                    <option>Maison basse</option>
-                                    <option>Studio</option>
-                                    <option>Villa</option>
+                                    <option value="" disabled selected>Sélectionnez un type</option>
+                                    <option value="Appartement">Appartement</option>
+                                    <option value="Maison">Maison basse</option>
+                                    <option value="Studio">Studio</option>
+                                    <option value="Villa">Villa</option>
+                                    <option value="Chalet">Chalet</option>
+                                    <option value="Autre">Autre</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Nombre de chambres</label>
                                 <input type="number" class="form-control" name="nb_chambres" min="1" required>
                             </div>
+
+                            <div class="col-md-4">
+                                <label for="nb_salons" class="form-label">Nombre de salons</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-couch"></i></span>
+                                    <input type="number" class="form-control" id="nb_salons" name="nb_salons" min="0" required>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-8">
+                                <label for="details_position" class="form-label">Repère proche de la résidence</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" class="form-control" id="details_position" name="details_position" placeholder="Ex: Cocody derrière la RTI" required>
+                                </div>
+                            </div>
+                            
                             <div class="col-md-4">
                                 <label class="form-label">Prix / Nuit (FCFA)</label>
                                 <div class="input-group">
@@ -289,31 +311,111 @@
                             <div class="row g-3">
                                 @php
                                     $commodites = [
-                                        "Wi-Fi" => ["icon" => "fa-wifi"],
+
+                                        /* ===== BÂTIMENT / ACCÈS ===== */
+                                        "Niveau d’étage" => ["icon" => "fa-building", "type" => "number"],
+                                        "Ascenseur" => ["icon" => "fa-elevator"],
+                                        "Accès PMR" => ["icon" => "fa-wheelchair"],
+                                        "Gardien / Concierge" => ["icon" => "fa-user-shield"],
+                                        "Surveillance 24/24" => ["icon" => "fa-shield-alt"],
+
+                                        /* ===== STATIONNEMENT ===== */
+                                        "Parking interne" => ["icon" => "fa-parking"],
+                                        "Parking externe" => ["icon" => "fa-car"],
+                                        "Nombre de places de parking" => ["icon" => "fa-car-side", "type" => "number"],
+
+                                        /* ===== EXTÉRIEUR ===== */
+                                        "Balcon" => ["icon" => "fa-tree"],
+                                        "Terrasse" => ["icon" => "fa-tree"],
+                                        "Jardin" => ["icon" => "fa-seedling"],
                                         "Piscine" => ["icon" => "fa-swimming-pool"],
-                                        "Climatisation" => ["icon" => "fa-snowflake"],
-                                        "Gardien 24/7" => ["icon" => "fa-user-shield"],
-                                        "Parking" => ["icon" => "fa-parking"],
-                                        "Cuisine équipée" => ["icon" => "fa-utensils"],
-                                        "Télévision" => ["icon" => "fa-tv"],
-                                        "Machine à laver" => ["icon" => "fa-washer"]
+
+                                        /* ===== COUCHAGE / SANITAIRES ===== */
+                                        "Nombre de chambres" => ["icon" => "fa-bed", "type" => "number"],
+                                        "Nombre de salles d’eau" => ["icon" => "fa-shower", "type" => "number"],
+                                        "Eau chaude" => ["icon" => "fa-water"],
+
+                                        /* ===== CLIMATISATION ===== */
+                                        "Split toutes les chambres et salon" => ["icon" => "fa-snowflake"],
+                                        "Split toutes les chambres sauf salon" => ["icon" => "fa-snowflake"],
+                                        "Split salon uniquement" => ["icon" => "fa-snowflake"],
+                                        "Split autre (à préciser)" => ["icon" => "fa-snowflake", "type" => "text"],
+
+                                        /* ===== SALON ===== */
+                                        "Salon fauteuil nombre de places" => ["icon" => "fa-couch", "type" => "number"],
+
+                                        "lit des chambres" => ["icon" => "fa-bed", "type" => "number"],
+
+                                        "Table basse salon" => ["icon" => "fa-table"],
+
+                                        /* ===== SALLE À MANGER ===== */
+                                        "Salle à manger nombre de place" => ["icon" => "fa-chair", "type" => "text"],
+
+                                        /* ===== CUISINE ===== */
+                                        "Réfrigérateur" => ["icon" => "fa-box"],
+                                        "Congélateur combiné" => ["icon" => "fa-box"],
+                                        "Four" => ["icon" => "fa-fire"],
+                                        "Gazinière" => ["icon" => "fa-fire"],
+                                        "Micro-ondes" => ["icon" => "fa-microchip"],
+                                        "Mixeur" => ["icon" => "fa-blender"],
+                                        "Bouilloire électrique" => ["icon" => "fa-blender"],
+                                        "Machine à laver linge" => ["icon" => "fa-washer"],
+                                        "Fer à repasser" => ["icon" => "fa-shirt"],
+
+                                        /* ===== MULTIMÉDIA ===== */
+                                        "Télévision salon (pouces)" => ["icon" => "fa-tv", "type" => "number"],
+                                        "Télévision chambre (pouces)" => ["icon" => "fa-tv", "type" => "number"],
+                                        "Abonnement chaînes internationales" => ["icon" => "fa-tv"],
+                                        "Canal +" => ["icon" => "fa-tv"],
+                                        "Wi-Fi" => ["icon" => "fa-wifi"],
+
+                                        /* ===== SERVICES ===== */
+                                        "Service ménager" => ["icon" => "fa-broom"],
+                                        "Changement de draps" => ["icon" => "fa-bed"],
+                                        "Nettoyage hebdomadaire" => ["icon" => "fa-calendar-check"],
+
+                                        /* ===== SÉCURITÉ ===== */
+                                        "Porte blindée" => ["icon" => "fa-door-closed"],
+                                        "Coffre-fort" => ["icon" => "fa-lock"],
+                                        "Caméras de surveillance" => ["icon" => "fa-video"],
                                     ];
                                 @endphp
 
+                            
                                 @foreach ($commodites as $label => $data)
-                                    @php $id = 'com_' . md5($label); @endphp
+                                    @php
+                                        $id = 'com_' . md5($label);
+                                        $type = $data['type'] ?? null;
+                                    @endphp
+
                                     <div class="col-6 col-md-3">
                                         <div class="p-3 commodite-item shadow-sm h-100">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="{{ $id }}" name="commodites[{{ $label }}][active]">
-                                                <label class="form-check-label d-block ms-2" for="{{ $id }}">
-                                                    <i class="fas {{ $data['icon'] }} me-2 text-primary"></i>
-                                                    <span class="small fw-500">{{ $label }}</span>
-                                                </label>
-                                            </div>
+                                            <label class="form-check " for="{{ $id }}">
+                                                <input
+                                                    class="form-check-input "
+                                                    type="checkbox"
+                                                    name="commodites[{{ $label }}][active]"
+                                                    value="1"
+                                                    id="{{ $id }}"
+                                                    data-target="field_{{ $id }}"
+                                                >
+                                                <i class="fas {{ $data['icon'] }}" style="color: var(--primary-color);"></i>
+                                                <span>{{ $label }}</span>
+                                            </label>
+
+                                            @if ($type)
+                                                <input
+                                                    type="{{ $type }}"
+                                                    class="form-control d-none commodite-field"
+                                                    name="commodites[{{ $label }}][value]"
+                                                    id="field_{{ $id }}"
+                                                    placeholder="Préciser {{ strtolower($label) }}"
+                                                >
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
+
                             </div>
                         </div>
                     </fieldset>
