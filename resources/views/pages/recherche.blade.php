@@ -21,10 +21,11 @@
         :root {
             --color-primary: #006d77;
             --color-primary-light: #00afb9;
-            --main-gradient: linear-gradient(135deg, #006d77, #00afb9);
+            --color-accent: #ffb703;
             --color-soft-bg: #f8f9fa;
             --color-background: #ffffff;
             --footer-height: 60px;
+            --main-gradient: linear-gradient(135deg, #006d77, #00afb9);
         }
 
         body {
@@ -41,7 +42,7 @@
             transition: transform 0.2s;
         }
         .btn-custom-primary:hover {
-            transform: scale(1.02);
+            transform: scale(1.03);
             opacity: 0.9;
             color: white;
         }
@@ -61,14 +62,14 @@
         }
 
         .card {
-            border-radius: 15px;
+            border-radius: 16px;
             overflow: hidden;
             transition: all 0.3s ease;
             border: 1px solid #edf2f7 !important;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 109, 119, 0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 14px 28px rgba(0, 109, 119, 0.15);
         }
 
         .card-img-top {
@@ -101,7 +102,11 @@
             text-decoration: none;
             font-size: 0.95rem;
             display: block;
-            border-radius: 8px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+        .sidebar-link:hover {
+            background: rgba(0, 109, 119, 0.08);
         }
 
         #sidebar-overlay {
@@ -122,27 +127,61 @@
 
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="bg-white border-bottom border-light">
     <div class="container-fluid px-4 py-3 d-flex align-items-center justify-content-between">
 
         <a href="{{ route('accueil') }}">
-            <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" style="width: 75px;">
+            <img src="{{ asset('assets/images/logo_01.png') }}" alt="Logo" style="width:75px">
         </a>
 
-        <form class="d-none d-md-flex mx-auto" style="max-width: 450px;" method="GET" action="{{ route('recherche') }}">
+        <form class="d-none d-md-flex mx-auto" style="max-width: 450px;"
+              method="GET" action="{{ route('recherche') }}">
             <input class="form-control me-2 rounded-pill bg-light px-4"
                    type="search"
                    name="ville_quartier"
                    placeholder="Rechercher une ville..."
                    value="{{ request('ville_quartier') ?? '' }}">
-            <button class="btn btn-custom-primary rounded-circle" style="width:45px;height:45px">
+            <button class="btn btn-custom-primary rounded-circle"
+                    style="width:45px;height:45px">
                 <i class="fas fa-search"></i>
             </button>
         </form>
 
-        <a href="{{ route('logout') }}" class="btn btn-custom-primary d-none d-lg-block rounded-pill px-4">
-            Déconnexion
-        </a>
+        <ul class="navbar-nav d-none d-lg-flex flex-row gap-3 align-items-center mb-0">
+            <li><a href="{{ route('accueil') }}" class="nav-link text-dark fw-medium">Accueil</a></li>
+            <li><a href="{{ route('faq') }}" class="nav-link text-dark fw-medium">FAQ</a></li>
+
+            @auth
+                <li>
+                    <a href="{{ route('clients_historique') }}"
+                       class="nav-link text-dark fw-medium">
+                        Mes réservations
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('devenir_pro') }}"
+                       class="btn btn-outline-custom rounded-pill px-3">
+                        Devenir Pro
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('logout') }}"
+                       class="btn btn-custom-primary rounded-pill px-4">
+                        Déconnexion
+                    </a>
+                </li>
+            @endauth
+
+            @guest
+                <li>
+                    <a href="{{ route('login') }}"
+                       class="btn btn-custom-primary rounded-pill px-4">
+                        Connexion
+                    </a>
+                </li>
+            @endguest
+        </ul>
 
         <button id="toggleSidebar" class="btn btn-light rounded-circle shadow-sm ms-3">
             <i class="fas fa-bars text-primary"></i>
@@ -150,6 +189,7 @@
     </div>
 </header>
 
+<!-- ================= SIDEBAR ================= -->
 <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div id="sidebar" class="shadow-xl">
@@ -157,31 +197,74 @@
         <i class="fas fa-times"></i>
     </button>
 
-    @auth
-        <div class="mb-4 border-bottom pb-3">
-            <h6 class="fw-bold">{{ Auth::user()->name }}</h6>
-            <span class="badge bg-light text-primary border">{{ Auth::user()->type_compte }}</span>
-        </div>
-    @endauth
+    <div class="d-flex flex-column h-100 gap-2">
 
-    <a href="{{ route('accueil') }}" class="sidebar-link">
-        <i class="fas fa-home me-2 text-primary"></i> Accueil
-    </a>
+        @auth
+            <div class="mb-4 pb-3 border-bottom">
+                <h6 class="fw-bold mb-1">{{ Auth::user()->name }}</h6>
+                <span class="badge bg-light text-primary border">
+                    {{ Auth::user()->type_compte }}
+                </span>
+            </div>
+        @endauth
 
-    <div class="mt-auto pt-4">
-        <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 rounded-pill">
-            Quitter
+        <a href="{{ route('accueil') }}" class="sidebar-link">
+            <i class="fas fa-home me-2 text-primary"></i> Accueil
         </a>
+
+        <a href="{{ route('residences.recherche') }}" class="sidebar-link">
+            <i class="fas fa-search me-2 text-primary"></i> Rechercher
+        </a>
+
+        <a href="{{ route('faq') }}" class="sidebar-link">
+            <i class="fas fa-circle-question me-2 text-primary"></i> FAQ
+        </a>
+
+        <a href="{{ route('conditions_generales') }}" class="sidebar-link">
+            <i class="fas fa-file-contract me-2 text-primary"></i> Conditions générales
+        </a>
+
+        <a href="{{ route('politique_confidentialite') }}" class="sidebar-link">
+            <i class="fas fa-shield-halved me-2 text-primary"></i> Confidentialité
+        </a>
+
+        @auth
+            <hr>
+            <a href="{{ route('clients_historique') }}" class="sidebar-link">
+                <i class="fas fa-calendar-check me-2 text-primary"></i> Mes réservations
+            </a>
+
+            <a href="{{ route('factures') }}" class="sidebar-link">
+                <i class="fas fa-file-invoice me-2 text-primary"></i> Mes factures
+            </a>
+
+            <a href="{{ route('devenir_pro') }}" class="sidebar-link">
+                <i class="fas fa-briefcase me-2 text-primary"></i> Devenir Pro
+            </a>
+        @endauth
+
+        <div class="mt-auto pt-4">
+            <a href="{{ route('logout') }}"
+               class="btn btn-outline-danger w-100 rounded-pill">
+                Quitter
+            </a>
+        </div>
     </div>
 </div>
 
+<!-- ================= CONTENU ================= -->
 <div class="container my-5">
-    <h2 class="text-center fw-bold mb-5">
+
+    <h2 class="text-center fw-bold mb-2">
         Résultats pour :
         <span class="text-primary">
             {{ request('ville_quartier') ?: 'Toutes les résidences' }}
         </span>
     </h2>
+
+    <p class="text-center text-muted mb-5">
+        {{ $recherches->count() }} résidence(s) trouvée(s)
+    </p>
 
     @if($recherches->isEmpty())
         <p class="text-center text-muted">Aucun résultat trouvé.</p>
@@ -194,34 +277,47 @@
                     $dateDispo = \Carbon\Carbon::parse($residence->date_disponible);
                 @endphp
 
-                <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
                     <div class="card w-100">
                         <img src="{{ $firstImage }}" class="card-img-top">
 
                         <div class="card-body d-flex flex-column">
-                            <h5 class="fw-bold">{{ $residence->nom }}</h5>
+                            <h5 class="fw-bold mb-2">{{ $residence->nom }}</h5>
 
-                            <div class="small text-muted mb-2">
-                                <i class="fas fa-bed text-primary"></i> {{ $residence->nombre_chambres ?? 0 }} chambres
+                            <div class="d-flex justify-content-between small text-muted mb-2">
+                                <span>
+                                    <i class="fas fa-location-dot text-primary"></i>
+                                    {{ $residence->ville }}
+                                </span>
+                                <span class="badge bg-light text-primary border">
+                                    Résidence
+                                </span>
+                            </div>
+
+                            <div class="small mb-2">
+                                <i class="fas fa-bed text-primary"></i>
+                                {{ $residence->nombre_chambres ?? 0 }} chambres
                                 •
-                                <i class="fas fa-couch text-primary"></i> {{ $residence->nombre_salons ?? 0 }} salons
+                                <i class="fas fa-couch text-primary"></i>
+                                {{ $residence->nombre_salons ?? 0 }} salons
                             </div>
 
-                            <div class="fw-bold mb-2">
-                                {{ number_format($residence->prix_journalier, 0, ',', ' ') }} FCFA / jour
+                            <div class="fw-bold mb-3">
+                                {{ number_format($residence->prix_journalier, 0, ',', ' ') }}
+                                FCFA / jour
                             </div>
 
-                            <span class="mb-3">
+                            <div class="mb-3">
                                 @if($dateDispo->isPast())
                                     <span class="badge bg-success">Disponible</span>
                                 @elseif($dateDispo->isToday())
-                                    <span class="badge bg-primary">Aujourd'hui</span>
+                                    <span class="badge bg-primary">Aujourd’hui</span>
                                 @else
                                     <span class="badge bg-warning">
                                         Libre le {{ $dateDispo->translatedFormat('d F') }}
                                     </span>
                                 @endif
-                            </span>
+                            </div>
 
                             <a href="{{ route('details', $residence->id) }}"
                                class="btn btn-outline-custom rounded-pill mt-auto">
