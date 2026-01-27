@@ -207,7 +207,7 @@
         @include('includes.messages')
 
         <div class="col-12 main-content">
-            @if ($recherches->isEmpty())
+            @if ($residences->isEmpty())
                 <div class="alert bg-white shadow-sm text-center py-5 rounded-4 border-0">
                     <i class="fas fa-search-minus fa-3x text-gray-200 mb-3"></i>
                     <p class="fw-bold text-gray-500">Désolé, aucune résidence ne correspond à votre recherche.</p>
