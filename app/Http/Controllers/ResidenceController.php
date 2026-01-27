@@ -35,7 +35,8 @@ class ResidenceController extends Controller
             'geolocalisation' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'images' => 'required|array|max:10',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
             'commodites' => 'nullable|array', // On valide que c'est un tableau
         ]);
 

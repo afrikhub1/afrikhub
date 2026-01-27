@@ -494,7 +494,10 @@
 
             <fieldset class="mb-5">
                 <legend>Images <i class="fas fa-images"></i></legend>
-                <label for="images" class="form-label">Ajouter des images (min. 1, max. 5)</label>
+                <label for="images" class="form-label">
+                    Ajouter des images (min. 1, max. <strong>10</strong>)
+                </label>
+                
                 <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
             </fieldset>
 
@@ -523,6 +526,16 @@
             });
         });
     </script>
+
+    <script>
+        document.getElementById('images').addEventListener('change', function () {
+            if (this.files.length > 10) {
+                alert('Vous pouvez sélectionner au maximum 10 images.');
+                this.value = '';
+            }
+        });
+    </script>
+    
 
 </body>
 </html>

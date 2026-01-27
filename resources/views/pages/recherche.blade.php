@@ -10,7 +10,127 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
 
+    <style>
+        /* Variables de couleur et Police */
+        :root {
+            --color-primary: #FF8C00; /* Orange Custom */
+            --color-primary-hover: #CC7000;
+            --color-secondary: #212529; /* Dark Bootstrap */
+            --color-background: #F8F9FA; /* Light Gray */
+            --footer-height: 60px; /* Hauteur estimée pour le footer fixe */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            /* Ajout du padding-bottom pour laisser de la place au footer fixe */
+            padding-bottom: var(--footer-height);
+        }
 
+        /* Boutons personnalisés (Orange Primaire) */
+        .btn-custom-primary {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .btn-custom-primary:hover {
+            background-color: var(--color-primary-hover);
+            border-color: var(--color-primary-hover);
+            color: white;
+        }
+        /* Boutons personnalisés (Sombre Secondaire) */
+        .btn-dark-secondary {
+            background-color: var(--color-secondary);
+            border-color: var(--color-secondary);
+            color: white;
+        }
+        .btn-dark-secondary:hover {
+            background-color: #343a40;
+            border-color: #343a40;
+            color: white;
+        }
+
+        /* Styles des cartes de résidence */
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            height: 12rem;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        .card-text-truncate {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limite à 3 lignes */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Style spécifique pour la Sidebar Coulissante */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 300px;
+            z-index: 1060;
+            height: 100%;
+            background-color: var(--color-secondary);
+            padding: 1.5rem;
+            box-shadow: -6px 0 16px rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+        #sidebar.active {
+            transform: translateX(0);
+        }
+        .sidebar-link {
+            color: #dee2e6;
+            padding: 12px 15px;
+            font-weight: 500;
+            /* SUPPRESSION DU SOULIGNEMENT DES LIENS */
+            text-decoration: none;
+        }
+        .sidebar-link:hover {
+            background-color: #343a40;
+            color: white;
+        }
+        /* Overlay */
+        #sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1050;
+            display: none;
+        }
+        #sidebar-overlay.active {
+            display: block;
+        }
+        /* HEADER - Ajustements pour la responsivité */
+        @media (max-width: 991.98px) {
+            .navbar-nav {
+                display: none !important;
+            }
+            .search-form-container {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
