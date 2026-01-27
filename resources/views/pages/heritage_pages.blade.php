@@ -76,7 +76,7 @@
 
 <body>
 
-    <header class="bg-gray-900 shadow-xl fixed top-0 left-0 right-0 z-50">
+    <header class="shadow-xl fixed top-0 left-0 right-0 z-50" style="background: linear-gradient(135deg, #006d77, #00afb9);">
         <div class="max-w-7xl mx-auto px-3 md:px-4">
             
             <div class="flex items-center justify-between py-2 md:py-3">
