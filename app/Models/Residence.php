@@ -59,6 +59,11 @@ class Residence extends Model
     {
         return $this->hasMany(Reservation::class, 'residence_id');
     }
+    public function reservations()
+    {
+        // On lie la résidence aux réservations via le champ 'residence_id'
+        return $this->hasMany(Reservation::class, 'residence_id');
+    }
 
     public function dateDisponibleAvecNettoyage(int $joursNettoyage = 1)
     {
