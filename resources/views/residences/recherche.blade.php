@@ -214,7 +214,7 @@
                 </div>
             @else
                 <div class="row g-4">
-                    @foreach($recherches as $residence)
+                    @foreach($residences as $residence)
                         @php
                             $images = is_string($residence->img) ? json_decode($residence->img, true) : ($residence->img ?? []);
                             $firstImage = $images[0] ?? asset('assets/images/placeholder.jpg');
