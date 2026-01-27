@@ -132,7 +132,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('details', $residence->id) }}" class="mt-4 w-full py-2.5 rounded-xl border-2 border-custom-primary text-custom-primary font-bold text-center hover:bg-custom-gradient hover:text-white hover:border-transparent transition duration-300">
+                            <a href="{{ route('details', $residence->id) }}" class="mt-4 w-full py-2.5 rounded-xl border-2 border-custom-primary text-custom-primary font-bold text-center hover:bg-dark hover:text-white hover:border-transparent transition duration-300">
                                 Gérer l'annonce
                             </a>
                         </div>
