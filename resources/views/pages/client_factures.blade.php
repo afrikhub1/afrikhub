@@ -89,7 +89,7 @@
             @foreach($reservations as $res)
                 @php
                     $facturestatus = $res->status;
-                    $reference = $res->reference_paiement;
+                    $reference = $res->reference;
                     $prixJour = $res->residence->prix_journalier;
                     $datePaiement = $res->date_paiement;
                     $dateArrivee = \Carbon\Carbon::parse($res->date_arrivee);
