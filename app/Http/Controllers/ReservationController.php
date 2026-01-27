@@ -11,7 +11,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationStatusMail;
-use App\Mail\ReservationProformaMail;
+use App\Mail\FactureProformaMail;
 use App\Mail\ReservationConfirme;
 
 class ReservationController extends Controller
@@ -81,12 +81,8 @@ class ReservationController extends Controller
             'user_agent' => request()->header('User-Agent'), // Navigateur et OS
         ]);
 
-        $statutTitre = "Proforma de réservation";
-        $messageCustom = "Voici votre proforma de réservation pour la résidence {$reservation->residence->nom}.";
-
-        Mail::to($reservation->client->email)->send(
-            new ReservationStatusMail($reservation, $statutTitre, $messageCustom)
-        );
+        // Envoi du PDF de la facture proforma
+        Mail::to($reservation->user->email)->send(new FactureProformaMail($reservation));
 
 
         // Redirection vers l'historique des réservations avec message de succès
