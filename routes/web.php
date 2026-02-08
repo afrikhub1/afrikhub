@@ -202,3 +202,7 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::delete('/carousels/{carousel}', [CarouselController::class, 'destroy'])->name('carousels.destroy');
     Route::patch('/carousels/{carousel}/toggle', [CarouselController::class, 'toggle'])->name('carousels.toggle');
 });
+
+use App\Http\Controllers\SitemapController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
