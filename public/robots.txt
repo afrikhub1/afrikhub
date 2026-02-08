@@ -1,6 +1,21 @@
+# robots.txt pour Afrik'Hub
+
+# Bloquer toutes les pages admin et protégées
 User-agent: *
-Disallow: /dashboard/
-Disallow: /user/
+Disallow: /admin/
+Disallow: /pro/
+Disallow: /mise_en_ligne
+Disallow: /reservation/
+Disallow: /client/
+Disallow: /paiement/
+Disallow: /sejour/
+Disallow: /auto/
+Disallow: /reset-password
+Disallow: /forgot-password
+Disallow: /logout
+
+# Autoriser les pages publiques
 Allow: /
 
+# Sitemap
 Sitemap: https://afrikhub-laravel-cloud-2-main-cqzntx.laravel.cloud/sitemap.xml

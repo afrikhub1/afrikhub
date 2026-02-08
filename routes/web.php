@@ -202,3 +202,25 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::delete('/carousels/{carousel}', [CarouselController::class, 'destroy'])->name('carousels.destroy');
     Route::patch('/carousels/{carousel}/toggle', [CarouselController::class, 'toggle'])->name('carousels.toggle');
 });
+
+
+use App\Http\Controllers\SitemapController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+
+Route::get('/sitemap.xml', function () {
+
+    $urls = [
+        ['loc' => url('/'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'daily', 'priority' => '1.0'],
+        ['loc' => url('/conditions-generales'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+        ['loc' => url('/mentions-legales'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+        ['loc' => url('/politique-confidentialite'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+        ['loc' => url('/faq'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+        ['loc' => url('/accueil_recherche'), 'changefreq' => 'daily', 'priority' => '0.8'],
+        // ajoute ici toutes tes pages publiques
+    ];
+
+    return response()->view('sitemap', compact('urls'))
+        ->header('Content-Type', 'text/xml');
+});
