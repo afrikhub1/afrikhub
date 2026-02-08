@@ -3,4 +3,4 @@ Disallow: /dashboard/
 Disallow: /user/
 Allow: /
 
-Sitemap: https://www.afrikhub.com/sitemap.xml
+Sitemap: https://afrikhub-laravel-cloud-2-main-cqzntx.laravel.cloud/sitemap.xml
