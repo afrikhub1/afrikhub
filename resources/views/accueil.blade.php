@@ -1,99 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
-        <!-- ================= BASE ================= -->
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- ================= SEO ================= -->
-        <title>Afrik'Hub | Location de villas, appartements, studios & véhicules en Afrique</title>
-
-        <meta name="description" content="Afrik'Hub est la plateforme africaine de réservation d’hébergements et de véhicules : villas, appartements, studios, hôtels et locations à Abidjan et partout en Afrique.">
-        <meta name="keywords" content="location villa abidjan, appartement meublé, studio, hébergement afrique, réservation logement, location véhicule afrique, afrik hub">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <title>{{ config('app.name') }} - Accueil</title>
+        <meta name="description" content="Afrik'Hub - Trouvez et réservez des hébergements et véhicules facilement en Afrique.">
+        <meta name="keywords" content="Afrik'Hub, hébergement, location, villa, appartement, studio, duplex, véhicule, réservation">
         <meta name="author" content="Afrik'Hub">
         <meta name="robots" content="index, follow">
-        <meta name="googlebot" content="index, follow">
-
-        <!-- ================= CANONICAL ================= -->
-        <link rel="canonical" href="{{ url()->current() }}">
-
-        <!-- ================= OPEN GRAPH (Facebook / WhatsApp / LinkedIn) ================= -->
-        <meta property="og:site_name" content="Afrik'Hub">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="Afrik'Hub | Réservation d’hébergements et véhicules en Afrique">
-        <meta property="og:description" content="Réservez facilement des villas, appartements, studios et véhicules fiables partout en Afrique avec Afrik'Hub.">
-        <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:image" content="{{ asset('assets/images/og-image.jpg') }}">
-        <meta property="og:image:secure_url" content="{{ asset('assets/images/og-image.jpg') }}">
-        <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        <meta property="og:locale" content="fr_FR">
-
-        <!-- ================= TWITTER CARD ================= -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Afrik'Hub | Location de logements en Afrique">
-        <meta name="twitter:description" content="La plateforme africaine de réservation d’hébergements et véhicules.">
-        <meta name="twitter:image" content="{{ asset('assets/images/og-image.jpg') }}">
-        <meta name="twitter:site" content="@afrikhub">
-
-        <!-- ================= FAVICON ================= -->
-        <link rel="icon" type="image/png" href="{{ asset('assets/favicon/favicon.png') }}">
     
-        <link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}">
-
-        <!-- ================= PWA / MOBILE ================= -->
-        <meta name="theme-color" content="#006d77">
-        <meta name="msapplication-TileColor" content="#006d77">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="apple-mobile-web-app-title" content="Afrik'Hub">
-
-        <link rel="manifest" href="{{ asset('manifest.json') }}">
-
-        <!-- ================= PERFORMANCE ================= -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        <!-- ================= FONTS ================= -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- ================= CSS ================= -->
+        <!-- Open Graph / Facebook -->
+        <meta property="og:title" content="Afrik'Hub - Accueil">
+        <meta property="og:description" content="Trouvez et réservez vos hébergements et véhicules en Afrique rapidement.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:image" content="{{ asset('assets/images/og-image.png') }}">
+    
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Afrik'Hub - Accueil">
+        <meta name="twitter:description" content="Trouvez et réservez vos hébergements et véhicules en Afrique rapidement.">
+        <meta name="twitter:image" content="{{ asset('assets/images/og-image.png') }}">
+    
+        <!-- Favicons -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon/favicon.ico') }}">
+        <link rel="icon" type="image/png" href="{{ asset('assets/favicon/favicon.png') }}">
+ 
+    
+        <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-        <script src="https://cdn.tailwindcss.com"></script>
-
-        <!-- ================= SECURITY (OPTIONAL MAIS PRO) ================= -->
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
-        <!-- ================= STRUCTURED DATA (JSON-LD) ================= -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "LodgingBusiness",
-            "name": "Afrik'Hub",
-            "url": "{{ url('/') }}",
-            "logo": "{{ asset('assets/images/logo_01.png') }}",
-            "image": "{{ asset('assets/images/og-image.jpg') }}",
-            "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "CI"
-            }
-        }
-        </script>
-
-        <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-        {{-- Utilisation de la version FontAwesome 6 (fa-solid) --}}
         <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.4.0-web/css/all.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
-        <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <title> {{ config('app.name')}}-accueil</title>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
+    
     <body>
 
         <style>
