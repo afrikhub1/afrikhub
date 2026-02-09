@@ -3,35 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
-use App\Models\Residence;
+use App\Models\Residence; // si tu veux inclure les résidences dynamiques
 
 class SitemapController extends Controller
 {
     public function index()
     {
-        $residences = Residence::where('status', 'active')->get();
-
+        // Pages statiques publiques
         $urls = [
-            ['loc' => route('accueil'), 'changefreq' => 'daily', 'priority' => '1.0'],
-            ['loc' => route('faq'), 'changefreq' => 'monthly', 'priority' => '0.6'],
-            ['loc' => route('conditions_generales'), 'changefreq' => 'yearly', 'priority' => '0.5'],
-            ['loc' => route('mentions_legales'), 'changefreq' => 'yearly', 'priority' => '0.5'],
-            ['loc' => route('politique_confidentialite'), 'changefreq' => 'yearly', 'priority' => '0.5'],
-            ['loc' => route('residences.recherche'), 'changefreq' => 'daily', 'priority' => '0.8'],
+            ['loc' => url('/'), 'changefreq' => 'daily', 'priority' => '1.0'],
+            ['loc' => url('/login'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+            ['loc' => url('/message'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+            ['loc' => url('/conditions-generales'), 'changefreq' => 'yearly', 'priority' => '0.4'],
+            ['loc' => url('/mentions-legales'), 'changefreq' => 'yearly', 'priority' => '0.4'],
+            ['loc' => url('/politique-confidentialite'), 'changefreq' => 'yearly', 'priority' => '0.4'],
+            ['loc' => url('/faq'), 'changefreq' => 'monthly', 'priority' => '0.6'],
         ];
 
-        foreach ($residences as $residence) {
+        // Ajouter les résidences dynamiques
+        $residences = Residence::all(); // ou filtrer selon besoin
+        foreach ($residences as $res) {
             $urls[] = [
-                'loc' => route('details', $residence->id),
-                'lastmod' => $residence->updated_at->tz('UTC')->toAtomString(),
+                'loc' => route('details', ['id' => $res->id]),
+                'lastmod' => $res->updated_at->tz('UTC')->toAtomString(),
                 'changefreq' => 'weekly',
-                'priority' => '0.7',
+                'priority' => '0.8'
             ];
         }
 
-        $content = view('sitemap', compact('urls'));
-
-        return response($content, 200)
+        // Retourner la vue sitemap avec header XML
+        return response()->view('sitemap', compact('urls'))
             ->header('Content-Type', 'application/xml');
     }
 }
