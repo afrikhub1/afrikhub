@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-        <title>{{ config('app.name') }} - Accueil</title>
+        <title>AFRIK-HUB</title>
         <meta name="description" content="Afrik'Hub - Trouvez et réservez des hébergements et véhicules facilement en Afrique.">
         <meta name="keywords" content="Afrik'Hub, hébergement, location, villa, appartement, studio, duplex, véhicule, réservation">
         <meta name="author" content="Afrik'Hub">
