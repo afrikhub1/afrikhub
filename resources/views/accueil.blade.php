@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-        <title>{{ config('app.name') }} - Accueil</title>
+        <title>AFRIK-HUB</title>
         <meta name="description" content="Afrik'Hub - Trouvez et réservez des hébergements et véhicules facilement en Afrique.">
         <meta name="keywords" content="Afrik'Hub, hébergement, location, villa, appartement, studio, duplex, véhicule, réservation">
         <meta name="author" content="Afrik'Hub">
@@ -25,8 +25,10 @@
         <meta name="twitter:image" content="{{ asset('assets/images/og-image.png') }}">
     
         <!-- Favicons -->
-        <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon/favicon.ico') }}">
-        <link rel="icon" type="image/png" href="{{ asset('assets/favicon/favicon.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
  
     
         <!-- Styles -->
