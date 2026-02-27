@@ -1,4 +1,4 @@
-<footer id="footer" class="border-t border-white/20 m-0 text-white" style="background: linear-gradient(135deg, #006d77, #00afb9);">
+<footer id="contact" class="border-t border-white/20 m-0 text-white" style="background: linear-gradient(135deg, #006d77, #00afb9);">
     <div class="max-w-7xl mx-auto px-4 py-10">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 border-b border-white/10 pb-10 text-center md:text-left">
