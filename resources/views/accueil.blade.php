@@ -509,7 +509,7 @@
                         <li><a href="{{ route('register') }}"><span class="fa-solid fa-user-plus"></span><span class="badge">Inscription</span></a></li>
                         <li><a href="#hebergement"><span class="fa-solid fa-hotel"></span><span class="badge">Hébergement</span></a></li>
                         <li><a href="#location"><span class="fa-solid fa-car-side"></span><span class="badge">Véhicule</span></a></li>
-                        <li><a href="#contact"><span class="fa-solid fa-phone"></span><span class="badge">Contact</span></a></li>
+                        <li><a href="#acc2"><span class="fa-solid fa-phone"></span><span class="badge">Contact</span></a></li>
                     </ul>
 
                     <!-- Bouton menu mobile -->
@@ -524,7 +524,7 @@
                         <a href="{{ route('register') }}"><i class="fa-solid fa-user-plus"></i>Inscription</a>
                         <a href="#hebergement"><i class="fa-solid fa-hotel"></i>Hébergements</a>
                         <a href="#location"><i class="fa-solid fa-car-side"></i>Véhicules</a>
-                        <a href="#contact"><i class="fa-solid fa-phone"></i>Contact</a>
+                        <a href="#acc2"><i class="fa-solid fa-phone"></i>Contact</a>
                     </div>
                 </div>
             </div>
