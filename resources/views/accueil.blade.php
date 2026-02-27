@@ -847,7 +847,7 @@
             </section>
         </nav>
 
-        <div class="row m-0">
+        <div id="contact" class="row m-0">
 
         </div>
 
