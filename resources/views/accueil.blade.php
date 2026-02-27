@@ -6,13 +6,13 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
         <title>AFRIK-HUB</title>
-        <meta name="description" content="Afrik'Hub - Trouvez et réservez des hébergements et véhicules facilement en Afrique.">
-        <meta name="keywords" content="Afrik'Hub, hébergement, location, villa, appartement, studio, duplex, véhicule, réservation">
-        <meta name="author" content="Afrik'Hub">
+        <meta name="description" content="Afrik-Hub - Trouvez et réservez des hébergements et véhicules facilement en Afrique.">
+        <meta name="keywords" content="Afrik-Hub, hébergement, location, villa, appartement, studio, duplex, véhicule, réservation, commerce général, formation">
+        <meta name="author" content="Afrik-Hub">
         <meta name="robots" content="index, follow">
     
         <!-- Open Graph / Facebook -->
-        <meta property="og:title" content="Afrik'Hub - Accueil">
+        <meta property="og:title" content="Afrik-Hub - Accueil">
         <meta property="og:description" content="Trouvez et réservez vos hébergements et véhicules en Afrique rapidement.">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
@@ -20,7 +20,7 @@
     
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Afrik'Hub - Accueil">
+        <meta name="twitter:title" content="Afrik-Hub - Accueil">
         <meta name="twitter:description" content="Trouvez et réservez vos hébergements et véhicules en Afrique rapidement.">
         <meta name="twitter:image" content="{{ asset('assets/images/og-image.png') }}">
     
