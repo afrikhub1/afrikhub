@@ -1,4 +1,4 @@
-# robots.txt pour Afrik'Hub
+# robots.txt pour Afrik-Hub
 
 # Bloquer toutes les pages admin et protégées
 User-agent: *
@@ -18,4 +18,4 @@ Disallow: /logout
 Allow: /
 
 # Sitemap
-Sitemap: https://afrikhub-laravel-cloud-2-main-cqzntx.laravel.cloud/sitemap.xml
+Sitemap: https://www.afrik-hub.com/sitemap.xml
